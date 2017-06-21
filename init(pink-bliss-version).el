@@ -33,7 +33,8 @@
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
 
-(pdf-tools-install)
+;; pdf tools install: uncomment for right after installing pdf tools, comment again afterwards, as to not delay emacs loading time, and uncomment again if need to open pdf from emacs arises
+;; (pdf-tools-install)
 
 ;; greek calendar
 (setq calendar-week-start-day 1

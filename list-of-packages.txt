@@ -2,6 +2,7 @@ ac-geiser
 color-theme-modern
 deft
 dired-icon
+esup
 geiser
 minimap
 mpg123
