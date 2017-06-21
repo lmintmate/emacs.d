@@ -9,6 +9,7 @@
  '(make-backup-files nil)
  '(racket-memory-limit 128)
  '(racket-program "~/racket/bin/racket")
+ '(remember-notes-initial-major-mode (quote text-mode))
  '(tool-bar-mode nil))
 ;; Setting the font size to 14
 (set-face-attribute 'default nil :height 140)
