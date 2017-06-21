@@ -5,6 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(auto-save-default nil)
  '(delete-selection-mode t)
+ '(european-calendar-style t)
  '(geiser-active-implementations (quote (guile racket chez mit chibi)))
  '(geiser-racket-binary "~/racket/bin/racket")
  '(make-backup-files nil)
