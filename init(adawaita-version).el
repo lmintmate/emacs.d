@@ -4,6 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auto-save-default nil)
+ '(deft-directory "~/.emacs.d/deft")
  '(delete-selection-mode t)
  '(diary-file "~/.emacs.d/diary")
  '(european-calendar-style t)
@@ -77,4 +78,3 @@
 
 ;; deft - quick note taking
 (require 'deft)
-(setq deft-directory "~/.emacs.d/deft")
