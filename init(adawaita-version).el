@@ -28,7 +28,7 @@
 (set-face-attribute 'region nil :background "#92EE9C")
  )
 
-;; adds melpa-stable repository
+;; adds melpa repository
 (require 'package) ;; You might already have this line
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)

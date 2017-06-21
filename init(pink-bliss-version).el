@@ -20,7 +20,7 @@
 ;; visual line mode only for text mode
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
-;; adds melpa-stable repository
+;; adds melpa repository
 (require 'package) ;; You might already have this line
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
