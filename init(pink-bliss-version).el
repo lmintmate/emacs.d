@@ -5,6 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(auto-save-default nil)
  '(delete-selection-mode t)
+ '(diary-file "~/.emacs.d/diary")
  '(european-calendar-style t)
  '(geiser-active-implementations (quote (guile racket chez mit chibi)))
  '(geiser-racket-binary "~/racket/bin/racket")
@@ -79,6 +80,3 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-;; location of diary file
-(setq diary-file "~/.emacs.d/diary")

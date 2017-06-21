@@ -5,6 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(auto-save-default nil)
  '(delete-selection-mode t)
+ '(diary-file "~/.emacs.d/diary")
  '(european-calendar-style t)
  '(geiser-active-implementations (quote (guile racket chez mit chibi)))
  '(geiser-racket-binary "~/racket/bin/racket")
@@ -78,6 +79,3 @@
 ;; deft - quick note taking
 (require 'deft)
 (setq deft-directory "~/.emacs.d/deft")
-
-;; location of diary file
-(setq diary-file "~/.emacs.d/diary")
