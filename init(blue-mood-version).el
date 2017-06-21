@@ -3,6 +3,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(auto-save-default nil)
  '(delete-selection-mode t)
  '(geiser-active-implementations (quote (guile racket chez mit chibi)))
  '(geiser-racket-binary "~/racket/bin/racket")
