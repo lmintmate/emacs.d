@@ -1,0 +1,13 @@
+ac-geiser
+color-theme-modern
+deft
+dired-icon
+geiser
+minimap
+mpg123
+paren-face
+paredit
+pdf-tools
+racket-mode
+solarized-theme
+wttrin

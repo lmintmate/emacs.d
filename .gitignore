@@ -1,0 +1,13 @@
+# Blacklist files/folders in same directory as the .gitignore file
+/*
+
+# Whitelist some files
+!.gitignore
+!LICENSE
+!README.md
+!init.el
+!init(adawaita-version).el
+!init(blue-mood-version).el
+!init(pink-bliss-version).el
+!init(solarized-light-version).el
+!list-of-packages.txt
