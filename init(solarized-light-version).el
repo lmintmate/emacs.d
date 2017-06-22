@@ -22,6 +22,10 @@
 ;; Tell emacs where is your personal elisp lib dir
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
+;; new message for startup echo area
+(defun display-startup-echo-area-message ()
+  (message "Καλωσήλθες!"))
+
 ;; visual line mode only for text mode
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
