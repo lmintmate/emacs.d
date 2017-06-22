@@ -7,7 +7,6 @@
  '(deft-directory "~/.emacs.d/deft")
  '(delete-selection-mode t)
  '(diary-file "~/.emacs.d/diary")
- '(european-calendar-style t)
  '(geiser-active-implementations (quote (guile racket chez mit chibi)))
  '(geiser-racket-binary "~/racket/bin/racket")
  '(make-backup-files nil)
