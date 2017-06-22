@@ -11,10 +11,12 @@
  '(geiser-active-implementations (quote (guile racket chez mit chibi)))
  '(geiser-racket-binary "~/racket/bin/racket")
  '(make-backup-files nil)
+ '(malyon-stories-directory "~/other-games/frotz-games")
  '(racket-memory-limit 128)
  '(racket-program "~/racket/bin/racket")
  '(remember-notes-initial-major-mode (quote text-mode))
- '(tool-bar-mode nil))
+ '(tool-bar-mode nil)
+ '(wttrin-default-cities (quote ("Nicosia" "Chania"))))
 ;; Setting the font size to 14
 (set-face-attribute 'default nil :height 140)
 ;; Tell emacs where is your personal elisp lib dir
@@ -73,7 +75,6 @@
 (defvar mpg123-default-dir "~/mousiki-gia-emacs")
 
 ;; wttrin weather
-(setq wttrin-default-cities '("Nicosia" "Cyprus"))
 (setq wttrin-default-accept-language '("Accept-Language" . "el-GR"))
 
 ;; deft - quick note taking
