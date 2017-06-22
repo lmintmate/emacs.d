@@ -1,4 +1,5 @@
 ac-geiser
+calfw
 color-theme-modern
 deft
 dired-icon
