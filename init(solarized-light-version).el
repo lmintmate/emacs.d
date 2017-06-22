@@ -12,6 +12,9 @@
  '(geiser-racket-binary "~/racket/bin/racket")
  '(make-backup-files nil)
  '(malyon-stories-directory "~/other-games/frotz-games")
+ '(org-todo-keywords
+   (quote
+    ((sequence "TODO(t)" "CURRENTLY(c)" "SOMEDAY(s)" "DONE(d)"))))
  '(racket-memory-limit 128)
  '(racket-program "~/racket/bin/racket")
  '(remember-notes-initial-major-mode (quote text-mode))
