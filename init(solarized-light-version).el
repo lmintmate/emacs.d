@@ -93,3 +93,7 @@
 (require 'calfw)
 ;; to show diary entries (M-x cfw:open-diary-calendar)
 (require 'calfw-cal)
+
+;;orgmode
+(require 'org)
+(define-key global-map "\C-cl" 'org-store-link)
