@@ -96,3 +96,8 @@
 ;;orgmode
 (require 'org)
 (define-key global-map "\C-cl" 'org-store-link)
+
+;; undo tree
+(require 'undo-tree)
+(global-undo-tree-mode)
+(define-key global-map "\M-'" 'undo-tree-redo)
