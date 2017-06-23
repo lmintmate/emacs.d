@@ -5,8 +5,10 @@ deft
 dired-icon
 esup
 geiser
+markdown-mode
 minimap
 mpg123
+org
 paren-face
 paredit
 pdf-tools
