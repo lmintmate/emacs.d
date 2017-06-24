@@ -10,7 +10,7 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 
-;; personal parameters
+;; personal directory parameters
 (setq deft-directory "~/.emacs.d/deft")
 (setq diary-file "~/.emacs.d/diary")
 (setq geiser-racket-binary "~/racket/bin/racket")

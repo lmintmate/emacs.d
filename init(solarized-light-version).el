@@ -9,7 +9,7 @@
 ;; Tell emacs where is your personal elisp lib dir
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
-;; personal parameters
+;; personal directory parameters
 (setq deft-directory "~/.emacs.d/deft")
 (setq diary-file "~/.emacs.d/diary")
 (setq geiser-racket-binary "~/racket/bin/racket")
