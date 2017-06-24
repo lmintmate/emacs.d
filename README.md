@@ -21,3 +21,12 @@ file and still expect it to be run after startup should set
 ```
 
 One will probably need to add the above-mentioned 'package-enable-at-startup' line in the config.
+
+## Peculiar bits of code
+
+```
+;; personal directory parameters - not included in the version control, for obvious reasons. The list of relevant parameters is however included in a text file.
+(load-file "~/.emacs.d/personal-parameters.el")
+```
+
+This loads an .el file not included in the version control, which sets the directories for a number of emacs package settings. The list of all of them is at personal-parameters.txt.

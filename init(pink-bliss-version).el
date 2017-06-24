@@ -10,13 +10,8 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 
-;; personal directory parameters
-(setq deft-directory "~/.emacs.d/deft")
-(setq diary-file "~/.emacs.d/diary")
-(setq geiser-racket-binary "~/racket/bin/racket")
-(setq malyon-stories-directory "~/other-games/frotz-games")
-(setq racket-program "~/racket/bin/racket")
-(defvar mpg123-default-dir "~/mousiki-gia-emacs")
+;; personal directory parameters - not included in the version control, for obvious reasons. The list of relevant parameters is however included in a text file.
+(load-file "~/.emacs.d/personal-parameters.el")
 
 ;; nationality parameters
 ;; so that wttrin will show correct cities and language

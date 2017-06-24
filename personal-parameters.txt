@@ -1,0 +1,8 @@
+The directory parameters I've for my own directory structure. You can fill the quotes with your own directories.
+
+(setq deft-directory "")
+(setq diary-file "")
+(setq geiser-racket-binary "")
+(setq malyon-stories-directory "")
+(setq racket-program "")
+(defvar mpg123-default-dir "")
