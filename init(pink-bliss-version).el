@@ -5,18 +5,13 @@
  ;; If there is more than one, they won't work right.
  '(auto-save-default nil)
  '(cfw:display-calendar-holidays nil)
- '(deft-directory "~/.emacs.d/deft")
  '(delete-selection-mode t)
- '(diary-file "~/.emacs.d/diary")
  '(geiser-active-implementations (quote (guile racket chez mit chibi)))
- '(geiser-racket-binary "~/racket/bin/racket")
  '(make-backup-files nil)
- '(malyon-stories-directory "~/other-games/frotz-games")
  '(org-todo-keywords
    (quote
     ((sequence "TODO(t)" "CURRENTLY(c)" "SOMEDAY(s)" "DONE(d)"))))
  '(racket-memory-limit 128)
- '(racket-program "~/racket/bin/racket")
  '(remember-notes-initial-major-mode (quote text-mode))
  '(tool-bar-mode nil)
  '(wttrin-default-cities (quote ("Nicosia" "Chania"))))
@@ -25,6 +20,13 @@
 ;; Tell emacs where is your personal elisp lib dir
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+
+;; personal parameters
+(setq deft-directory "~/.emacs.d/deft")
+(setq diary-file "~/.emacs.d/diary")
+(setq geiser-racket-binary "~/racket/bin/racket")
+(setq malyon-stories-directory "~/other-games/frotz-games")
+(setq racket-program "~/racket/bin/racket")
 
 ;; new message for startup echo area
 (defun display-startup-echo-area-message ()
