@@ -21,6 +21,14 @@
 ;; so that wttrin will show correct cities and language
 (setq wttrin-default-cities (quote ("Nicosia" "Chania")))
 (setq wttrin-default-accept-language '("Accept-Language" . "el-GR"))
+;; greek calendar
+(setq calendar-week-start-day 1
+          calendar-day-name-array ["Κυριακή" "Δευτέρα" "Τρίτη" "Τετάρτη"
+                                   "Πέμπτη" "Παρασκευή" "Σάββατο"]
+          calendar-month-name-array ["Ιανουάριος" "Φεβρουάριος" "Μάρτιος"
+                                     "Απρίλιος" "Μάιος" "Ιούνιος"
+                                     "Ιούλιος" "Αύγουστος" "Σεπτέμβριος"
+                                     "Οκτώβριος" "Νοέμβριος" "Δεκέμβριος"])
 
 ;; other config parameters
 (setq auto-save-default nil)
@@ -66,15 +74,6 @@
 
 ;; pdf tools install: uncomment for right after installing pdf tools, comment again afterwards, as to not delay emacs loading time, and uncomment again if need to open pdf from emacs arises
 ;; (pdf-tools-install)
-
-;; greek calendar
-(setq calendar-week-start-day 1
-          calendar-day-name-array ["Κυριακή" "Δευτέρα" "Τρίτη" "Τετάρτη"
-                                   "Πέμπτη" "Παρασκευή" "Σάββατο"]
-          calendar-month-name-array ["Ιανουάριος" "Φεβρουάριος" "Μάρτιος"
-                                     "Απρίλιος" "Μάιος" "Ιούνιος"
-                                     "Ιούλιος" "Αύγουστος" "Σεπτέμβριος"
-                                     "Οκτώβριος" "Νοέμβριος" "Δεκέμβριος"])
 
 ;; auto-complete geiser
 (require 'ac-geiser)

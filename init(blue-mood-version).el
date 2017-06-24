@@ -21,6 +21,14 @@
 ;; so that wttrin will show correct cities and language
 (setq wttrin-default-cities (quote ("Nicosia" "Chania")))
 (setq wttrin-default-accept-language '("Accept-Language" . "el-GR"))
+;; greek calendar
+(setq calendar-week-start-day 1
+          calendar-day-name-array ["Κυριακή" "Δευτέρα" "Τρίτη" "Τετάρτη"
+                                   "Πέμπτη" "Παρασκευή" "Σάββατο"]
+          calendar-month-name-array ["Ιανουάριος" "Φεβρουάριος" "Μάρτιος"
+                                     "Απρίλιος" "Μάιος" "Ιούνιος"
+                                     "Ιούλιος" "Αύγουστος" "Σεπτέμβριος"
+                                     "Οκτώβριος" "Νοέμβριος" "Δεκέμβριος"])
 
 ;; other config parameters
 (setq auto-save-default nil)
@@ -67,15 +75,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(fringe ((t (:background "DodgerBlue4")))))
-
-;; greek calendar
-(setq calendar-week-start-day 1
-          calendar-day-name-array ["Κυριακή" "Δευτέρα" "Τρίτη" "Τετάρτη"
-                                   "Πέμπτη" "Παρασκευή" "Σάββατο"]
-          calendar-month-name-array ["Ιανουάριος" "Φεβρουάριος" "Μάρτιος"
-                                     "Απρίλιος" "Μάιος" "Ιούνιος"
-                                     "Ιούλιος" "Αύγουστος" "Σεπτέμβριος"
-                                     "Οκτώβριος" "Νοέμβριος" "Δεκέμβριος"])
 
 ;; auto-complete geiser
 (require 'ac-geiser)
