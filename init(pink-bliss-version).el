@@ -3,18 +3,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(auto-save-default nil)
- '(cfw:display-calendar-holidays nil)
- '(delete-selection-mode t)
- '(geiser-active-implementations (quote (guile racket chez mit chibi)))
- '(make-backup-files nil)
- '(org-todo-keywords
-   (quote
-    ((sequence "TODO(t)" "CURRENTLY(c)" "SOMEDAY(s)" "DONE(d)"))))
- '(racket-memory-limit 128)
- '(remember-notes-initial-major-mode (quote text-mode))
- '(tool-bar-mode nil)
- '(wttrin-default-cities (quote ("Nicosia" "Chania"))))
+'(tool-bar-mode nil))
 ;; Setting the font size to 14
 (set-face-attribute 'default nil :height 140)
 ;; Tell emacs where is your personal elisp lib dir
@@ -27,6 +16,24 @@
 (setq geiser-racket-binary "~/racket/bin/racket")
 (setq malyon-stories-directory "~/other-games/frotz-games")
 (setq racket-program "~/racket/bin/racket")
+(defvar mpg123-default-dir "~/mousiki-gia-emacs")
+
+;; nationality parameters
+;; so that wttrin will show correct cities and language
+(setq wttrin-default-cities (quote ("Nicosia" "Chania")))
+(setq wttrin-default-accept-language '("Accept-Language" . "el-GR"))
+
+;; other config parameters
+(setq auto-save-default nil)
+(setq cfw:display-calendar-holidays nil)
+(setq delete-selection-mode t)
+(setq geiser-active-implementations (quote (guile racket chez mit chibi)))
+(setq make-backup-files nil)
+(setq org-todo-keywords
+   (quote
+    ((sequence "TODO(t)" "CURRENTLY(c)" "SOMEDAY(s)" "DONE(d)"))))
+(setq racket-memory-limit 128)
+(setq remember-notes-initial-major-mode (quote text-mode))
 
 ;; new message for startup echo area
 (defun display-startup-echo-area-message ()
@@ -73,10 +80,6 @@
 
 ;; load mpg123
 (autoload 'mpg123 "mpg123" "A Front-end to mpg123/ogg123" t)
-(defvar mpg123-default-dir "~/mousiki-gia-emacs")
-
-;; wttrin weather
-(setq wttrin-default-accept-language '("Accept-Language" . "el-GR"))
 
 ;; deft - quick note taking
 (require 'deft)
