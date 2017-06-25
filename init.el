@@ -9,21 +9,11 @@
 ;; Tell emacs where is your personal elisp lib dir
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
-;; personal directory parameters - not included in the version control, for obvious reasons. The list of relevant parameters is however included in a text file.
+;; personal directory parameters - not included in the version control, for obvious reasons. The list of relevant parameters is however included in personal-parameters.txt.
 (load-file "~/.emacs.d/personal-parameters.el")
 
-;; nationality parameters
-;; so that wttrin will show correct cities and language
-(setq wttrin-default-cities (quote ("Nicosia" "Chania")))
-(setq wttrin-default-accept-language '("Accept-Language" . "el-GR"))
-;; greek calendar
-(setq calendar-week-start-day 1
-          calendar-day-name-array ["Κυριακή" "Δευτέρα" "Τρίτη" "Τετάρτη"
-                                   "Πέμπτη" "Παρασκευή" "Σάββατο"]
-          calendar-month-name-array ["Ιανουάριος" "Φεβρουάριος" "Μάρτιος"
-                                     "Απρίλιος" "Μάιος" "Ιούνιος"
-                                     "Ιούλιος" "Αύγουστος" "Σεπτέμβριος"
-                                     "Οκτώβριος" "Νοέμβριος" "Δεκέμβριος"])
+;; nationality parameters - not included in the version control, for obvious reasons. The list of relevant parameters is however included in nationality-parameters.txt.
+(load-file "~/.emacs.d/nationality-parameters.el")
 
 ;; other config parameters
 (setq auto-save-default nil)

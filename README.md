@@ -25,11 +25,17 @@ One will probably need to add the above-mentioned 'package-enable-at-startup' li
 ## Peculiar bits of code
 
 ```
-;; personal directory parameters - not included in the version control, for obvious reasons. The list of relevant parameters is however included in a text file.
+;; personal directory parameters - not included in the version control, for obvious reasons. The list of relevant parameters is however included in personal-parameters.txt.
 (load-file "~/.emacs.d/personal-parameters.el")
 ```
 
 This loads an .el file not included in the version control, which sets the directories for a number of emacs package settings. The list of all of them is at personal-parameters.txt.
+
+```
+;; nationality parameters - not included in the version control, for obvious reasons. The list of relevant parameters is however included in nationality-parameters.txt.
+(load-file "~/.emacs.d/nationality-parameters.el")
+```
+This loads an .el file not included in the version control, which sets the parameters that have to do with the user's nationality. The list of all of them is at nationality-parameters.txt.
 
 ```
 ;; Tell emacs where is your personal elisp lib dir

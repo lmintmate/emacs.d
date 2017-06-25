@@ -1,0 +1,7 @@
+;; so that wttrin will show correct cities and language.
+;; Fill in with your own language and locations(s) as needed.
+(setq wttrin-default-cities (quote ("" ""))))
+(setq wttrin-default-accept-language '("Accept-Language" . "__-__"))
+;; localized calendar
+;; for this, copy-paste the section concerning your maternal language from
+;; https://www.emacswiki.org/emacs/CalendarLocalization
