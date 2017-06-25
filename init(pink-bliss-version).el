@@ -69,6 +69,9 @@
 (require 'deft)
 (setq deft-extensions '("txt" "md" "org"))
 (setq deft-time-format " %d-%m-%Y %H:%M")
+;; default mode for deft - switch between the 2 below
+;;(setq deft-default-extension "org")
+(setq deft-default-extension "md")
 
 ;; pink-bliss theme
 (load-theme 'pink-bliss t t)
