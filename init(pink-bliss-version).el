@@ -68,6 +68,7 @@
 ;; deft - quick note taking
 (require 'deft)
 (setq deft-extensions '("txt" "md" "org"))
+(setq deft-time-format " %d-%m-%Y %H:%M")
 
 ;; pink-bliss theme
 (load-theme 'pink-bliss t t)

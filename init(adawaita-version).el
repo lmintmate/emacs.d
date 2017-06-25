@@ -76,6 +76,7 @@
 ;; deft - quick note taking
 (require 'deft)
 (setq deft-extensions '("txt" "md" "org"))
+(setq deft-time-format " %d-%m-%Y %H:%M")
 
 ;; calfw calendar
 ;; regular calendar (M-x cfw:open-calendar-buffer)
