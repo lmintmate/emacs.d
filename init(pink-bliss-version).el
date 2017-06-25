@@ -67,6 +67,7 @@
 
 ;; deft - quick note taking
 (require 'deft)
+(setq deft-extensions '("txt" "md" "org"))
 
 ;; pink-bliss theme
 (load-theme 'pink-bliss t t)
