@@ -30,6 +30,8 @@
 (tool-bar-mode -99)
 ;; Just in case I'll want to disable the menu bar as well. The content of the menus can still be accessed as a popup menu by using C-mouse-3(ctrl+right mouse click)
 ;; (menu-bar-mode -99)
+;; Toggling the menu bar with a keyboard shortcut
+(global-set-key [f9] 'toggle-menu-bar-mode-from-frame)
 
 ;; new message for startup echo area
 (defun display-startup-echo-area-message ()
