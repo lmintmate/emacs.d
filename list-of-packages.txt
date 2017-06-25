@@ -4,6 +4,7 @@ color-theme-modern
 deft
 dired-icon
 esup
+focus
 geiser
 markdown-mode
 minimap
