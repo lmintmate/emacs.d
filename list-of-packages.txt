@@ -9,6 +9,7 @@ geiser
 markdown-mode
 minimap
 mpg123
+olivetti
 org
 paren-face
 paredit

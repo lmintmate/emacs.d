@@ -95,3 +95,6 @@
 (require 'undo-tree)
 (global-undo-tree-mode)
 (define-key global-map "\M-'" 'undo-tree-redo)
+
+;; olivetti mode
+(setq olivetti-hide-mode-line t)
