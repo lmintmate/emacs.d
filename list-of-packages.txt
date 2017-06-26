@@ -11,6 +11,7 @@ minimap
 mpg123
 olivetti
 org
+ox-twbs ;;better-looking html export for org
 paren-face
 paredit
 pdf-tools
