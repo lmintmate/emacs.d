@@ -124,3 +124,8 @@
 
 ;; olivetti mode
 (setq olivetti-hide-mode-line t)
+;; function to turn off menu bar when olivetti mode is enabled
+(progn
+  (defun turn-off-menu-with-olivetti ()
+    (menu-bar-mode -1))
+  (add-hook 'olivetti-mode-hook 'turn-off-menu-with-olivetti))
