@@ -55,6 +55,8 @@
 ;; (menu-bar-mode -1)
 ;; Toggling the menu bar with a keyboard shortcut
 (global-set-key [f9] 'toggle-menu-bar-mode-from-frame)
+;; toggling the scroll bar with a keyboard shortcut
+(global-set-key [f10] 'toggle-scroll-bar)
 
 ;; new message for startup echo area
 (defun display-startup-echo-area-message ()
