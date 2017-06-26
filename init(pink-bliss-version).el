@@ -10,6 +10,25 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 
+;; fancy splash screen bug (see https://emacs.stackexchange.com/questions/20976/x11-why-is-the-emacs-logo-image-missing-on-the-welcome-screen)
+(defun use-fancy-splash-screens-p ()
+      "Return t if fancy splash screens should be used."
+      (when (and (display-graphic-p)
+                 (or (and (display-color-p)
+              (image-type-available-p 'xpm))
+                     (image-type-available-p 'pbm)))
+        (let ((frame (fancy-splash-frame)))
+          (when frame
+      (let* ((img (create-image (fancy-splash-image-file)))
+             (image-height (and img (cdr (image-size img nil frame))))
+             ;; We test frame-height so that, if the frame is split
+             ;; by displaying a warning, that doesn't cause the normal
+             ;; splash screen to be used.
+             (frame-height (1- (frame-height frame))))
+       ;; The original value added to the `image-height' for the test was 19; however,
+       ;; that causes the test to fail on X11 by about 1.5 -- so use 17 instead.
+        (> frame-height (+ image-height 17)))))))
+
 ;; personal directory parameters - not included in the version control, for obvious reasons. The list of relevant parameters is however included in personal-parameters.txt.
 (load-file "~/.emacs.d/personal-parameters.el")
 
@@ -27,10 +46,10 @@
     ((sequence "TODO(t)" "CURRENTLY(c)" "SOMEDAY(s)" "DONE(d)"))))
 (setq racket-memory-limit 128)
 (setq remember-notes-initial-major-mode (quote text-mode))
-;; disables tool-bar-mode (tool-bar-mode -1 didn't work for me)
-(tool-bar-mode -99)
+;; disables tool-bar-mode
+(tool-bar-mode -1)
 ;; Just in case I'll want to disable the menu bar as well. The content of the menus can still be accessed as a popup menu by using C-mouse-3(ctrl+right mouse click)
-;; (menu-bar-mode -99)
+;; (menu-bar-mode -1)
 ;; Toggling the menu bar with a keyboard shortcut
 (global-set-key [f9] 'toggle-menu-bar-mode-from-frame)
 
