@@ -4,6 +4,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
 )
+;; disables tool-bar-mode. I put it this up so that the tool-bar won't be loaded an disabled afterwards, but be disabled from the get-go.
+(tool-bar-mode -1)
 ;; Setting the font size to 14
 (set-face-attribute 'default nil :height 140)
 ;; Tell emacs where is your personal elisp lib dir
@@ -49,8 +51,6 @@
     ((sequence "TODO(t)" "CURRENTLY(c)" "SOMEDAY(s)" "DONE(d)"))))
 (setq racket-memory-limit 128)
 (setq remember-notes-initial-major-mode (quote text-mode))
-;; disables tool-bar-mode
-(tool-bar-mode -1)
 ;; Just in case I'll want to disable the menu bar as well. The content of the menus can still be accessed as a popup menu by using C-mouse-3(ctrl+right mouse click)
 ;; (menu-bar-mode -1)
 ;; Toggling the menu bar with a keyboard shortcut
