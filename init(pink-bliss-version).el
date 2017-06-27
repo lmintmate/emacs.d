@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
 )
-;; disables tool-bar-mode. I put it this up so that the tool-bar won't be loaded an disabled afterwards, but be disabled from the get-go.
+;; disables tool-bar-mode. I put it this up so that the tool-bar won't be loaded and disabled afterwards, but be disabled from the get-go.
 (tool-bar-mode -1)
 ;; Setting the font size to 14
 (set-face-attribute 'default nil :height 140)
