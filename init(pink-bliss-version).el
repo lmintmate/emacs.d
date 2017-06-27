@@ -24,6 +24,7 @@
 ;; other config parameters
 (setq auto-save-default nil)
 (setq cfw:display-calendar-holidays nil)
+(setq delete-by-moving-to-trash t)
 (setq delete-selection-mode t)
 (setq geiser-active-implementations (quote (guile racket chez mit chibi)))
 (setq make-backup-files nil)
