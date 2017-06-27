@@ -34,6 +34,9 @@
 (setq remember-notes-initial-major-mode (quote text-mode))
 ;; Just in case I'll want to disable the menu bar as well. The content of the menus can still be accessed as a popup menu by using C-mouse-3(ctrl+right mouse click)
 ;; (menu-bar-mode -1)
+;; disabling menu bar when emacs is run in terminal (since it can't be clicked anyways, it takes up space without reason...)
+(when (not (window-system))
+  (menu-bar-mode -1))
 ;; Toggling the menu bar with a keyboard shortcut
 (global-set-key [f9] 'toggle-menu-bar-mode-from-frame)
 ;; toggling the scroll bar with a keyboard shortcut
