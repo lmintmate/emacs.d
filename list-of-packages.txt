@@ -19,4 +19,8 @@ pdf-tools
 racket-mode
 solarized-theme
 undo-tree
+<<<<<<< HEAD
 wttrin ;;needs emacs 24.4 and upwards
+=======
+wttrin ;;needs emacs 24.4 and upwards
+>>>>>>> d713bab8d87477e0fb093cf1cfd70059fa0363ef
