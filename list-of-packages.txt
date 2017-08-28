@@ -1,5 +1,6 @@
 ac-geiser
 calfw
+calfw-cal
 color-theme-modern
 deft
 dired-icon
@@ -18,4 +19,4 @@ pdf-tools
 racket-mode
 solarized-theme
 undo-tree
-wttrin
+wttrin ;;needs emacs 24.4 and upwards
