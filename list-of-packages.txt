@@ -12,6 +12,7 @@ minimap
 mpg123
 olivetti
 org
+org-cliplink ;;needs emacs 24.4 and upwards
 ox-twbs ;;better-looking html export for org
 paren-face
 paredit

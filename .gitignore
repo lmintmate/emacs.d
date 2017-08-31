@@ -10,6 +10,7 @@
 !init(blue-mood-version).el
 !init(pink-bliss-version).el
 !init(solarized-light-version).el
+!init-windows.el
 !list-of-packages.txt
 !personal-parameters.txt
 !nationality-parameters.txt
