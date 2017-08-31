@@ -13,7 +13,7 @@ mpg123
 olivetti
 org
 org-cliplink ;;needs emacs 24.4 and upwards
-ox-pandoc ;;for markdown export - my favorite option is org-pandoc-export-to-commonmark
+ox-pandoc ;;for markdown export - my favorite option is org-pandoc-export-to-commonmark, and I also like export-to-docx and export-to-odt
 ox-twbs ;;better-looking html export for org
 paren-face
 paredit
