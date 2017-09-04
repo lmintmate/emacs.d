@@ -58,6 +58,7 @@
 ;; load manually installed packages.
 ;; loads my personalized malyon package
 (load "malyon") ;; best not to include the ending “.el” or “.elc”
+(load "web-search")
 
 ;; Adds shift + arrows for changing buffer, in addition to Ctrl+O
 (when (fboundp 'windmove-default-keybindings)

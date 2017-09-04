@@ -7,6 +7,7 @@ dired-icon
 esup
 focus
 geiser
+malyon (manual install)
 markdown-mode
 minimap
 mpg123
@@ -22,4 +23,5 @@ picpocket ;; image viewer ;; requires emacs 24.4 and up
 racket-mode
 solarized-theme
 undo-tree
+web-search (manual install) ;; requires emacs 24.3 and up
 wttrin ;;needs emacs 24.4 and upwards
