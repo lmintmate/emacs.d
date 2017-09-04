@@ -18,6 +18,7 @@ ox-twbs ;;better-looking html export for org
 paren-face
 paredit
 pdf-tools
+picpocket ;; image viewer ;; requires emacs 24.4 and up
 racket-mode
 solarized-theme
 undo-tree
