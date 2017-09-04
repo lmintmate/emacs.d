@@ -107,6 +107,8 @@
 ;;orgmode
 (require 'org)
 (define-key global-map "\C-cl" 'org-store-link)
+;; org now supports shift selection except in special instances
+(setq org-support-shift-select t)
 
 ;; undo tree
 (require 'undo-tree)
