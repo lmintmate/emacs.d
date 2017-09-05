@@ -35,6 +35,7 @@
     ((sequence "TODO(t)" "CURRENTLY(c)" "SOMEDAY(s)" "DONE(d)"))))
 (setq racket-memory-limit 128)
 (setq remember-notes-initial-major-mode (quote text-mode))
+(setq w3m-default-display-inline-images t)
 ;; Just in case I'll want to disable the menu bar as well. The content of the menus can still be accessed as a popup menu by using C-mouse-3(ctrl+right mouse click)
 ;; (menu-bar-mode -1)
 ;; disabling menu bar when emacs is run in terminal (since it can't be clicked anyways, it takes up space without reason...)
