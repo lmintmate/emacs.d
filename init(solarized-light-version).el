@@ -22,6 +22,8 @@
 
 ;; other config parameters
 (setq auto-save-default nil)
+;; emacs-w3m = default browser from inside emacs
+(setq browse-url-browser-function (quote w3m-browse-url))
 (setq cfw:display-calendar-holidays nil)
 (setq delete-by-moving-to-trash t)
 (setq delete-selection-mode t)
