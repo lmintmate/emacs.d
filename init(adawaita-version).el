@@ -121,3 +121,6 @@
   (defun turn-off-menu-with-olivetti ()
     (menu-bar-mode -1))
   (add-hook 'olivetti-mode-hook 'turn-off-menu-with-olivetti))
+
+;; web-search default provider
+(setq web-search-default-provider "DuckDuckGo")
