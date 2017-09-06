@@ -130,3 +130,6 @@
 
 ;; web-search default provider
 (setq web-search-default-provider "DuckDuckGo")
+
+;; to load nov.el epub reader
+(push '("\\.epub\\'" . nov-mode) auto-mode-alist)
