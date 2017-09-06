@@ -111,6 +111,8 @@
 (define-key global-map "\C-cl" 'org-store-link)
 ;; org now supports shift selection except in special instances
 (setq org-support-shift-select t)
+;; ox-tufte: package that exports with the prettier tufte css
+(require 'ox-tufte)
 
 ;; undo tree
 (require 'undo-tree)
