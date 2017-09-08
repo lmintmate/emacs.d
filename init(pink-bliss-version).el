@@ -52,6 +52,11 @@
 
 ;; visual line mode only for text mode
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+;; associate .txt files with goto-address-mode, that highlights urls and makes them clickable
+(add-hook 'find-file-hook
+          (lambda ()
+            (when (string= (file-name-extension buffer-file-name) "txt")
+              (goto-address-mode 1))))
 
 ;; adds melpa repository
 (require 'package) ;; You might already have this line

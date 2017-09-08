@@ -29,6 +29,11 @@
 
 ;; visual line mode only for text mode
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+;; associate .txt files with goto-address-mode, that highlights urls and makes them clickable
+(add-hook 'find-file-hook
+          (lambda ()
+            (when (string= (file-name-extension buffer-file-name) "txt")
+              (goto-address-mode 1))))
 
 ;; Adds shift + arrows for changing buffer, in addition to Ctrl+O
 (when (fboundp 'windmove-default-keybindings)
