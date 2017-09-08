@@ -134,3 +134,8 @@
 
 ;; to load nov.el epub reader
 (push '("\\.epub\\'" . nov-mode) auto-mode-alist)
+
+;; emms setup (for soundklaus)
+(require 'emms-setup)
+(emms-standard)
+(emms-default-players)
