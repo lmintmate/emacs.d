@@ -6,3 +6,4 @@ The directory parameters I have for my own directory structure. You can fill the
 (setq malyon-stories-directory "")
 (setq racket-program "")
 (defvar mpg123-default-dir "")
+(setq bongo-default-directory "")
