@@ -1,4 +1,5 @@
 ac-geiser
+bongo
 calfw
 calfw-cal
 color-theme-modern
