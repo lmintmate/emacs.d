@@ -5,6 +5,7 @@ calfw-cal
 color-theme-modern
 deft
 dired-icon
+drag-stuff
 esup
 focus
 geiser

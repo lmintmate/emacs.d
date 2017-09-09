@@ -142,3 +142,8 @@
 (require 'emms-setup)
 (emms-standard)
 (emms-default-players)
+
+;; drag-stuff
+(require 'drag-stuff)
+(add-hook 'text-mode-hook 'drag-stuff-mode)
+(drag-stuff-define-keys)
