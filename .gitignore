@@ -6,7 +6,6 @@
 !LICENSE
 !README.md
 !init.el
-!init(backup).el
 !init-windows.el
 !list-of-packages.txt
 !personal-parameters.txt
