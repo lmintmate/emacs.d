@@ -99,7 +99,7 @@
 (autoload 'mpg123 "mpg123" "A Front-end to mpg123/ogg123" t)
 
 ;; deft - quick note taking
-(require 'deft)
+(with-eval-after-load 'deft)
 (setq deft-extensions '("txt" "md" "org"))
 (setq deft-time-format " %d-%m-%Y %H:%M")
 ;; default mode for deft - switch between the 2 below
