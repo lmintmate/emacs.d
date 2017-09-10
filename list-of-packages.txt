@@ -25,7 +25,6 @@ paredit
 pdf-tools
 picpocket ;; image viewer ;; requires emacs 24.4 and up
 racket-mode
-solarized-theme
 soundklaus ;; soundcloud streamer
 undo-tree
 web-search (manual install) ;; requires emacs 24.3 and up

@@ -6,10 +6,7 @@
 !LICENSE
 !README.md
 !init.el
-!init(adawaita-version).el
-!init(blue-mood-version).el
-!init(pink-bliss-version).el
-!init(solarized-light-version).el
+!init(backup).el
 !init-windows.el
 !list-of-packages.txt
 !personal-parameters.txt
