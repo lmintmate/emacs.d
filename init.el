@@ -85,13 +85,6 @@
  ;; If there is more than one, they won't work right.
  '(fringe ((t (:background "DodgerBlue4")))))
 
-;; auto-complete geiser
-(require 'ac-geiser)
-(add-hook 'geiser-mode-hook 'ac-geiser-setup)
-(add-hook 'geiser-repl-mode-hook 'ac-geiser-setup)
-(eval-after-load "auto-complete"
-  '(add-to-list 'ac-modes 'geiser-repl-mode))
-
 ;; enable dired icon mode
 (add-hook 'dired-mode-hook 'dired-icon-mode)
 
