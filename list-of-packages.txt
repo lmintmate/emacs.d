@@ -1,7 +1,5 @@
 bongo
-calfw
-calfw-cal
-color-theme-modern
+color-theme-modern ;; for the blue-mood theme
 deft
 dired-icon
 drag-stuff
