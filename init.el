@@ -44,6 +44,8 @@
 (global-set-key [f9] 'toggle-menu-bar-mode-from-frame)
 ;; toggling the scroll bar with a keyboard shortcut
 (global-set-key [f10] 'toggle-scroll-bar)
+;; Set input method to greek to be able to write greek with keyboard set to English (useful for those pesky Latin C- and M- shortcuts). Toggle with C-\
+(set-input-method "greek")
 
 ;; new message for startup echo area
 (defun display-startup-echo-area-message ()
