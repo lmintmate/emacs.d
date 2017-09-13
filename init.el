@@ -136,3 +136,10 @@
 (require 'drag-stuff)
 (add-hook 'text-mode-hook 'drag-stuff-mode)
 (drag-stuff-define-keys)
+
+;; ido mode
+(require 'ido)
+(ido-mode)
+(ido-everywhere)
+;; prefix matching - will only display results that start with your selection
+(setq ido-enable-prefix t)

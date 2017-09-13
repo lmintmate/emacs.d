@@ -68,3 +68,10 @@
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
+
+;; ido mode
+(require 'ido)
+(ido-mode)
+(ido-everywhere)
+;; prefix matching - will only display results that start with your selection
+(setq ido-enable-prefix t)
