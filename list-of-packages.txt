@@ -6,6 +6,8 @@ drag-stuff
 esup
 focus
 geiser
+ido-completing-read+
+ido-yes-or-no
 malyon (manual install)
 markdown-mode
 minimap

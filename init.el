@@ -147,6 +147,12 @@
 (ido-everywhere)
 ;; prefix matching - will only display results that start with your selection
 (setq ido-enable-prefix t)
+;; ido completing-read+
+(require 'ido-completing-read+)
+(ido-ubiquitous-mode 1)
+;; ido yes-or-no
+(require 'ido-yes-or-no)
+(ido-yes-or-no-mode 1)
 
 ;;smex
 (require 'smex) ; Not needed if you use package.el
