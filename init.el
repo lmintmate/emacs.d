@@ -20,6 +20,10 @@
 ;; settings for multiple buffer management
 (load-file "~/.emacs.d/buffer-defuns.el")
 
+;; newsticker configuration - not included in the version control
+;; (btw, newsticker is awesome, it's just like Liferea, but inside emacs!)
+(load-file "~/.emacs.d/newsticker-config.el")
+
 ;; other config parameters
 (setq auto-save-default nil)
 ;; emacs-w3m = default browser from inside emacs
