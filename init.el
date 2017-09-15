@@ -94,6 +94,8 @@
 (add-hook 'dired-mode-hook 'dired-icon-mode)
 ;; bigger icons
 (setq dired-icon-image-size 32)
+;; other dired parameters
+(setq dired-listing-switches "-al --group-directories-first")
 
 ;; load mpg123
 (autoload 'mpg123 "mpg123" "A Front-end to mpg123/ogg123" t)
