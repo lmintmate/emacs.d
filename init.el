@@ -92,6 +92,8 @@
 
 ;; enable dired icon mode
 (add-hook 'dired-mode-hook 'dired-icon-mode)
+;; bigger icons
+(setq dired-icon-image-size 32)
 
 ;; load mpg123
 (autoload 'mpg123 "mpg123" "A Front-end to mpg123/ogg123" t)
