@@ -96,6 +96,9 @@
 (setq dired-icon-image-size 32)
 ;; other dired parameters
 (setq dired-listing-switches "-al --group-directories-first")
+(add-hook 'dired-mode-hook 'dired-hide-details-mode)
+;; to sort files by modified date
+(add-hook 'dired-mode-hook 'dired-sort-toggle-or-edit)
 
 ;; load mpg123
 (autoload 'mpg123 "mpg123" "A Front-end to mpg123/ogg123" t)
