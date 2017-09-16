@@ -133,9 +133,6 @@
 ;; web-search default provider
 (setq web-search-default-provider "DuckDuckGo")
 
-;; to load nov.el epub reader
-(add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
-
 ;; emms setup (for soundklaus)
 (require 'emms-setup)
 (emms-standard)
