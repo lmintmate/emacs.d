@@ -150,7 +150,6 @@
 (require 'ido)
 (ido-mode)
 (ido-everywhere)
-(setq ido-enable-flex-matching t)
 ;; ido completing-read+
 (require 'ido-completing-read+)
 (ido-ubiquitous-mode 1)
