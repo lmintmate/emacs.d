@@ -150,8 +150,7 @@
 (require 'ido)
 (ido-mode)
 (ido-everywhere)
-;; prefix matching - will only display results that start with your selection
-(setq ido-enable-prefix t)
+(setq ido-enable-flex-matching t)
 ;; ido completing-read+
 (require 'ido-completing-read+)
 (ido-ubiquitous-mode 1)
@@ -167,4 +166,3 @@
   (global-set-key (kbd "M-x") 'smex)
   ;; This is your old M-x.
   (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-(setq smex-flex-matching nil)
