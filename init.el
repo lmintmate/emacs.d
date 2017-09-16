@@ -20,7 +20,7 @@
 ;; settings for multiple buffer management
 (load-file "~/.emacs.d/buffer-defuns.el")
 
-;; newsticker configuration - not included in the version control
+;; newsticker configuration - not included in the version control. The list of relevant parameters is in newsticker-config.txt.
 ;; (btw, newsticker is awesome, it's just like Liferea, but inside emacs!)
 (load-file "~/.emacs.d/newsticker-config.el")
 
