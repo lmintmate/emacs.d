@@ -32,26 +32,48 @@ I use a couple packages as external files instead of from MELPA, and I thus need
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 #+END_SRC
 ** Where I load the specific packages.
-I first load the malyon package.
+I first load the malyon package. This is a package that allows one to play interactive fiction/text games right from Emacs.
+I use [[https://github.com/lmintmate/malyon][the version I forked from the repo used by MELPA]], where I made a couple minor changes, such as [[https://github.com/lmintmate/malyon/commit/e95759f5779553f64280ae0101610b03bf4eb9cd][amending the error messages to account for the zblorb compatibility added by a previous maintainer]]. If you don't care about these minor changes, you can use the MELPA version instead.
 #+BEGIN_SRC emacs-lisp
 ;; loads my personalized malyon package
 (load "malyon")
 #+END_SRC
 I then load the web-search package.
+I load a locally stored web-search.el file instead of the MELPA package version because I use [[https://github.com/lmintmate/web-search.el][the version I forked from the repo used by MELPA]], where I made a couple changes, such as [[https://github.com/lmintmate/web-search.el/commit/88641a2f90ed599b3e400cadd2c470662b2c9a6f][adding the search provider DuckDuckGo]], as well as [[https://github.com/lmintmate/web-search.el/commit/8bba746feda09970adbf9d76dbef1291d4833af9][the search engines of Bandcamp and Soundcloud]]. I use this manually instead of the MELPA version (with which it is at this point identical) just in case I wish to change anything further. 
 #+BEGIN_SRC emacs-lisp
 (load "web-search")
 #+END_SRC
-
+* Personal directory parameters
+Here are gathered all the parameters that set directories for use with various packages.
+The directory where the Deft package data (including the notes) is saved:
 #+BEGIN_SRC emacs-lisp
-;; personal directory parameters
 (setq deft-directory "~/.emacs.d/deft")
+#+END_SRC
+The directory where the emacs diary files are saved (I haven't used it in ages however, so I might remove it in the future):
+#+BEGIN_SRC emacs-lisp
 (setq diary-file "~/.emacs.d/diary")
+#+END_SRC
+The directory where the Racket binary from DrRacket is stored, for use with the geiser and racket-mode packages:
+#+BEGIN_SRC emacs-lisp
 (setq geiser-racket-binary "~/racket/bin/racket")
-(setq malyon-stories-directory "~/other-games/frotz-games")
 (setq racket-program "~/racket/bin/racket")
+#+END_SRC
+The directory where I save the interactive fiction/text game files, for use with malyon:
+#+BEGIN_SRC emacs-lisp
+(setq malyon-stories-directory "~/other-games/frotz-games")
+#+END_SRC
+The directory where I have music for use with mpg123. This good otherwise music player has the problem of not being able to recognise directories with non-latin names, such as my Music directory (and it now has disappeared from MELPA for some reason).
+#+BEGIN_SRC emacs-lisp
 (defvar mpg123-default-dir "~/mousiki-gia-emacs")
+#+END_SRC
+My default music directory for use with Bongo. After mpg123 disappeared from MELPA, I tried to examine the other music options. Bongo is the second better (and it can recognise non-latin directory names), but it isn't perfect either, as it stops after every song...
+#+BEGIN_SRC emacs-lisp
 (setq bongo-default-directory "~/Μουσική")
+#+END_SRC
+Honestly, I prefer the ncurses-based mocp over those 2, but it doesn't play well with multiple buffers a la C-x 2 and C-x 3.
 
+* Nationality parameters
+#+BEGIN_SRC emacs-lisp
 ;; nationality parameters
 ;; so that wttrin will show correct cities and language
 (setq wttrin-default-cities (quote ("Nicosia" "Chania")))
@@ -64,7 +86,11 @@ I then load the web-search package.
                                      "Απρίλιος" "Μάιος" "Ιούνιος"
                                      "Ιούλιος" "Αύγουστος" "Σεπτέμβριος"
                                      "Οκτώβριος" "Νοέμβριος" "Δεκέμβριος"])
-
+;; Set input method to greek to be able to write greek with keyboard set to English (useful for those pesky Latin C- and M- shortcuts). Toggle with C-\
+(set-input-method "greek")
+#+END_SRC
+* Settings for multiple buffer management
+#+BEGIN_SRC emacs-lisp
 ;; settings for multiple buffer management
 ;; change layout of windows from horizontal to vertical very easily
 ;; (from http://whattheemacsd.com/buffer-defuns.el-03.html)
@@ -161,8 +187,6 @@ I then load the web-search package.
 (global-set-key [f9] 'toggle-menu-bar-mode-from-frame)
 ;; toggling the scroll bar with a keyboard shortcut
 (global-set-key [f10] 'toggle-scroll-bar)
-;; Set input method to greek to be able to write greek with keyboard set to English (useful for those pesky Latin C- and M- shortcuts). Toggle with C-\
-(set-input-method "greek")
 
 ;; new message for startup echo area
 (defun display-startup-echo-area-message ()
