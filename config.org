@@ -71,14 +71,14 @@ My default music directory for use with Bongo. After mpg123 disappeared from MEL
 (setq bongo-default-directory "~/Μουσική")
 #+END_SRC
 Honestly, I prefer the ncurses-based mocp over those 2, but it doesn't play well with multiple buffers a la C-x 2 and C-x 3.
-
 * Nationality parameters
+Geographical and language parameters for the weather information fetcher wttrin.
 #+BEGIN_SRC emacs-lisp
-;; nationality parameters
-;; so that wttrin will show correct cities and language
 (setq wttrin-default-cities (quote ("Nicosia" "Chania")))
 (setq wttrin-default-accept-language '("Accept-Language" . "el-GR"))
-;; greek calendar
+#+END_SRC
+Setting the calendar up in Greek. See also [[https://www.emacswiki.org/emacs/CalendarLocalization][EmacsWiki: Calendar Localization]].
+#+BEGIN_SRC emacs-lisp
 (setq calendar-week-start-day 1
           calendar-day-name-array ["Κυριακή" "Δευτέρα" "Τρίτη" "Τετάρτη"
                                    "Πέμπτη" "Παρασκευή" "Σάββατο"]
@@ -86,14 +86,14 @@ Honestly, I prefer the ncurses-based mocp over those 2, but it doesn't play well
                                      "Απρίλιος" "Μάιος" "Ιούνιος"
                                      "Ιούλιος" "Αύγουστος" "Σεπτέμβριος"
                                      "Οκτώβριος" "Νοέμβριος" "Δεκέμβριος"])
-;; Set input method to greek to be able to write greek with keyboard set to English (useful for those pesky Latin C- and M- shortcuts). Toggle with C-\
+#+END_SRC
+Set input method to greek in order to be able to write greek with the keyboard set to English (useful for those pesky Latin C- and M- shortcuts). Toggle with C-\
+#+BEGIN_SRC emacs-lisp
 (set-input-method "greek")
 #+END_SRC
 * Settings for multiple buffer management
+** Change layout of windows from horizontal to vertical very easily (from [[http://whattheemacsd.com/buffer-defuns.el-03.html][What the .emacs.d!?]])
 #+BEGIN_SRC emacs-lisp
-;; settings for multiple buffer management
-;; change layout of windows from horizontal to vertical very easily
-;; (from http://whattheemacsd.com/buffer-defuns.el-03.html)
 (defun toggle-window-split ()
   (interactive)
   (if (= (count-windows) 2)
@@ -118,10 +118,13 @@ Honestly, I prefer the ncurses-based mocp over those 2, but it doesn't play well
           (set-window-buffer (next-window) next-win-buffer)
           (select-window first-win)
           (if this-win-2nd (other-window 1))))))
-;; the keyboard shortcut for the above function
+#+END_SRC
+The keyboard shortcut for the above function.
+#+BEGIN_SRC emacs-lisp
 (define-key global-map "\M-]" 'toggle-window-split)
-;; flips 2 window frame, so that left goes right, and up goes down
-;; (from http://whattheemacsd.com/buffer-defuns.el-02.html)
+#+END_SRC
+** Flip 2 window frame, so that left goes right, and up goes down (from [[http://whattheemacsd.com/buffer-defuns.el-02.html][What the .emacs.d!?]])
+#+BEGIN_SRC emacs-lisp
 (defun rotate-windows ()
   "Rotate your windows"
   (interactive)
@@ -146,10 +149,13 @@ Honestly, I prefer the ncurses-based mocp over those 2, but it doesn't play well
              (set-window-start w1 s2)
              (set-window-start w2 s1)
              (setq i (1+ i)))))))
-;; the keyboard shortcut for the above function
+#+END_SRC
+The keyboard shortcut for the above function.
+#+BEGIN_SRC emacs-lisp
 (define-key global-map "\M-[" 'rotate-windows)
-
-;; newsticker configuration
+#+END_SRC
+* Newsticker configuration
+#+BEGIN_SRC emacs-lisp
 ;; (btw, newsticker is awesome, it's just like Liferea, but inside emacs!)
 ;; keep none of the proposed by emacs urls in the list
 (setq newsticker-url-list-defaults nil)
