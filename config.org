@@ -26,12 +26,19 @@ I also modified the fringe color to the same background color as the rest of the
  '(fringe ((t (:background "DodgerBlue4")))))
 #+END_SRC
 * Manually loading external lisp files
+I use a couple packages as external files instead of from MELPA, and I thus need to load my personal lisp directory.
+** Where I tell Emacs where is my personal lisp directory.
 #+BEGIN_SRC emacs-lisp
-;; Tell emacs where is your personal elisp lib dir
 (add-to-list 'load-path "~/.emacs.d/lisp/")
-;; load manually installed packages.
+#+END_SRC
+** Where I load the specific packages.
+I first load the malyon package.
+#+BEGIN_SRC emacs-lisp
 ;; loads my personalized malyon package
-(load "malyon") ;; best not to include the ending “.el” or “.elc”
+(load "malyon")
+#+END_SRC
+I then load the web-search package.
+#+BEGIN_SRC emacs-lisp
 (load "web-search")
 #+END_SRC
 
