@@ -1,9 +1,20 @@
+* My literate Emacs configuration
+* Introduction
+Here begins my literate emacs configuration. I tended to comment my init file a whole lot, so I figured I preferred a better interface for the comments. So, first of all...
+* Disabling the tool bar
+The snippet below disables tool-bar-mode. I placed it this early in the config so that the toolbar won't be loaded and disabled afterwards, but be disabled from the get-go (I had some glitches with the title screen when I had it further down).
 #+BEGIN_SRC emacs-lisp
-;; disables tool-bar-mode. I put it this up so that the tool-bar won't be loaded and disabled afterwards, but be disabled from the get-go.
 (tool-bar-mode -1)
-;; Setting the font size to 14
+#+END_SRC
+* Setting the font size
+Since I'm here, I might as well set the font size to 14. The default size seems way too small for me, as if I were trying to watch a bunch of ants...
+#+BEGIN_SRC emacs-lisp
 (set-face-attribute 'default nil :height 140)
-
+#+END_SRC
+* Setting up my must use theme - Blue Mood theme.
+I wasn't satisfied with the default Adawaita theme (but then who is?). I tried to find another theme, but most of them (even the popular ones) didn't satisfy my tastes. But when I found Blue Mood, I knew it was the one! In case you haven't encountered it (not too unlikely), it's because it's a part of the [[https://github.com/emacs-jp/replace-colorthemes][color-theme-modern]] package, which apparently recreates older themes for Emacs 24+. In the repository I linked just now, you can see all the other included themes too, complete with screenshots, and, of course, the way to apply them to your init file.
+I also modified the fringe color to the same background color as the rest of the theme, as its original color was black, and didn't fit in too well with the rest of the colorscheme for me...
+#+BEGIN_SRC emacs-lisp
 ;; blue mood theme
 (load-theme 'blue-mood t t)
 (enable-theme 'blue-mood)
@@ -13,14 +24,18 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(fringe ((t (:background "DodgerBlue4")))))
-
+#+END_SRC
+* Manually loading external lisp files
+#+BEGIN_SRC emacs-lisp
 ;; Tell emacs where is your personal elisp lib dir
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 ;; load manually installed packages.
 ;; loads my personalized malyon package
 (load "malyon") ;; best not to include the ending “.el” or “.elc”
 (load "web-search")
+#+END_SRC
 
+#+BEGIN_SRC emacs-lisp
 ;; personal directory parameters
 (setq deft-directory "~/.emacs.d/deft")
 (setq diary-file "~/.emacs.d/diary")
