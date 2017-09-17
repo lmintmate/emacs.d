@@ -9,6 +9,29 @@
 ;; Setting the font size to 14
 (set-face-attribute 'default nil :height 140)
 
+;; adds melpa repository
+(require 'package) ;; You might already have this line
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/") t)
+(package-initialize)
+
+;; blue mood theme
+(load-theme 'blue-mood t t)
+(enable-theme 'blue-mood)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(fringe ((t (:background "DodgerBlue4")))))
+
+;; Tell emacs where is your personal elisp lib dir
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+;; load manually installed packages.
+;; loads my personalized malyon package
+(load "malyon") ;; best not to include the ending “.el” or “.elc”
+(load "web-search")
+
 ;; personal directory parameters
 (setq deft-directory "~/.emacs.d/deft")
 (setq diary-file "~/.emacs.d/diary")
@@ -142,19 +165,6 @@
             (when (string= (file-name-extension buffer-file-name) "txt")
               (goto-address-mode 1))))
 
-;; adds melpa repository
-(require 'package) ;; You might already have this line
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
-(package-initialize)
-
-;; Tell emacs where is your personal elisp lib dir
-(add-to-list 'load-path "~/.emacs.d/lisp/")
-;; load manually installed packages.
-;; loads my personalized malyon package
-(load "malyon") ;; best not to include the ending “.el” or “.elc”
-(load "web-search")
-
 ;; Adds shift + arrows for changing buffer, in addition to Ctrl+O
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
@@ -162,16 +172,7 @@
 ;; pdf tools install: uncomment for right after installing pdf tools, comment again afterwards, as to not delay emacs loading time, and uncomment again if need to open pdf from emacs arises
 (pdf-tools-install)
 
-;; blue mood theme
-(load-theme 'blue-mood t t)
-(enable-theme 'blue-mood)
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(fringe ((t (:background "DodgerBlue4")))))
-
+;; Dired Mode Configurations
 ;; enable dired icon mode
 (add-hook 'dired-mode-hook 'dired-icon-mode)
 ;; bigger icons
@@ -193,7 +194,7 @@
 ;;(setq deft-default-extension "org")
 (setq deft-default-extension "md")
 
-;;orgmode
+;; Org Mode
 (require 'org)
 (define-key global-map "\C-cl" 'org-store-link)
 ;; org now supports shift selection except in special instances
