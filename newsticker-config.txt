@@ -1,8 +1,0 @@
-;; newsticker config
-;; keep none of the proposed by emacs urls in the list
-(setq newsticker-url-list-defaults nil)
-;; do not keep obsolete items
-(setq newsticker-keep-obsolete-items nil)
-;; newsticker's url list. Will be automatically populated with M-x newsticker-opml-import.
-(setq newsticker-url-list
-   (quote (...)))

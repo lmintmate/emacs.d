@@ -8,21 +8,103 @@
 (tool-bar-mode -1)
 ;; Setting the font size to 14
 (set-face-attribute 'default nil :height 140)
-;; Tell emacs where is your personal elisp lib dir
-(add-to-list 'load-path "~/.emacs.d/lisp/")
 
-;; personal directory parameters - not included in the version control, for obvious reasons. The list of relevant parameters is however included in personal-parameters.txt.
-(load-file "~/.emacs.d/personal-parameters.el")
+;; personal directory parameters
+(setq deft-directory "~/.emacs.d/deft")
+(setq diary-file "~/.emacs.d/diary")
+(setq geiser-racket-binary "~/racket/bin/racket")
+(setq malyon-stories-directory "~/other-games/frotz-games")
+(setq racket-program "~/racket/bin/racket")
+(defvar mpg123-default-dir "~/mousiki-gia-emacs")
+(setq bongo-default-directory "~/Μουσική")
 
-;; nationality parameters - not included in the version control, for obvious reasons. The list of relevant parameters is however included in nationality-parameters.txt.
-(load-file "~/.emacs.d/nationality-parameters.el")
+;; nationality parameters
+;; so that wttrin will show correct cities and language
+(setq wttrin-default-cities (quote ("Nicosia" "Chania")))
+(setq wttrin-default-accept-language '("Accept-Language" . "el-GR"))
+;; greek calendar
+(setq calendar-week-start-day 1
+          calendar-day-name-array ["Κυριακή" "Δευτέρα" "Τρίτη" "Τετάρτη"
+                                   "Πέμπτη" "Παρασκευή" "Σάββατο"]
+          calendar-month-name-array ["Ιανουάριος" "Φεβρουάριος" "Μάρτιος"
+                                     "Απρίλιος" "Μάιος" "Ιούνιος"
+                                     "Ιούλιος" "Αύγουστος" "Σεπτέμβριος"
+                                     "Οκτώβριος" "Νοέμβριος" "Δεκέμβριος"])
 
 ;; settings for multiple buffer management
-(load-file "~/.emacs.d/buffer-defuns.el")
+;; change layout of windows from horizontal to vertical very easily
+;; (from http://whattheemacsd.com/buffer-defuns.el-03.html)
+(defun toggle-window-split ()
+  (interactive)
+  (if (= (count-windows) 2)
+      (let* ((this-win-buffer (window-buffer))
+             (next-win-buffer (window-buffer (next-window)))
+             (this-win-edges (window-edges (selected-window)))
+             (next-win-edges (window-edges (next-window)))
+             (this-win-2nd (not (and (<= (car this-win-edges)
+                                         (car next-win-edges))
+                                     (<= (cadr this-win-edges)
+                                         (cadr next-win-edges)))))
+             (splitter
+              (if (= (car this-win-edges)
+                     (car (window-edges (next-window))))
+                  'split-window-horizontally
+                'split-window-vertically)))
+        (delete-other-windows)
+        (let ((first-win (selected-window)))
+          (funcall splitter)
+          (if this-win-2nd (other-window 1))
+          (set-window-buffer (selected-window) this-win-buffer)
+          (set-window-buffer (next-window) next-win-buffer)
+          (select-window first-win)
+          (if this-win-2nd (other-window 1))))))
+;; the keyboard shortcut for the above function
+(define-key global-map "\M-]" 'toggle-window-split)
+;; flips 2 window frame, so that left goes right, and up goes down
+;; (from http://whattheemacsd.com/buffer-defuns.el-02.html)
+(defun rotate-windows ()
+  "Rotate your windows"
+  (interactive)
+  (cond ((not (> (count-windows)1))
+         (message "You can't rotate a single window!"))
+        (t
+         (setq i 1)
+         (setq numWindows (count-windows))
+         (while  (< i numWindows)
+           (let* (
+                  (w1 (elt (window-list) i))
+                  (w2 (elt (window-list) (+ (% i numWindows) 1)))
 
-;; newsticker configuration - not included in the version control. The list of relevant parameters is in newsticker-config.txt.
+                  (b1 (window-buffer w1))
+                  (b2 (window-buffer w2))
+
+                  (s1 (window-start w1))
+                  (s2 (window-start w2))
+                  )
+             (set-window-buffer w1  b2)
+             (set-window-buffer w2 b1)
+             (set-window-start w1 s2)
+             (set-window-start w2 s1)
+             (setq i (1+ i)))))))
+;; the keyboard shortcut for the above function
+(define-key global-map "\M-[" 'rotate-windows)
+
+;; newsticker configuration
 ;; (btw, newsticker is awesome, it's just like Liferea, but inside emacs!)
-(load-file "~/.emacs.d/newsticker-config.el")
+;; keep none of the proposed by emacs urls in the list
+(setq newsticker-url-list-defaults nil)
+;; do not keep obsolete items
+(setq newsticker-keep-obsolete-items nil)
+;; newsticker's url list. Is automatically populated with M-x newsticker-opml-import.
+(setq newsticker-url-list
+   (quote
+    (("xkcd.com" "http://xkcd.com/rss.xml" nil nil nil)
+     ("Opensource.com" "https://opensource.com/feed" nil nil nil)
+     ("Awful Library Books" "http://feeds.feedburner.com/awfullibrarybooks?format=xml" nil nil nil)
+     ("OmgUbuntu" "http://feeds.feedburner.com/d0od" nil nil nil)
+     ("Reddit Linux" "https://www.reddit.com/r/linux/.rss" nil nil nil)
+     ("Reddit Linux Mint" "https://www.reddit.com/r/linuxmint/.rss" nil nil nil)
+     ("Reddit linuxmasterrace" "https://www.reddit.com/r/linuxmasterrace/.rss" nil nil nil))))
 
 ;; other config parameters
 (setq auto-save-default nil)
@@ -66,6 +148,8 @@
              '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
 
+;; Tell emacs where is your personal elisp lib dir
+(add-to-list 'load-path "~/.emacs.d/lisp/")
 ;; load manually installed packages.
 ;; loads my personalized malyon package
 (load "malyon") ;; best not to include the ending “.el” or “.elc”
