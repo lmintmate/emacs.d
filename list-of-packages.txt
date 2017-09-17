@@ -8,6 +8,7 @@ focus
 geiser
 ido-completing-read+
 ido-yes-or-no
+legalese
 malyon (manual install)
 markdown-mode
 minimap
