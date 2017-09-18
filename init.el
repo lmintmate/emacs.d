@@ -1,4 +1,4 @@
-;; I keep the custom-set-variables here in case I wish to change something in Customize in the future
+;; I keep the custom-set-variables here in case I wish to change something in the Customize interface in the future
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
