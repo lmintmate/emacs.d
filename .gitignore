@@ -4,9 +4,8 @@
 # Whitelist some files
 !.gitignore
 !LICENSE
-!README.md
 !init.el
-!config.org
+!README.org
 !init-old.el
 !init-windows.el
 !list-of-packages.txt

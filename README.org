@@ -1,7 +1,25 @@
 * My literate Emacs configuration
 * Introduction
 Here begins my literate emacs configuration. I tended to comment my init file a whole lot, so I figured I preferred a better interface for the comments.
-In this introduction, I'll also have a TODO list with things I could incorporate to the config in the future, but don't have the time for right now.
+* Things worth noting if you have Emacs 25+
+It is worth noting that the emacs version I'm using (on my main Linux system) is 24.5.1, and thus a couple settings are different in emacs 25+, and will need some adjustment to make certain the init files play well with that version.
+** Changes in emacs 25+ that affect the init files
+Source: [[https://www.masteringemacs.org/article/whats-new-in-emacs-25-1][Mickey Petersen's Emacs 25 changelog]].
+#+BEGIN_QUOTE
+The default 'diary-file' is now located in "~/.emacs.d".
+#+END_QUOTE
+This means that one will just need to remove the related config line, since the file is already there.
+-----------------------------------
+Concerning my init.el file:
+#+BEGIN_QUOTE
+ 'package-initialize' now sets 'package-enable-at-startup' to nil if called during startup. Users who call this function in their init file and still expect it to be run after startup should set 'package-enable-at-startup' to t after the call to 'package-initialize'.
+#+END_QUOTE
+One will probably need to add the above-mentioned 'package-enable-at-startup' line in the config.
+** Other notes
+I also include the old init file in case you don't like literate configs, and might update it along with the literate version, though I might stage the generated README.el file instead to save me some trouble.
+In this repository is also included an init-windows.el file with a separate configuration for my 32-bit windows pc, where the latest version that worked is 24.3.1.
+* Todo list
+I also include a TODO list with things I could incorporate to the config in the future, but don't have the time for right now.
 ** SOMEDAY Incorporate content from the README in this introduction.
 Especially the part regarding the changes that happen in Emacs 25.
 ** SOMEDAY Install the magit package and add relevant configuration.

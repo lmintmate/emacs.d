@@ -11,4 +11,4 @@
              '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
 (require 'org)
-(org-babel-load-file "~/.emacs.d/config.org")
+(org-babel-load-file "~/.emacs.d/README.org")
