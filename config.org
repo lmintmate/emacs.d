@@ -1,6 +1,14 @@
 * My literate Emacs configuration
 * Introduction
-Here begins my literate emacs configuration. I tended to comment my init file a whole lot, so I figured I preferred a better interface for the comments. So, first of all...
+Here begins my literate emacs configuration. I tended to comment my init file a whole lot, so I figured I preferred a better interface for the comments.
+In this introduction, I'll also have a TODO list with things I could incorporate to the config in the future, but don't have the time for right now.
+** SOMEDAY Incorporate content from the README in this introduction.
+Especially the part regarding the changes that happen in Emacs 25.
+** SOMEDAY Install the magit package and add relevant configuration.
+It looks as if it could help a lot with the git routine, but I'll have to be prepared for possible troubleshooting, for which I don't have time right now..
+** SOMEDAY Possibly add a method to detect (non-)installed packages and auto-install them, as per the example at [[http://aaronbedra.com/emacs.d/#default-packages][Aaron Bedra's Emacs 24 Configuration]].
+* Main configuration
+So now that we got the intro out of the way, let's begin. First things first...
 * Disabling the tool bar
 The snippet below disables tool-bar-mode. I placed it this early in the config so that the toolbar won't be loaded and disabled afterwards, but be disabled from the get-go (I had some glitches with the title screen when I had it further down).
 #+BEGIN_SRC emacs-lisp
