@@ -20,8 +20,6 @@ I also include the old init file in case you don't like literate configs, and mi
 In this repository is also included an init-windows.el file with a separate configuration for my 32-bit windows pc, where the latest version that worked is 24.3.1.
 * Todo list
 I also include a TODO list with things I could incorporate to the config in the future, but don't have the time for right now.
-** SOMEDAY Incorporate content from the README in this introduction.
-Especially the part regarding the changes that happen in Emacs 25.
 ** SOMEDAY Install the magit package and add relevant configuration.
 It looks as if it could help a lot with the git routine, but I'll have to be prepared for possible troubleshooting, for which I don't have time right now..
 ** SOMEDAY Possibly add a method to detect (non-)installed packages and auto-install them, as per the example at [[http://aaronbedra.com/emacs.d/#default-packages][Aaron Bedra's Emacs 24 Configuration]].
