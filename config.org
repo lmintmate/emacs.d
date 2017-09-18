@@ -367,21 +367,22 @@ Define the keybindings - the default being M- and arrow keys.
 #+BEGIN_SRC emacs-lisp
 (drag-stuff-define-keys)
 #+END_SRC
-* Enable Ido mode
+* Ido mode configuration
+** Enable Ido Mode
 A great buffer and file finding completion mode.
 #+BEGIN_SRC emacs-lisp
 (require 'ido)
 (ido-mode)
 (ido-everywhere)
 #+END_SRC
-* Ido completing-read+
-Makes Ido more ubiquitous.
+** Ido completing-read+
+Package that makes Ido more ubiquitous.
 #+BEGIN_SRC emacs-lisp
 (require 'ido-completing-read+)
 (ido-ubiquitous-mode 1)
 #+END_SRC
-* Ido yes-or-no
-Use Ido even for the yes-or-no prompt.
+** Ido yes-or-no
+Package that enables the use of Ido even for the yes-or-no prompt.
 #+BEGIN_SRC emacs-lisp
 (require 'ido-yes-or-no)
 (ido-yes-or-no-mode 1)
