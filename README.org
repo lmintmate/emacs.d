@@ -372,6 +372,15 @@ These are, apart from TODO and DONE, also CURRENTLY and SOMEDAY.
 #+BEGIN_SRC emacs-lisp
 (setq org-support-shift-select t)
 #+END_SRC
+*** Auto adjust footnotes
+#+BEGIN_SRC emacs-lisp
+(setq org-footnote-auto-adjust t)
+#+END_SRC
+*** Follow link in orgmode by pressing Enter key
+This adds an alternative way to follow urls in orgmode without reaching out for the mouse.
+#+BEGIN_SRC emacs-lisp
+(setq org-return-follows-link t)
+#+END_SRC
 *** Ox Tufte package
 A package that exports org files following the [[https://edwardtufte.github.io/tufte-css/][Tufte CSS]] presentation style.
 #+BEGIN_SRC emacs-lisp
