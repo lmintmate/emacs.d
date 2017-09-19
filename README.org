@@ -1,4 +1,4 @@
-* My literate Emacs configuration
+#+TITLE: My literate Emacs configuration
 * Introduction
 Here begins my literate emacs configuration. I tended to comment my init file a whole lot, so I figured I preferred a better interface for the comments.
 * Things worth noting if you have Emacs 25+
@@ -456,4 +456,3 @@ Package that enables the use of Ido even for the yes-or-no prompt.
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 #+END_SRC
-* Conclusion
