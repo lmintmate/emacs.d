@@ -25,6 +25,37 @@ It looks as if it could help a lot with the git routine, but I'll have to be pre
 ** SOMEDAY Possibly add a method to detect (non-)installed packages and auto-install them, as per the example at [[http://aaronbedra.com/emacs.d/#default-packages][Aaron Bedra's Emacs 24 Configuration]].
 * Main configuration
 So now that we got the intro out of the way, let's begin. First things first...
+* What precedes this file: the contents of init.el
+In order for this literate configuration to be complete, I need to quote first the code snippets I use in the init.el file, as to show how this magic happens in the first place.
+** Custom-set-variables
+First of all, I left the custom-set-variables set in place at the very beginning in case I wish to change something from the Customize interface in the future.
+#+BEGIN_QUOTE
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+)
+#+END_QUOTE
+** Add MELPA repository
+Secondly, I add the MELPA repository. I do this in init.el and not here as I use the version of Org from MELPA, which I need in order to load this very file.
+#+BEGIN_QUOTE
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/") t)
+(package-initialize)
+#+END_QUOTE
+** Require Org
+#+BEGIN_QUOTE
+(require 'org)
+#+END_QUOTE
+** Where the magic happens
+#+BEGIN_QUOTE
+(org-babel-load-file "~/.emacs.d/README.org")
+#+END_QUOTE
+This snippet is the one that does the heavy work. It tracks down all the parts that say "#+BEGIN SRC emacs-lisp" and evaluates them as emacs lisp code, creating a separate README.el in the process, as to reduce load time for the next run. Every time the org file is modified, the .el file is created anew.
+-------------
+And now these are taken care of, let's proceed to the configuration present in this very file.
 * Disabling the tool bar
 The snippet below disables tool-bar-mode. I placed it this early in the config so that the toolbar won't be loaded and disabled afterwards, but be disabled from the get-go (I had some glitches with the title screen when I had it further down).
 #+BEGIN_SRC emacs-lisp
