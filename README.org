@@ -8,15 +8,14 @@ Source: [[https://www.masteringemacs.org/article/whats-new-in-emacs-25-1][Mickey
 #+BEGIN_QUOTE
 The default 'diary-file' is now located in "~/.emacs.d".
 #+END_QUOTE
-This means that one will just need to remove the related config line, since the file is already there.
------------------------------------
+This means that one will just need to remove the related config line, since the file is already there.\\
 Concerning my init.el file:
 #+BEGIN_QUOTE
  'package-initialize' now sets 'package-enable-at-startup' to nil if called during startup. Users who call this function in their init file and still expect it to be run after startup should set 'package-enable-at-startup' to t after the call to 'package-initialize'.
 #+END_QUOTE
 One will probably need to add the above-mentioned 'package-enable-at-startup' line in the config.
 ** Other notes
-I also include the old init file in case you don't like literate configs, and might update it along with the literate version, though I might stage the generated README.el file instead to save me some trouble.
+I also include the old init file in case you don't like literate configs, and might update it along with the literate version, though I might stage the generated README.el file instead to save me some trouble.\\
 In this repository is also included an init-windows.el file with a separate configuration for my 32-bit windows pc, where the latest version that worked is 24.3.1.
 * Todo list
 I also include a TODO list with things I could incorporate to the config in the future, but don't have the time for right now.
@@ -53,8 +52,7 @@ Secondly, I add the MELPA repository. I do this in init.el and not here as I use
 #+BEGIN_EXAMPLE
 (org-babel-load-file "~/.emacs.d/README.org")
 #+END_EXAMPLE
-This snippet is the one that does the heavy work. It tracks down all the parts that say "#+BEGIN SRC emacs-lisp" and evaluates them as emacs lisp code, creating a separate README.el in the process, as to reduce load time for the next run. Every time the org file is modified, the .el file is created anew.
--------------
+This snippet is the one that does the heavy work. It tracks down all the parts that say "#+BEGIN SRC emacs-lisp" and evaluates them as emacs lisp code, creating a separate README.el in the process, as to reduce load time for the next run. Every time the org file is modified, the .el file is created anew.\\
 And now these are taken care of, let's proceed to the configuration present in this very file.
 * Disabling the tool bar
 The snippet below disables tool-bar-mode. I placed it this early in the config so that the toolbar won't be loaded and disabled afterwards, but be disabled from the get-go (I had some glitches with the title screen when I had it further down).
@@ -67,10 +65,10 @@ Since I'm here, I might as well set the font size to 14. The default size seems 
 (set-face-attribute 'default nil :height 140)
 #+END_SRC
 * Setting up my must use theme - Blue Mood theme.
-I wasn't satisfied with the default Adawaita theme (but then who is?). I tried to find another theme, but most of them (even the popular ones) didn't satisfy my tastes. But when I found Blue Mood, I knew it was the one! In case you haven't encountered it (not too unlikely), it's because it's a part of the [[https://github.com/emacs-jp/replace-colorthemes][color-theme-modern]] package, which apparently recreates older themes for Emacs 24+. In the repository I linked just now, you can see all the other included themes too, complete with screenshots, and, of course, the way to apply them to your init file.
+I wasn't satisfied with the default Adawaita theme (but then who is?). I tried to find another theme, but most of them (even the popular ones) didn't satisfy my tastes. But when I found Blue Mood, I knew it was the one!\\
+In case you haven't encountered it (not too unlikely), it's because it's a part of the [[https://github.com/emacs-jp/replace-colorthemes][color-theme-modern]] package, which apparently recreates older themes for Emacs 24+. In the repository I linked just now, you can see all the other included themes too, complete with screenshots, and, of course, the way to apply them to your init file.\\
 I also modified the fringe color to the same background color as the rest of the theme, as its original color was black, and didn't fit in too well with the rest of the colorscheme for me...
 #+BEGIN_SRC emacs-lisp
-;; blue mood theme
 (load-theme 'blue-mood t t)
 (enable-theme 'blue-mood)
 (custom-set-faces
@@ -81,48 +79,47 @@ I also modified the fringe color to the same background color as the rest of the
  '(fringe ((t (:background "DodgerBlue4")))))
 #+END_SRC
 * Manually loading external lisp files
-I use a couple packages as external files instead of from MELPA, and I thus need to load my personal lisp directory.
-** Where I tell Emacs where is my personal lisp directory.
+I use a couple packages as external files instead of from MELPA, and I thus need to load my personal lisp directory.\\
+Where I tell Emacs where is my personal lisp directory.
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 #+END_SRC
-** Where I load the specific packages.
-I first load the malyon package. This is a package that allows one to play interactive fiction/text games right from Emacs.
+Where I load the specific packages.\\
+I first load the malyon package. This is a package that allows one to play interactive fiction/text games right from Emacs.\\
 I use [[https://github.com/lmintmate/malyon][the version I forked from the repo used by MELPA]], where I made a couple minor changes, such as [[https://github.com/lmintmate/malyon/commit/e95759f5779553f64280ae0101610b03bf4eb9cd][amending the error messages to account for the zblorb compatibility added by a previous maintainer]]. If you don't care about these minor changes, you can use the MELPA version instead.
 #+BEGIN_SRC emacs-lisp
-;; loads my personalized malyon package
 (load "malyon")
 #+END_SRC
-I then load the web-search package.
+I then load the web-search package.\\
 I load a locally stored web-search.el file instead of the MELPA package version because I use [[https://github.com/lmintmate/web-search.el][the version I forked from the repo used by MELPA]], where I made a couple changes, such as [[https://github.com/lmintmate/web-search.el/commit/88641a2f90ed599b3e400cadd2c470662b2c9a6f][adding the search provider DuckDuckGo]], as well as [[https://github.com/lmintmate/web-search.el/commit/8bba746feda09970adbf9d76dbef1291d4833af9][the search engines of Bandcamp and Soundcloud]]. I use this manually instead of the MELPA version (with which it is at this point identical) just in case I wish to change anything further. 
 #+BEGIN_SRC emacs-lisp
 (load "web-search")
 #+END_SRC
 * Personal directory parameters
-Here are gathered all the parameters that set directories for use with various packages.
-** The directory where the Deft package data (including the notes) is saved:
+Here are gathered all the parameters that set directories for use with various packages.\\
+The directory where the Deft package data (including the notes) is saved:
 #+BEGIN_SRC emacs-lisp
 (setq deft-directory "~/.emacs.d/deft")
 #+END_SRC
-** The directory where the emacs diary files are saved (I haven't used it in ages however, so I might remove it in the future):
+The directory where the emacs diary files are saved (I haven't used it in ages however, so I might remove it in the future):
 #+BEGIN_SRC emacs-lisp
 (setq diary-file "~/.emacs.d/diary")
 #+END_SRC
-** The directory where the Racket binary from DrRacket is stored, for use with the geiser and racket-mode packages:
+The directory where the Racket binary from DrRacket is stored, for use with the geiser and racket-mode packages:
 #+BEGIN_SRC emacs-lisp
 (setq geiser-racket-binary "~/racket/bin/racket")
 (setq racket-program "~/racket/bin/racket")
 #+END_SRC
-** The directory where I save the interactive fiction/text game files, for use with malyon:
+The directory where I save the interactive fiction/text game files, for use with malyon:
 #+BEGIN_SRC emacs-lisp
 (setq malyon-stories-directory "~/other-games/frotz-games")
 #+END_SRC
-** The directory where I have music for use with mpg123.
+The directory where I have music for use with mpg123.\\
 This otherwise good music player has the problem of not being able to recognise directories with non-latin names, such as my Music directory (and it now has disappeared from MELPA for some reason).
 #+BEGIN_SRC emacs-lisp
 (defvar mpg123-default-dir "~/mousiki-gia-emacs")
 #+END_SRC
-** My default music directory for use with Bongo.
+My default music directory for use with Bongo.\\
 After mpg123 disappeared from MELPA, I tried to examine the other music options. Bongo is the second better (and it can recognise non-latin directory names), but it isn't perfect either, as it stops after every song...
 #+BEGIN_SRC emacs-lisp
 (setq bongo-default-directory "~/Μουσική")
@@ -212,16 +209,16 @@ The keyboard shortcut for the above function.
 (define-key global-map "\M-[" 'rotate-windows)
 #+END_SRC
 * Newsticker configuration
-Newsticker is awesome, it's just like Liferea, but inside emacs!
-** Keep none of the proposed by emacs urls in the list.
+Newsticker is awesome, it's just like Liferea, but inside emacs!\\
+Keep none of the proposed by emacs urls in the list.
 #+BEGIN_SRC emacs-lisp
 (setq newsticker-url-list-defaults nil)
 #+END_SRC
-** Do not keep obsolete items.
+Do not keep obsolete items.
 #+BEGIN_SRC emacs-lisp
 (setq newsticker-keep-obsolete-items nil)
 #+END_SRC
-** Newsticker's url list. It is automatically populated with M-x newsticker-opml-import.
+Newsticker's url list. It is automatically populated with M-x newsticker-opml-import.
 #+BEGIN_SRC emacs-lisp
 (setq newsticker-url-list
    (quote
@@ -234,63 +231,63 @@ Newsticker is awesome, it's just like Liferea, but inside emacs!
      ("Reddit linuxmasterrace" "https://www.reddit.com/r/linuxmasterrace/.rss" nil nil nil))))
 #+END_SRC
 * Other configuration parameters
-** Do not autosave nor make any backup files.
+Do not autosave nor make any backup files.\\
 All they do is litter the place and trigger a nagging prompt whenever I leave Emacs without having saved.
 #+BEGIN_SRC emacs-lisp
 (setq auto-save-default nil)
 (setq make-backup-files nil)
 #+END_SRC
-** Delete by moving to the trash (the default behavior being completely delete from the system).
+Delete by moving to the trash (the default behavior being completely delete from the system).
 #+BEGIN_SRC emacs-lisp
 (setq delete-by-moving-to-trash t)
 #+END_SRC
-** Delete selection mode.
+Delete selection mode.\\
 It deletes selected text with the Delete key, which bring Emacs more in line with other text editors.
 #+BEGIN_SRC emacs-lisp
 (setq delete-selection-mode t)
 #+END_SRC
-** Geiser's active implementations.
+Geiser's active implementations.
 #+BEGIN_SRC emacs-lisp
 (setq geiser-active-implementations (quote (guile racket chez mit chibi)))
 #+END_SRC
-** Racket memory limit
+Racket memory limit
 #+BEGIN_SRC emacs-lisp
 (setq racket-memory-limit 128)
 #+END_SRC
-** Remember notes inital major mode
+Remember notes inital major mode\\
 (Not sure whether I'll keep that one, as I don't use Remember notes anymore...)
 #+BEGIN_SRC emacs-lisp
 (setq remember-notes-initial-major-mode (quote text-mode))
 #+END_SRC
-** Display inline images in the w3m browser from within emacs.
+Display inline images in the w3m browser from within emacs.
 #+BEGIN_SRC emacs-lisp
 (setq w3m-default-display-inline-images t)
 #+END_SRC
-** Disabling menu bar when emacs is run in a  terminal.
+Disabling menu bar when emacs is run in a  terminal.\\
 Since it can't be clicked anyways, it takes up space without reason...
 #+BEGIN_SRC emacs-lisp
 (when (not (window-system))
   (menu-bar-mode -1))
 #+END_SRC
-** Toggling the menu bar with a keyboard shortcut.
+Toggling the menu bar with a keyboard shortcut.
 #+BEGIN_SRC emacs-lisp
 (global-set-key [f9] 'toggle-menu-bar-mode-from-frame)
 #+END_SRC
-** Toggling the scroll bar with a keyboard shortcut
+Toggling the scroll bar with a keyboard shortcut
 #+BEGIN_SRC emacs-lisp
 (global-set-key [f10] 'toggle-scroll-bar)
 #+END_SRC
-** New  message for the startup echo area.
+New message for the startup echo area.
 #+BEGIN_SRC emacs-lisp
 (defun display-startup-echo-area-message ()
   (message "Καλωσήλθες!"))
 #+END_SRC
-** Visual line mode only for text mode.
+Visual line mode only for text mode.\\
 Visual line wraps lines instead of cutting them as default.
 #+BEGIN_SRC emacs-lisp
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 #+END_SRC
-** Associate .txt files with the goto-address-mode.
+Associate .txt files with the goto-address-mode.\\
 This mode highlights urls and makes them clickable.
 #+BEGIN_SRC emacs-lisp
 (add-hook 'find-file-hook
@@ -298,7 +295,7 @@ This mode highlights urls and makes them clickable.
             (when (string= (file-name-extension buffer-file-name) "txt")
               (goto-address-mode 1))))
 #+END_SRC
-** Adds shift + arrows for changing between visible buffers, in addition to Ctrl+O.
+Adds shift + arrows for changing between visible buffers, in addition to Ctrl+O.
 #+BEGIN_SRC emacs-lisp
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
@@ -308,7 +305,7 @@ This mode highlights urls and makes them clickable.
 (pdf-tools-install)
 #+END_SRC
 * Dired Mode Configurations
-** Enable dired icon mode.
+Enable dired icon mode.\\
 This functionality, coming from the dired-icon package, shows icons from the currently used icon theme next to the filenames, and thus makes for a better dired experience.
 #+BEGIN_SRC emacs-lisp
 (add-hook 'dired-mode-hook 'dired-icon-mode)
@@ -317,7 +314,7 @@ Setting to make the image size of the dired-icon icons bigger.
 #+BEGIN_SRC emacs-lisp
 (setq dired-icon-image-size 32)
 #+END_SRC
-** Dired listing
+Dired listing\\
 Group directories first.
 #+BEGIN_SRC emacs-lisp
 (setq dired-listing-switches "-al --group-directories-first")
@@ -326,7 +323,7 @@ Sort files by modified date.
 #+BEGIN_SRC emacs-lisp
 (add-hook 'dired-mode-hook 'dired-sort-toggle-or-edit)
 #+END_SRC
-** Hide the details on dired mode, for a cleaner appearance.
+Hide the details on dired mode, for a cleaner appearance.
 #+BEGIN_SRC emacs-lisp
 (add-hook 'dired-mode-hook 'dired-hide-details-mode)
 #+END_SRC
@@ -335,42 +332,42 @@ Sort files by modified date.
 (autoload 'mpg123 "mpg123" "A Front-end to mpg123/ogg123" t)
 #+END_SRC
 * Deft (quick note taking package) configuration
-** Load Deft
+Load Deft
 #+BEGIN_SRC emacs-lisp
 (with-eval-after-load 'deft)
 #+END_SRC
-** Set Deft default extensions.
+Set Deft default extensions.
 #+BEGIN_SRC emacs-lisp
 (setq deft-extensions '("txt" "md" "org"))
 #+END_SRC
-** Default mode for deft - switch between the 2 below
+Default mode for deft - switch between the 2 below
 #+BEGIN_SRC emacs-lisp
 ;;(setq deft-default-extension "org")
 (setq deft-default-extension "md")
 #+END_SRC
-** Set the default time format.
+Set the default time format.\\
 I use the European system day-month-year.
 #+BEGIN_SRC emacs-lisp
 (setq deft-time-format " %d-%m-%Y %H:%M")
 #+END_SRC
 * Org Mode configuration
-The (require 'org) part is present in the init.el file instead of here, precisely in order to compile this very file.
-** Define C-c l as the keybinding to org-store-link.
+The (require 'org) part is present in the init.el file instead of here, precisely in order to compile this very file.\\
+Define C-c l as the keybinding to org-store-link.
 #+BEGIN_SRC emacs-lisp
 (define-key global-map "\C-cl" 'org-store-link)
 #+END_SRC
-** Set keywords for Org progress states.
+Set keywords for Org progress states.\\
 These are, apart from TODO and DONE, also CURRENTLY and SOMEDAY.
 #+BEGIN_SRC emacs-lisp
 (setq org-todo-keywords
    (quote
     ((sequence "TODO(t)" "CURRENTLY(c)" "SOMEDAY(s)" "DONE(d)"))))
 #+END_SRC
-** Enable support of shift selection of text in org-mode except in special instances.
+Enable support of shift selection of text in org-mode except in special instances.
 #+BEGIN_SRC emacs-lisp
 (setq org-support-shift-select t)
 #+END_SRC
-** Ox Tufte package
+Ox Tufte package\\
 A package that exports org files following the [[https://edwardtufte.github.io/tufte-css/][Tufte CSS]] presentation style.
 #+BEGIN_SRC emacs-lisp
 (require 'ox-tufte)
@@ -388,11 +385,11 @@ Define M-/ as the redo key.
 (define-key global-map "\M-/" 'undo-tree-redo)
 #+END_SRC
 * Olivetti mode - Mode for distraction-free writing.
-** Hide the mode line when enabling olivetti.
+Hide the mode line when enabling olivetti.
 #+BEGIN_SRC emacs-lisp
 (setq olivetti-hide-mode-line t)
 #+END_SRC
-** Function to turn off the menu bar when olivetti mode is enabled
+Function to turn off the menu bar when olivetti mode is enabled
 #+BEGIN_SRC emacs-lisp
 (progn
   (defun turn-off-menu-with-olivetti ()
@@ -400,7 +397,7 @@ Define M-/ as the redo key.
   (add-hook 'olivetti-mode-hook 'turn-off-menu-with-olivetti))
 #+END_SRC
 * Web-search.el package config
-** Set the default search provider
+Set the default search provider
 #+BEGIN_SRC emacs-lisp
 (setq web-search-default-provider "DuckDuckGo")
 #+END_SRC
@@ -423,20 +420,20 @@ Define the keybindings - the default being M- and arrow keys.
 (drag-stuff-define-keys)
 #+END_SRC
 * Ido mode configuration
-** Enable Ido Mode
+Enable Ido Mode\\
 A great buffer and file finding completion mode.
 #+BEGIN_SRC emacs-lisp
 (require 'ido)
 (ido-mode)
 (ido-everywhere)
 #+END_SRC
-** Ido completing-read+
+Ido completing-read+\\
 Package that makes Ido more ubiquitous.
 #+BEGIN_SRC emacs-lisp
 (require 'ido-completing-read+)
 (ido-ubiquitous-mode 1)
 #+END_SRC
-** Ido yes-or-no
+Ido yes-or-no\\
 Package that enables the use of Ido even for the yes-or-no prompt.
 #+BEGIN_SRC emacs-lisp
 (require 'ido-yes-or-no)
@@ -448,11 +445,11 @@ Package that enables the use of Ido even for the yes-or-no prompt.
   (smex-initialize) ; Can be omitted. This might cause a (minimal) delay
                     ; when Smex is auto-initialized on its first run.
 #+END_SRC
-** Keyboard shortcuts for Smex
+Keyboard shortcuts for Smex
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "M-x") 'smex)
 #+END_SRC
-** The old M-x keybinding (just in case).
+The old M-x keybinding (just in case).
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 #+END_SRC
