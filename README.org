@@ -352,23 +352,27 @@ I use the European system day-month-year.
 (setq deft-time-format " %d-%m-%Y %H:%M")
 #+END_SRC
 * Org Mode configuration
-The (require 'org) part is present in the init.el file instead of here, precisely in order to compile this very file.\\
-Define C-c l as the keybinding to org-store-link.
+The (require 'org) part is present in the init.el file instead of here, precisely in order to compile this very file.
+*** Define C-c l as the keybinding to org-store-link.
 #+BEGIN_SRC emacs-lisp
 (define-key global-map "\C-cl" 'org-store-link)
 #+END_SRC
-Set keywords for Org progress states.\\
+*** Set keywords for Org progress states.
 These are, apart from TODO and DONE, also CURRENTLY and SOMEDAY.
 #+BEGIN_SRC emacs-lisp
 (setq org-todo-keywords
    (quote
     ((sequence "TODO(t)" "CURRENTLY(c)" "SOMEDAY(s)" "DONE(d)"))))
 #+END_SRC
-Enable support of shift selection of text in org-mode except in special instances.
+*** Use query to confirm killing of hidden subtrees
+#+BEGIN_SRC emacs-lisp
+(setq org-ctrl-k-protect-subtree t)
+#+END_SRC
+*** Enable support of shift selection of text in org-mode except in special instances.
 #+BEGIN_SRC emacs-lisp
 (setq org-support-shift-select t)
 #+END_SRC
-Ox Tufte package\\
+*** Ox Tufte package
 A package that exports org files following the [[https://edwardtufte.github.io/tufte-css/][Tufte CSS]] presentation style.
 #+BEGIN_SRC emacs-lisp
 (require 'ox-tufte)
