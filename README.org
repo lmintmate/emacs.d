@@ -1,4 +1,6 @@
 #+TITLE: My literate Emacs configuration
+#+SETUPFILE: theme-readtheorg.setup
+# Theme for html exporting from [[https://github.com/fniessen/org-html-themes][GitHub - fniessen/org-html-themes]]
 * Introduction
 Here begins my literate emacs configuration. I tended to comment my init file a whole lot, so I figured I preferred a better interface for the comments.
 * Things worth noting if you have Emacs 25+
