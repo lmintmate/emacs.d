@@ -291,7 +291,8 @@ Visual line wraps lines instead of cutting them as default.
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 #+END_SRC
 Associate .txt files with the goto-address-mode.\\
-This mode highlights urls and makes them clickable.
+This mode highlights urls and makes them clickable.\\
+(code adapted from [[https://stackoverflow.com/questions/13945782/emacs-auto-minor-mode-based-on-extension/39652226#39652226][this stackoverflow answer]])
 #+BEGIN_SRC emacs-lisp
 (add-hook 'find-file-hook
           (lambda ()
