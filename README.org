@@ -485,3 +485,8 @@ The old M-x keybinding (just in case).
 (require 'google-translate-smooth-ui)
 (global-set-key "\C-ct" 'google-translate-smooth-translate)
 #+END_SRC
+* ob-translate
+[[https://github.com/krisajenkins/ob-translate][link]]\\
+Basically the reason for which I installed the aforementioned Google Translate.
+The way this works is explained well enough in its README - I'll just add a reminder to myself that I can evaluate the text block to be translated while it is under point and I press C-c C-c.\\
+I can also have it export both the string to be translated and the translation result (e.g. to an html file) by adding ":export both" to the "#+BEGIN_SRC translate" string. More on this [[http://orgmode.org/manual/Exporting-code-blocks.html][here]], [[http://orgmode.org/manual/exports.html][here]] and [[http://orgmode.org/worg/org-contrib/babel/examples/foo.html][here]].

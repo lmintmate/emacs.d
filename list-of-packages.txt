@@ -16,6 +16,7 @@ markdown-mode
 minimap
 mpg123
 nov.el ;; epub reader ;; requires emacs 24.4 and up
+ob-translate
 olivetti
 org
 org-cliplink ;;needs emacs 24.4 and upwards
