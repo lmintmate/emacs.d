@@ -478,3 +478,10 @@ The old M-x keybinding (just in case).
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 #+END_SRC
+* Google Translate
+[[https://github.com/atykhonov/google-translate][Emacs interface to Google Translate]]. I chose the smooth UI and not the default one, in order to have to remember only one key combination instead of two.
+#+BEGIN_SRC emacs-lisp
+(require 'google-translate)
+(require 'google-translate-smooth-ui)
+(global-set-key "\C-ct" 'google-translate-smooth-translate)
+#+END_SRC
