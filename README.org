@@ -385,7 +385,7 @@ This adds an alternative way to follow urls in orgmode without reaching out for 
 (setq org-return-follows-link t)
 #+END_SRC
 *** Strikethrough for Done tasks
-from [[http://sachachua.com/blog/2012/12/emacs-strike-through-headlines-for-done-tasks-in-org/][Sacha Chua's blog]]
+adapted from [[http://sachachua.com/blog/2012/12/emacs-strike-through-headlines-for-done-tasks-in-org/][Sacha Chua's blog]]
 #+BEGIN_SRC emacs-lisp
 (setq org-fontify-done-headline t)
 (custom-set-faces
