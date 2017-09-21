@@ -2,7 +2,8 @@
 #+SETUPFILE: theme-readtheorg.setup
 # Theme for html exporting from [[https://github.com/fniessen/org-html-themes][GitHub - fniessen/org-html-themes]]
 * Introduction
-Here begins my literate emacs configuration. I tended to comment my init file a whole lot, so I figured I preferred a better interface for the comments.
+Here begins my literate emacs configuration. I tended to comment my init file a whole lot, so I figured I preferred a better interface for the comments.\\
+This file was last exported at {{{time(%d/%m/%Y %H:%M)}}}.
 * Things worth noting if you have Emacs 25+
 It is worth noting that the emacs version I'm using (on my main Linux system) is 24.5.1, and thus a couple settings are different in emacs 25+, and will need some adjustment to make certain the init files play well with that version.
 ** Changes in emacs 25+ that affect the init files
