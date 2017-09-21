@@ -16,7 +16,7 @@ Concerning my init.el file:
 #+BEGIN_QUOTE
  'package-initialize' now sets 'package-enable-at-startup' to nil if called during startup. Users who call this function in their init file and still expect it to be run after startup should set 'package-enable-at-startup' to t after the call to 'package-initialize'.
 #+END_QUOTE
-One will probably need to add the above-mentioned 'package-enable-at-startup' line in the config.
+One will probably need to add the above-mentioned ~package-enable-at-startup~ line in the config.
 ** Other notes
 I also include the old init file in case you don't like literate configs, and might update it along with the literate version, though I might stage the generated README.el file instead to save me some trouble.\\
 In this repository is also included an init-windows.el file with a separate configuration for my 32-bit windows pc, where the latest version that worked is 24.3.1.
@@ -31,7 +31,7 @@ So now that we got the intro out of the way, let's begin. First things first...
 * What precedes this file: the contents of init.el
 In order for this literate configuration to be complete, I need to quote first the code snippets I use in the init.el file, as to show how this magic happens in the first place.
 ** Custom-set-variables
-First of all, I left the custom-set-variables set in place at the very beginning in case I wish to change something from the Customize interface in the future.
+First of all, I left the ~custom-set-variables~ set in place at the very beginning in case I wish to change something from the Customize interface in the future.
 #+BEGIN_EXAMPLE
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -56,7 +56,7 @@ Secondly, I add the MELPA repository. I do this in init.el and not here as I use
 #+BEGIN_EXAMPLE
 (org-babel-load-file "~/.emacs.d/README.org")
 #+END_EXAMPLE
-This snippet is the one that does the heavy work. It tracks down all the parts that say "#+BEGIN SRC emacs-lisp" and evaluates them as emacs lisp code, creating a separate README.el in the process, as to reduce load time for the next run. Every time the org file is modified, the .el file is created anew.\\
+This snippet is the one that does the heavy work. It tracks down all the parts that say ~#+BEGIN_SRC emacs-lisp~ and evaluates them as emacs lisp code, creating a separate README.el in the process, as to reduce load time for the next run. Every time the org file is modified, the .el file is created anew.\\
 And now these are taken care of, let's proceed to the configuration present in this very file.
 * Disabling the tool bar
 The snippet below disables tool-bar-mode. I placed it this early in the config so that the toolbar won't be loaded and disabled afterwards, but be disabled from the get-go (I had some glitches with the title screen when I had it further down).
@@ -356,7 +356,7 @@ I use the European system day-month-year.
 (setq deft-time-format " %d-%m-%Y %H:%M")
 #+END_SRC
 * Org Mode configuration
-The (require 'org) part is present in the init.el file instead of here, precisely in order to compile this very file.
+The ~(require 'org)~ part is present in the init.el file instead of here, precisely in order to compile this very file.
 *** Define C-c l as the keybinding to org-store-link.
 #+BEGIN_SRC emacs-lisp
 (define-key global-map "\C-cl" 'org-store-link)
@@ -490,5 +490,5 @@ The old M-x keybinding (just in case).
 [[https://github.com/krisajenkins/ob-translate][link]]\\
 Basically the reason for which I installed the aforementioned Google Translate.
 The way this works is explained well enough in its README - I'll just add a reminder to myself that I can evaluate the text block to be translated while it is under point and I press C-c C-c.\\
-I can also have it export both the string to be translated and the translation result (e.g. to an html file) by adding ":export both" to the "#+BEGIN_SRC translate" string. More on this [[http://orgmode.org/manual/Exporting-code-blocks.html][here]], [[http://orgmode.org/manual/exports.html][here]] and [[http://orgmode.org/worg/org-contrib/babel/examples/foo.html][here]].\\
-If I want this export action to be applied to the whole file, and not just to a specific source block, I need to use the"#+PROPERTY: header-args" string at the beginning of the file - see [[http://org-babel.readthedocs.io/en/latest/header-args/#buffer-or-file-level-header-arguments][Header arguments - Org Babel reference card]].
+I can also have it export both the string to be translated and the translation result (e.g. to an html file) by adding ~:export both~ to the ~#+BEGIN_SRC translate~ string. More on this [[http://orgmode.org/manual/Exporting-code-blocks.html][here]], [[http://orgmode.org/manual/exports.html][here]] and [[http://orgmode.org/worg/org-contrib/babel/examples/foo.html][here]].\\
+If I want this export action to be applied to the whole file, and not just to a specific source block, I need to use the ~#+PROPERTY: header-args~ string at the beginning of the file - see [[http://org-babel.readthedocs.io/en/latest/header-args/#buffer-or-file-level-header-arguments][Header arguments - Org Babel reference card]].
