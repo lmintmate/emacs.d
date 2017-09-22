@@ -492,3 +492,20 @@ Basically the reason for which I installed the aforementioned Google Translate.
 The way this works is explained well enough in its README - I'll just add a reminder to myself that I can evaluate the text block to be translated while it is under point and I press C-c C-c.\\
 I can also have it export both the string to be translated and the translation result (e.g. to an html file) by adding ~:export both~ to the ~#+BEGIN_SRC translate~ string. More on this [[http://orgmode.org/manual/Exporting-code-blocks.html][here]], [[http://orgmode.org/manual/exports.html][here]] and [[http://orgmode.org/worg/org-contrib/babel/examples/foo.html][here]].\\
 If I want this export action to be applied to the whole file, and not just to a specific source block, I need to use the ~#+PROPERTY: header-args~ string at the beginning of the file - see [[http://org-babel.readthedocs.io/en/latest/header-args/#buffer-or-file-level-header-arguments][Header arguments - Org Babel reference card]].
+* Typo.el
+[[https://github.com/jorgenschaefer/typoel][An emacs extension for typographical editing]]\\
+This package allows me to use french guillemets, as is the convention in greek typography.\\
+** Enable typo mode globally
+#+BEGIN_SRC emacs-lisp
+(typo-global-mode 1)
+#+END_SRC
+** Hook typo mode to text mode
+#+BEGIN_SRC emacs-lisp
+(add-hook 'text-mode-hook 'typo-mode)
+#+END_SRC
+** Set language template for typo quotemarks
+A setting for Greek isn't available, and since I only ever use double quotes, the Italian template seemed the most appropriate to me.\\
+«Una faccia, una razza!», after all(as goes the saying emphasizing the similarities of Greeks with the Italians).
+#+BEGIN_SRC emacs-lisp
+(setq-default typo-language "Italian")
+#+END_SRC
