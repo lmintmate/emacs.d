@@ -101,7 +101,7 @@ I load a locally stored web-search.el file instead of the MELPA package version 
 (load "web-search")
 #+END_SRC
 *** Loading the package for polytonic greek
-I’m used to writing Greek with the modern Greek layout, which is quite different from the greek-babel polytonic layout in a way jarring to me. I tried to find a way to solve my problem, and found out with relief that I didn’t need to reinvent the wheel, as someone had already made a package for what I wanted; a layout that would provide polytonic Greek while also keeping the regular keyboard layout I was used to.\\
+I’m used to writing Greek with the modern Greek layout, which is quite different from the greek-babel polytonic layout in a way jarring to me. I tried to find a way to solve my problem, and found out with relief that I didn’t need to reinvent the wheel, as someone had already made a package for what I wanted ; a layout that would provide polytonic Greek while also keeping the regular keyboard layout I was used to.\\
  This solution to my problem can be found [[http://myria.math.aegean.gr/~atsol/emacs-unicode/][here]](look under the compiled greek.elc link for the greek.el source).
 #+BEGIN_SRC emacs-lisp
 (load "greek")
@@ -142,7 +142,7 @@ Honestly, I prefer the ncurses-based mocp over those 2, but it doesn't play well
 (setq wttrin-default-cities (quote ("Nicosia" "Chania")))
 (setq wttrin-default-accept-language '("Accept-Language" . "el-GR"))
 #+END_SRC
-**Setting the calendar up in Greek.
+** Setting the calendar up in Greek.
 See also [[https://www.emacswiki.org/emacs/CalendarLocalization][EmacsWiki: Calendar Localization]].
 #+BEGIN_SRC emacs-lisp
 (setq calendar-week-start-day 1
