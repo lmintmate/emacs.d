@@ -28,6 +28,7 @@ picpocket ;; image viewer ;; requires emacs 24.4 and up
 racket-mode
 smex
 soundklaus ;; soundcloud streamer
+typo.el
 undo-tree
 web-search (manual install) ;; requires emacs 24.3 and up
 wttrin ;;needs emacs 24.4 and upwards

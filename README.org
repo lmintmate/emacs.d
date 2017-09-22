@@ -494,7 +494,7 @@ I can also have it export both the string to be translated and the translation r
 If I want this export action to be applied to the whole file, and not just to a specific source block, I need to use the ~#+PROPERTY: header-args~ string at the beginning of the file - see [[http://org-babel.readthedocs.io/en/latest/header-args/#buffer-or-file-level-header-arguments][Header arguments - Org Babel reference card]].
 * Typo.el
 [[https://github.com/jorgenschaefer/typoel][An emacs extension for typographical editing]]\\
-This package allows me to use french guillemets, as is the convention in greek typography.\\
+This package allows me to use french guillemets, as is the convention in greek typography.
 ** Enable typo mode globally
 #+BEGIN_SRC emacs-lisp
 (typo-global-mode 1)
