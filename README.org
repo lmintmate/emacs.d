@@ -23,7 +23,7 @@ In this repository is also included an init-windows.el file with a separate conf
 * Todo list
 I also include a TODO list with things I could incorporate to the config in the future, but don't have the time for right now.
 ** DONE Install the magit package and add relevant configuration.
-+It looks as if it could help a lot with the git routine, but I'll have to be prepared for possible troubleshooting, for which I don't have time right now...+
++It looks as if it could help a lot with the git routine, but I'll have to be prepared for possible troubleshooting, for which I don't have time right now...+\\
 Update: It was actually rather painless! I made a change in this very file and commited it in the blink of an eye!
 ** SOMEDAY Possibly add a method to detect (non-)installed packages and auto-install them.
 Like in [[http://aaronbedra.com/emacs.d/#default-packages][Aaron Bedra's Emacs 24 Configuration]], or even sorting the packages in a table first, like [[http://pavpanchekha.com/misc/emacs.html][Pavel Panchekha's Emacs literate init]].
@@ -523,8 +523,8 @@ A setting for Greek isn't available, and since I only ever use double quotes, th
 (setq-default typo-language "Italian")
 #+END_SRC
 * Magit
-A very good git manager (the reports of its greatness aren’t overrated at all!).
-I do wonder where the use of the word porcelain to mean such an environment came from though …
+A very good git manager (the reports of its greatness aren’t overrated at all!).\\
+Btw,for those curious (as I was) where the term "porcelain" with which magit is self-described comes from, [[https://stackoverflow.com/questions/6976473/what-does-the-term-porcelain-mean-in-git][here’s]] an answer - the gist of it is that it is a more accessible interface, as opposed to the less user-friendly "plumbing" levels/commands.
 *** Magit-status keybinding
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-x g") 'magit-status)
