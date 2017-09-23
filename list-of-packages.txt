@@ -11,6 +11,7 @@ htmlize ;; org now requires it in order to export to html (that is, html export 
 ido-completing-read+
 ido-yes-or-no
 legalese
+magit
 malyon (manual install)
 markdown-mode
 minimap
