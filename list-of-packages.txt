@@ -16,7 +16,6 @@ malyon (manual install)
 markdown-mode
 minimap
 mpg123
-nov.el ;; epub reader ;; requires emacs 24.4 and up
 ob-translate
 olivetti
 org
