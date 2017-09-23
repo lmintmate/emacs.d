@@ -107,30 +107,33 @@ I’m used to writing Greek with the modern Greek layout, which is quite differe
 (load "greek")
 #+END_SRC
 * Personal directory parameters
-Here are gathered all the parameters that set directories for use with various packages.\\
-The directory where the Deft package data (including the notes) is saved:
+Here are gathered all the parameters that set directories for use with various packages.
+*** The directory where the Deft package data (including the notes) is saved:
 #+BEGIN_SRC emacs-lisp
 (setq deft-directory "~/.emacs.d/deft")
 #+END_SRC
-The directory where the emacs diary files are saved (I haven't used it in ages however, so I might remove it in the future):
+*** The directory where the emacs diary files are saved:
+(I haven't used it in ages however, so I might remove it in the future)
 #+BEGIN_SRC emacs-lisp
 (setq diary-file "~/.emacs.d/diary")
 #+END_SRC
-The directory where the Racket binary from DrRacket is stored, for use with the geiser and racket-mode packages:
+*** The directory where the Racket binary from DrRacket is stored:
+(for use with the geiser and racket-mode packages)
 #+BEGIN_SRC emacs-lisp
 (setq geiser-racket-binary "~/racket/bin/racket")
 (setq racket-program "~/racket/bin/racket")
 #+END_SRC
-The directory where I save the interactive fiction/text game files, for use with malyon:
+*** The directory where I save the interactive fiction/text game files:
+(for use with malyon)
 #+BEGIN_SRC emacs-lisp
 (setq malyon-stories-directory "~/other-games/frotz-games")
 #+END_SRC
-The directory where I have music for use with mpg123.\\
+*** The directory where I have music for use with mpg123.
 This otherwise good music player has the problem of not being able to recognise directories with non-latin names, such as my Music directory (and it now has disappeared from MELPA for some reason).
 #+BEGIN_SRC emacs-lisp
 (defvar mpg123-default-dir "~/mousiki-gia-emacs")
 #+END_SRC
-My default music directory for use with Bongo.\\
+*** My default music directory for use with Bongo.
 After mpg123 disappeared from MELPA, I tried to examine the other music options. Bongo is the second better (and it can recognise non-latin directory names), but it isn't perfect either, as it stops after every song...
 #+BEGIN_SRC emacs-lisp
 (setq bongo-default-directory "~/Μουσική")
@@ -517,4 +520,10 @@ A setting for Greek isn't available, and since I only ever use double quotes, th
 «Una faccia, una razza!», after all(as goes the saying emphasizing the similarities of Greeks with the Italians).
 #+BEGIN_SRC emacs-lisp
 (setq-default typo-language "Italian")
+#+END_SRC
+* Magit
+Trying out this git manager (no idea where the use of the word porcelain to mean such an environment came from…)
+*** Magit-status keybinding
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-x g") 'magit-status)
 #+END_SRC
