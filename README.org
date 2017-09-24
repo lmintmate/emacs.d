@@ -384,7 +384,7 @@ This mode highlights urls and makes them clickable.\\
             (when (string= (file-name-extension buffer-file-name) "txt")
               (goto-address-mode 1))))
 #+END_SRC
-*** Adds shift + arrows for changing between visible buffers, in addition to Ctrl+O.
+*** Adds shift + arrows for changing between visible buffers, in addition to C-x O.
 #+BEGIN_SRC emacs-lisp
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
