@@ -8,5 +8,51 @@
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
+
+(defvar lmintmate/packages '(bongo
+color-theme-modern
+deft
+dired-icon
+drag-stuff
+esup
+focus
+geiser
+google-translate
+htmlize
+ido-completing-read+
+ido-yes-or-no
+legalese
+magit
+markdown-mode
+minimap
+ob-translate
+olivetti
+org
+org-cliplink
+ox-pandoc
+ox-twbs
+ox-tufte
+pdf-tools
+picpocket
+racket-mode
+smex
+soundklaus
+typo
+undo-tree
+wttrin)
+  "Default packages")
+
+(defun lmintmate/packages-installed-p ()
+  (loop for pkg in lmintmate/packages
+        when (not (package-installed-p pkg)) do (return nil)
+        finally (return t)))
+
+(unless (lmintmate/packages-installed-p)
+  (message "%s" "Refreshing package database...")
+  (package-refresh-contents)
+  (dolist (pkg lmintmate/packages)
+    (when (not (package-installed-p pkg))
+      (package-install pkg))))
+
 (require 'org)
 (org-babel-load-file "~/.emacs.d/README.org")
