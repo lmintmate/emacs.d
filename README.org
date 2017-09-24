@@ -157,6 +157,24 @@ I’m used to writing Greek with the modern Greek layout, which is quite differe
 #+BEGIN_SRC emacs-lisp
 (load "greek")
 #+END_SRC
+* Startup screen and scratch buffer options
+** Inhibit startup screen
+At this point I only use the quick link to the Customize interface, so I thought I’d hide it altogether.
+#+BEGIN_SRC emacs-lisp
+(setq inhibit-startup-screen t)
+#+END_SRC
+** Scratch buffer message
+I added a reminder for the links to ~about-emacs~ and to the Customize interface to the default message.
+#+BEGIN_SRC emacs-lisp
+(setq initial-scratch-message
+   ";; This buffer is for notes you don't want to save, and for Lisp evaluation.
+;; If you want to create a file, visit that file with C-x C-f,
+;; then enter the text in that file's own buffer.
+;; Reminder: To see the startup screen's basic content, use M-x about-emacs.
+;; To quickly access the Customize interface, use M-x customize.
+")
+#+END_SRC
+I decided not to change the scratch buffer’s major mode however, because, as weird as it may sound, I like [[https://en.wikipedia.org/wiki/Polish_notation][prefix notation]] a lot (and think that the [[https://en.wikipedia.org/wiki/Reverse_Polish_notation][Reverse Polish notation]] is overrated in comparison), and want to keep having it as a nifty little prefix calculation mode.
 * Personal directory parameters
 Here are gathered all the parameters that set directories for use with various packages.
 *** The directory where the Deft package data (including the notes) is saved:
