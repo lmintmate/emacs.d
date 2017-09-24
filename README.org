@@ -22,7 +22,7 @@ I also include the old init file in case you don't like literate configs, and mi
 In this repository is also included an init-windows.el file with a separate configuration for my 32-bit windows pc, where the latest version that worked is 24.3.1.
 * Todo list
 I also include a TODO list with things I could incorporate to the config in the future, but don't have the time for right now.
-** TODO Possibly replace smex with [[https://github.com/DarwinAwardWinner/amx][amx]], a fork with recent activity and improvements (since smex's development was indeed inactive).
+** SOMEDAY Possibly replace smex with [[https://github.com/DarwinAwardWinner/amx][amx]], a fork with recent activity and improvements (since smex's development was indeed inactive).
 The main argument against doing so is that smex works just fine for me, and I subscribe by the «If it ain't broken» saying.
 ** DONE Install the magit package and add relevant configuration.
 +It looks as if it could help a lot with the git routine, but I'll have to be prepared for possible troubleshooting, for which I don't have time right now...+\\
@@ -177,6 +177,11 @@ I added a reminder for the links to ~about-emacs~ and to the Customize interface
 ")
 #+END_SRC
 I decided not to change the scratch buffer’s major mode however, because, as weird as it may sound, I like [[https://en.wikipedia.org/wiki/Polish_notation][prefix notation]] a lot (and think that the [[https://en.wikipedia.org/wiki/Reverse_Polish_notation][Reverse Polish notation]] is overrated in comparison), and want to keep having it as a nifty little prefix calculation mode.
+** New message for the startup echo area
+#+BEGIN_SRC emacs-lisp
+(defun display-startup-echo-area-message ()
+  (message "Καλωσήλθες!"))
+#+END_SRC
 * Personal directory parameters
 Here are gathered all the parameters that set directories for use with various packages.
 *** The directory where the Deft package data (including the notes) is saved:
@@ -318,63 +323,59 @@ Newsticker's url list. It is automatically populated with M-x newsticker-opml-im
      ("Reddit linuxmasterrace" "https://www.reddit.com/r/linuxmasterrace/.rss" nil nil nil))))
 #+END_SRC
 * Other configuration parameters
-Do not autosave nor make any backup files.\\
+*** Do not autosave nor make any backup files.
 All they do is litter the place and trigger a nagging prompt whenever I leave Emacs without having saved.
 #+BEGIN_SRC emacs-lisp
 (setq auto-save-default nil)
 (setq make-backup-files nil)
 #+END_SRC
-Delete by moving to the trash (the default behavior being completely delete from the system).
+*** Delete by moving to the trash
+(the default behavior being completely delete from the system)
 #+BEGIN_SRC emacs-lisp
 (setq delete-by-moving-to-trash t)
 #+END_SRC
-Delete selection mode.\\
+*** Delete selection mode.
 It deletes selected text with the Delete key, which bring Emacs more in line with other text editors.
 #+BEGIN_SRC emacs-lisp
 (setq delete-selection-mode t)
 #+END_SRC
-Geiser's active implementations.
+*** Geiser's active implementations.
 #+BEGIN_SRC emacs-lisp
 (setq geiser-active-implementations (quote (guile racket chez mit chibi)))
 #+END_SRC
-Racket memory limit
+*** Racket memory limit
 #+BEGIN_SRC emacs-lisp
 (setq racket-memory-limit 128)
 #+END_SRC
-Remember notes inital major mode\\
+*** Remember notes inital major mode
 (Not sure whether I'll keep that one, as I don't use Remember notes anymore...)
 #+BEGIN_SRC emacs-lisp
 (setq remember-notes-initial-major-mode (quote text-mode))
 #+END_SRC
-Display inline images in the w3m browser from within emacs.
+*** Display inline images in the w3m browser from within emacs.
 #+BEGIN_SRC emacs-lisp
 (setq w3m-default-display-inline-images t)
 #+END_SRC
-Disabling menu bar when emacs is run in a  terminal.\\
+*** Disabling menu bar when emacs is run in a  terminal.
 Since it can't be clicked anyways, it takes up space without reason...
 #+BEGIN_SRC emacs-lisp
 (when (not (window-system))
   (menu-bar-mode -1))
 #+END_SRC
-Toggling the menu bar with a keyboard shortcut.
+*** Toggling the menu bar with a keyboard shortcut.
 #+BEGIN_SRC emacs-lisp
 (global-set-key [f9] 'toggle-menu-bar-mode-from-frame)
 #+END_SRC
-Toggling the scroll bar with a keyboard shortcut
+*** Toggling the scroll bar with a keyboard shortcut
 #+BEGIN_SRC emacs-lisp
 (global-set-key [f10] 'toggle-scroll-bar)
 #+END_SRC
-New message for the startup echo area.
-#+BEGIN_SRC emacs-lisp
-(defun display-startup-echo-area-message ()
-  (message "Καλωσήλθες!"))
-#+END_SRC
-Visual line mode only for text mode.\\
+*** Visual line mode only for text mode.
 Visual line wraps lines instead of cutting them as default.
 #+BEGIN_SRC emacs-lisp
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 #+END_SRC
-Associate .txt files with the goto-address-mode.\\
+*** Associate .txt files with the goto-address-mode.
 This mode highlights urls and makes them clickable.\\
 (code adapted from [[https://stackoverflow.com/questions/13945782/emacs-auto-minor-mode-based-on-extension/39652226#39652226][this stackoverflow answer]])
 #+BEGIN_SRC emacs-lisp
@@ -383,7 +384,7 @@ This mode highlights urls and makes them clickable.\\
             (when (string= (file-name-extension buffer-file-name) "txt")
               (goto-address-mode 1))))
 #+END_SRC
-Adds shift + arrows for changing between visible buffers, in addition to Ctrl+O.
+*** Adds shift + arrows for changing between visible buffers, in addition to Ctrl+O.
 #+BEGIN_SRC emacs-lisp
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
