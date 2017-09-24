@@ -23,7 +23,7 @@ In this repository is also included an init-windows.el file with a separate conf
 * Todo list
 I also include a TODO list with things I could incorporate to the config in the future, but don't have the time for right now.
 ** TODO Possibly replace smex with [[https://github.com/DarwinAwardWinner/amx][amx]], a fork with recent activity and improvements (since smex's development was indeed inactive).
-The main argument against doing so is that smex works just fine for me, and I subsrcibe by the «If it ain't broken» saying.
+The main argument against doing so is that smex works just fine for me, and I subscribe by the «If it ain't broken» saying.
 ** DONE Install the magit package and add relevant configuration.
 +It looks as if it could help a lot with the git routine, but I'll have to be prepared for possible troubleshooting, for which I don't have time right now...+\\
 Update: It was actually rather painless! I made a change in this very file and commited it in the blink of an eye!
