@@ -160,7 +160,8 @@ I’m used to writing Greek with the modern Greek layout, which is quite differe
 (load "greek")
 #+END_SRC
 *** Loading the verbiste-el package
-[[https://www.emacswiki.org/emacs/VerbisteEl][Verbiste El]] is an emacs front end for the Verbiste french verb conjugator. Said program has a more updated gui version in the package managers that also includes Italian, but the emacs version only supports french. This seems to be a rather obscure package (and as result unsupported) though, which is rather sad.
+[[https://www.emacswiki.org/emacs/VerbisteEl][Verbiste El]] is an emacs front end for the Verbiste french verb conjugator. Said program has a more updated gui version in the package managers that also includes Italian, but the emacs version only supports french. This seems to be a rather obscure package (and as result unsupported) though, which is rather sad.\\
+I use the somewhat newer version, that has a better presentation (the one whose link is dead on emacswiki), which can be found [[https://github.com/daimrod/Emacs-config/blob/master/elisp/verbiste.el][here]].
 #+BEGIN_SRC emacs-lisp
 (load "verbiste")
 #+END_SRC
