@@ -513,9 +513,20 @@ Function to turn off the menu bar when olivetti mode is enabled
   (add-hook 'olivetti-mode-hook 'turn-off-menu-with-olivetti))
 #+END_SRC
 * Web-search.el package config
-Set the default search provider
+** Set the default search provider
 #+BEGIN_SRC emacs-lisp
 (setq web-search-default-provider "DuckDuckGo")
+#+END_SRC
+** Add custom search engines
+*** Italian verbs
+#+BEGIN_SRC emacs-lisp
+(push '("Italian Verbs" "https://www.italian-verbs.com/italian-verbs/conjugation.php?parola=%s" "Languages")
+      web-search-providers)
+#+END_SRC
+*** William Whitaker's Latin Dictionary
+#+BEGIN_SRC emacs-lisp
+(push '("William Whitaker's Latin Dictionary" "http://archives.nd.edu/cgi-bin/wordz.pl?keyword=%s" "Languages")
+      web-search-providers)
 #+END_SRC
 * Emms setup (for soundklaus)
 #+BEGIN_SRC emacs-lisp
