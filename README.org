@@ -528,6 +528,11 @@ Function to turn off the menu bar when olivetti mode is enabled
 (push '("William Whitaker's Latin Dictionary" "http://archives.nd.edu/cgi-bin/wordz.pl?keyword=%s" "Languages")
       web-search-providers)
 #+END_SRC
+*** William Whitaker's English to Latin
+#+BEGIN_SRC emacs-lisp
+(push '("William Whitaker's English to Latin" "http://archives.nd.edu/cgi-bin/wordz.pl?english=%s" "Languages")
+      web-search-providers)
+#+END_SRC
 * Emms setup (for soundklaus)
 #+BEGIN_SRC emacs-lisp
 (require 'emms-setup)
