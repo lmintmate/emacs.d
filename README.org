@@ -504,9 +504,11 @@ Global undo tree mode.
 #+BEGIN_SRC emacs-lisp
 (global-undo-tree-mode)
 #+END_SRC
-Define M-/ as the redo key.
+Define undo and redo keys.\\
+M-p for M-previous and M-n for M-next. These might not be the most comfortable of keybindings, but they are the most easily memorable amongst the unbound keys.
 #+BEGIN_SRC emacs-lisp
-(define-key global-map "\M-/" 'undo-tree-redo)
+(define-key global-map "\M-p" 'undo-tree-undo)
+(define-key global-map "\M-n" 'undo-tree-redo)
 #+END_SRC
 * Olivetti mode - Mode for distraction-free writing.
 Hide the mode line when enabling olivetti.
