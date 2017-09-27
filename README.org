@@ -341,10 +341,18 @@ All they do is litter the place and trigger a nagging prompt whenever I leave Em
 (setq delete-by-moving-to-trash t)
 #+END_SRC
 *** Delete selection mode.
-It deletes selected text with the Delete key, which bring Emacs more in line with other text editors.
+I used to think that this enabled deleting selected text with the Delete key, but it turns out that one is the work of the ~delete-active-region~ parameter, which is enabled by default. What this does is allow the replacing of selected text with other inserted (e.g. pasted/yanked) text, thus bringing Emacs more in line with other text editors.\\
+I initially set this one from the Customization buffer, and got ~(setq delete-selection-mode t)~ as the resulting code snippet, so I assumed it would work even when outside the ~custom-set-variables~, but it didn't - and then I was wondering why pasting text didn't replace the selected text… Now I replaced that wrong parameter with the correct one.
 #+BEGIN_SRC emacs-lisp
-(setq delete-selection-mode t)
+(delete-selection-mode 1)
 #+END_SRC
+P.S. Just so you know, here's precisely why the other wording hadn't worked:
+#+BEGIN_QUOTE
+Setting this variable directly does not take effect;
+   either customize it (see the info node `Easy Customization')
+   or call the function `delete-selection-mode'
+#+END_QUOTE
+That goes into showing that RT(F)M is valid advice…
 *** Geiser's active implementations.
 #+BEGIN_SRC emacs-lisp
 (setq geiser-active-implementations (quote (guile racket chez mit chibi)))
