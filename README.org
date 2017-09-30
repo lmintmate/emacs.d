@@ -56,7 +56,8 @@ From [[http://aaronbedra.com/emacs.d/#default-packages][Aaron Bedra's Emacs 24 C
 The first part of the code defines the packages to be installed ; from this list are absent the packages installed manually, present in the lisp folder, and packages not at MELPA anymore, like mpg123. The second part of the code does the following: when Emacs boots, it checks to make sure all of the packages defined in lmintmate/packages are installed. If not, it has MELPA take care of it.\\
 P.S Just so you know, I’m aware that ~use-package~ can be used to achieve the same effect, but I’d have to change the entirety of my configuration for that, so it was more trouble than was worth.
 #+BEGIN_EXAMPLE
-(defvar lmintmate/packages '(bongo
+(defvar lmintmate/packages '(2048-game
+bongo
 color-theme-modern
 deft
 dired-icon

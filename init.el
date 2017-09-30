@@ -9,7 +9,8 @@
              '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
 
-(defvar lmintmate/packages '(bongo
+(defvar lmintmate/packages '(2048-game
+bongo
 color-theme-modern
 deft
 dired-icon
