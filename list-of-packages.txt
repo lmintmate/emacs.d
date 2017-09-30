@@ -33,3 +33,4 @@ undo-tree
 verbiste (manual install)
 web-search (manual install) ;; requires emacs 24.3 and up
 wttrin ;;needs emacs 24.4 and upwards
+zeal-at-point

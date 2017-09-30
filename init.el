@@ -39,7 +39,8 @@ smex
 soundklaus
 typo
 undo-tree
-wttrin)
+wttrin
+zeal-at-point)
   "Default packages")
 
 (defun lmintmate/packages-installed-p ()
