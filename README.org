@@ -635,8 +635,9 @@ Btw,for those curious (as I was) where the term "porcelain" with which magit is 
 (global-set-key (kbd "C-x g") 'magit-status)
 #+END_SRC
 * Emacs-lisp related configuration
-** Enable show-paren-mode on emacs-lisp mode
-This highlights matching parentheses in emacs lisp code.
+** Enable show-paren-mode
+This highlights matching parentheses. Turns out it is a global minor mode, and it thus has to be activated for everything or for nothing. The ~show-paren-delay~ option shows the matching parenthese instantaneously when set to 0.
 #+BEGIN_SRC emacs-lisp
-(add-hook 'emacs-lisp-mode-hook 'show-paren-mode)
+(setq show-paren-delay 0)
+(show-paren-mode 1)
 #+END_SRC
