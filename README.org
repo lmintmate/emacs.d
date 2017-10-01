@@ -634,3 +634,9 @@ Btw,for those curious (as I was) where the term "porcelain" with which magit is 
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-x g") 'magit-status)
 #+END_SRC
+* Emacs-lisp related configuration
+** Enable show-paren-mode on emacs-lisp mode
+This highlights matching parentheses in emacs lisp code.
+#+BEGIN_SRC emacs-lisp
+(add-hook 'emacs-lisp-mode-hook 'show-paren-mode)
+#+END_SRC
