@@ -636,8 +636,9 @@ Btw,for those curious (as I was) where the term "porcelain" with which magit is 
 #+END_SRC
 * Emacs-lisp related configuration
 ** Enable show-paren-mode
-This highlights matching parentheses. Turns out it is a global minor mode, and it thus has to be activated for everything or for nothing. The ~show-paren-delay~ option shows the matching parenthese instantaneously when set to 0.
+This highlights matching parentheses. Turns out it is a global minor mode, and it thus has to be activated for everything or for nothing. The ~show-paren-delay~ option shows the matching parenthese instantaneously when set to 0. The ~show-paren-style~ option set to mixed shows the matching parenthesis when it is visible and highlights the expression when it isn’t.
 #+BEGIN_SRC emacs-lisp
 (setq show-paren-delay 0)
 (show-paren-mode 1)
+(setq show-paren-style (quote mixed))
 #+END_SRC
