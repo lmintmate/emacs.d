@@ -329,7 +329,11 @@ Newsticker's url list. It is automatically populated with M-x newsticker-opml-im
      ("OmgUbuntu" "http://feeds.feedburner.com/d0od" nil nil nil)
      ("Reddit Linux" "https://www.reddit.com/r/linux/.rss" nil nil nil)
      ("Reddit Linux Mint" "https://www.reddit.com/r/linuxmint/.rss" nil nil nil)
-     ("Reddit linuxmasterrace" "https://www.reddit.com/r/linuxmasterrace/.rss" nil nil nil))))
+     ("Reddit linuxmasterrace" "https://www.reddit.com/r/linuxmasterrace/.rss" nil nil nil)
+     ("M-x emacs-reddit" "https://www.reddit.com/r/emacs/.rss" nil nil nil)
+     ("πλανήτης ελληνικής κοινότητας ΕΛ/ΛΑΚ" "https://planet.ellak.gr/atom.xml" nil nil nil)
+     ("Framablog" "https://framablog.org/feed/" nil nil nil)
+     ("Planet Emacsen" "http://planet.emacsen.org/atom.xml" nil nil nil))))
 #+END_SRC
 * Other configuration parameters
 *** Do not autosave nor make any backup files.
