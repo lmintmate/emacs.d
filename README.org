@@ -310,16 +310,17 @@ The keyboard shortcut for the above function.
 (define-key global-map "\M-[" 'rotate-windows)
 #+END_SRC
 * Newsticker configuration
-Newsticker is awesome, it's just like Liferea, but inside emacs!\\
-Keep none of the proposed by emacs urls in the list.
+Newsticker is awesome, it's just like Liferea, but inside emacs!
+** Keep none of the proposed by emacs urls in the list.
 #+BEGIN_SRC emacs-lisp
 (setq newsticker-url-list-defaults nil)
 #+END_SRC
-Do not keep obsolete items.
+** Do not keep obsolete items.
 #+BEGIN_SRC emacs-lisp
 (setq newsticker-keep-obsolete-items nil)
 #+END_SRC
-Newsticker's url list. It is automatically populated with M-x newsticker-opml-import.
+** Newsticker's url list.
+It is automatically populated with M-x newsticker-opml-import.
 #+BEGIN_SRC emacs-lisp
 (setq newsticker-url-list
    (quote
