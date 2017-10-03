@@ -57,6 +57,7 @@ The first part of the code defines the packages to be installed ; from this list
 P.S Just so you know, I’m aware that ~use-package~ can be used to achieve the same effect, but I’d have to change the entirety of my configuration for that, so it was more trouble than was worth.
 #+BEGIN_EXAMPLE
 (defvar lmintmate/packages '(2048-game
+basic-mode
 bongo
 color-theme-modern
 deft

@@ -1,4 +1,5 @@
 2048-game
+basic-mode
 bongo
 color-theme-modern ;; for the blue-mood theme
 deft
