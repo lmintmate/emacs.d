@@ -561,9 +561,10 @@ Function to turn off the menu bar when olivetti mode is enabled
 #+BEGIN_SRC emacs-lisp
 (require 'drag-stuff)
 #+END_SRC
-Hook drag-stuff-mode to text-mode.
+Hook drag-stuff-mode to text-mode and prog-mode.
 #+BEGIN_SRC emacs-lisp
 (add-hook 'text-mode-hook 'drag-stuff-mode)
+(add-hook 'prog-mode-hook 'drag-stuff-mode)
 #+END_SRC
 Define the keybindings - the default being M- and arrow keys.
 #+BEGIN_SRC emacs-lisp
