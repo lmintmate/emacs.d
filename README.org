@@ -78,6 +78,7 @@ ob-translate
 olivetti
 org
 org-cliplink
+origami
 ox-pandoc
 ox-twbs
 ox-tufte
@@ -648,4 +649,15 @@ This highlights matching parentheses. Turns out it is a global minor mode, and i
 (setq show-paren-delay 0)
 (show-paren-mode 1)
 (setq show-paren-style (quote mixed))
+#+END_SRC
+* Origami mode
+[[https://github.com/gregsexton/origami.el][Link]]. A nifty minor mode to fold code the same way org-mode headings are folded.
+#+BEGIN_SRC emacs-lisp
+(require 'origami)
+(add-hook 'prog-mode-hook 'origami-mode)
+#+END_SRC
+Keybindings. The ~<backtab>~ string means Shift+Tab.
+#+BEGIN_SRC emacs-lisp
+(define-key origami-mode-map (kbd "TAB") 'origami-recursively-toggle-node)
+(define-key origami-mode-map (kbd "<backtab>") 'origami-toggle-all-nodes)
 #+END_SRC
