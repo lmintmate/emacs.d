@@ -662,8 +662,7 @@ Keybindings. The ~<backtab>~ string means Shift+Tab.
 (define-key origami-mode-map (kbd "<backtab>") 'origami-toggle-all-nodes)
 #+END_SRC
 * Basic mode
-[[https://github.com/dykstrom/basic-mode][Link]]. This mode deals with coloring and indentation of BASIC code (not with evaluation though sadly). I changed the ~basic-line-number-cols~ parameter so that it will account for the fact that I'll be using line numbers.\\
-One peculiarity the indentation has btw is the following: When writing a line other than the first, it indents the code of that line a little bit, but moving on to the next line with enter puts the code back where it should be - I'll just assume this is a visual indication of the latest line being worked on…
+[[https://github.com/dykstrom/basic-mode][Link]]. This mode deals with coloring and indentation of BASIC code (not with evaluation though sadly). I changed the ~basic-line-number-cols~ parameter so that it will account for the fact that I'll be using line numbers.
 #+BEGIN_SRC emacs-lisp
 (setq basic-line-number-cols 2)
 #+END_SRC
