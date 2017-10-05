@@ -61,6 +61,7 @@ basic-mode
 bongo
 color-theme-modern
 deft
+diminish
 dired-icon
 drag-stuff
 esup
@@ -664,4 +665,13 @@ Keybindings. The ~<backtab>~ string means Shift+Tab.
 [[https://github.com/dykstrom/basic-mode][Link]]. This mode deals with coloring and indentation of BASIC code (not with evaluation though sadly). I changed the ~basic-line-number-cols~ parameter so that it will account for the fact that I'll be using line numbers.
 #+BEGIN_SRC emacs-lisp
 (setq basic-line-number-cols 2)
+#+END_SRC
+* Diminish mode
+A mode that cuts off the display of minor modes which I want to work [[https://github.com/myrjola/diminish.el#introduction][discreetly, like janitors]]. Without any arguments, they are hidden entirely from the modeline, otherwise they are simply abbreviated to the specified abbreviation.
+#+BEGIN_SRC emacs-lisp
+(require 'diminish)
+(diminish 'visual-line-mode "Vl")
+(diminish 'undo-tree-mode "Ut")
+(diminish 'drag-stuff-mode)
+(diminish 'typo-mode)
 #+END_SRC

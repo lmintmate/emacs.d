@@ -3,6 +3,7 @@ basic-mode
 bongo
 color-theme-modern ;; for the blue-mood theme
 deft
+diminish
 dired-icon
 drag-stuff
 esup

@@ -14,6 +14,7 @@ basic-mode
 bongo
 color-theme-modern
 deft
+diminish
 dired-icon
 drag-stuff
 esup
