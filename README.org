@@ -78,7 +78,6 @@ ob-translate
 olivetti
 org
 org-cliplink
-origami
 ox-pandoc
 ox-twbs
 ox-tufte
@@ -650,16 +649,16 @@ This highlights matching parentheses. Turns out it is a global minor mode, and i
 (show-paren-mode 1)
 (setq show-paren-style (quote mixed))
 #+END_SRC
-* Origami mode
-[[https://github.com/gregsexton/origami.el][Link]]. A nifty minor mode to fold code the same way org-mode headings are folded.
+* HideShow mode
+[[https://www.emacswiki.org/emacs/HideShow][Link]]. A nifty minor mode to fold code the same way org-mode headings are folded.
 #+BEGIN_SRC emacs-lisp
-(require 'origami)
-(add-hook 'prog-mode-hook 'origami-mode)
+(add-hook 'prog-mode-hook 'hs-minor-mode)
 #+END_SRC
 Keybindings. The ~<backtab>~ string means Shift+Tab.
 #+BEGIN_SRC emacs-lisp
-(define-key origami-mode-map (kbd "TAB") 'origami-recursively-toggle-node)
-(define-key origami-mode-map (kbd "<backtab>") 'origami-toggle-all-nodes)
+(define-key prog-mode-map (kbd "TAB") 'hs-toggle-hiding)
+(define-key prog-mode-map (kbd "<backtab>") 'hs-hide-all)
+(define-key prog-mode-map (kbd "<C-tab>") 'hs-show-all)
 #+END_SRC
 * Basic mode
 [[https://github.com/dykstrom/basic-mode][Link]]. This mode deals with coloring and indentation of BASIC code (not with evaluation though sadly). I changed the ~basic-line-number-cols~ parameter so that it will account for the fact that I'll be using line numbers.

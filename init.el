@@ -31,7 +31,6 @@ ob-translate
 olivetti
 org
 org-cliplink
-origami
 ox-pandoc
 ox-twbs
 ox-tufte
