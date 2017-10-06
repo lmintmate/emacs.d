@@ -505,6 +505,11 @@ adapted from [[http://sachachua.com/blog/2012/12/emacs-strike-through-headlines-
  '(org-done ((t (:foreground "PaleGreen" :strike-through t :weight bold))))
  '(org-headline-done ((t (:foreground "LightSalmon" :strike-through t)))))
 #+END_SRC
+*** Color only the stars for the org mode levels
+This is a nice little setting I found while browsing the Customize interface. It removes the color from the org headline levels, only keeping it on the stars. This makes the buffer way less colorful, but I find it more clean that way. Not to mention that because my color theme isn't amongst the most popular ones, the coloring was a bit bizzare, in that the first level was green, the second plain white and the third yellow, which was a bit disorienting, since I'd expect the second level to be colored instead of the third. So I've now removed the color from the text and can focus on the stars for denoting the hierarchy.
+#+BEGIN_SRC emacs-lisp
+(setq org-level-color-stars-only t)
+#+END_SRC
 *** Ox Tufte package
 A package that exports org files following the [[https://edwardtufte.github.io/tufte-css/][Tufte CSS]] presentation style.
 #+BEGIN_SRC emacs-lisp
