@@ -344,6 +344,11 @@ All they do is litter the place and trigger a nagging prompt whenever I leave Em
 (setq auto-save-default nil)
 (setq make-backup-files nil)
 #+END_SRC
+*** Do not create lockfiles
+The only thing they do is being annoying, and I'm not going to find myself in a situation where I'll be writing on the exact same file as someone else.
+#+BEGIN_SRC emacs-lisp
+(setq create-lockfiles nil)
+#+END_SRC
 *** Delete by moving to the trash
 (the default behavior being completely delete from the system)
 #+BEGIN_SRC emacs-lisp
