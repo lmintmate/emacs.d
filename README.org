@@ -469,35 +469,35 @@ I use the European system day-month-year.
 #+END_SRC
 * Org Mode configuration
 The ~(require 'org)~ part is present in the init.el file instead of here, precisely in order to compile this very file.
-*** Define C-c l as the keybinding to org-store-link.
+** Define C-c l as the keybinding to org-store-link.
 #+BEGIN_SRC emacs-lisp
 (define-key global-map "\C-cl" 'org-store-link)
 #+END_SRC
-*** Set keywords for Org progress states.
+** Set keywords for Org progress states.
 These are, apart from TODO and DONE, also CURRENTLY and SOMEDAY.
 #+BEGIN_SRC emacs-lisp
 (setq org-todo-keywords
    (quote
     ((sequence "TODO(t)" "CURRENTLY(c)" "SOMEDAY(s)" "DONE(d)"))))
 #+END_SRC
-*** Use query to confirm killing of hidden subtrees
+** Use query to confirm killing of hidden subtrees
 #+BEGIN_SRC emacs-lisp
 (setq org-ctrl-k-protect-subtree t)
 #+END_SRC
-*** Enable support of shift selection of text in org-mode except in special instances.
+** Enable support of shift selection of text in org-mode except in special instances.
 #+BEGIN_SRC emacs-lisp
 (setq org-support-shift-select t)
 #+END_SRC
-*** Auto adjust footnotes
+** Auto adjust footnotes
 #+BEGIN_SRC emacs-lisp
 (setq org-footnote-auto-adjust t)
 #+END_SRC
-*** Follow link in orgmode by pressing Enter key
+** Follow link in orgmode by pressing Enter key
 This adds an alternative way to follow urls in orgmode without reaching out for the mouse.
 #+BEGIN_SRC emacs-lisp
 (setq org-return-follows-link t)
 #+END_SRC
-*** Strikethrough for Done tasks
+** Strikethrough for Done tasks
 adapted from [[http://sachachua.com/blog/2012/12/emacs-strike-through-headlines-for-done-tasks-in-org/][Sacha Chua's blog]]
 #+BEGIN_SRC emacs-lisp
 (setq org-fontify-done-headline t)
@@ -505,12 +505,19 @@ adapted from [[http://sachachua.com/blog/2012/12/emacs-strike-through-headlines-
  '(org-done ((t (:foreground "PaleGreen" :strike-through t :weight bold))))
  '(org-headline-done ((t (:foreground "LightSalmon" :strike-through t)))))
 #+END_SRC
-*** Color only the stars for the org mode levels
+** Color only the stars for the org mode levels
 This is a nice little setting I found while browsing the Customize interface. It removes the color from the org headline levels, only keeping it on the stars. This makes the buffer way less colorful, but I find it more clean that way. Not to mention that because my color theme isn't amongst the most popular ones, the coloring was a bit bizzare, in that the first level was green, the second plain white and the third yellow, which was a bit disorienting, since I'd expect the second level to be colored instead of the third. So I've now removed the color from the text and can focus on the stars for denoting the hierarchy.
 #+BEGIN_SRC emacs-lisp
 (setq org-level-color-stars-only t)
 #+END_SRC
-*** Ox Tufte package
+** Custom color for headline levels 2 and 3
+In my color theme, headline level 2 used to be plain white, while headline level 3 used to be bold «gold» in color, which was confusing, as I'd expect the inverse. So I took the initiative and customized the colors myself - on the way I decided I preferred level 3 to also be obvious as a headline, and distinguishable from the rest of the text.
+#+BEGIN_SRC emacs-lisp
+(custom-set-faces
+ '(org-level-2 ((t (:foreground "gold" :weight bold))))
+ '(org-level-3 ((t (:foreground "cyan3" :weight bold)))))
+#+END_SRC
+** Ox Tufte package
 A package that exports org files following the [[https://edwardtufte.github.io/tufte-css/][Tufte CSS]] presentation style.
 #+BEGIN_SRC emacs-lisp
 (require 'ox-tufte)
@@ -648,7 +655,7 @@ A setting for Greek isn't available, and since I only ever use double quotes, th
 * Magit
 A very good git manager (the reports of its greatness aren’t overrated at all!).\\
 Btw,for those curious (as I was) where the term "porcelain" with which magit is self-described comes from, [[https://stackoverflow.com/questions/6976473/what-does-the-term-porcelain-mean-in-git][here’s]] an answer - the gist of it is that it is a more accessible interface, as opposed to the less user-friendly "plumbing" levels/commands.
-*** Magit-status keybinding
+** Magit-status keybinding
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-x g") 'magit-status)
 #+END_SRC
