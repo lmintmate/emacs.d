@@ -31,6 +31,7 @@ picpocket ;; image viewer ;; requires emacs 24.4 and up
 racket-mode
 smex
 soundklaus ;; soundcloud streamer
+tabbar
 typo.el
 undo-tree
 verbiste (manual install)

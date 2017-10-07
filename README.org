@@ -87,6 +87,7 @@ picpocket
 racket-mode
 smex
 soundklaus
+tabbar
 typo
 undo-tree
 wttrin
@@ -686,4 +687,70 @@ A mode that cuts off the display of minor modes which I want to work [[https://g
 (diminish 'undo-tree-mode "Ut")
 (diminish 'drag-stuff-mode)
 (diminish 'typo-mode)
+#+END_SRC
+* Tabbar
+Modified from [[https://gist.github.com/3demax/1264635][Emacs tabbar-mode visual tweaks · GitHub]], to make it more compatible with my own theme.
+#+BEGIN_SRC emacs-lisp
+;; These are settings for nice tabbar items
+;; to have an idea of what it looks like http://imgur.com/b0SNN
+;; inspired by Amit Patel screenshot http://www.emacswiki.org/pics/static/NyanModeWithCustomBackground.png
+;; Tabbar
+(require 'tabbar)
+;; Tabbar settings
+(set-face-attribute
+ 'tabbar-default nil
+ :background "DodgerBlue4"
+ :foreground "white"
+ :box '(:line-width 1 :color "DodgerBlue4" :style nil))
+(set-face-attribute
+ 'tabbar-unselected nil
+ :background "azure3"
+ :foreground "white"
+ :box '(:line-width 5 :color "azure3" :style nil))
+(set-face-attribute
+ 'tabbar-selected nil
+ :background "DodgerBlue3"
+ :foreground "white"
+ :box '(:line-width 5 :color "DodgerBlue3" :style nil))
+(set-face-attribute
+ 'tabbar-selected-modified nil
+ :background "DodgerBlue3"
+ :foreground "red"
+ :box '(:line-width 5 :color "DodgerBlue3" :style nil))
+(set-face-attribute
+ 'tabbar-highlight nil
+ :background "white"
+ :foreground "DodgerBlue4"
+ :underline nil
+ :box '(:line-width 5 :color "white" :style nil))
+(set-face-attribute
+ 'tabbar-button nil
+ :box '(:line-width 1 :color "DodgerBlue4" :style nil))
+(set-face-attribute
+ 'tabbar-separator nil
+ :background "DodgerBlue4"
+ :height 0.6)
+
+;; Change padding of the tabs
+;; we also need to set separator to avoid overlapping tabs by highlighted tabs
+(custom-set-variables
+ '(tabbar-separator (quote (0.5))))
+;; adding spaces
+(defun tabbar-buffer-tab-label (tab)
+  "Return a label for TAB.
+That is, a string used to represent it on the tab bar."
+  (let ((label  (if tabbar--buffer-show-groups
+                    (format "[%s]  " (tabbar-tab-tabset tab))
+                  (format "%s  " (tabbar-tab-value tab)))))
+    ;; Unless the tab bar auto scrolls to keep the selected tab
+    ;; visible, shorten the tab label to keep as many tabs as possible
+    ;; in the visible area of the tab bar.
+    (if tabbar-auto-scroll-flag
+        label
+      (tabbar-shorten
+       label (max 1 (/ (window-width)
+                       (length (tabbar-view
+                                (tabbar-current-tabset)))))))))
+(setq tabbar-use-images nil)
+(tabbar-mode 1)
 #+END_SRC
