@@ -141,11 +141,11 @@ I also modified the fringe color to the same background color as the rest of the
  '(fringe ((t (:background "DodgerBlue4")))))
 #+END_SRC
 ** Mode line customisation
-Where I make it similar to [[https://github.com/emacs-jp/replace-colorthemes/blob/master/images/blue-mood-theme.png][this image]].
+Where I make it flatter.
 #+BEGIN_SRC emacs-lisp
 (custom-set-faces
- '(mode-line ((t (:background "goldenrod" :foreground "darkblue"))))
- '(mode-line-highlight ((t (:box (:line-width 1 :color "darkblue")))))
+ '(mode-line ((t (:background "grey75" :foreground "black"))))
+ '(mode-line-highlight ((t (:box (:line-width 1 :color "grey20")))))
  '(mode-line-inactive ((t (:background "grey30" :foreground "grey80")))))
 #+END_SRC
 * Manually loading external lisp files
