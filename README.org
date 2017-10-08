@@ -754,3 +754,13 @@ That is, a string used to represent it on the tab bar."
 (setq tabbar-use-images nil)
 (tabbar-mode 1)
 #+END_SRC
+* Ediff
+I'm trying to move myself to emacs as much as possible, so I now decided to replace the functionality of Meld.\\
+This line splits the ediff windows horizontally instead of vertically.
+#+BEGIN_SRC emacs-lisp
+(setq ediff-split-window-function (quote split-window-horizontally))
+#+END_SRC
+This one puts the ediff help buffer in the same frame as the rest, as I was a bit bothered by the separate small window it had.
+#+BEGIN_SRC emacs-lisp
+(setq ediff-window-setup-function (quote ediff-setup-windows-plain))
+#+END_SRC
