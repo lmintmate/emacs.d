@@ -418,27 +418,31 @@ This mode highlights urls and makes them clickable.\\
 (pdf-tools-install)
 #+END_SRC
 * Dired Mode Configurations
-Enable dired icon mode.\\
+** Enable dired icon mode.
 This functionality, coming from the dired-icon package, shows icons from the currently used icon theme next to the filenames, and thus makes for a better dired experience.
 #+BEGIN_SRC emacs-lisp
 (add-hook 'dired-mode-hook 'dired-icon-mode)
 #+END_SRC
-Setting to make the image size of the dired-icon icons bigger.
+*** Setting to make the image size of the dired-icon icons bigger.
 #+BEGIN_SRC emacs-lisp
 (setq dired-icon-image-size 32)
 #+END_SRC
-Dired listing\\
-Group directories first.
+** Dired listing
+*** Group directories first.
 #+BEGIN_SRC emacs-lisp
 (setq dired-listing-switches "-al --group-directories-first")
 #+END_SRC
-Sort files by modified date.
+*** Sort files by modified date.
 #+BEGIN_SRC emacs-lisp
 (add-hook 'dired-mode-hook 'dired-sort-toggle-or-edit)
 #+END_SRC
-Hide the details on dired mode, for a cleaner appearance.
+*** Hide the details on dired mode, for a cleaner appearance.
 #+BEGIN_SRC emacs-lisp
 (add-hook 'dired-mode-hook 'dired-hide-details-mode)
+#+END_SRC
+** Dired dwim target
+#+BEGIN_SRC emacs-lisp
+(setq dired-dwim-target t)
 #+END_SRC
 * Load mpg123
 #+BEGIN_SRC emacs-lisp
@@ -763,4 +767,29 @@ This line splits the ediff windows horizontally instead of vertically.
 This one puts the ediff help buffer in the same frame as the rest, as I was a bit bothered by the separate small window it had.
 #+BEGIN_SRC emacs-lisp
 (setq ediff-window-setup-function (quote ediff-setup-windows-plain))
+#+END_SRC
+** Operate ediff through dired
+Modified from [[http://oremacs.com/2017/03/18/dired-ediff/][Quickly ediff files from dired · (or emacs]]
+#+BEGIN_SRC emacs-lisp
+(require 'dired-aux)
+;; -*- lexical-binding: t -*-
+(defun ora-ediff-files ()
+  (interactive)
+  (let ((files (dired-get-marked-files))
+        (wnd (current-window-configuration)))
+    (if (<= (length files) 2)
+        (let ((file1 (car files))
+              (file2 (if (cdr files)
+                         (cadr files)
+                       (read-file-name
+                        "file: "
+                        (dired-dwim-target-directory)))))
+          (if (file-newer-than-file-p file1 file2)
+              (ediff-files file2 file1)
+            (ediff-files file1 file2)))
+      (error "no more than 2 files should be marked"))))
+#+END_SRC
+The keybinding
+#+BEGIN_SRC emacs-lisp
+(define-key dired-mode-map "e" 'ora-ediff-files)
 #+END_SRC
