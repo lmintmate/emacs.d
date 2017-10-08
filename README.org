@@ -775,8 +775,7 @@ Modified from [[http://oremacs.com/2017/03/18/dired-ediff/][Quickly ediff files 
 ;; -*- lexical-binding: t -*-
 (defun ora-ediff-files ()
   (interactive)
-  (let ((files (dired-get-marked-files))
-        (wnd (current-window-configuration)))
+  (let ((files (dired-get-marked-files)))
     (if (<= (length files) 2)
         (let ((file1 (car files))
               (file2 (if (cdr files)
