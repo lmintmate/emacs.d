@@ -141,12 +141,11 @@ I also modified the fringe color to the same background color as the rest of the
  '(fringe ((t (:background "DodgerBlue4")))))
 #+END_SRC
 ** Mode line customisation
-Where I make it flatter.
+Where I give it a flat look.
 #+BEGIN_SRC emacs-lisp
 (custom-set-faces
  '(mode-line ((t (:background "grey75" :foreground "black"))))
- '(mode-line-highlight ((t (:box (:line-width 1 :color "grey20")))))
- '(mode-line-inactive ((t (:background "grey30" :foreground "grey80")))))
+ '(mode-line-highlight ((t (:box (:line-width 1 :color "grey20"))))))
 #+END_SRC
 * Manually loading external lisp files
 I use some external lisp files, and I thus need to load my personal lisp directory.
@@ -767,7 +766,7 @@ That is, a string used to represent it on the tab bar."
 (tabbar-mode 1)
 #+END_SRC
 * Ediff
-I'm trying to move myself to emacs as much as possible, so I now decided to replace the functionality of Meld.\\
+I'm trying to move myself to emacs as much as possible, so I now decided to replace the functionality of [[http://meldmerge.org/][Meld]].\\
 This line splits the ediff windows horizontally instead of vertically.
 #+BEGIN_SRC emacs-lisp
 (setq ediff-split-window-function (quote split-window-horizontally))
