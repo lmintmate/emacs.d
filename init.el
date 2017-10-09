@@ -40,7 +40,6 @@ picpocket
 racket-mode
 smex
 soundklaus
-tabbar
 typo
 undo-tree
 wttrin
