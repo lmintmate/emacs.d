@@ -10,6 +10,7 @@
 (package-initialize)
 
 (defvar lmintmate/packages '(2048-game
+anzu
 basic-mode
 bongo
 color-theme-modern
