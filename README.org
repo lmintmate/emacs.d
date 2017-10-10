@@ -146,6 +146,11 @@ Where I give it a flat look.
  '(mode-line ((t (:background "grey75" :foreground "black"))))
  '(mode-line-highlight ((t (:box (:line-width 1 :color "grey20"))))))
 #+END_SRC
+** Hide line between fringes
+Remove the strange white line between two fringes, which appears when the scrollbar is hidden (from [[https://ogbe.net/emacsconfig.html][Dennis Ogbe's Emacs configuration file]]).
+#+BEGIN_SRC emacs-lisp
+(set-face-attribute 'vertical-border nil :foreground (face-attribute 'fringe :background))
+#+END_SRC
 * Manually loading external lisp files
 I use some external lisp files, and I thus need to load my personal lisp directory.
 ** Where I tell Emacs where is my personal lisp directory.
