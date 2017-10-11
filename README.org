@@ -431,13 +431,14 @@ C-x o is too long a binding for this simple action (idea drawn from [[https://ma
   (windmove-default-keybindings))
 #+END_SRC
 * Ibuffer
-A better way to list buffers than buffer-menu([[https://www.emacswiki.org/emacs/IbufferMode][link]]).\\
-Replace buffer-menu.
+A better way to list buffers than buffer-menu([[https://www.emacswiki.org/emacs/IbufferMode][link]]). Config influenced from [[http://cestlaz.github.io/posts/using-emacs-34-ibuffer-emmet/][Using Emacs - 34 - ibuffer and emmet | C'est la Z]] and [[http://home.thep.lu.se/~karlf/emacs.html#sec-6-6][some dude's .emacs]].\\
+** Replace buffer-menu.
 #+BEGIN_SRC emacs-lisp
+(require 'ibuffer)
  (global-set-key (kbd "C-x C-b") 'ibuffer)
     (autoload 'ibuffer "ibuffer" "List buffers." t)
 #+END_SRC
-Set buffer groups.
+** Set buffer groups.
 #+BEGIN_SRC emacs-lisp
 (setq ibuffer-saved-filter-groups
       (quote (("default"
@@ -447,25 +448,20 @@ Set buffer groups.
                ("Markdown" (name . "^.*md$"))
 
 	       ("Emacs Lisp" (mode . emacs-lisp-mode))
-	       ("emacs" (or
-			 (name . "^\\*scratch\\*$")
-			 (name . "^\\*Messages\\*$")))
+	       ("Emacs-created"
+                  (or
+                   (name . "^\\*")))
 	       ))))
 (add-hook 'ibuffer-mode-hook
 	  (lambda ()
 	    (ibuffer-auto-mode 1)
 	    (ibuffer-switch-to-saved-filter-groups "default")))
 #+END_SRC
-Don't show filter groups if there are no buffers in that group.
+** Don't show filter groups if there are no buffers in that group.
 #+BEGIN_SRC emacs-lisp
 (setq ibuffer-show-empty-filter-groups nil)
 #+END_SRC
-Hide buffers starting with an asterisk.
-#+BEGIN_SRC emacs-lisp
-(require 'ibuf-ext)
-    (add-to-list 'ibuffer-never-show-predicates "^\\*")
-#+END_SRC
-Use human readable size column.
+** Use human readable size column.
 #+BEGIN_SRC emacs-lisp
 ;; Use human readable Size column instead of original one
 (define-ibuffer-column size-h
