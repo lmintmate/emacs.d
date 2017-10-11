@@ -496,9 +496,16 @@ These are, apart from TODO and DONE, also CURRENTLY and SOMEDAY.
 #+BEGIN_SRC emacs-lisp
 (setq org-ctrl-k-protect-subtree t)
 #+END_SRC
-** Enable support of shift selection of text in org-mode except in special instances.
+** +Enable support of shift selection of text in org-mode except in special instances.+ Discontinued in favor of C-Space, because I prefer using Shift + arrows for windmove.
++(setq org-support-shift-select t)+
+** Override shift + arrows in certain places in favor of windmove
+If you want to make the windmove function active in locations where Org mode does not have special functionality on S-<cursor>, add this to your configuration(from [[http://orgmode.org/manual/Conflicts.html][Conflicts - The Org Manual]]):
 #+BEGIN_SRC emacs-lisp
-(setq org-support-shift-select t)
+;; Make windmove work in org-mode:
+          (add-hook 'org-shiftup-final-hook 'windmove-up)
+          (add-hook 'org-shiftleft-final-hook 'windmove-left)
+          (add-hook 'org-shiftdown-final-hook 'windmove-down)
+          (add-hook 'org-shiftright-final-hook 'windmove-right)
 #+END_SRC
 ** Auto adjust footnotes
 #+BEGIN_SRC emacs-lisp
