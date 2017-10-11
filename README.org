@@ -420,7 +420,12 @@ This mode highlights urls and makes them clickable.\\
             (when (string= (file-name-extension buffer-file-name) "txt")
               (goto-address-mode 1))))
 #+END_SRC
-*** Adds shift + arrows for changing between visible buffers, in addition to C-x O.
+*** Bind M-o to other-window
+C-x o is too long a binding for this simple action (idea drawn from [[https://masteringemacs.org/article/my-emacs-keybindings][My Emacs keybindings - Mastering Emacs]]).
+#+BEGIN_SRC emacs-lisp
+(define-key global-map "\M-o" 'other-window)
+#+END_SRC
+*** Adds shift + arrows for changing between visible buffers, in addition to M-o.
 #+BEGIN_SRC emacs-lisp
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
