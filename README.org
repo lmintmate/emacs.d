@@ -437,6 +437,29 @@ Replace buffer-menu.
  (global-set-key (kbd "C-x C-b") 'ibuffer)
     (autoload 'ibuffer "ibuffer" "List buffers." t)
 #+END_SRC
+Set buffer groups.
+#+BEGIN_SRC emacs-lisp
+(setq ibuffer-saved-filter-groups
+      (quote (("default"
+	       ("Dired" (mode . dired-mode))
+	       ("Org" (name . "^.*org$"))
+               ("Text" (name . "^.*txt$"))
+               ("Markdown" (name . "^.*md$"))
+
+	       ("Emacs Lisp" (mode . emacs-lisp-mode))
+	       ("emacs" (or
+			 (name . "^\\*scratch\\*$")
+			 (name . "^\\*Messages\\*$")))
+	       ))))
+(add-hook 'ibuffer-mode-hook
+	  (lambda ()
+	    (ibuffer-auto-mode 1)
+	    (ibuffer-switch-to-saved-filter-groups "default")))
+#+END_SRC
+Don't show filter groups if there are no buffers in that group.
+#+BEGIN_SRC emacs-lisp
+(setq ibuffer-show-empty-filter-groups nil)
+#+END_SRC
 Hide buffers starting with an asterisk.
 #+BEGIN_SRC emacs-lisp
 (require 'ibuf-ext)
