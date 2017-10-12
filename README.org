@@ -406,6 +406,11 @@ Since it can't be clicked anyways, it takes up space without reason...
 #+BEGIN_SRC emacs-lisp
 (global-set-key [f10] 'toggle-scroll-bar)
 #+END_SRC
+*** Toggle maximizing the frame
+Useful for newsticker
+#+BEGIN_SRC emacs-lisp
+(global-set-key [f8] 'toggle-frame-maximized)
+#+END_SRC
 *** Visual line mode only for text mode.
 Visual line wraps lines instead of cutting them as default.
 #+BEGIN_SRC emacs-lisp
