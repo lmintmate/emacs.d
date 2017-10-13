@@ -548,9 +548,10 @@ I use the European system day-month-year.
 #+END_SRC
 * Org Mode configuration
 The ~(require 'org)~ part is present in the init.el file instead of here, precisely in order to compile this very file.
-** Define C-c l as the keybinding to org-store-link.
+** Define C-c l as the keybinding to org-cliplink.
+I used to have it as the shortcut to org-store-link, but it turns out I hardly used that one…
 #+BEGIN_SRC emacs-lisp
-(define-key global-map "\C-cl" 'org-store-link)
+(global-set-key (kbd "\C-cl") 'org-cliplink)
 #+END_SRC
 ** Set keywords for Org progress states.
 These are, apart from TODO and DONE, also CURRENTLY and SOMEDAY.
