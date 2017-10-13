@@ -551,12 +551,12 @@ The ~(require 'org)~ part is present in the init.el file instead of here, precis
 ** Define C-c l as the keybinding to org-cliplink.
 I used to have it as the shortcut to org-store-link, but it turns out I hardly used that one…
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "\C-cl") 'org-cliplink)
+(define-key org-mode-map (kbd "\C-cl") 'org-cliplink)
 #+END_SRC
 ** Define C-c d as the keybinding to org-toggle-link-display
 This command toggles between descriptive and literal links, and I need it so that I can edit on the literal links the text that will show up on the descriptive links (and it was too much of a hassle to go to the Org > Hyperlinks submenu just for that…).
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "\C-cd") 'org-toggle-link-display)
+(define-key org-mode-map (kbd "\C-cd") 'org-toggle-link-display)
 #+END_SRC
 ** Set keywords for Org progress states.
 These are, apart from TODO and DONE, also CURRENTLY and SOMEDAY.
