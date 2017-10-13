@@ -457,6 +457,7 @@ A better way to list buffers than buffer-menu([[https://www.emacswiki.org/emacs/
                ("Markdown" (name . "^.*md$"))
 
 	       ("Emacs Lisp" (mode . emacs-lisp-mode))
+               ("BASIC" (mode . basic-mode))
 	       ("Emacs-created"
                   (or
                    (name . "^\\*")))
