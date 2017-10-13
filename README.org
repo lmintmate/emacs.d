@@ -760,6 +760,20 @@ This highlights matching parentheses. Turns out it is a global minor mode, and i
 (show-paren-mode 1)
 (setq show-paren-style (quote mixed))
 #+END_SRC
+** Enable electric-pair-mode
+This autocompletes parentheses. It appears to be a global minor mode as well.
+#+BEGIN_SRC emacs-lisp
+(electric-pair-mode 1)
+#+END_SRC
+Here is however a trick to disable it from everywhere but lisp-related modes (from [[https://emacs.stackexchange.com/questions/5981/how-to-make-electric-pair-mode-buffer-local][How to make electric-pair-mode buffer local? - Emacs Stack Exchange]]).
+#+BEGIN_SRC emacs-lisp
+(defvar my-electric-pair-modes '(emacs-lisp-mode lisp-interaction-mode))
+
+(defun my-inhibit-electric-pair-mode (char)
+  (not (member major-mode my-electric-pair-modes)))
+
+(setq electric-pair-inhibit-predicate #'my-inhibit-electric-pair-mode)
+#+END_SRC
 * HideShow mode
 [[https://www.emacswiki.org/emacs/HideShow][Link]]. A nifty minor mode to fold code the same way org-mode headings are folded.
 #+BEGIN_SRC emacs-lisp
