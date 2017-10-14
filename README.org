@@ -566,6 +566,11 @@ This command toggles between descriptive and literal links, and I need it so tha
 #+BEGIN_SRC emacs-lisp
 (define-key org-mode-map (kbd "\C-cd") 'org-toggle-link-display)
 #+END_SRC
+** Define C-c e as the keybinding to [[http://orgmode.org/worg/doc.html#org-emphasize][org-emphasize]]
+This one helps to switch quickly between different text formattings (bold, italic e.t.c).
+#+BEGIN_SRC emacs-lisp
+(define-key org-mode-map (kbd "\C-ce") 'org-emphasize)
+#+END_SRC
 ** Set keywords for Org progress states.
 These are, apart from TODO and DONE, also CURRENTLY and SOMEDAY.
 #+BEGIN_SRC emacs-lisp
