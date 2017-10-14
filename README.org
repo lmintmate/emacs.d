@@ -440,7 +440,7 @@ C-x o is too long a binding for this simple action (idea drawn from [[https://ma
 (setq frame-title-format "%b - Emacs")
 #+END_SRC
 *** Time in modeline
-The only way to have the time mode not display the load average, it turns out, is to put the relevant config before loading display-time-mode. Who would have thought? (I got the idea to try this approach from [[https://github.com/IvanMalison/.emacs.d][Ivan Malinson's emacs.d]]). An explanation of my ~display-time-format~ config: It basically shows the day of the week, then day/month, then hours:minutes. For more functions, Customize instructs to look at the function ~format-time-string~.
+The only way to have the time mode not display the load average, it turns out, is to put the relevant config before loading display-time-mode. Who would have thought? (I got the idea to try this approach from [[https://github.com/IvanMalison/.emacs.d#time-in-mode-line][Ivan Malinson's emacs.d]]). An explanation of my ~display-time-format~ config: It basically shows the day of the week, then day/month, then hours:minutes. For more functions, Customize instructs to look at the function ~format-time-string~.
 #+BEGIN_SRC emacs-lisp
 (setq display-time-default-load-average nil)
 (setq display-time-format "%a %d/%m %H:%M")
