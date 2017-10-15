@@ -816,6 +816,7 @@ Diminish mode that cuts off the display of minor modes which I want to work [[ht
 And the reason I decided to try it in the first place is because I find the name of lisp-interaction-mode way too long…
 #+BEGIN_SRC emacs-lisp
 (dim-major-name 'lisp-interaction-mode "LiN")
+(dim-major-name 'markdown-mode "Md")
 #+END_SRC
 * Ediff
 I'm trying to move myself to emacs as much as possible, so I now decided to replace the functionality of [[http://meldmerge.org/][Meld]].\\
