@@ -15,6 +15,7 @@ basic-mode
 bongo
 color-theme-modern
 deft
+dim
 diminish
 dired-icon
 drag-stuff

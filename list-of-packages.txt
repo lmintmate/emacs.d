@@ -4,6 +4,7 @@ basic-mode
 bongo
 color-theme-modern ;; for the blue-mood theme
 deft
+dim
 diminish
 dired-icon
 drag-stuff
