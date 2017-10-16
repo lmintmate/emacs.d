@@ -75,6 +75,7 @@ helpful
 htmlize
 ido-completing-read+
 ido-yes-or-no
+iedit
 legalese
 magit
 markdown-mode
@@ -874,4 +875,9 @@ Show number of search results in the mode line. When results are found they are 
 (set-face-attribute 'anzu-mode-line-no-match nil
                     :foreground "red3" :weight 'bold)
 (setq anzu-mode-lighter "")
+#+END_SRC
+* Iedit
+[[https://www.emacswiki.org/emacs/Iedit][EmacsWiki: Iedit]].This package allows to replace all occurences of a string under point simultaneously.
+#+BEGIN_SRC emacs-lisp
+(require 'iedit)
 #+END_SRC
