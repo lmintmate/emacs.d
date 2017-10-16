@@ -23,6 +23,7 @@ esup
 focus
 geiser
 google-translate
+helpful
 htmlize
 ido-completing-read+
 ido-yes-or-no

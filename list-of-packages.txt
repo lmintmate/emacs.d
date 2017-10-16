@@ -12,6 +12,7 @@ esup
 focus
 geiser
 google-translate
+helpful
 htmlize ;; org now requires it in order to export to html (that is, html export isn't inbuilt anymore)
 ido-completing-read+
 ido-yes-or-no
