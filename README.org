@@ -261,69 +261,6 @@ In order to be able to write greek with the keyboard set to English (useful for 
 #+BEGIN_SRC emacs-lisp
 (set-input-method "el_GR")
 #+END_SRC
-* Settings for multiple buffer management
-** Change layout of windows from horizontal to vertical very easily (from [[http://whattheemacsd.com/buffer-defuns.el-03.html][What the .emacs.d!?]])
-#+BEGIN_SRC emacs-lisp
-(defun toggle-window-split ()
-  (interactive)
-  (if (= (count-windows) 2)
-      (let* ((this-win-buffer (window-buffer))
-             (next-win-buffer (window-buffer (next-window)))
-             (this-win-edges (window-edges (selected-window)))
-             (next-win-edges (window-edges (next-window)))
-             (this-win-2nd (not (and (<= (car this-win-edges)
-                                         (car next-win-edges))
-                                     (<= (cadr this-win-edges)
-                                         (cadr next-win-edges)))))
-             (splitter
-              (if (= (car this-win-edges)
-                     (car (window-edges (next-window))))
-                  'split-window-horizontally
-                'split-window-vertically)))
-        (delete-other-windows)
-        (let ((first-win (selected-window)))
-          (funcall splitter)
-          (if this-win-2nd (other-window 1))
-          (set-window-buffer (selected-window) this-win-buffer)
-          (set-window-buffer (next-window) next-win-buffer)
-          (select-window first-win)
-          (if this-win-2nd (other-window 1))))))
-#+END_SRC
-The keyboard shortcut for the above function.
-#+BEGIN_SRC emacs-lisp
-(define-key global-map "\M-]" 'toggle-window-split)
-#+END_SRC
-** Flip 2 window frame, so that left goes right, and up goes down (from [[http://whattheemacsd.com/buffer-defuns.el-02.html][What the .emacs.d!?]])
-#+BEGIN_SRC emacs-lisp
-(defun rotate-windows ()
-  "Rotate your windows"
-  (interactive)
-  (cond ((not (> (count-windows)1))
-         (message "You can't rotate a single window!"))
-        (t
-         (setq i 1)
-         (setq numWindows (count-windows))
-         (while  (< i numWindows)
-           (let* (
-                  (w1 (elt (window-list) i))
-                  (w2 (elt (window-list) (+ (% i numWindows) 1)))
-
-                  (b1 (window-buffer w1))
-                  (b2 (window-buffer w2))
-
-                  (s1 (window-start w1))
-                  (s2 (window-start w2))
-                  )
-             (set-window-buffer w1  b2)
-             (set-window-buffer w2 b1)
-             (set-window-start w1 s2)
-             (set-window-start w2 s1)
-             (setq i (1+ i)))))))
-#+END_SRC
-The keyboard shortcut for the above function.
-#+BEGIN_SRC emacs-lisp
-(define-key global-map "\M-[" 'rotate-windows)
-#+END_SRC
 * Newsticker configuration
 Newsticker is awesome, it's just like Liferea, but inside emacs!
 ** Keep none of the proposed by emacs urls in the list.
@@ -351,7 +288,7 @@ It is automatically populated with M-x newsticker-opml-import.
      ("Framablog" "https://framablog.org/feed/" nil nil nil)
      ("Planet Emacsen" "http://planet.emacsen.org/atom.xml" nil nil nil))))
 #+END_SRC
-* Other configuration parameters
+* Misc configuration parameters
 *** Do not autosave nor make any backup files.
 All they do is litter the place and trigger a nagging prompt whenever I leave Emacs without having saved.
 #+BEGIN_SRC emacs-lisp
@@ -436,6 +373,16 @@ C-x o is too long a binding for this simple action (idea drawn from [[https://ma
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
 #+END_SRC
+To make windmove split a window for you if there isn't one there, here's a really simple hack (from [[https://www.reddit.com/r/emacs/comments/76kph2/wincmd_in_emacs/doep2ig/][a comment on the emacs subreddit]] - shift+down doesn't work however, as it says «Minibuffer is inactive» - at least shift+up accomplishes the same thing…)
+#+BEGIN_SRC emacs-lisp
+(defun my-windmov-auto-split (dir &optional arg window)
+  (when (null (windmove-find-other-window dir arg window))
+    (cond ((eq dir 'right) (split-window-right))
+      ((eq dir 'down) (split-window-below))
+      ((eq dir 'left) (select-window (split-window-right)))
+      ((eq dir 'up) (select-window (split-window-below))))))
+(advice-add #'windmove-do-window-select :before #'my-windmov-auto-split)
+#+END_SRC
 *** Set the title bar to show buffer name
 #+BEGIN_SRC emacs-lisp
 (setq frame-title-format "%b - Emacs")
@@ -446,6 +393,69 @@ The only way to have the time mode not display the load average, it turns out, i
 (setq display-time-default-load-average nil)
 (setq display-time-format "%a %d/%m %H:%M")
 (display-time-mode 1)
+#+END_SRC
+* Settings for multiple buffer management
+** Change layout of windows from horizontal to vertical very easily (from [[http://whattheemacsd.com/buffer-defuns.el-03.html][What the .emacs.d!?]])
+#+BEGIN_SRC emacs-lisp
+(defun toggle-window-split ()
+  (interactive)
+  (if (= (count-windows) 2)
+      (let* ((this-win-buffer (window-buffer))
+             (next-win-buffer (window-buffer (next-window)))
+             (this-win-edges (window-edges (selected-window)))
+             (next-win-edges (window-edges (next-window)))
+             (this-win-2nd (not (and (<= (car this-win-edges)
+                                         (car next-win-edges))
+                                     (<= (cadr this-win-edges)
+                                         (cadr next-win-edges)))))
+             (splitter
+              (if (= (car this-win-edges)
+                     (car (window-edges (next-window))))
+                  'split-window-horizontally
+                'split-window-vertically)))
+        (delete-other-windows)
+        (let ((first-win (selected-window)))
+          (funcall splitter)
+          (if this-win-2nd (other-window 1))
+          (set-window-buffer (selected-window) this-win-buffer)
+          (set-window-buffer (next-window) next-win-buffer)
+          (select-window first-win)
+          (if this-win-2nd (other-window 1))))))
+#+END_SRC
+The keyboard shortcut for the above function.
+#+BEGIN_SRC emacs-lisp
+(define-key global-map "\M-]" 'toggle-window-split)
+#+END_SRC
+** Flip 2 window frame, so that left goes right, and up goes down (from [[http://whattheemacsd.com/buffer-defuns.el-02.html][What the .emacs.d!?]])
+#+BEGIN_SRC emacs-lisp
+(defun rotate-windows ()
+  "Rotate your windows"
+  (interactive)
+  (cond ((not (> (count-windows)1))
+         (message "You can't rotate a single window!"))
+        (t
+         (setq i 1)
+         (setq numWindows (count-windows))
+         (while  (< i numWindows)
+           (let* (
+                  (w1 (elt (window-list) i))
+                  (w2 (elt (window-list) (+ (% i numWindows) 1)))
+
+                  (b1 (window-buffer w1))
+                  (b2 (window-buffer w2))
+
+                  (s1 (window-start w1))
+                  (s2 (window-start w2))
+                  )
+             (set-window-buffer w1  b2)
+             (set-window-buffer w2 b1)
+             (set-window-start w1 s2)
+             (set-window-start w2 s1)
+             (setq i (1+ i)))))))
+#+END_SRC
+The keyboard shortcut for the above function.
+#+BEGIN_SRC emacs-lisp
+(define-key global-map "\M-[" 'rotate-windows)
 #+END_SRC
 * Ibuffer
 A better way to list buffers than buffer-menu([[https://www.emacswiki.org/emacs/IbufferMode][link]]). Config influenced from [[http://cestlaz.github.io/posts/using-emacs-34-ibuffer-emmet/][Using Emacs - 34 - ibuffer and emmet | C'est la Z]] and [[http://home.thep.lu.se/~karlf/emacs.html#sec-6-6][some dude's .emacs]].\\
