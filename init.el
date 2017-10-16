@@ -21,6 +21,7 @@ dired-icon
 drag-stuff
 esup
 focus
+free-keys
 geiser
 google-translate
 helpful
