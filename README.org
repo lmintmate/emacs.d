@@ -529,9 +529,10 @@ This functionality, coming from the dired-icon package, shows icons from the cur
 (setq dired-icon-image-size 32)
 #+END_SRC
 ** Dired listing
-*** Group directories first.
+*** Listing switches.
+Group directories first and make sizes human-readable.
 #+BEGIN_SRC emacs-lisp
-(setq dired-listing-switches "-al --group-directories-first")
+(setq dired-listing-switches "-alh --group-directories-first")
 #+END_SRC
 *** Sort files by modified date.
 #+BEGIN_SRC emacs-lisp
