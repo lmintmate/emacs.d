@@ -60,6 +60,7 @@ P.S Just so you know, I’m aware that ~use-package~ can be used to achieve the 
 anzu
 basic-mode
 bongo
+clipmon
 color-theme-modern
 deft
 dim
@@ -396,6 +397,26 @@ To make windmove split a window for you if there isn't one there, here's a reall
       ((eq dir 'left) (select-window (split-window-right)))
       ((eq dir 'up) (select-window (split-window-below))))))
 (advice-add #'windmove-do-window-select :before #'my-windmov-auto-split)
+#+END_SRC
+* Clipboard management
+It turns out that emacs has a separate kill ring, so I somehow have to sync it with the system's clipboard.
+** Enter [[https://github.com/bburns/clipmon][clipmon]].
+Clipmon is a package that syncs with the system's clipboard.
+*** Auto-enable clipmon on init
+#+BEGIN_SRC emacs-lisp
+;; monitor the system clipboard and add any changes to the kill ring
+(add-to-list 'after-init-hook 'clipmon-mode-start)
+#+END_SRC
+*** Persist the kill ring between sessions
+Much like CopyQ.
+#+BEGIN_SRC emacs-lisp
+;; persist the kill ring between sessions
+(add-to-list 'after-init-hook 'clipmon-persist)
+#+END_SRC
+*** Max number of entries in kill ring
+I set it to 200, since that is CopyQ's default setting.
+#+BEGIN_SRC emacs-lisp
+(setq kill-ring-max 200)
 #+END_SRC
 * Settings for multiple buffer management
 ** Change layout of windows from horizontal to vertical very easily (from [[http://whattheemacsd.com/buffer-defuns.el-03.html][What the .emacs.d!?]])

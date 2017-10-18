@@ -2,6 +2,7 @@
 anzu
 basic-mode
 bongo
+clipmon
 color-theme-modern ;; for the blue-mood theme
 deft
 dim

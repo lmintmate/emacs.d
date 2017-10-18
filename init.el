@@ -13,6 +13,7 @@
 anzu
 basic-mode
 bongo
+clipmon
 color-theme-modern
 deft
 dim
