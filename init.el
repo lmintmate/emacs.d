@@ -13,7 +13,7 @@
 anzu
 basic-mode
 bongo
-clipmon
+browse-kill-ring
 color-theme-modern
 deft
 dim

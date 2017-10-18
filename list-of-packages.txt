@@ -2,7 +2,7 @@
 anzu
 basic-mode
 bongo
-clipmon
+browse-kill-ring
 color-theme-modern ;; for the blue-mood theme
 deft
 dim

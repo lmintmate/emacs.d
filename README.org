@@ -60,7 +60,7 @@ P.S Just so you know, I’m aware that ~use-package~ can be used to achieve the 
 anzu
 basic-mode
 bongo
-clipmon
+browse-kill-ring
 color-theme-modern
 deft
 dim
@@ -399,24 +399,48 @@ To make windmove split a window for you if there isn't one there, here's a reall
 (advice-add #'windmove-do-window-select :before #'my-windmov-auto-split)
 #+END_SRC
 * Clipboard management
-It turns out that emacs has a separate kill ring, so I somehow have to sync it with the system's clipboard.
-** Enter [[https://github.com/bburns/clipmon][clipmon]].
-Clipmon is a package that syncs with the system's clipboard.
-*** Auto-enable clipmon on init
-#+BEGIN_SRC emacs-lisp
-;; monitor the system clipboard and add any changes to the kill ring
-(add-to-list 'after-init-hook 'clipmon-mode-start)
-#+END_SRC
-*** Persist the kill ring between sessions
-Much like CopyQ.
-#+BEGIN_SRC emacs-lisp
-;; persist the kill ring between sessions
-(add-to-list 'after-init-hook 'clipmon-persist)
-#+END_SRC
-*** Max number of entries in kill ring
+It turns out that emacs has a separate kill ring, so I somehow have to sync it with the system's clipboard. I use CopyQ as my clipboard manager, so I wanted to be able to browse it from within emacs.
+** Max number of entries in kill ring
 I set it to 200, since that is CopyQ's default setting.
 #+BEGIN_SRC emacs-lisp
 (setq kill-ring-max 200)
+#+END_SRC
+** Sync kill ring with CopyQ
+From [[https://github.com/IvanMalison/.emacs.d#sync-kill-ring-with-copyq][Ivan Malison's config]]. It also needed [[https://github.com/IvanMalison/.emacs.d#non-forking-shell-command-to-string][some extra defuns]] placed earlier in his config in order to work.
+#+BEGIN_SRC emacs-lisp
+(defun imalison:call-process-to-string (program &rest args)
+  (with-temp-buffer
+    (apply 'call-process program nil (current-buffer) nil args)
+    (buffer-string)))
+
+(defun imalison:get-call-process-args-from-shell-command (command)
+  (cl-destructuring-bind
+      (the-command . args) (split-string command " ")
+    (let ((binary-path (executable-find the-command)))
+      (when binary-path
+        (cons binary-path args)))))
+
+(defun imalison:shell-command-to-string (command)
+  (let ((call-process-args
+         (imalison:get-call-process-args-from-shell-command command)))
+    (if call-process-args
+        (apply 'imalison:call-process-to-string call-process-args)
+      (shell-command-to-string command))))
+
+(defun imalison:copyq-get (i)
+  (imalison:shell-command-to-string (format "copyq eval read(%s)" i)))
+
+(defun imalison:copyq-sync ()
+  (interactive)
+  (let ((missing-items (cl-loop for i from 0 to (string-to-number
+                         (imalison:shell-command-to-string "copyq eval size()"))
+         for item = (imalison:copyq-get i)
+         when (not (member item kill-ring))
+         collect item)))
+    (setq kill-ring (nconc kill-ring missing-items))))
+
+(when (executable-find "copyq")
+ (run-with-idle-timer 2 nil 'imalison:copyq-sync))
 #+END_SRC
 * Settings for multiple buffer management
 ** Change layout of windows from horizontal to vertical very easily (from [[http://whattheemacsd.com/buffer-defuns.el-03.html][What the .emacs.d!?]])
