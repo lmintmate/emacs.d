@@ -292,6 +292,17 @@ It is automatically populated with M-x newsticker-opml-import.
      ("Planet Emacsen" "http://planet.emacsen.org/atom.xml" nil nil nil))))
 #+END_SRC
 * Misc configuration parameters
+*** Set the title bar to show buffer name
+#+BEGIN_SRC emacs-lisp
+(setq frame-title-format "%b - Emacs")
+#+END_SRC
+*** Time in modeline
+The only way to have the time mode not display the load average, it turns out, is to put the relevant config before loading display-time-mode. Who would have thought? (I got the idea to try this approach from [[https://github.com/IvanMalison/.emacs.d#time-in-mode-line][Ivan Malison's emacs.d]]). An explanation of my ~display-time-format~ config: It basically shows the day of the week, then day/month, then hours:minutes. For more functions, Customize instructs to look at the function ~format-time-string~.
+#+BEGIN_SRC emacs-lisp
+(setq display-time-default-load-average nil)
+(setq display-time-format "%a %d/%m %H:%M")
+(display-time-mode 1)
+#+END_SRC
 *** Do not autosave nor make any backup files.
 All they do is litter the place and trigger a nagging prompt whenever I leave Emacs without having saved.
 #+BEGIN_SRC emacs-lisp
@@ -385,17 +396,6 @@ To make windmove split a window for you if there isn't one there, here's a reall
       ((eq dir 'left) (select-window (split-window-right)))
       ((eq dir 'up) (select-window (split-window-below))))))
 (advice-add #'windmove-do-window-select :before #'my-windmov-auto-split)
-#+END_SRC
-*** Set the title bar to show buffer name
-#+BEGIN_SRC emacs-lisp
-(setq frame-title-format "%b - Emacs")
-#+END_SRC
-*** Time in modeline
-The only way to have the time mode not display the load average, it turns out, is to put the relevant config before loading display-time-mode. Who would have thought? (I got the idea to try this approach from [[https://github.com/IvanMalison/.emacs.d#time-in-mode-line][Ivan Malinson's emacs.d]]). An explanation of my ~display-time-format~ config: It basically shows the day of the week, then day/month, then hours:minutes. For more functions, Customize instructs to look at the function ~format-time-string~.
-#+BEGIN_SRC emacs-lisp
-(setq display-time-default-load-average nil)
-(setq display-time-format "%a %d/%m %H:%M")
-(display-time-mode 1)
 #+END_SRC
 * Settings for multiple buffer management
 ** Change layout of windows from horizontal to vertical very easily (from [[http://whattheemacsd.com/buffer-defuns.el-03.html][What the .emacs.d!?]])
