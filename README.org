@@ -440,7 +440,7 @@ From [[https://github.com/IvanMalison/.emacs.d#sync-kill-ring-with-copyq][Ivan M
     (setq kill-ring (nconc kill-ring missing-items))))
 
 (when (executable-find "copyq")
- (run-with-idle-timer 2 nil 'imalison:copyq-sync))
+ (run-with-idle-timer 2 t 'imalison:copyq-sync))
 #+END_SRC
 * Settings for multiple buffer management
 ** Change layout of windows from horizontal to vertical very easily (from [[http://whattheemacsd.com/buffer-defuns.el-03.html][What the .emacs.d!?]])
