@@ -20,6 +20,7 @@ ido-completing-read+
 ido-yes-or-no
 iedit
 legalese
+litable
 magit
 malyon (manual install)
 markdown-mode

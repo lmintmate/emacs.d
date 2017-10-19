@@ -31,6 +31,7 @@ ido-completing-read+
 ido-yes-or-no
 iedit
 legalese
+litable
 magit
 markdown-mode
 minimap

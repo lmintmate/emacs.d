@@ -78,6 +78,7 @@ ido-completing-read+
 ido-yes-or-no
 iedit
 legalese
+litable
 magit
 markdown-mode
 minimap
@@ -845,6 +846,12 @@ Here is however a trick to disable it from everywhere but lisp-related modes (fr
   (not (member major-mode my-electric-pair-modes)))
 
 (setq electric-pair-inhibit-predicate #'my-inhibit-electric-pair-mode)
+#+END_SRC
+** Litable mode
+[[https://github.com/Fuco1/litable][On-the-fly evaluation/substitution of emacs lisp code]]. This is a mode that shows the results of code instantly. Will be nifty to use with my calculator-like lisp-interaction mode…\\
+It refuses however to submit to either diminish or dim unfortunately…
+#+BEGIN_SRC emacs-lisp
+(add-hook 'lisp-interaction-mode-hook 'litable-mode)
 #+END_SRC
 * HideShow mode
 [[https://www.emacswiki.org/emacs/HideShow][Link]]. A nifty minor mode to fold code the same way org-mode headings are folded.
