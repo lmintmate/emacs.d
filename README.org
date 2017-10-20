@@ -407,6 +407,37 @@ To make windmove split a window for you if there isn't one there, here's a reall
       ((eq dir 'up) (select-window (split-window-below))))))
 (advice-add #'windmove-do-window-select :before #'my-windmov-auto-split)
 #+END_SRC
+*** Recent files
+A quick way to access my most recently opened files (as I didn't want to have to go all the way through the directory structure - even with ido).
+#+BEGIN_SRC emacs-lisp
+(require 'recentf)
+(recentf-mode 1)
+#+END_SRC
+Code to have ido completion on recent files (from [[https://www.emacswiki.org/emacs/RecentFiles#toc8][EmacsWiki: Recent Files]]).
+#+BEGIN_SRC emacs-lisp
+(defun recentf-ido-find-file ()
+  "Find a recent file using Ido."
+  (interactive)
+  (let* ((file-assoc-list
+	  (mapcar (lambda (x)
+		    (cons (file-name-nondirectory x)
+			  x))
+		  recentf-list))
+	 (filename-list
+	  (remove-duplicates (mapcar #'car file-assoc-list)
+			     :test #'string=))
+	 (filename (ido-completing-read "Choose recent file: "
+					filename-list
+					nil
+					t)))
+    (when filename
+      (find-file (cdr (assoc filename
+			     file-assoc-list))))))
+#+END_SRC
+The keyboard shortcut for the above code.
+#+BEGIN_SRC emacs-lisp
+(global-set-key "\C-cf" 'recentf-ido-find-file)
+#+END_SRC
 * Clipboard management
 It turns out that emacs has a separate kill ring, so I somehow have to sync it with the system's clipboard. I use CopyQ as my clipboard manager, so I wanted to be able to browse it from within emacs.
 ** Max number of entries in kill ring
