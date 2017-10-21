@@ -4,6 +4,8 @@
 * Introduction
 Here begins my literate emacs configuration. I tended to comment my init file a whole lot, so I figured I preferred a better interface for the comments.\\
 This file was last exported at {{{time(%d/%m/%Y %H:%M)}}}.
+** Notes on the evolution of my emacs initialisation
+I first started off with the .emacs file in my home directory. I had to look for it though amongst all the other hidden files in that directory. So, especially after I found out I could version-control my emacs dotfiles, I switched to .emacs.d/init.el. so that I could have my config in one place. That setup still wasn’t satisfactory enough though. So when I found out I could have my config in an org file, which would allow my comments to truly stand out, I was intrigued and wanted to accomplish that. I initially thought however it'd be too hard to do (I do think that a lot when trying new ways of doing things…). I took the plunge however, and it turned out to be way easier than I thought. So I now keep most my config in this here file, and use init.el only for the preliminary configs that need to be loaded before this file.
 * Things worth noting if you have Emacs 25+
 It is worth noting that the emacs version I'm using (on my main Linux system) is 24.5.1, and thus a couple settings are different in emacs 25+, and will need some adjustment to make certain the init files play well with that version.
 ** Changes in emacs 25+ that affect the init files
@@ -22,8 +24,10 @@ I also include the old init file in case you don't like literate configs, and mi
 In this repository is also included an init-windows.el file with a separate configuration for my 32-bit windows pc, where the latest version that worked is 24.3.1.
 * Todo list
 I also include a TODO list with things I could incorporate to the config in the future, but don't have the time for right now.
-** SOMEDAY Possibly replace smex with [[https://github.com/DarwinAwardWinner/amx][amx]], a fork with recent activity and improvements (since smex's development was indeed inactive).
-The main argument against doing so is that smex works just fine for me, and I subscribe by the «If it ain't broken» saying.
+** SOMEDAY Maybe replace ido by ivy.
+Ivy seems to be rather popular, and similar in aims to ido. Ido works fine for me though, and I feel it'd be too much of a hassle to replace it with ivy.
+** CANCELLED +Possibly replace smex with [[https://github.com/DarwinAwardWinner/amx][amx]], a fork with recent activity and improvements (since smex's development was indeed inactive).+
+The main argument against doing so is that smex works just fine for me, and I subscribe by the «If it ain't broken» saying. Not to mention that way popular packages depend on smex (e.g. counsel-M-x).
 ** DONE Install the magit package and add relevant configuration.
 +It looks as if it could help a lot with the git routine, but I'll have to be prepared for possible troubleshooting, for which I don't have time right now...+\\
 Update: It was actually rather painless! I made a change in this very file and commited it in the blink of an eye!
@@ -407,7 +411,7 @@ To make windmove split a window for you if there isn't one there, here's a reall
       ((eq dir 'up) (select-window (split-window-below))))))
 (advice-add #'windmove-do-window-select :before #'my-windmov-auto-split)
 #+END_SRC
-** Recent files
+* Recent files
 A quick way to access my most recently opened files (as I didn't want to have to go all the way through the directory structure - even with ido).
 #+BEGIN_SRC emacs-lisp
 (require 'recentf)
@@ -447,6 +451,8 @@ The following files were added to the list just because emacs accessed them by i
              (expand-file-name "~/.emacs.d/emms/history"))
 (add-to-list 'recentf-exclude "magit-autoloads.el")
 (add-to-list 'recentf-exclude "magit-popup-autoloads.el")
+(add-to-list 'recentf-exclude "emms-autoloads.el")
+(add-to-list 'recentf-exclude "ht-autoloads.el")
 #+END_SRC
 * Clipboard management
 It turns out that emacs has a separate kill ring, so I somehow have to sync it with the system's clipboard. I use CopyQ as my clipboard manager, so I wanted to be able to browse it from within emacs.
@@ -686,7 +692,7 @@ These are, apart from TODO and DONE, also CURRENTLY and SOMEDAY.
 #+BEGIN_SRC emacs-lisp
 (setq org-todo-keywords
    (quote
-    ((sequence "TODO(t)" "CURRENTLY(c)" "SOMEDAY(s)" "DONE(d)"))))
+    ((sequence "TODO(t)" "CURRENTLY(c)" "SOMEDAY(s)" "CANCELLED(x)" "DONE(d)"))))
 #+END_SRC
 ** Use query to confirm killing of hidden subtrees
 #+BEGIN_SRC emacs-lisp
