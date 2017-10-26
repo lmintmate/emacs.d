@@ -13,6 +13,7 @@ esup
 focus
 free-keys
 geiser
+gitignore-mode
 google-translate
 helpful
 htmlize ;; org now requires it in order to export to html (that is, html export isn't inbuilt anymore)

@@ -24,6 +24,7 @@ esup
 focus
 free-keys
 geiser
+gitignore-mode
 google-translate
 helpful
 htmlize
