@@ -461,6 +461,7 @@ The following files were added to the list just because emacs accessed them by i
 (add-to-list 'recentf-exclude "org-autoloads.el")
 (add-to-list 'recentf-exclude "org-loaddefs.el")
 (add-to-list 'recentf-exclude "markdown-mode-autoloads.el")
+(add-to-list 'recentf-exclude "basic-mode-autoloads.el")
 #+END_SRC
 * Clipboard management
 It turns out that emacs has a separate kill ring, so I somehow have to sync it with the system's clipboard. I use CopyQ as my clipboard manager, so I wanted to be able to browse it from within emacs.
