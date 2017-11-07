@@ -221,7 +221,7 @@ I decided not to change the scratch buffer’s major mode however, because, as w
   (message "Καλωσήλθες!"))
 #+END_SRC
 * The Bell
-[[https://www.emacswiki.org/emacs/AlarmBell][That infamous bell…]] I only found out about its «charms» recently, because it turns out my system sounds were disabled for some reason and I hadn't even realised this was the case. This is my way to exterminate those annoying sounds everytime anything out of the norm happens (that's why we have text messsages in the first place after all!). I disabled alarms completely as even the visual indication (which is a nice wheat color in my colortheme) can be distracting…
+[[https://www.emacswiki.org/emacs/AlarmBell][That infamous bell…]] I only found out about its «charms» recently, because it turns out my system sounds were disabled for some reason and I hadn't even realised this was the case. This is my way to exterminate those annoying sounds everytime anything out of the norm happens (that's why we have text messages in the first place after all!). I disabled alarms completely as even the visual indication (which is a nice wheat color in my colortheme) can be distracting…
 #+BEGIN_SRC emacs-lisp
 (setq ring-bell-function 'ignore)
 #+END_SRC
