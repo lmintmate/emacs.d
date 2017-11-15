@@ -299,6 +299,10 @@ Sometimes I forget to switch the keyboard language from Greek to English (especi
 (define-key function-key-map [?\C-κ] [?\C-k])
 (define-key function-key-map [?\C-β] [?\C-b])
 (define-key function-key-map [?\C-ε] [?\C-e])
+(define-key function-key-map [?\C-π] [?\C-p])
+(define-key function-key-map [?\C-ν] [?\C-n])
+(define-key function-key-map [?\C-ς] [?\C-w])
+(define-key function-key-map [?\C-θ] [?\C-u])
 #+END_SRC
 * Newsticker configuration
 Newsticker is awesome, it's just like Liferea, but inside emacs!
