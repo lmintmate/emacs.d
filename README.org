@@ -280,6 +280,26 @@ In order to be able to write greek with the keyboard set to English (useful for 
 #+BEGIN_SRC emacs-lisp
 (set-input-method "el_GR")
 #+END_SRC
+** Redirect keybindings with Greek letters
+Sometimes I forget to switch the keyboard language from Greek to English (especially when I'm using emacs in tandem with other applications that require the keyboard be set to Greek in order to write in that language) and, as a result, I get something like «M-χ is undefined». This method, from [[https://stackoverflow.com/a/10658699][Stack Overflow]], gives a solution for those modifier-based shortcuts I use (I don't need a solution as radical and complicated as the one proposed above that one - not to mention that I tried that one and couldn't get it to work). It basically tells emacs to consider the given greek letter shortcut the same as the equivalent latin one.
+#+BEGIN_SRC emacs-lisp
+;; Common keyboard shortcuts I use and might mistype with Greek letters
+(define-key function-key-map [?\M-χ] [?\M-x])
+(define-key function-key-map [?\M-ς] [?\M-w])
+(define-key function-key-map [?\M-π] [?\M-p])
+(define-key function-key-map [?\M-ν] [?\M-n])
+(define-key function-key-map [?\M-ο] [?\M-o])
+(define-key function-key-map [?\C-χ] [?\C-x])
+(define-key function-key-map [?\C-υ] [?\C-y])
+(define-key function-key-map [?\C-ψ] [?\C-c])
+(define-key function-key-map [?\C-γ] [?\C-g])
+(define-key function-key-map [?\C-σ] [?\C-s])
+(define-key function-key-map [?\C-φ] [?\C-f])
+(define-key function-key-map [?\C-α] [?\C-a])
+(define-key function-key-map [?\C-κ] [?\C-k])
+(define-key function-key-map [?\C-β] [?\C-b])
+(define-key function-key-map [?\C-ε] [?\C-e])
+#+END_SRC
 * Newsticker configuration
 Newsticker is awesome, it's just like Liferea, but inside emacs!
 ** Keep none of the proposed by emacs urls in the list.
