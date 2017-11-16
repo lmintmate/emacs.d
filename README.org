@@ -66,7 +66,6 @@ basic-mode
 bongo
 browse-kill-ring
 color-theme-modern
-deft
 dim
 diminish
 dired-icon
@@ -227,10 +226,6 @@ I decided not to change the scratch buffer’s major mode however, because, as w
 #+END_SRC
 * Personal directory parameters
 Here are gathered all the parameters that set directories for use with various packages.
-*** The directory where the Deft package data (including the notes) is saved:
-#+BEGIN_SRC emacs-lisp
-(setq deft-directory "~/.emacs.d/deft")
-#+END_SRC
 *** The directory where the emacs diary files are saved:
 (I haven't used it in ages however, so I might remove it in the future)
 #+BEGIN_SRC emacs-lisp
@@ -694,25 +689,6 @@ Group directories first and make sizes human-readable.
 * Load mpg123
 #+BEGIN_SRC emacs-lisp
 (autoload 'mpg123 "mpg123" "A Front-end to mpg123/ogg123" t)
-#+END_SRC
-* Deft (quick note taking package) configuration
-Load Deft
-#+BEGIN_SRC emacs-lisp
-(with-eval-after-load 'deft)
-#+END_SRC
-Set Deft default extensions.
-#+BEGIN_SRC emacs-lisp
-(setq deft-extensions '("txt" "md" "org"))
-#+END_SRC
-Default mode for deft - switch between the 2 below
-#+BEGIN_SRC emacs-lisp
-;;(setq deft-default-extension "org")
-(setq deft-default-extension "md")
-#+END_SRC
-Set the default time format.\\
-I use the European system day-month-year.
-#+BEGIN_SRC emacs-lisp
-(setq deft-time-format " %d-%m-%Y %H:%M")
 #+END_SRC
 * Org Mode configuration
 The ~(require 'org)~ part is present in the init.el file instead of here, precisely in order to compile this very file.

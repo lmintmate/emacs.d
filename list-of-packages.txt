@@ -4,7 +4,6 @@ basic-mode
 bongo
 browse-kill-ring
 color-theme-modern ;; for the blue-mood theme
-deft
 dim
 diminish
 dired-icon

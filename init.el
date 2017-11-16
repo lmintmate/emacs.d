@@ -15,7 +15,6 @@ basic-mode
 bongo
 browse-kill-ring
 color-theme-modern
-deft
 dim
 diminish
 dired-icon
