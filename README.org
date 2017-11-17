@@ -294,6 +294,7 @@ Sometimes I forget to switch the keyboard language from Greek to English (especi
 (define-key function-key-map [?\C-θ] [?\C-u])
 (define-key function-key-map [?\C-ρ] [?\C-r])
 (define-key function-key-map [?\C-ω] [?\C-v])
+(define-key function-key-map [?\C-ζ] [?\C-z])
 #+END_SRC
 * Newsticker configuration
 Newsticker is awesome, it's just like Liferea, but inside emacs!
@@ -435,6 +436,22 @@ To make windmove split a window for you if there isn't one there, here's a reall
       ((eq dir 'left) (select-window (split-window-right)))
       ((eq dir 'up) (select-window (split-window-below))))))
 (advice-add #'windmove-do-window-select :before #'my-windmov-auto-split)
+#+END_SRC
+** Add command to mark a line
+From [[https://ebzzry.io/en/emacs-tips-1/#marks][here]]. Executing it multiple times marks multiple lines.
+#+BEGIN_SRC emacs-lisp
+(defun mark-line (&optional arg)
+  (interactive "p")
+  (if (not mark-active)
+      (progn
+        (beginning-of-line)
+        (push-mark)
+        (setq mark-active t)))
+  (forward-line arg))
+#+END_SRC
+Its keybinding
+#+BEGIN_SRC emacs-lisp
+(define-key global-map "\C-z" 'mark-line)
 #+END_SRC
 * Recent files
 A quick way to access my most recently opened files (as I didn't want to have to go all the way through the directory structure - even with ido).
