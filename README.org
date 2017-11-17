@@ -131,10 +131,10 @@ The snippet below disables tool-bar-mode. I placed it this early in the config s
 #+BEGIN_SRC emacs-lisp
 (tool-bar-mode -1)
 #+END_SRC
-* Setting the font size
-Since I'm here, I might as well set the font size to 14. The default size seems way too small for me, as if I were trying to watch a bunch of ants...
+* Setting the font
+Here, I'm setting the font and the font size. The default font emacs by itself used on my machine appeals a lot to me, so when I found out it was DejaVu Sans Mono, I decided to put it in the config, in case I move to another computer where the font might suddenly be something else entirely I won't like. I also set the font size to 14. The default size seems way too small for me, as if I were trying to watch a bunch of ants...
 #+BEGIN_SRC emacs-lisp
-(set-face-attribute 'default nil :height 140)
+(set-face-attribute 'default nil :family "DejaVu Sans Mono" :height 140)
 #+END_SRC
 * Setting up my must use theme - Blue Mood theme.
 I wasn't satisfied with the default Adawaita theme (but then who is?). I tried to find another theme, but most of them (even the popular ones) didn't satisfy my tastes. But when I found Blue Mood, I knew it was the one!\\
