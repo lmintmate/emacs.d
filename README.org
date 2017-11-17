@@ -10,10 +10,6 @@ I first started off with the .emacs file in my home directory. I had to look for
 It is worth noting that the emacs version I'm using (on my main Linux system) is 24.5.1, and thus a couple settings are different in emacs 25+, and will need some adjustment to make certain the init files play well with that version.
 ** Changes in emacs 25+ that affect the init files
 Source: [[https://www.masteringemacs.org/article/whats-new-in-emacs-25-1][Mickey Petersen's Emacs 25 changelog]].
-#+BEGIN_QUOTE
-The default 'diary-file' is now located in "~/.emacs.d".
-#+END_QUOTE
-This means that one will just need to remove the related config line, since the file is already there.\\
 Concerning my init.el file:
 #+BEGIN_QUOTE
  'package-initialize' now sets 'package-enable-at-startup' to nil if called during startup. Users who call this function in their init file and still expect it to be run after startup should set 'package-enable-at-startup' to t after the call to 'package-initialize'.
@@ -226,11 +222,6 @@ I decided not to change the scratch buffer’s major mode however, because, as w
 #+END_SRC
 * Personal directory parameters
 Here are gathered all the parameters that set directories for use with various packages.
-*** The directory where the emacs diary files are saved:
-(I haven't used it in ages however, so I might remove it in the future)
-#+BEGIN_SRC emacs-lisp
-(setq diary-file "~/.emacs.d/diary")
-#+END_SRC
 *** The directory where the Racket binary from DrRacket is stored:
 (for use with the geiser and racket-mode packages)
 #+BEGIN_SRC emacs-lisp
