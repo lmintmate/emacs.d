@@ -49,6 +49,7 @@ smex
 soundklaus
 typo
 undo-tree
+w3m
 wttrin
 zeal-at-point)
   "Default packages")
