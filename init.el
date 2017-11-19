@@ -48,6 +48,7 @@ picpocket
 racket-mode
 smex
 soundklaus
+transpose-frame
 typo
 undo-tree
 w3m

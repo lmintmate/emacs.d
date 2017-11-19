@@ -95,6 +95,7 @@ picpocket
 racket-mode
 smex
 soundklaus
+transpose-frame
 typo
 undo-tree
 w3m
@@ -558,67 +559,10 @@ From [[https://github.com/IvanMalison/.emacs.d#sync-kill-ring-with-copyq][Ivan M
  (run-with-idle-timer 10 t 'imalison:copyq-sync))
 #+END_SRC
 * Settings for multiple buffer management
-** Change layout of windows from horizontal to vertical very easily (from [[http://whattheemacsd.com/buffer-defuns.el-03.html][What the .emacs.d!?]])
+I wanted to be able to change the layout of the buffers from horizontal to vertical, as well as be able to flip frames, so that left goes right, and up goes down. I used to use some custom functions found at [[http://whattheemacsd.com][What the .emacs.d!?]] ([[http://whattheemacsd.com/buffer-defuns.el-03.html][here]] and [[http://whattheemacsd.com/buffer-defuns.el-02.html][here]], specifically), but then found the package [[https://github.com/emacsorphanage/transpose-frame/blob/master/transpose-frame.el][transpose-frame]] (available at MELPA), and decided to use that instead, as to make the README.org file less lengthy.
 #+BEGIN_SRC emacs-lisp
-(defun toggle-window-split ()
-  (interactive)
-  (if (= (count-windows) 2)
-      (let* ((this-win-buffer (window-buffer))
-             (next-win-buffer (window-buffer (next-window)))
-             (this-win-edges (window-edges (selected-window)))
-             (next-win-edges (window-edges (next-window)))
-             (this-win-2nd (not (and (<= (car this-win-edges)
-                                         (car next-win-edges))
-                                     (<= (cadr this-win-edges)
-                                         (cadr next-win-edges)))))
-             (splitter
-              (if (= (car this-win-edges)
-                     (car (window-edges (next-window))))
-                  'split-window-horizontally
-                'split-window-vertically)))
-        (delete-other-windows)
-        (let ((first-win (selected-window)))
-          (funcall splitter)
-          (if this-win-2nd (other-window 1))
-          (set-window-buffer (selected-window) this-win-buffer)
-          (set-window-buffer (next-window) next-win-buffer)
-          (select-window first-win)
-          (if this-win-2nd (other-window 1))))))
-#+END_SRC
-The keyboard shortcut for the above function.
-#+BEGIN_SRC emacs-lisp
-(define-key global-map "\M-]" 'toggle-window-split)
-#+END_SRC
-** Flip 2 window frame, so that left goes right, and up goes down (from [[http://whattheemacsd.com/buffer-defuns.el-02.html][What the .emacs.d!?]])
-#+BEGIN_SRC emacs-lisp
-(defun rotate-windows ()
-  "Rotate your windows"
-  (interactive)
-  (cond ((not (> (count-windows)1))
-         (message "You can't rotate a single window!"))
-        (t
-         (setq i 1)
-         (setq numWindows (count-windows))
-         (while  (< i numWindows)
-           (let* (
-                  (w1 (elt (window-list) i))
-                  (w2 (elt (window-list) (+ (% i numWindows) 1)))
-
-                  (b1 (window-buffer w1))
-                  (b2 (window-buffer w2))
-
-                  (s1 (window-start w1))
-                  (s2 (window-start w2))
-                  )
-             (set-window-buffer w1  b2)
-             (set-window-buffer w2 b1)
-             (set-window-start w1 s2)
-             (set-window-start w2 s1)
-             (setq i (1+ i)))))))
-#+END_SRC
-The keyboard shortcut for the above function.
-#+BEGIN_SRC emacs-lisp
-(define-key global-map "\M-[" 'rotate-windows)
+(define-key global-map "\M-]" 'transpose-frame)
+(define-key global-map "\M-[" 'rotate-frame)
 #+END_SRC
 * Ibuffer
 A better way to list buffers than buffer-menu([[https://www.emacswiki.org/emacs/IbufferMode][link]]). Config influenced from [[http://cestlaz.github.io/posts/using-emacs-34-ibuffer-emmet/][Using Emacs - 34 - ibuffer and emmet | C'est la Z]] and [[http://home.thep.lu.se/~karlf/emacs.html#sec-6-6][some dude's .emacs]].\\
