@@ -466,6 +466,23 @@ Modified from [[http://seancribbs.com/emacs.d#sec-5-8][Sean Cribbs' Emacs 25 Con
 
 (add-hook 'prog-mode-hook 'lmintmate/add-watchwords)
 #+END_SRC
+** Kill terminal buffer automatically when exiting
+From [[https://oremacs.com/2015/01/01/three-ansi-term-tips/][oremacs]].
+#+BEGIN_QUOTE
+After you close the terminal, you get a useless buffer with no process. It's probably left there for you to have a history of what you did. I find it not useful, so here's a way to kill that buffer automatically:
+#+END_QUOTE
+#+BEGIN_SRC emacs-lisp
+(defun oleh-term-exec-hook ()
+  (let* ((buff (current-buffer))
+         (proc (get-buffer-process buff)))
+    (set-process-sentinel
+     proc
+     `(lambda (process event)
+        (if (string= event "finished\n")
+            (kill-buffer ,buff))))))
+
+(add-hook 'term-exec-hook 'oleh-term-exec-hook)
+#+END_SRC
 * Recent files
 A quick way to access my most recently opened files (as I didn't want to have to go all the way through the directory structure - even with ido).
 #+BEGIN_SRC emacs-lisp
