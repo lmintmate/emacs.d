@@ -30,6 +30,7 @@ htmlize
 ido-completing-read+
 ido-yes-or-no
 iedit
+isend-mode
 legalese
 litable
 magit

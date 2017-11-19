@@ -19,6 +19,7 @@ htmlize ;; org now requires it in order to export to html (that is, html export 
 ido-completing-read+
 ido-yes-or-no
 iedit
+isend-mode
 legalese
 litable
 magit
