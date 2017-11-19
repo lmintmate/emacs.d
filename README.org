@@ -455,6 +455,16 @@ Its keybinding
 #+BEGIN_SRC emacs-lisp
 (define-key global-map "\C-z" 'mark-line)
 #+END_SRC
+** Highlight specific words in prog-mode
+Modified from [[http://seancribbs.com/emacs.d#sec-5-8][Sean Cribbs' Emacs 25 Configuration]].
+#+BEGIN_SRC emacs-lisp
+(defun lmintmate/add-watchwords ()
+  (font-lock-add-keywords
+   nil '(("\\<\\(FIX\\(ME\\)?\\|TODO\\|CURRENTLY\\|SOMEDAY\\|CANCELLED\\|HACK\\|REFACTOR\\|NOCOMMIT\\|LONGTERM\\)"
+          1 font-lock-builtin-face t))))
+
+(add-hook 'prog-mode-hook 'lmintmate/add-watchwords)
+#+END_SRC
 * Recent files
 A quick way to access my most recently opened files (as I didn't want to have to go all the way through the directory structure - even with ido).
 #+BEGIN_SRC emacs-lisp
@@ -975,9 +985,11 @@ Keybindings. The ~<backtab>~ string means Shift+Tab.
 (define-key prog-mode-map (kbd "<C-tab>") 'hs-show-all)
 #+END_SRC
 * Basic mode
-[[https://github.com/dykstrom/basic-mode][Link]]. This mode deals with coloring and indentation of BASIC code (not with evaluation though sadly). I changed the ~basic-line-number-cols~ parameter so that it will account for the fact that I'll be using line numbers.
+[[https://github.com/dykstrom/basic-mode][Link]]. This mode deals with coloring and indentation of BASIC code (not with evaluation though sadly). I changed the ~basic-line-number-cols~ parameter so that it will account for the fact that I'll be using line numbers. The ~basic-auto-number~ option adds auto-numbering with an increment of 10.
 #+BEGIN_SRC emacs-lisp
 (setq basic-line-number-cols 2)
+;; auto-numbering
+(setq basic-auto-number 10)
 #+END_SRC
 * Isend mode
 [[https://github.com/ffevotte/isend-mode.el][This extension]] interactively sends the content of emacs buffers to ansi-term in a language agnostic way, so I thought it'd be a perfect companion for basic-mode. It works however when a prompt with the language of interest is already present, thus in my case, only with [[http://www.nicholson.com/rhn/basic/][Chipmunk BASIC]] (the other possible choice, [[http://www.vintage-basic.net/][Vintage BASIC]], had a use case of vintbas file.bas and so wasn't fit for my purpose).
