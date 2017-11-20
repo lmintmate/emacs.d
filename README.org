@@ -673,6 +673,11 @@ Group directories first and make sizes human-readable.
 #+END_SRC
 * Org Mode configuration
 The ~(require 'org)~ part is present in the init.el file instead of here, precisely in order to compile this very file.
+** Org-mouse
+This is an org-mode subpackage that allows control of various things with the mouse. I enable it because I almost never remember which is the shortcut to tick checkboxes in org-mode.
+#+BEGIN_SRC emacs-lisp
+(require 'org-mouse)
+#+END_SRC
 ** Define C-c l as the keybinding to org-cliplink.
 I used to have it as the shortcut to org-store-link, but it turns out I hardly used that one…
 #+BEGIN_SRC emacs-lisp
