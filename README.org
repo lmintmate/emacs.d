@@ -367,6 +367,11 @@ Setting this variable directly does not take effect;
    or call the function `delete-selection-mode'
 #+END_QUOTE
 That goes into showing that RT(F)M is valid advice…
+** Disable double space as end of sentence
+I recently tried M-e to go to the end of a long sentence I wrote, and was surprised when I went to the end of the paragraph instead. I searched a little about it and found out there are people that actually use two spaces to start a new sentence. I personally use only one space though (and when writing on paper zero), so I disable this setting.
+#+BEGIN_SRC emacs-lisp
+(setq sentence-end-double-space nil)
+#+END_SRC
 ** Geiser's active implementations.
 #+BEGIN_SRC emacs-lisp
 (setq geiser-active-implementations (quote (guile racket chez mit chibi)))
