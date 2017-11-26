@@ -43,6 +43,7 @@ org-cliplink
 ox-pandoc
 ox-twbs
 ox-tufte
+pcre2el
 pdf-tools
 picpocket
 racket-mode

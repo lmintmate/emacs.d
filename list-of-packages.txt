@@ -34,6 +34,7 @@ org-cliplink ;;needs emacs 24.4 and upwards
 ox-pandoc ;;for markdown export - my favorite option is org-pandoc-export-to-commonmark, and I also like export-to-docx and export-to-odt
 ox-twbs ;;better-looking html export for org
 ox-tufte ;;better-looking html export for org with tufte css
+pcre2el
 pdf-tools
 picpocket ;; image viewer ;; requires emacs 24.4 and up
 racket-mode

@@ -90,6 +90,7 @@ org-cliplink
 ox-pandoc
 ox-twbs
 ox-tufte
+pcre2el
 pdf-tools
 picpocket
 racket-mode
@@ -969,6 +970,12 @@ Keybindings. The ~<backtab>~ string means Shift+Tab.
 (global-set-key (kbd "C-c s") 'isend-send-buffer)
 (global-set-key (kbd "C-x z") 'isend-display-buffer)
 #+END_SRC
+* Regular expressions
+There is a standard way regular expressions are written nowadays, and emacs uses a non-standard one, so I enable pcre-mode (from the pcre2el package)
+#+BEGIN_SRC emacs-lisp
+(pcre-mode)
+#+END_SRC
+Another useful tip for searching with regex is using M-x list-matching-lines (I found about the existence of that one from [[http://ergoemacs.org/emacs/emacs_regex.html][Xah Lee]]). This finds strings matching the regex, but also shows the rest of the line, thus providing context when necessary.
 * Diminish mode and Dim
 Diminish mode that cuts off the display of minor modes which I want to work [[https://github.com/myrjola/diminish.el#introduction][discreetly, like janitors]]. Without any arguments, they are hidden entirely from the modeline, otherwise they are simply abbreviated to the specified abbreviation.
 #+BEGIN_SRC emacs-lisp
@@ -977,6 +984,7 @@ Diminish mode that cuts off the display of minor modes which I want to work [[ht
 (diminish 'undo-tree-mode "Ut")
 (diminish 'drag-stuff-mode)
 (diminish 'typo-mode)
+(diminish 'pcre-mode)
 #+END_SRC
 [[https://github.com/alezost/dim.el][Dim]]. This is similar to diminish, but can also shorten the display of major modes. The problem with it though is that it crams all the abbreviations, regardless of length, next to the name of the unabbreviated mode (while diminish only does so with single character abbreviations), which is why I'm using it in addition to diminish, even through their functionality overlaps.\\
 And the reason I decided to try it in the first place is because I find the name of lisp-interaction-mode way too long…
