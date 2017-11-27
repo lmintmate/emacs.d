@@ -472,30 +472,13 @@ Modified from [[http://seancribbs.com/emacs.d#sec-5-8][Sean Cribbs' Emacs 25 Con
 
 (add-hook 'prog-mode-hook 'lmintmate/add-watchwords)
 #+END_SRC
-** Kill terminal buffer automatically when exiting
-From [[https://oremacs.com/2015/01/01/three-ansi-term-tips/][oremacs]].
-#+BEGIN_QUOTE
-After you close the terminal, you get a useless buffer with no process. It's probably left there for you to have a history of what you did. I find it not useful, so here's a way to kill that buffer automatically:
-#+END_QUOTE
-#+BEGIN_SRC emacs-lisp
-(defun oleh-term-exec-hook ()
-  (let* ((buff (current-buffer))
-         (proc (get-buffer-process buff)))
-    (set-process-sentinel
-     proc
-     `(lambda (process event)
-        (if (string= event "finished\n")
-            (kill-buffer ,buff))))))
-
-(add-hook 'term-exec-hook 'oleh-term-exec-hook)
-#+END_SRC
 * Recent files
 A quick way to access my most recently opened files (as I didn't want to have to go all the way through the directory structure - even with ido).
 #+BEGIN_SRC emacs-lisp
 (require 'recentf)
 (recentf-mode 1)
 #+END_SRC
-*** Code to have ido completion on recent files (from [[https://www.emacswiki.org/emacs/RecentFiles#toc8][EmacsWiki: Recent Files]]).
+** Code to have ido completion on recent files (from [[https://www.emacswiki.org/emacs/RecentFiles#toc8][EmacsWiki: Recent Files]]).
 #+BEGIN_SRC emacs-lisp
 (defun recentf-ido-find-file ()
   "Find a recent file using Ido."
@@ -520,7 +503,7 @@ The keyboard shortcut for the above code.
 #+BEGIN_SRC emacs-lisp
 (global-set-key "\C-cf" 'recentf-ido-find-file)
 #+END_SRC
-*** Files to exclude from the recent files list
+** Files to exclude from the recent files list
 The following files were added to the list just because emacs accessed them by itself, but I don't want to see them in the list.
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'recentf-exclude
@@ -879,6 +862,32 @@ Keyboard shortcuts for Smex
 The old M-x keybinding (just in case).
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+#+END_SRC
+* Terminal configuration
+** Kill terminal buffer automatically when exiting
+From [[https://oremacs.com/2015/01/01/three-ansi-term-tips/][oremacs]].
+#+BEGIN_QUOTE
+After you close the terminal, you get a useless buffer with no process. It's probably left there for you to have a history of what you did. I find it not useful, so here's a way to kill that buffer automatically:
+#+END_QUOTE
+#+BEGIN_SRC emacs-lisp
+(defun oleh-term-exec-hook ()
+  (let* ((buff (current-buffer))
+         (proc (get-buffer-process buff)))
+    (set-process-sentinel
+     proc
+     `(lambda (process event)
+        (if (string= event "finished\n")
+            (kill-buffer ,buff))))))
+
+(add-hook 'term-exec-hook 'oleh-term-exec-hook)
+#+END_SRC
+** Redefine keys in term modes to their normal behavior
+Some key combinations don't behave as I'd expect in ansi-term. I thus have to redefine them to behave as expected (Syntax from [[https://www.reddit.com/r/emacs/comments/4ccczt/keybindings_in_multiterm/d1i99dk/][a comment on the emacs subreddit]]).
+#+BEGIN_SRC emacs-lisp
+(add-hook 'term-mode-hook (lambda ()
+      (define-key term-raw-map (kbd "M-x") 'smex)
+      (define-key term-raw-map (kbd "\C-cf") 'recentf-ido-find-file)
+))
 #+END_SRC
 * Google Translate
 [[https://github.com/atykhonov/google-translate][Emacs interface to Google Translate]]. I chose the smooth UI and not the default one, in order to have to remember only one key combination instead of two.
