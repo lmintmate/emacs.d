@@ -444,16 +444,11 @@ C-x o is too long a binding for this simple action (idea drawn from [[https://ma
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
 #+END_SRC
-To make windmove split a window for you if there isn't one there, here's a really simple hack (from [[https://www.reddit.com/r/emacs/comments/76kph2/wincmd_in_emacs/doep2ig/][a comment on the emacs subreddit]] - shift+down doesn't work however, as it says «Minibuffer is inactive» - at least shift+up accomplishes the same thing…)
+The ~windmove-wrap-around~ setting allows for windmove movement off the edge of a frame to wrap around.
 #+BEGIN_SRC emacs-lisp
-(defun my-windmov-auto-split (dir &optional arg window)
-  (when (null (windmove-find-other-window dir arg window))
-    (cond ((eq dir 'right) (split-window-right))
-      ((eq dir 'down) (split-window-below))
-      ((eq dir 'left) (select-window (split-window-right)))
-      ((eq dir 'up) (select-window (split-window-below))))))
-(advice-add #'windmove-do-window-select :before #'my-windmov-auto-split)
+(setq windmove-wrap-around t)
 #+END_SRC
+I also used to have a hack to create new window splits with the same keys, but removed it, because I didn't use it all that much, and it was more of a hindrance than anything else.
 ** Add command to mark a line
 From [[https://ebzzry.io/en/emacs-tips-1/#marks][here]]. Executing it multiple times marks multiple lines.
 #+BEGIN_SRC emacs-lisp
