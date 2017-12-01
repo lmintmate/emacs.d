@@ -924,6 +924,13 @@ A setting for Greek isn't available, and since I only ever use double quotes, th
 * Magit
 A very good git manager (the reports of its greatness aren’t overrated at all!).\\
 Btw,for those curious (as I was) where the term "porcelain" with which magit is self-described comes from, [[https://stackoverflow.com/questions/6976473/what-does-the-term-porcelain-mean-in-git][here’s]] an answer - the gist of it is that it is a more accessible interface, as opposed to the less user-friendly "plumbing" levels/commands.
+** Set magit faces
+I changed the faces of ~magit-diff-context-highlight~ and ~magit-section-highlight~ because them being quasi-black didn't look good on my color theme.
+#+BEGIN_SRC emacs-lisp
+(custom-set-faces
+ '(magit-diff-context-highlight ((t (:background "DodgerBlue4" :foreground "grey70"))))
+ '(magit-section-highlight ((t (:background "PaleTurquoise4")))))
+#+END_SRC
 ** Magit-status keybinding
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-x g") 'magit-status)
