@@ -448,7 +448,6 @@ The ~windmove-wrap-around~ setting allows for windmove movement off the edge of 
 #+BEGIN_SRC emacs-lisp
 (setq windmove-wrap-around t)
 #+END_SRC
-I also used to have a hack to create new window splits with the same keys, but removed it, because I didn't use it all that much, and it was more of a hindrance than anything else.
 ** Add command to mark a line
 From [[https://ebzzry.io/en/emacs-tips-1/#marks][here]]. Executing it multiple times marks multiple lines.
 #+BEGIN_SRC emacs-lisp
