@@ -54,6 +54,7 @@ typo
 undo-tree
 w3m
 wttrin
+yaml-mode
 zeal-at-point)
   "Default packages")
 
