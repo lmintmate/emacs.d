@@ -2,7 +2,6 @@
 anzu
 basic-mode
 bongo
-browse-kill-ring
 color-theme-modern ;; for the blue-mood theme
 dim
 diminish

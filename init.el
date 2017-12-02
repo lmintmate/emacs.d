@@ -13,7 +13,6 @@
 anzu
 basic-mode
 bongo
-browse-kill-ring
 color-theme-modern
 dim
 diminish
