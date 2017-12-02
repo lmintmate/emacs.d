@@ -367,6 +367,17 @@ I recently tried M-e to go to the end of a long sentence I wrote, and was surpri
 #+BEGIN_SRC emacs-lisp
 (setq sentence-end-double-space nil)
 #+END_SRC
+This setting however doesn't play very well with focus-mode (a mode that grays out text not near the point), as that one judges the graying out based by sentences, and doesn't ungray out nearly enough, especially when I want to study notes with abbreviations. I don't care all that much about having to use M-e multiple times normally, but focus-mode leaving text gray is an entirely different matter. The code below disables the above setting just for focus-mode, and re-enables it afterwards. Syntax partially taken from [[https://stackoverflow.com/questions/4462126/emacs-minor-mode-for-temporarily-modifying-the-default-face][Stack Overflow]].
+#+BEGIN_SRC emacs-lisp
+(progn
+  (defun turn-off-sentence-end ()
+   (if focus-mode
+    (progn
+      (setq sentence-end-double-space t))
+    (progn
+      (setq sentence-end-double-space nil))))
+(add-hook 'focus-mode-hook 'turn-off-sentence-end))
+#+END_SRC
 ** Geiser's active implementations.
 #+BEGIN_SRC emacs-lisp
 (setq geiser-active-implementations (quote (guile racket chez mit chibi)))
