@@ -618,6 +618,11 @@ Group directories first and make sizes human-readable.
 #+BEGIN_SRC emacs-lisp
 (autoload 'mpg123 "mpg123" "A Front-end to mpg123/ogg123" t)
 #+END_SRC
+* Bongo configuration
+The library view was the one that was confusing me, as it didn't play the next song automatically - the playlist view does though, so I'd rather start with that one.
+#+BEGIN_SRC emacs-lisp
+(setq bongo-prefer-library-buffers nil)
+#+END_SRC
 * Org Mode configuration
 The ~(require 'org)~ part is present in the init.el file instead of here, precisely in order to compile this very file.
 ** Org-mouse
