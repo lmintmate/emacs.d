@@ -53,7 +53,7 @@ Secondly, I add the MELPA repository. I do this in init.el and not here as I use
 #+END_EXAMPLE
 ** Auto-install packages through MELPA
 From [[http://aaronbedra.com/emacs.d/#default-packages][Aaron Bedra's Emacs 24 Configuration]].\\
-The first part of the code defines the packages to be installed ; from this list are absent the packages installed manually, present in the lisp folder, and packages not at MELPA anymore, like mpg123. The second part of the code does the following: when Emacs boots, it checks to make sure all of the packages defined in lmintmate/packages are installed. If not, it has MELPA take care of it.\\
+The first part of the code defines the packages to be installed ; from this list are absent the packages installed manually, present in the lisp folder. The second part of the code does the following: when Emacs boots, it checks to make sure all of the packages defined in lmintmate/packages are installed. If not, it has MELPA take care of it.\\
 P.S Just so you know, I’m aware that ~use-package~ can be used to achieve the same effect, but I’d have to change the entirety of my configuration for that, so it was more trouble than was worth.
 #+BEGIN_EXAMPLE
 (defvar lmintmate/packages '(2048-game
@@ -237,17 +237,11 @@ Here are gathered all the parameters that set directories for use with various p
 #+BEGIN_SRC emacs-lisp
 (setq malyon-stories-directory "~/other-games/frotz-games")
 #+END_SRC
-*** The directory where I have music for use with mpg123.
-This otherwise good music player has the problem of not being able to recognise directories with non-latin names, such as my Music directory (and it now has disappeared from MELPA for some reason).
-#+BEGIN_SRC emacs-lisp
-(defvar mpg123-default-dir "~/mousiki-gia-emacs")
-#+END_SRC
 *** My default music directory for use with Bongo.
-After mpg123 disappeared from MELPA, I tried to examine the other music options. Bongo is the second better (and it can recognise non-latin directory names), but it isn't perfect either, as it stops after every song...
 #+BEGIN_SRC emacs-lisp
 (setq bongo-default-directory "~/Μουσική")
 #+END_SRC
-Honestly, I prefer the ncurses-based mocp over those 2, but it doesn't play well with multiple buffers a la C-x 2 and C-x 3.
+I prefer the ncurses-based mocp over this one, but it doesn't play well with multiple buffers a la C-x 2 and C-x 3.
 * Nationality parameters
 ** Geographical and language parameters for the weather information fetcher wttrin.
 #+BEGIN_SRC emacs-lisp
@@ -614,12 +608,8 @@ Group directories first and make sizes human-readable.
 #+BEGIN_SRC emacs-lisp
 (setq dired-dwim-target t)
 #+END_SRC
-* Load mpg123
-#+BEGIN_SRC emacs-lisp
-(autoload 'mpg123 "mpg123" "A Front-end to mpg123/ogg123" t)
-#+END_SRC
 * Bongo configuration
-The library view was the one that was confusing me, as it didn't play the next song automatically - the playlist view does though, so I'd rather start with that one.
+The library view was confusing me, as it didn't play the next song automatically - the playlist view does though, so I'd rather start with that one.
 #+BEGIN_SRC emacs-lisp
 (setq bongo-prefer-library-buffers nil)
 #+END_SRC
