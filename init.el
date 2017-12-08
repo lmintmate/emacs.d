@@ -24,7 +24,6 @@ free-keys
 geiser
 gitignore-mode
 google-translate
-helpful
 htmlize
 ido-completing-read+
 ido-yes-or-no
