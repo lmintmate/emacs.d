@@ -93,7 +93,6 @@ pdf-tools
 picpocket
 racket-mode
 smex
-soundklaus
 transpose-frame
 typo
 undo-tree
@@ -762,12 +761,6 @@ Function to turn off the menu bar when olivetti mode is enabled
 #+BEGIN_SRC emacs-lisp
 (push '("William Whitaker's English to Latin" "http://archives.nd.edu/cgi-bin/wordz.pl?english=%s" "Languages")
       web-search-providers)
-#+END_SRC
-* Emms setup (for soundklaus)
-#+BEGIN_SRC emacs-lisp
-(require 'emms-setup)
-(emms-standard)
-(emms-default-players)
 #+END_SRC
 * Drag-stuff package config
 #+BEGIN_SRC emacs-lisp

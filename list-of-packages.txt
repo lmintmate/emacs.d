@@ -37,7 +37,6 @@ pdf-tools
 picpocket ;; image viewer ;; requires emacs 24.4 and up
 racket-mode
 smex
-soundklaus ;; soundcloud streamer
 transpose-frame
 typo.el
 undo-tree
