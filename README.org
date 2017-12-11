@@ -393,7 +393,7 @@ Since it can't be clicked anyways, it takes up space without reason...
   predicates which report frame's specific UI-related capabilities."
 #+END_QUOTE
 #+BEGIN_SRC emacs-lisp
-(when (not (display-graphic-p))
+(unless (display-graphic-p)
   (menu-bar-mode -1))
 #+END_SRC
 ** Toggling the menu bar with a keyboard shortcut.
