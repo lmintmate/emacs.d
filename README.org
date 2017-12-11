@@ -20,7 +20,7 @@ I also include the old init file in case you don't like literate configs, and mi
 In this repository is also included an init-windows.el file with a separate configuration for my 32-bit windows pc, where the latest version that worked is 24.3.1.
 * Todo list
 I also include a TODO list with things I could incorporate to the config in the future, but don't have the time for right now.
-** SOMEDAY Maybe replace ido by ivy.
+** ⏲ SOMEDAY Maybe replace ido by ivy.
 Ivy seems to be rather popular, and similar in aims to ido. Ido works fine for me though, and I feel it'd be too much of a hassle to replace it with ivy.
 ** ✘ CANCELLED +Possibly replace smex with [[https://github.com/DarwinAwardWinner/amx][amx]], a fork with recent activity and improvements (since smex's development was indeed inactive).+
 The main argument against doing so is that smex works just fine for me, and I subscribe by the «If it ain't broken» saying. Not to mention that way popular packages depend on smex (e.g. counsel-M-x).
@@ -643,7 +643,7 @@ These are, apart from TODO and DONE, also CURRENTLY and SOMEDAY.(Idea to add uni
 #+BEGIN_SRC emacs-lisp
 (setq org-todo-keywords
    (quote
-    ((sequence "TODO(t)" "CURRENTLY(c)" "SOMEDAY(s)" "✘ CANCELLED(x)" "✔ DONE(d)"))))
+    ((sequence "TODO(t)" "⏳ CURRENTLY(c)" "⏲ SOMEDAY(s)" "✘ CANCELLED(x)" "✔ DONE(d)"))))
 #+END_SRC
 ** Special Ctrl-a/e behavior in org mode
 From the Customize section of the parameter:
