@@ -65,6 +65,7 @@ dim
 diminish
 dired-icon
 drag-stuff
+emmet-mode
 esup
 focus
 free-keys
@@ -78,7 +79,6 @@ iedit
 isend-mode
 legalese
 litable
-lorem-ipsum
 magit
 markdown-mode
 minimap
@@ -1038,9 +1038,9 @@ From [[https://www.emacswiki.org/emacs/SearchAtPoint#toc6][EmacsWiki: Search At 
 #+BEGIN_SRC emacs-lisp
 (require 'iedit)
 #+END_SRC
-* Lorem ipsum
-I saw in a youtube video that, using atom, one can write Lorem+Tab, and it autoinserts swathes of Lorem text. I wondered whether emacs can do that, and sure enough, [[https://github.com/jschaf/emacs-lorem-ipsum][there is a package for that]]!
+* Emmet mode
+[[https://github.com/smihica/emmet-mode#usage][A nifty mode that makes creating and editing html and css much easier]] (and also adds lorem ipsum as required). I'm hooking it to the relevant modes, so that I won't have to manually enable the mode.
 #+BEGIN_SRC emacs-lisp
-(require 'lorem-ipsum)
-(lorem-ipsum-use-default-bindings)
+(add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
 #+END_SRC

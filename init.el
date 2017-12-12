@@ -18,6 +18,7 @@ dim
 diminish
 dired-icon
 drag-stuff
+emmet-mode
 esup
 focus
 free-keys
@@ -31,7 +32,6 @@ iedit
 isend-mode
 legalese
 litable
-lorem-ipsum
 magit
 markdown-mode
 minimap
