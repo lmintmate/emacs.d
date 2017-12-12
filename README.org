@@ -78,6 +78,7 @@ iedit
 isend-mode
 legalese
 litable
+lorem-ipsum
 magit
 markdown-mode
 minimap
@@ -1036,4 +1037,10 @@ From [[https://www.emacswiki.org/emacs/SearchAtPoint#toc6][EmacsWiki: Search At 
 [[https://www.emacswiki.org/emacs/Iedit][EmacsWiki: Iedit]].This package allows to replace all occurences of a string under point simultaneously.
 #+BEGIN_SRC emacs-lisp
 (require 'iedit)
+#+END_SRC
+* Lorem ipsum
+I saw in a youtube video that, using atom, one can write Lorem+Tab, and it autoinserts swathes of Lorem text. I wondered whether emacs can do that, and sure enough, [[https://github.com/jschaf/emacs-lorem-ipsum][there is a package for that]]!
+#+BEGIN_SRC emacs-lisp
+(require 'lorem-ipsum)
+(lorem-ipsum-use-default-bindings)
 #+END_SRC

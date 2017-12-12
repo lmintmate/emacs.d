@@ -31,6 +31,7 @@ iedit
 isend-mode
 legalese
 litable
+lorem-ipsum
 magit
 markdown-mode
 minimap
