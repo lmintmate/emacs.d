@@ -46,6 +46,7 @@ pcre2el
 pdf-tools
 picpocket
 racket-mode
+rainbow-mode
 smex
 transpose-frame
 typo

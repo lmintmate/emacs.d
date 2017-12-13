@@ -51,9 +51,9 @@ Secondly, I add the MELPA repository. I do this in init.el and not here as I use
              '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
 #+END_EXAMPLE
-** Auto-install packages through MELPA
+** Auto-install packages
 From [[http://aaronbedra.com/emacs.d/#default-packages][Aaron Bedra's Emacs 24 Configuration]].\\
-The first part of the code defines the packages to be installed ; from this list are absent the packages installed manually, present in the lisp folder. The second part of the code does the following: when Emacs boots, it checks to make sure all of the packages defined in lmintmate/packages are installed. If not, it has MELPA take care of it.\\
+The first part of the code defines the packages to be installed ; from this list are absent the packages installed manually, present in the lisp folder. The second part of the code does the following: when Emacs boots, it checks to make sure all of the packages defined in lmintmate/packages are installed. If not, it has the package manager take care of it.\\
 P.S Just so you know, I’m aware that ~use-package~ can be used to achieve the same effect, but I’d have to change the entirety of my configuration for that, so it was more trouble than was worth.
 #+BEGIN_EXAMPLE
 (defvar lmintmate/packages '(2048-game
@@ -93,6 +93,7 @@ pcre2el
 pdf-tools
 picpocket
 racket-mode
+rainbow-mode
 smex
 transpose-frame
 typo
@@ -1043,4 +1044,11 @@ From [[https://www.emacswiki.org/emacs/SearchAtPoint#toc6][EmacsWiki: Search At 
 #+BEGIN_SRC emacs-lisp
 (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
 (add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
+#+END_SRC
+* Rainbow mode
+[[http://elpa.gnu.org/packages/rainbow-mode.html][A mode that colorizes color names]]. Useful for html and css based modes.
+#+BEGIN_SRC emacs-lisp
+(add-hook 'sgml-mode-hook 'rainbow-mode)
+(add-hook 'css-mode-hook  'rainbow-mode)
+(add-hook 'nxml-mode-hook 'rainbow-mode)
 #+END_SRC
