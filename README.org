@@ -43,12 +43,13 @@ First of all, I left the ~custom-set-variables~ set in place at the very beginni
  ;; If there is more than one, they won't work right.
 )
 #+END_EXAMPLE
-** Add MELPA repository
-Secondly, I add the MELPA repository. I do this in init.el and not here as I use the version of Org from MELPA, which I need in order to load this very file.
+** Add MELPA and org repositories
+Secondly, I add the MELPA and org repositories. I do this in init.el and not here as I use the version of Org from its own repo, which I need in order to load this very file.
 #+BEGIN_EXAMPLE
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
+(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 (package-initialize)
 #+END_EXAMPLE
 ** Auto-install packages
