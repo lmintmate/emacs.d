@@ -320,7 +320,9 @@ It is automatically populated with M-x newsticker-opml-import.
      ("M-x emacs-reddit" "https://www.reddit.com/r/emacs/.rss" nil nil nil)
      ("πλανήτης ελληνικής κοινότητας ΕΛ/ΛΑΚ" "https://planet.ellak.gr/atom.xml" nil nil nil)
      ("Framablog" "https://framablog.org/feed/" nil nil nil)
-     ("Planet Emacsen" "http://planet.emacsen.org/atom.xml" nil nil nil))))
+     ("Planet Emacsen" "http://planet.emacsen.org/atom.xml" nil nil nil)
+     ("Stilton's Place" "http://stiltonsplace.blogspot.com/feeds/posts/default" nil nil nil)
+     ("Johnny Optimism" "http://johnnyoptimism.blogspot.com/feeds/posts/default" nil nil nil))))
 #+END_SRC
 * Misc configuration parameters
 ** Set the title bar to show buffer name
