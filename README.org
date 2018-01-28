@@ -220,11 +220,6 @@ I decided not to change the scratch buffer’s major mode however, because, as w
 (defun display-startup-echo-area-message ()
   (message "Καλωσήλθες!"))
 #+END_SRC
-* The Bell
-[[https://www.emacswiki.org/emacs/AlarmBell][That infamous bell…]] I only found out about its «charms» recently, because it turns out my system sounds were disabled for some reason and I hadn't even realised this was the case. This is my way to exterminate those annoying sounds everytime anything out of the norm happens (that's why we have text messages in the first place after all!). I disabled alarms completely as even the visual indication (which is a nice wheat color in my colortheme) can be distracting…
-#+BEGIN_SRC emacs-lisp
-(setq ring-bell-function 'ignore)
-#+END_SRC
 * Personal directory parameters
 Here are gathered all the parameters that set directories for use with various packages.
 *** The directory where the Racket binary from DrRacket is stored:
@@ -295,36 +290,16 @@ Sometimes I forget to switch the keyboard language from Greek to English (especi
 (define-key function-key-map [?\C-ω] [?\C-v])
 (define-key function-key-map [?\C-ζ] [?\C-z])
 #+END_SRC
-* Newsticker configuration
-Newsticker is awesome, it's just like Liferea, but inside emacs!
-** Keep none of the proposed by emacs urls in the list.
-#+BEGIN_SRC emacs-lisp
-(setq newsticker-url-list-defaults nil)
-#+END_SRC
-** Do not keep obsolete items.
-#+BEGIN_SRC emacs-lisp
-(setq newsticker-keep-obsolete-items nil)
-#+END_SRC
-** Newsticker's url list.
-It is automatically populated with M-x newsticker-opml-import.
-#+BEGIN_SRC emacs-lisp
-(setq newsticker-url-list
-   (quote
-    (("xkcd.com" "http://xkcd.com/rss.xml" nil nil nil)
-     ("Opensource.com" "https://opensource.com/feed" nil nil nil)
-     ("Awful Library Books" "http://feeds.feedburner.com/awfullibrarybooks?format=xml" nil nil nil)
-     ("OmgUbuntu" "http://feeds.feedburner.com/d0od" nil nil nil)
-     ("Reddit Linux" "https://www.reddit.com/r/linux/.rss" nil nil nil)
-     ("Reddit Linux Mint" "https://www.reddit.com/r/linuxmint/.rss" nil nil nil)
-     ("Reddit linuxmasterrace" "https://www.reddit.com/r/linuxmasterrace/.rss" nil nil nil)
-     ("M-x emacs-reddit" "https://www.reddit.com/r/emacs/.rss" nil nil nil)
-     ("πλανήτης ελληνικής κοινότητας ΕΛ/ΛΑΚ" "https://planet.ellak.gr/atom.xml" nil nil nil)
-     ("Framablog" "https://framablog.org/feed/" nil nil nil)
-     ("Planet Emacsen" "http://planet.emacsen.org/atom.xml" nil nil nil)
-     ("Stilton's Place" "http://stiltonsplace.blogspot.com/feeds/posts/default" nil nil nil)
-     ("Johnny Optimism" "http://johnnyoptimism.blogspot.com/feeds/posts/default" nil nil nil))))
-#+END_SRC
 * Misc configuration parameters
+** The Bell
+[[https://www.emacswiki.org/emacs/AlarmBell][That infamous bell…]] I only found out about its «charms» recently, because it turns out my system sounds were disabled for some reason and I hadn't even realised this was the case. This is my way to exterminate those annoying sounds everytime anything out of the norm happens (that's why we have text messages in the first place after all!). I disabled alarms completely as even the visual indication (which is a nice wheat color in my colortheme) can be distracting…
+#+BEGIN_SRC emacs-lisp
+(setq ring-bell-function 'ignore)
+#+END_SRC
+** Separate custom file
+#+BEGIN_SRC emacs-lisp
+(setq custom-file "~/.emacs.d/custom.el")
+#+END_SRC
 ** Set the title bar to show buffer name
 #+BEGIN_SRC emacs-lisp
 (setq frame-title-format "%b - Emacs")
@@ -475,6 +450,35 @@ Modified from [[http://seancribbs.com/emacs.d#sec-5-8][Sean Cribbs' Emacs 25 Con
           1 font-lock-builtin-face t))))
 
 (add-hook 'prog-mode-hook 'lmintmate/add-watchwords)
+#+END_SRC
+* Newsticker configuration
+Newsticker is awesome, it's just like Liferea, but inside emacs!
+** Keep none of the proposed by emacs urls in the list.
+#+BEGIN_SRC emacs-lisp
+(setq newsticker-url-list-defaults nil)
+#+END_SRC
+** Do not keep obsolete items.
+#+BEGIN_SRC emacs-lisp
+(setq newsticker-keep-obsolete-items nil)
+#+END_SRC
+** Newsticker's url list.
+It is automatically populated with M-x newsticker-opml-import.
+#+BEGIN_SRC emacs-lisp
+(setq newsticker-url-list
+   (quote
+    (("xkcd.com" "http://xkcd.com/rss.xml" nil nil nil)
+     ("Opensource.com" "https://opensource.com/feed" nil nil nil)
+     ("Awful Library Books" "http://feeds.feedburner.com/awfullibrarybooks?format=xml" nil nil nil)
+     ("OmgUbuntu" "http://feeds.feedburner.com/d0od" nil nil nil)
+     ("Reddit Linux" "https://www.reddit.com/r/linux/.rss" nil nil nil)
+     ("Reddit Linux Mint" "https://www.reddit.com/r/linuxmint/.rss" nil nil nil)
+     ("Reddit linuxmasterrace" "https://www.reddit.com/r/linuxmasterrace/.rss" nil nil nil)
+     ("M-x emacs-reddit" "https://www.reddit.com/r/emacs/.rss" nil nil nil)
+     ("πλανήτης ελληνικής κοινότητας ΕΛ/ΛΑΚ" "https://planet.ellak.gr/atom.xml" nil nil nil)
+     ("Framablog" "https://framablog.org/feed/" nil nil nil)
+     ("Planet Emacsen" "http://planet.emacsen.org/atom.xml" nil nil nil)
+     ("Stilton's Place" "http://stiltonsplace.blogspot.com/feeds/posts/default" nil nil nil)
+     ("Johnny Optimism" "http://johnnyoptimism.blogspot.com/feeds/posts/default" nil nil nil))))
 #+END_SRC
 * Recent files
 A quick way to access my most recently opened files (as I didn't want to have to go all the way through the directory structure - even with ido).
