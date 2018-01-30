@@ -451,6 +451,11 @@ Modified from [[http://seancribbs.com/emacs.d#sec-5-8][Sean Cribbs' Emacs 25 Con
 
 (add-hook 'prog-mode-hook 'lmintmate/add-watchwords)
 #+END_SRC
+** Remove defadvice warnings
+Further down I use the defadvice action and this results in a scary-looking warning. This customization parameter removes the warning (from [[https://andrewjamesjohnson.com/suppressing-ad-handle-definition-warnings-in-emacs/][Suppressing ad-handle-definition Warnings in Emacs | Andrew Johnson]]).
+#+BEGIN_SRC emacs-lisp
+(setq ad-redefinition-action 'accept)
+#+END_SRC
 * Newsticker configuration
 Newsticker is awesome, it's just like Liferea, but inside emacs!
 ** Keep none of the proposed by emacs urls in the list.
@@ -823,6 +828,14 @@ The old M-x keybinding (just in case).
   (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 #+END_SRC
 * Terminal configuration
+** Setting the default shell
+Ansi-term asks every time which shell it should use. I use zsh, so I'd like it to just remember to use that and not ask me every time (from [[https://github.com/daedreth/UncleDavesEmacs#default-shell-should-be-bash][daedreth's emacs config]]).
+#+BEGIN_SRC emacs-lisp
+(defvar my-term-shell "/usr/bin/zsh")
+(defadvice ansi-term (before force-zsh)
+  (interactive (list my-term-shell)))
+(ad-activate 'ansi-term)
+#+END_SRC
 ** Kill terminal buffer automatically when exiting
 From [[https://oremacs.com/2015/01/01/three-ansi-term-tips/][oremacs]].
 #+BEGIN_QUOTE
