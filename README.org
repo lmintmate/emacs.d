@@ -886,7 +886,7 @@ This package allows me to use french guillemets, as is the convention in greek t
 (add-hook 'text-mode-hook 'typo-mode)
 #+END_SRC
 ** Disable it however for ReStructured text
-ReStructured text uses monospace blocks ``like so`` which means that typo-mode, which changes that symbol to a "better" one typographically, makes me do twice the effort to use this specific symbol. Here's a trick to get Emacs ReStructured text mode to not have typo-mode enabled:
+ReStructured text uses monospace blocks ~``like so``~ which means that typo-mode, which changes that symbol to a "better" one typographically, makes me do twice the effort to use this specific symbol. Here's a trick to get Emacs ReStructured text mode to not have typo-mode enabled:
 #+BEGIN_SRC emacs-lisp
 (add-hook 'find-file-hook
           (lambda ()
