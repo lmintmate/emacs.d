@@ -15,6 +15,7 @@ anzu
 basic-mode
 bongo
 color-theme-modern
+counsel
 dim
 diminish
 dired-icon
@@ -27,8 +28,6 @@ geiser
 gitignore-mode
 google-translate
 htmlize
-ido-completing-read+
-ido-yes-or-no
 iedit
 isend-mode
 legalese

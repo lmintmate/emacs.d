@@ -3,6 +3,7 @@ anzu
 basic-mode
 bongo
 color-theme-modern ;; for the blue-mood theme
+counsel
 dim
 diminish
 dired-icon
@@ -15,8 +16,6 @@ geiser
 gitignore-mode
 google-translate
 htmlize ;; org now requires it in order to export to html (that is, html export isn't inbuilt anymore)
-ido-completing-read+
-ido-yes-or-no
 iedit
 isend-mode
 legalese
