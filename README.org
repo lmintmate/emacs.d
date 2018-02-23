@@ -771,29 +771,12 @@ Define the keybindings - the default being M- and arrow keys.
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 (global-set-key (kbd "\C-cu") 'counsel-unicode-char)
+(setq ivy-wrap t)
 #+END_SRC
-Swipe for the entire current word with swiper (from [[http://pragmaticemacs.com/emacs/search-or-swipe-for-the-current-word/][Search or swipe for the current word | Pragmatic Emacs]])
-#+BEGIN_SRC emacs-lisp
-;; version of ivy-yank-word to yank from start of word
-(defun bjm/ivy-yank-whole-word ()
-  "Pull next word from buffer into search string."
-  (interactive)
-  (let (amend)
-    (with-ivy-window
-      ;;move to last word boundary
-      (re-search-backward "\\b")
-      (let ((pt (point))
-            (le (line-end-position)))
-        (forward-word 1)
-        (if (> (point) le)
-            (goto-char pt)
-          (setq amend (buffer-substring-no-properties pt (point))))))
-    (when amend
-      (insert (replace-regexp-in-string "  +" " " amend)))))
-
-;; bind it to M-j
-(define-key ivy-minibuffer-map (kbd "M-j") 'bjm/ivy-yank-whole-word)
-#+END_SRC
+To search for the entire word at point with swiper (and not only the part from the cursor onwards, as M-j does): the [[https://github.com/abo-abo/swiper/wiki/FAQ][Ivy FAQ]] says the following:
+#+BEGIN_QUOTE
+On a related note, you can paste symbol-at-point into the search with M-n, which is a common case for using C-w in Isearch.
+#+END_QUOTE
 * Terminal configuration
 ** Setting the default shell
 Ansi-term asks every time which shell it should use. I use zsh, so I'd like it to just remember to use that and not ask me every time (from [[https://github.com/daedreth/UncleDavesEmacs#default-shell-should-be-bash][daedreth's emacs config]]).
