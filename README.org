@@ -54,7 +54,6 @@ The first part of the code defines the packages to be installed ; from this list
 P.S Just so you know, I’m aware that ~use-package~ can be used to achieve the same effect, but I’d have to change the entirety of my configuration for that, so it was more trouble than was worth.
 #+BEGIN_EXAMPLE
 (defvar lmintmate/packages '(2048-game
-anzu
 basic-mode
 bongo
 color-theme-modern
@@ -971,17 +970,6 @@ Modified from [[http://oremacs.com/2017/03/18/dired-ediff/][Quickly ediff files 
 The keybinding
 #+BEGIN_SRC emacs-lisp
 (define-key dired-mode-map "e" 'ora-ediff-files)
-#+END_SRC
-* Anzu and searching in general
-Anzu shows the number of search results in the mode line. When results are found they are shown with a dark green shade, when there are no results the indicator has a red shade. The ~anzu-mode-lighter~ snippet does what Diminish mode would do if it worked with Anzu (which for some reason it doesn't).
-#+BEGIN_SRC emacs-lisp
-(require 'anzu)
-(global-anzu-mode +1)
-(set-face-attribute 'anzu-mode-line nil
-                    :foreground "green4" :weight 'bold)
-(set-face-attribute 'anzu-mode-line-no-match nil
-                    :foreground "red3" :weight 'bold)
-(setq anzu-mode-lighter "")
 #+END_SRC
 * Iedit
 [[https://www.emacswiki.org/emacs/Iedit][EmacsWiki: Iedit]].This package allows to replace all occurences of a string under point simultaneously.

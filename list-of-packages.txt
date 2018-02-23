@@ -1,5 +1,4 @@
 2048-game
-anzu
 basic-mode
 bongo
 color-theme-modern ;; for the blue-mood theme
