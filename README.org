@@ -448,6 +448,15 @@ Further down I use the defadvice action and this results in a scary-looking warn
 #+BEGIN_SRC emacs-lisp
 (setq ad-redefinition-action 'accept)
 #+END_SRC
+** Use y-or-n-p instead of yes-or-no-p only for kill-matching-buffers
+From [[https://emacs.stackexchange.com/a/22571][kill-buffer with y-or-n-p instead of yes-or-no-p - Emacs Stack Exchange]].
+#+BEGIN_SRC emacs-lisp
+(defun yes-or-no-p->-y-or-n-p (orig-fun &rest r)
+  (cl-letf (((symbol-function 'yes-or-no-p) #'y-or-n-p))
+    (apply orig-fun r)))
+
+(advice-add 'kill-matching-buffers :around #'yes-or-no-p->-y-or-n-p)
+#+END_SRC
 * Newsticker configuration
 Newsticker is awesome, it's just like Liferea, but inside emacs!
 ** Keep none of the proposed by emacs urls in the list.
