@@ -10,8 +10,7 @@
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 (package-initialize)
 
-(defvar lmintmate/packages '(2048-game
-basic-mode
+(defvar lmintmate/packages '(basic-mode
 bongo
 color-theme-modern
 counsel
@@ -21,6 +20,7 @@ dired-icon
 drag-stuff
 emmet-mode
 esup
+esxml
 focus
 free-keys
 geiser

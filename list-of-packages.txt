@@ -1,4 +1,3 @@
-2048-game
 basic-mode
 bongo
 color-theme-modern ;; for the blue-mood theme
@@ -9,6 +8,7 @@ dired-icon
 drag-stuff
 emmet-mode
 esup
+esxml ;; required for svg-2048
 focus
 free-keys
 geiser

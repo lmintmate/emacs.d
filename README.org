@@ -53,8 +53,7 @@ From [[http://aaronbedra.com/emacs.d/#default-packages][Aaron Bedra's Emacs 24 C
 The first part of the code defines the packages to be installed ; from this list are absent the packages installed manually, present in the lisp folder. The second part of the code does the following: when Emacs boots, it checks to make sure all of the packages defined in lmintmate/packages are installed. If not, it has the package manager take care of it.\\
 P.S Just so you know, I’m aware that ~use-package~ can be used to achieve the same effect, but I’d have to change the entirety of my configuration for that, so it was more trouble than was worth.
 #+BEGIN_EXAMPLE
-(defvar lmintmate/packages '(2048-game
-basic-mode
+(defvar lmintmate/packages '(basic-mode
 bongo
 color-theme-modern
 dim
@@ -63,6 +62,7 @@ dired-icon
 drag-stuff
 emmet-mode
 esup
+esxml
 focus
 free-keys
 geiser
@@ -188,6 +188,11 @@ I’m used to writing Greek with the modern Greek layout, which is quite differe
 I use the somewhat newer version, that has a better presentation (the one whose link is dead on emacswiki), which can be found [[https://github.com/daimrod/Emacs-config/blob/master/elisp/verbiste.el][here]].
 #+BEGIN_SRC emacs-lisp
 (load "verbiste")
+#+END_SRC
+*** Loading the svg-2048 package
+This is a [[https://github.com/wasamasa/svg-2048][graphical 2048 implementation for Emacs]], which is great because all other implementations are textual. It can only be installed via quelpa however, so I preferred to load the file manually from my lisp directory. It also requires the esxml package.
+#+BEGIN_SRC emacs-lisp
+(load "svg-2048")
 #+END_SRC
 * Startup screen and scratch buffer options
 ** Inhibit startup screen
