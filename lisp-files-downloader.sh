@@ -1,0 +1,1 @@
+cd ~/.emacs.d/lisp && wget http://myria.math.aegean.gr/~atsol/emacs-unicode/greek.el && wget https://raw.githubusercontent.com/daimrod/Emacs-config/master/elisp/verbiste.el && wget https://raw.githubusercontent.com/wasamasa/svg-2048/master/svg-2048.el
