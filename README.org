@@ -6,6 +6,13 @@ Here begins my literate emacs configuration. I tended to comment my init file a 
 This file was last exported at {{{time(%d/%m/%Y %H:%M)}}}.
 ** Notes on the evolution of my emacs initialisation
 I first started off with the .emacs file in my home directory. I had to look for it though amongst all the other hidden files in that directory. So, especially after I found out I could version-control my emacs dotfiles, I switched to .emacs.d/init.el. so that I could have my config in one place. That setup still wasn’t satisfactory enough though. So when I found out I could have my config in an org file, which would allow my comments to truly stand out, I was intrigued and wanted to accomplish that. I initially thought however it'd be too hard to do (I do think that a lot when trying new ways of doing things…). I took the plunge however, and it turned out to be way easier than I thought. So I now keep most my config in this here file, and use init.el only for the preliminary configs that need to be loaded before this file.
+** General aims of this configuration
+*** To be as portable/reproducible as possible
+I want to be able, if I switch computers in the future, to be able to get my config ready and working just by cloning the repo and launching emacs.
+*** To be as cross-platform as possible (at the very least with Windows)
+I have some Windows computers lying around, and I would like for my emacs config to also work there.
+*** (Secondarily) To be as backward and forward-compatible as possible
+One of my windows computers is 32 bit, and thus not compatible with anything above emacs 24.3. I will also have to move to emacs 25+ at some point on my main pc (I'm currently on 24.5), so I want to be sure that I won't have to change much when I do update.
 * Things worth noting if you have Emacs 25+
 It is worth noting that the emacs version I'm using (on my main Linux system) is 24.5.1, and thus a couple settings are different in emacs 25+, and will need some adjustment to make certain the init files play well with that version.
 ** Changes in emacs 25+ that affect the init files
