@@ -30,7 +30,6 @@ htmlize
 iedit
 isend-mode
 legalese
-litable
 magit
 markdown-mode
 minimap

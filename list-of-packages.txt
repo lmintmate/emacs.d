@@ -18,7 +18,6 @@ htmlize ;; org now requires it in order to export to html (that is, html export 
 iedit
 isend-mode
 legalese
-litable
 magit
 malyon (manual install)
 markdown-mode
