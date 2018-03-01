@@ -164,14 +164,16 @@ I use some external lisp files, and I thus need to load my personal lisp directo
 ** Where I bootstrap the elisp files
 In this section I have some code in emacs lisp that downloads the lisp files I use and places them in the correct place. Specifically, it checks whether at least one of the three files doesn't exist and, if that's the case, first creates the containing directory, if it doesn't exist, and then proceeds to download and store each of the three files, if they don't already exist.
 #+BEGIN_SRC emacs-lisp
-(when (or (not (file-exists-p "~/.emacs.d/lisp/greek.el")) (not (file-exists-p "~/.emacs.d/lisp/verbiste.el")) (not (file-exists-p "~/.emacs.d/lisp/svg-2048.el")))
+(when (or (not (file-exists-p "~/.emacs.d/lisp/greek.el")) (not (file-exists-p "~/.emacs.d/lisp/verbiste.el")) (not (file-exists-p "~/.emacs.d/lisp/svg-2048.el")) (not (file-exists-p "~/.emacs.d/lisp/malyon.el")))
   (unless (file-directory-p "~/.emacs.d/lisp") (make-directory "~/.emacs.d/lisp"))
   (unless (file-exists-p "~/.emacs.d/lisp/greek.el")
     (url-copy-file "http://myria.math.aegean.gr/~atsol/emacs-unicode/greek.el" "~/.emacs.d/lisp/greek.el"))
   (unless (file-exists-p "~/.emacs.d/lisp/verbiste.el")
     (url-copy-file "https://raw.githubusercontent.com/daimrod/Emacs-config/master/elisp/verbiste.el" "~/.emacs.d/lisp/verbiste.el"))
   (unless (file-exists-p "~/.emacs.d/lisp/svg-2048.el")
-(url-copy-file "https://raw.githubusercontent.com/wasamasa/svg-2048/master/svg-2048.el" "~/.emacs.d/lisp/svg-2048.el")))
+(url-copy-file "https://raw.githubusercontent.com/wasamasa/svg-2048/master/svg-2048.el" "~/.emacs.d/lisp/svg-2048.el"))
+(unless (file-exists-p "~/.emacs.d/lisp/malyon.el")
+(url-copy-file "https://raw.githubusercontent.com/lmintmate/malyon/master/malyon.el" "~/.emacs.d/lisp/malyon.el")))
 #+END_SRC
 ** Where I tell Emacs where is my personal lisp directory.
 #+BEGIN_SRC emacs-lisp
