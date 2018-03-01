@@ -92,6 +92,7 @@ transpose-frame
 typo
 undo-tree
 w3m
+web-search
 wttrin
 yaml-mode
 zeal-at-point)
@@ -184,11 +185,6 @@ In this section, I load the lisp files previously downloaded.
 I use [[https://github.com/lmintmate/malyon][the version I forked from the repo used by MELPA]], where I made a couple minor changes, such as [[https://github.com/lmintmate/malyon/commit/e95759f5779553f64280ae0101610b03bf4eb9cd][amending the error messages to account for the zblorb compatibility added by a previous maintainer]]. If you don't care about these minor changes, you can use the MELPA version instead.
 #+BEGIN_SRC emacs-lisp
 (load "malyon")
-#+END_SRC
-*** Loading the web-search package.
-I load a locally stored web-search.el file instead of the MELPA package version because I use [[https://github.com/lmintmate/web-search.el][the version I forked from the repo used by MELPA]], where I made a couple changes, such as [[https://github.com/lmintmate/web-search.el/commit/88641a2f90ed599b3e400cadd2c470662b2c9a6f][adding the search provider DuckDuckGo]], as well as [[https://github.com/lmintmate/web-search.el/commit/8bba746feda09970adbf9d76dbef1291d4833af9][the search engines of Bandcamp and Soundcloud]]. I use this manually instead of the MELPA version (with which it is at this point identical) just in case I wish to change anything further. 
-#+BEGIN_SRC emacs-lisp
-(load "web-search")
 #+END_SRC
 *** Loading the package for polytonic greek
 I’m used to writing Greek with the modern Greek layout, which is quite different from the greek-babel polytonic layout in a way jarring to me. I tried to find a way to solve my problem, and found out with relief that I didn’t need to reinvent the wheel, as someone had already made a package for what I wanted ; a layout that would provide polytonic Greek while also keeping the regular keyboard layout I was used to.\\
@@ -751,22 +747,6 @@ Function to turn off the menu bar when olivetti mode is enabled
 ** Set the default search provider
 #+BEGIN_SRC emacs-lisp
 (setq web-search-default-provider "DuckDuckGo")
-#+END_SRC
-** Add custom search engines
-*** Italian verbs
-#+BEGIN_SRC emacs-lisp
-(push '("Italian Verbs" "https://www.italian-verbs.com/italian-verbs/conjugation.php?parola=%s" "Languages")
-      web-search-providers)
-#+END_SRC
-*** William Whitaker's Latin Dictionary
-#+BEGIN_SRC emacs-lisp
-(push '("William Whitaker's Latin Dictionary" "http://archives.nd.edu/cgi-bin/wordz.pl?keyword=%s" "Languages")
-      web-search-providers)
-#+END_SRC
-*** William Whitaker's English to Latin
-#+BEGIN_SRC emacs-lisp
-(push '("William Whitaker's English to Latin" "http://archives.nd.edu/cgi-bin/wordz.pl?english=%s" "Languages")
-      web-search-providers)
 #+END_SRC
 * Drag-stuff package config
 #+BEGIN_SRC emacs-lisp

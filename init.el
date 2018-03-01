@@ -50,6 +50,7 @@ transpose-frame
 typo
 undo-tree
 w3m
+web-search
 wttrin
 yaml-mode
 zeal-at-point)
