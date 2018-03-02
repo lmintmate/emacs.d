@@ -245,7 +245,7 @@ Here are gathered all the parameters that set directories for use with various p
 *** The directory where I save the interactive fiction/text game files:
 (for use with malyon)
 #+BEGIN_SRC emacs-lisp
-(setq malyon-stories-directory "~/other-games/frotz-games")
+(setq malyon-stories-directory "~/other-games/frotz-games/")
 #+END_SRC
 *** My default music directory for use with Bongo.
 #+BEGIN_SRC emacs-lisp
