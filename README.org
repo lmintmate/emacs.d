@@ -63,6 +63,7 @@ P.S Just so you know, I’m aware that ~use-package~ can be used to achieve the 
 (defvar lmintmate/packages '(basic-mode
 bongo
 color-theme-modern
+counsel
 dim
 diminish
 dired-icon
