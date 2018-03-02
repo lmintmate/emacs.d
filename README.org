@@ -184,7 +184,7 @@ In this section I have some code in emacs lisp that downloads the lisp files I u
 #+END_SRC
 ** Where I tell Emacs where is my personal lisp directory.
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path "~/.emacs.d/lisp/")
+(add-to-list 'load-path (concat user-emacs-directory "lisp"))
 #+END_SRC
 ** Where I load the specific packages.
 In this section, I load the lisp files previously downloaded.
@@ -312,7 +312,7 @@ Sometimes I forget to switch the keyboard language from Greek to English (especi
 #+END_SRC
 ** Separate custom file
 #+BEGIN_SRC emacs-lisp
-(setq custom-file "~/.emacs.d/custom.el")
+(setq custom-file (concat user-emacs-directory "custom.el"))
 #+END_SRC
 ** Set the title bar to show buffer name
 #+BEGIN_SRC emacs-lisp
