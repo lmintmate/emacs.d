@@ -22,7 +22,6 @@ magit
 malyon (manual install)
 markdown-mode
 minimap
-mpg123
 ob-translate
 olivetti
 org
