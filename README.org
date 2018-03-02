@@ -517,8 +517,6 @@ A quick way to access my most recently opened files (as I didn't want to have to
 ** Files to exclude from the recent files list
 The following files were added to the list just because emacs accessed them by itself, but I don't want to see them in the list.
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'recentf-exclude
-             (expand-file-name "~/.emacs.d/emms/history"))
 (add-to-list 'recentf-exclude "magit-autoloads.el")
 (add-to-list 'recentf-exclude "magit-popup-autoloads.el")
 (add-to-list 'recentf-exclude "emms-autoloads.el")
