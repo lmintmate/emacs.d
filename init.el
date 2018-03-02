@@ -68,4 +68,4 @@ zeal-at-point)
       (package-install pkg))))
 
 (require 'org)
-(org-babel-load-file "~/.emacs.d/README.org")
+(org-babel-load-file (concat user-emacs-directory "README.org"))

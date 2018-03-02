@@ -123,7 +123,7 @@ zeal-at-point)
 #+END_EXAMPLE
 ** Where the magic happens
 #+BEGIN_EXAMPLE
-(org-babel-load-file "~/.emacs.d/README.org")
+(org-babel-load-file (concat user-emacs-directory "README.org"))
 #+END_EXAMPLE
 This snippet is the one that does the heavy work. It tracks down all the parts that say ~#+BEGIN_SRC emacs-lisp~ and evaluates them as emacs lisp code, creating a separate README.el in the process, as to reduce load time for the next run. Every time the org file is modified, the .el file is created anew.\\
 And now these are taken care of, let's proceed to the configuration present in this very file.
