@@ -138,6 +138,7 @@ The snippet below disables tool-bar-mode. I placed it this early in the config s
 #+END_SRC
 * Setting the font
 Here, I'm setting the font and the font size. The default font emacs by itself used on my machine appeals a lot to me, so when I found out it was DejaVu Sans Mono, I decided to put it in the config, in case I move to another computer where the font might suddenly be something else entirely I won't like. I also set the font size to 14. The default size seems way too small for me, as if I were trying to watch a bunch of ants...
+On systems different from the one I'm currently on (which is Linux Mint MATE), the fonts might look thicker than they should, to an unappealing degree. This can be solved (on Linux systems at least) by going to Appearance > Fonts, and setting hinting to light instead of full.
 #+BEGIN_SRC emacs-lisp
 (set-face-attribute 'default nil :family "DejaVu Sans Mono" :height 140)
 #+END_SRC
