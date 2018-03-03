@@ -6,7 +6,7 @@
 )
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
+             '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 (package-initialize)
 
@@ -55,6 +55,7 @@ yaml-mode
 zeal-at-point)
   "Default packages")
 
+(require 'cl)
 (defun lmintmate/packages-installed-p ()
   (loop for pkg in lmintmate/packages
         when (not (package-installed-p pkg)) do (return nil)

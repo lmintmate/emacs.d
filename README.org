@@ -9,9 +9,9 @@ I first started off with the .emacs file in my home directory. I had to look for
 * General aims of this configuration
 ** To be as portable/reproducible as possible
 I want to be able, if I switch computers in the future, to be able to get my config ready and working just by cloning the repo and launching emacs.
-Current state of progress: I tried to drop this config on the .emacs.d folder of a Linux Lite 3.8 VM and, to my surprise (out of the many things that could go wrong) it complained ~(void-function loop)~ (no idea why it did that), which is a function used on my automatic package install code. As per [[https://stackoverflow.com/a/30848971][this Stack Overflow answer]], I added ~(require 'cl)~ and it worked afterwards (until it complained about a dependency of a package having a bad signature). This means that my config as it is currently isn't portable at all. I wonder if I should switch from this custom auto-install package system to something more tried-and-true, like use-package.
+Current state of progress: My custom packages installer didn't work in the beginning in a Linux Lite VM, until I made some modifications to it. I wonder if I should switch from this custom auto-install packages system to something more tried-and-true, like use-package.
 ** To be as cross-platform as possible (at the very least with Windows)
-I have some Windows computers lying around, and I would like for my emacs config to also work there.
+I have some Windows computers lying around, and I would like for my emacs config to also work there. Use-package might help, as it has builtin parameters for conditionals.
 ** (Secondarily) To be as backward and forward-compatible as possible
 One of my windows computers is 32 bit, and thus not compatible with anything above emacs 24.3. I will also have to move to emacs 25+ at some point on my main pc (I'm currently on 24.5), so I want to be sure that I won't have to change much when I do update.
 * Things worth noting if you have Emacs 25+
@@ -28,8 +28,8 @@ I also include the old init file in case you don't like literate configs, and mi
 In this repository is also included an init-windows.el file with a separate configuration for my 32-bit windows pc, where the latest version that worked is 24.3.1.
 * Todo list
 I also include a TODO list with things I could incorporate to the config in the future, but don't have the time for right now.
-** ⏲ SOMEDAY Update my config to use use-package
-This seems to be a tried-and-true solution to make one's config more portable. I will need to revamp my entire config for that though.
+** ⏲ SOMEDAY Maybe change my config to use use-package
+This seems to be a tried-and-true solution to make one's config more portable. I will need to revamp my entire config for that though, if I am to use it.
 ** ✔ DONE Replace ido by ivy.
 +Ivy seems to be rather popular, and similar in aims to ido. Ido works fine for me though, and I feel it'd be too much of a hassle to replace it with ivy.+
 A botched commit on ido-completing-read+ broke ido-yes-or-no, which effectively disallowed me from answering any yes-or-no prompts until it was fixed. I decided then to take the plunge to ivy, since it is way more popular (and thus supported).
@@ -54,7 +54,7 @@ Secondly, I add the MELPA and org repositories. I do this in init.el and not her
 #+BEGIN_EXAMPLE
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
+             '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 (package-initialize)
 #+END_EXAMPLE
@@ -108,6 +108,7 @@ yaml-mode
 zeal-at-point)
   "Default packages")
 
+(require 'cl)
 (defun lmintmate/packages-installed-p ()
   (loop for pkg in lmintmate/packages
         when (not (package-installed-p pkg)) do (return nil)
