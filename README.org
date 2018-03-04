@@ -167,14 +167,16 @@ I use some external lisp files and a theme for org to html export, and I thus ne
 ** Where I bootstrap the elisp files
 In this section I have some code in emacs lisp that downloads the lisp files I use and places them in the correct place. Specifically, it checks whether at least one of the three files doesn't exist and, if that's the case, first creates the containing directory, if it doesn't exist, and then proceeds to download and store each of the three files, if they don't already exist.
 #+BEGIN_SRC emacs-lisp
-(when (or (not (file-exists-p "~/.emacs.d/lisp/greek.el")) (not (file-exists-p "~/.emacs.d/lisp/verbiste.el")) (not (file-exists-p "~/.emacs.d/lisp/svg-2048.el")))
-  (unless (file-directory-p "~/.emacs.d/lisp") (make-directory "~/.emacs.d/lisp"))
-  (unless (file-exists-p "~/.emacs.d/lisp/greek.el")
-    (url-copy-file "http://myria.math.aegean.gr/~atsol/emacs-unicode/greek.el" "~/.emacs.d/lisp/greek.el"))
-  (unless (file-exists-p "~/.emacs.d/lisp/verbiste.el")
-    (url-copy-file "https://raw.githubusercontent.com/daimrod/Emacs-config/master/elisp/verbiste.el" "~/.emacs.d/lisp/verbiste.el"))
-  (unless (file-exists-p "~/.emacs.d/lisp/svg-2048.el")
-(url-copy-file "https://raw.githubusercontent.com/wasamasa/svg-2048/master/svg-2048.el" "~/.emacs.d/lisp/svg-2048.el")))
+(setq lisp-directory (concat user-emacs-directory "lisp"))
+
+(when (or (not (file-exists-p (expand-file-name "greek.el" lisp-directory))) (not (file-exists-p (expand-file-name "verbiste.el" lisp-directory))) (not (file-exists-p (expand-file-name "svg-2048.el" lisp-directory))))
+  (unless (file-directory-p lisp-directory) (make-directory lisp-directory))
+  (unless (file-exists-p (expand-file-name "greek.el" lisp-directory))
+    (url-copy-file "http://myria.math.aegean.gr/~atsol/emacs-unicode/greek.el" (expand-file-name "greek.el" lisp-directory)))
+  (unless (file-exists-p (expand-file-name "verbiste.el" lisp-directory))
+    (url-copy-file "https://raw.githubusercontent.com/daimrod/Emacs-config/master/elisp/verbiste.el" (expand-file-name "verbiste.el" lisp-directory)))
+  (unless (file-exists-p (expand-file-name "svg-2048.el" lisp-directory))
+    (url-copy-file "https://raw.githubusercontent.com/wasamasa/svg-2048/master/svg-2048.el" (expand-file-name "svg-2048.el" lisp-directory))))
 #+END_SRC
 ** Where I bootstrap the org export theme
 Similar to the previous code, but it downloads the org export theme.
@@ -184,7 +186,7 @@ Similar to the previous code, but it downloads the org export theme.
 #+END_SRC
 ** Where I tell Emacs where is my personal lisp directory.
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path (concat user-emacs-directory "lisp"))
+(add-to-list 'load-path lisp-directory)
 #+END_SRC
 ** Where I load the specific packages.
 In this section, I load the lisp files previously downloaded.
