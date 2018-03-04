@@ -19,7 +19,7 @@ iedit
 isend-mode
 legalese
 magit
-malyon (manual install)
+malyon
 markdown-mode
 minimap
 ob-translate

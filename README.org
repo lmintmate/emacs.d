@@ -169,16 +169,14 @@ I use some external lisp files, and I thus need to load my personal lisp directo
 ** Where I bootstrap the elisp files
 In this section I have some code in emacs lisp that downloads the lisp files I use and places them in the correct place. Specifically, it checks whether at least one of the three files doesn't exist and, if that's the case, first creates the containing directory, if it doesn't exist, and then proceeds to download and store each of the three files, if they don't already exist.
 #+BEGIN_SRC emacs-lisp
-(when (or (not (file-exists-p "~/.emacs.d/lisp/greek.el")) (not (file-exists-p "~/.emacs.d/lisp/verbiste.el")) (not (file-exists-p "~/.emacs.d/lisp/svg-2048.el")) (not (file-exists-p "~/.emacs.d/lisp/malyon.el")))
+(when (or (not (file-exists-p "~/.emacs.d/lisp/greek.el")) (not (file-exists-p "~/.emacs.d/lisp/verbiste.el")) (not (file-exists-p "~/.emacs.d/lisp/svg-2048.el")))
   (unless (file-directory-p "~/.emacs.d/lisp") (make-directory "~/.emacs.d/lisp"))
   (unless (file-exists-p "~/.emacs.d/lisp/greek.el")
     (url-copy-file "http://myria.math.aegean.gr/~atsol/emacs-unicode/greek.el" "~/.emacs.d/lisp/greek.el"))
   (unless (file-exists-p "~/.emacs.d/lisp/verbiste.el")
     (url-copy-file "https://raw.githubusercontent.com/daimrod/Emacs-config/master/elisp/verbiste.el" "~/.emacs.d/lisp/verbiste.el"))
   (unless (file-exists-p "~/.emacs.d/lisp/svg-2048.el")
-(url-copy-file "https://raw.githubusercontent.com/wasamasa/svg-2048/master/svg-2048.el" "~/.emacs.d/lisp/svg-2048.el"))
-(unless (file-exists-p "~/.emacs.d/lisp/malyon.el")
-(url-copy-file "https://raw.githubusercontent.com/lmintmate/malyon/master/malyon.el" "~/.emacs.d/lisp/malyon.el")))
+(url-copy-file "https://raw.githubusercontent.com/wasamasa/svg-2048/master/svg-2048.el" "~/.emacs.d/lisp/svg-2048.el")))
 #+END_SRC
 ** Where I tell Emacs where is my personal lisp directory.
 #+BEGIN_SRC emacs-lisp
@@ -186,12 +184,6 @@ In this section I have some code in emacs lisp that downloads the lisp files I u
 #+END_SRC
 ** Where I load the specific packages.
 In this section, I load the lisp files previously downloaded.
-*** Loading the malyon package.
- This is a package that allows one to play interactive fiction/text games right from Emacs.\\
-I use [[https://github.com/lmintmate/malyon][the version I forked from the repo used by MELPA]], where I made a couple minor changes, such as [[https://github.com/lmintmate/malyon/commit/e95759f5779553f64280ae0101610b03bf4eb9cd][amending the error messages to account for the zblorb compatibility added by a previous maintainer]]. If you don't care about these minor changes, you can use the MELPA version instead.
-#+BEGIN_SRC emacs-lisp
-(load "malyon")
-#+END_SRC
 *** Loading the package for polytonic greek
 I’m used to writing Greek with the modern Greek layout, which is quite different from the greek-babel polytonic layout in a way jarring to me. I tried to find a way to solve my problem, and found out with relief that I didn’t need to reinvent the wheel, as someone had already made a package for what I wanted ; a layout that would provide polytonic Greek while also keeping the regular keyboard layout I was used to.\\
  This solution to my problem can be found [[http://myria.math.aegean.gr/~atsol/emacs-unicode/][here]](look under the compiled greek.elc link for the greek.el source).

@@ -27,6 +27,7 @@ iedit
 isend-mode
 legalese
 magit
+malyon
 markdown-mode
 minimap
 ob-translate
