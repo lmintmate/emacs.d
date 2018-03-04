@@ -74,10 +74,8 @@ google-translate
 htmlize
 iedit
 isend-mode
-legalese
 magit
 markdown-mode
-minimap
 ob-translate
 olivetti
 org

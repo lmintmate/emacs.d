@@ -17,11 +17,9 @@ google-translate
 htmlize ;; org now requires it in order to export to html (that is, html export isn't inbuilt anymore)
 iedit
 isend-mode
-legalese
 magit
 malyon
 markdown-mode
-minimap
 ob-translate
 olivetti
 org
