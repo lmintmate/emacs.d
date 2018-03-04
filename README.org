@@ -475,6 +475,10 @@ From [[https://emacs.stackexchange.com/a/22571][kill-buffer with y-or-n-p instea
 
 (advice-add 'kill-matching-buffers :around #'yes-or-no-p->-y-or-n-p)
 #+END_SRC
+** Enable recursive minibuffers (useful for Verbiste)
+#+BEGIN_SRC emacs-lisp
+(setq enable-recursive-minibuffers t)
+#+END_SRC
 * Newsticker configuration
 Newsticker is awesome, it's just like Liferea, but inside emacs!
 ** Keep none of the proposed by emacs urls in the list.
