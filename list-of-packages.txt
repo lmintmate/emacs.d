@@ -13,14 +13,12 @@ focus
 free-keys
 geiser
 gitignore-mode
-google-translate
 htmlize ;; org now requires it in order to export to html (that is, html export isn't inbuilt anymore)
 iedit
 isend-mode
 magit
 malyon
 markdown-mode
-ob-translate
 olivetti
 org
 org-cliplink ;;needs emacs 24.4 and upwards

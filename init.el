@@ -21,14 +21,12 @@ focus
 free-keys
 geiser
 gitignore-mode
-google-translate
 htmlize
 iedit
 isend-mode
 magit
 malyon
 markdown-mode
-ob-translate
 olivetti
 org
 org-cliplink
