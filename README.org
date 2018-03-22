@@ -70,7 +70,6 @@ focus
 free-keys
 geiser
 htmlize
-iedit
 isend-mode
 magit
 markdown-mode
@@ -944,11 +943,6 @@ Modified from [[http://oremacs.com/2017/03/18/dired-ediff/][Quickly ediff files 
 The keybinding
 #+BEGIN_SRC emacs-lisp
 (define-key dired-mode-map "e" 'ora-ediff-files)
-#+END_SRC
-* Iedit
-[[https://www.emacswiki.org/emacs/Iedit][EmacsWiki: Iedit]].This package allows to replace all occurences of a string under point simultaneously.
-#+BEGIN_SRC emacs-lisp
-(require 'iedit)
 #+END_SRC
 * Emmet mode
 [[https://github.com/smihica/emmet-mode#usage][A nifty mode that makes creating and editing html and css much easier]] (and also adds lorem ipsum as required). I'm hooking it to the relevant modes, so that I won't have to manually enable the mode.

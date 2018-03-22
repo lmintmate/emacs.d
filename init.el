@@ -21,7 +21,6 @@ focus
 free-keys
 geiser
 htmlize
-iedit
 isend-mode
 magit
 malyon
