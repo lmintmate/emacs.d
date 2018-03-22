@@ -20,7 +20,6 @@ esxml
 focus
 free-keys
 geiser
-gitignore-mode
 htmlize
 iedit
 isend-mode

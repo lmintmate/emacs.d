@@ -12,7 +12,6 @@ esxml ;; required for svg-2048
 focus
 free-keys
 geiser
-gitignore-mode
 htmlize ;; org now requires it in order to export to html (that is, html export isn't inbuilt anymore)
 iedit
 isend-mode
