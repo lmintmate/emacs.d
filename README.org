@@ -96,7 +96,7 @@ yaml-mode
 zeal-at-point)
   "Default packages")
 
-(require 'cl)
+(require 'cl-lib)
 (defun lmintmate/packages-installed-p ()
   (loop for pkg in lmintmate/packages
         when (not (package-installed-p pkg)) do (return nil)
