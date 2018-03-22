@@ -17,7 +17,6 @@ drag-stuff
 emmet-mode
 esup
 esxml
-focus
 free-keys
 geiser
 htmlize

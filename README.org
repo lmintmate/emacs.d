@@ -66,7 +66,6 @@ drag-stuff
 emmet-mode
 esup
 esxml
-focus
 free-keys
 geiser
 htmlize
@@ -346,11 +345,6 @@ That goes into showing that RT(F)M is valid advice…
 I recently tried M-e to go to the end of a long sentence I wrote, and was surprised when I went to the end of the paragraph instead. I searched a little about it and found out there are people that actually use two spaces to start a new sentence. I personally use only one space though (and when writing on paper zero), so I disable this setting.
 #+BEGIN_SRC emacs-lisp
 (setq sentence-end-double-space nil)
-#+END_SRC
-** Focus mode config
-Related to the above is the configuration of focus-mode. This mode, which grays out text not near the point, was negatively affected by the previous setting, as it grayed out more text than it should (especially when I read notes with abbreviations). After I looked at customize, I found the solution for this niggle; I changed the parameter focus mode uses to determine what to gray out from sentence to line, and it works just fine as it uses logical rather than visual lines.
-#+BEGIN_SRC emacs-lisp
-(setq focus-mode-to-thing (quote ((prog-mode . defun) (text-mode . line))))
 #+END_SRC
 ** Geiser's active implementations.
 #+BEGIN_SRC emacs-lisp
