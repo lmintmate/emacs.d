@@ -79,7 +79,6 @@ olivetti
 org
 org-cliplink
 ox-pandoc
-ox-tufte
 pdf-tools
 racket-mode
 rainbow-mode
@@ -712,11 +711,6 @@ In my color theme, headline level 2 used to be plain white, while headline level
 (custom-set-faces
  '(org-level-2 ((t (:foreground "gold" :weight bold))))
  '(org-level-3 ((t (:foreground "cyan3" :weight bold)))))
-#+END_SRC
-** Ox Tufte package
-A package that exports org files following the [[https://edwardtufte.github.io/tufte-css/][Tufte CSS]] presentation style.
-#+BEGIN_SRC emacs-lisp
-(require 'ox-tufte)
 #+END_SRC
 * Undo tree
 #+BEGIN_SRC emacs-lisp

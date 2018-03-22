@@ -31,7 +31,6 @@ olivetti
 org
 org-cliplink
 ox-pandoc
-ox-tufte
 pdf-tools
 racket-mode
 rainbow-mode
