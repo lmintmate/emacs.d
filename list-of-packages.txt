@@ -37,5 +37,4 @@ verbiste (manual install)
 w3m
 web-search ;; requires emacs 24.3 and up
 wttrin ;;needs emacs 24.4 and upwards
-yaml-mode
 zeal-at-point

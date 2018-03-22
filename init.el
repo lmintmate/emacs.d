@@ -44,7 +44,6 @@ undo-tree
 w3m
 web-search
 wttrin
-yaml-mode
 zeal-at-point)
   "Default packages")
 
