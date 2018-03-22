@@ -31,7 +31,6 @@ olivetti
 org
 org-cliplink
 ox-pandoc
-ox-twbs
 ox-tufte
 pdf-tools
 racket-mode
