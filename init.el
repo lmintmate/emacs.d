@@ -34,7 +34,6 @@ ox-pandoc
 ox-twbs
 ox-tufte
 pdf-tools
-picpocket
 racket-mode
 rainbow-mode
 smex

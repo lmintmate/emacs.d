@@ -26,7 +26,6 @@ ox-pandoc ;;for markdown export - my favorite option is org-pandoc-export-to-com
 ox-twbs ;;better-looking html export for org
 ox-tufte ;;better-looking html export for org with tufte css
 pdf-tools
-picpocket ;; image viewer ;; requires emacs 24.4 and up
 racket-mode
 rainbow-mode
 smex
