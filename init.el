@@ -6,11 +6,9 @@
   (add-to-list 'package-archives (cons "org" (concat proto "://orgmode.org/elpa/")) t))
 (package-initialize)
 
-(defvar lmintmate/packages '(basic-mode
-bongo
+(defvar lmintmate/packages '(bongo
 color-theme-modern
 counsel
-dim
 diminish
 dired-icon
 drag-stuff
@@ -18,28 +16,17 @@ emmet-mode
 esup
 esxml
 free-keys
-geiser
 htmlize
-isend-mode
-magit
 malyon
-markdown-mode
-olivetti
 org
-org-cliplink
-ox-pandoc
-pdf-tools
-racket-mode
 rainbow-mode
 smex
 transpose-frame
 typo
 undo-tree
 w3m
-web-search
-wttrin
-zeal-at-point)
-  "Default packages")
+web-search)
+  "Core packages")
 
 (require 'cl-lib)
 (defun lmintmate/packages-installed-p ()
@@ -53,6 +40,64 @@ zeal-at-point)
   (dolist (pkg lmintmate/packages)
     (when (not (package-installed-p pkg))
       (package-install pkg))))
+
+;; Conditionals for installing of certain packages (idea from https://github.com/pgdouyon/dotfiles/blob/master/emacs)
+
+;; Packages for use only on my Linux system
+
+(when (eq system-type 'gnu/linux)
+(unless (package-installed-p 'basic-mode)
+  (package-install 'basic-mode)))
+
+(when (eq system-type 'gnu/linux)
+(unless (package-installed-p 'isend-mode)
+  (package-install 'isend-mode)))
+
+(when (eq system-type 'gnu/linux)
+(unless (package-installed-p 'magit)
+  (package-install 'magit)))
+
+(when (eq system-type 'gnu/linux)
+(unless (package-installed-p 'pdf-tools)
+  (package-install 'pdf-tools)))
+
+(when (eq system-type 'gnu/linux)
+(unless (package-installed-p 'geiser)
+  (package-install 'geiser)))
+
+(when (eq system-type 'gnu/linux)
+(unless (package-installed-p 'racket-mode)
+  (package-install 'racket-mode)))
+
+(when (eq system-type 'gnu/linux)
+(unless (package-installed-p 'zeal-at-point)
+  (package-install 'zeal-at-point)))
+
+(when (eq system-type 'gnu/linux)
+(unless (package-installed-p 'ox-pandoc)
+  (package-install 'ox-pandoc)))
+
+;; Packages that require emacs 24.4 and up
+
+(unless (version< emacs-version "24.4")
+(unless (package-installed-p 'org-cliplink)
+  (package-install 'org-cliplink)))
+
+(unless (version< emacs-version "24.4")
+(unless (package-installed-p 'wttrin)
+  (package-install 'wttrin)))
+
+(unless (version< emacs-version "24.4")
+(unless (package-installed-p 'markdown-mode)
+  (package-install 'markdown-mode)))
+
+(unless (version< emacs-version "24.4")
+(unless (package-installed-p 'dim)
+  (package-install 'dim)))
+
+(unless (version< emacs-version "24.4")
+(unless (package-installed-p 'olivetti)
+  (package-install 'olivetti)))
 
 (require 'org)
 (org-babel-load-file (concat user-emacs-directory "README.org"))

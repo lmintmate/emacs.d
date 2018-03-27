@@ -2,7 +2,7 @@ basic-mode
 bongo
 color-theme-modern ;; for the blue-mood theme
 counsel
-dim
+dim ;;needs emacs 24.4 and up
 diminish
 dired-icon
 drag-stuff
@@ -15,8 +15,8 @@ htmlize ;; org now requires it in order to export to html (that is, html export 
 isend-mode
 magit
 malyon
-markdown-mode
-olivetti
+markdown-mode ;;needs emacs 24.4 and up
+olivetti ;; needs emacs 24.4 and up
 org
 org-cliplink ;;needs emacs 24.4 and upwards
 ox-pandoc ;;for markdown export - my favorite option is org-pandoc-export-to-commonmark, and I also like export-to-docx and export-to-odt
