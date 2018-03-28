@@ -293,8 +293,10 @@ I prefer the ncurses-based mocp over this one, but it doesn't play well with mul
 * Nationality parameters
 ** Geographical and language parameters for the weather information fetcher wttrin.
 #+BEGIN_SRC emacs-lisp
-(setq wttrin-default-cities (quote ("Nicosia" "Chania")))
-(setq wttrin-default-accept-language '("Accept-Language" . "el-GR"))
+(when (package-installed-p 'wttrin)
+(setq wttrin-default-cities (quote ("Nicosia" "Chania"))))
+(when (package-installed-p 'wttrin)
+(setq wttrin-default-accept-language '("Accept-Language" . "el-GR")))
 #+END_SRC
 ** Setting the calendar up in Greek.
 See also [[https://www.emacswiki.org/emacs/CalendarLocalization][EmacsWiki: Calendar Localization]].
@@ -932,8 +934,10 @@ Keybindings. The ~<backtab>~ string means Shift+Tab.
 [[https://github.com/ffevotte/isend-mode.el][This extension]] interactively sends the content of emacs buffers to ansi-term in a language agnostic way, so I thought it'd be a perfect companion for basic-mode. It works however when a prompt with the language of interest is already present, thus in my case, only with [[http://www.nicholson.com/rhn/basic/][Chipmunk BASIC]] (the other possible choice, [[http://www.vintage-basic.net/][Vintage BASIC]], had a use case of vintbas file.bas and so wasn't fit for my purpose).
 #+BEGIN_SRC emacs-lisp
 ;; Keybindings
-(global-set-key (kbd "C-c s") 'isend-send-buffer)
-(global-set-key (kbd "C-x z") 'isend-display-buffer)
+(when (package-installed-p 'isend-mode)
+(global-set-key (kbd "C-c s") 'isend-send-buffer))
+(when (package-installed-p 'isend-mode)
+(global-set-key (kbd "C-x z") 'isend-display-buffer))
 #+END_SRC
 * Diminish mode and Dim
 Diminish mode that cuts off the display of minor modes which I want to work [[https://github.com/myrjola/diminish.el#introduction][discreetly, like janitors]]. Without any arguments, they are hidden entirely from the modeline, otherwise they are simply abbreviated to the specified abbreviation.
@@ -948,8 +952,10 @@ Diminish mode that cuts off the display of minor modes which I want to work [[ht
 [[https://github.com/alezost/dim.el][Dim]]. This is similar to diminish, but can also shorten the display of major modes. The problem with it though is that it crams all the abbreviations, regardless of length, next to the name of the unabbreviated mode (while diminish only does so with single character abbreviations), which is why I'm using it in addition to diminish, even through their functionality overlaps.\\
 And the reason I decided to try it in the first place is because I find the name of lisp-interaction-mode way too long…
 #+BEGIN_SRC emacs-lisp
-(dim-major-name 'lisp-interaction-mode "LiN")
-(dim-major-name 'markdown-mode "Md")
+(when (package-installed-p 'dim)
+(dim-major-name 'lisp-interaction-mode "LiN"))
+(when (and (package-installed-p 'dim) (package-installed-p 'markdown-mode))
+(dim-major-name 'markdown-mode "Md"))
 #+END_SRC
 * Ediff
 I'm trying to move myself to emacs as much as possible, so I now decided to replace the functionality of [[http://meldmerge.org/][Meld]].\\
