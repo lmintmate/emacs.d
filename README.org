@@ -577,7 +577,6 @@ A better way to list buffers than buffer-menu([[https://www.emacswiki.org/emacs/
                ("Markdown" (name . "^.*md$"))
 
 	       ("Emacs Lisp" (mode . emacs-lisp-mode))
-               ("BASIC" (mode . basic-mode))
 	       ("Emacs-created"
                   (or
                    (name . "^\\*")))
@@ -923,9 +922,11 @@ Keybindings. The ~<backtab>~ string means Shift+Tab.
 * Basic mode
 [[https://github.com/dykstrom/basic-mode][Link]]. This mode deals with coloring and indentation of BASIC code (not with evaluation though sadly). I changed the ~basic-line-number-cols~ parameter so that it will account for the fact that I'll be using line numbers. The ~basic-auto-number~ option adds auto-numbering with an increment of 10.
 #+BEGIN_SRC emacs-lisp
-(setq basic-line-number-cols 2)
+(when (package-installed-p 'basic-mode)
+(setq basic-line-number-cols 2))
 ;; auto-numbering
-(setq basic-auto-number 10)
+(when (package-installed-p 'basic-mode)
+(setq basic-auto-number 10))
 #+END_SRC
 * Isend mode
 [[https://github.com/ffevotte/isend-mode.el][This extension]] interactively sends the content of emacs buffers to ansi-term in a language agnostic way, so I thought it'd be a perfect companion for basic-mode. It works however when a prompt with the language of interest is already present, thus in my case, only with [[http://www.nicholson.com/rhn/basic/][Chipmunk BASIC]] (the other possible choice, [[http://www.vintage-basic.net/][Vintage BASIC]], had a use case of vintbas file.bas and so wasn't fit for my purpose).
