@@ -272,8 +272,11 @@ Here are gathered all the parameters that set directories for use with various p
 *** The directory where the Racket binary from DrRacket is stored:
 (for use with the geiser and racket-mode packages)
 #+BEGIN_SRC emacs-lisp
-(setq geiser-racket-binary "~/racket/bin/racket")
-(setq racket-program "~/racket/bin/racket")
+(when (package-installed-p 'geiser)
+(setq geiser-racket-binary "~/racket/bin/racket"))
+
+(when (package-installed-p 'racket-mode)
+(setq racket-program "~/racket/bin/racket"))
 #+END_SRC
 *** The directory where I save the interactive fiction/text game files:
 (for use with malyon)
@@ -394,11 +397,13 @@ I recently tried M-e to go to the end of a long sentence I wrote, and was surpri
 #+END_SRC
 ** Geiser's active implementations.
 #+BEGIN_SRC emacs-lisp
-(setq geiser-active-implementations (quote (guile racket chez mit chibi)))
+(when (package-installed-p 'geiser)
+(setq geiser-active-implementations (quote (guile racket chez mit chibi))))
 #+END_SRC
 ** Racket memory limit
 #+BEGIN_SRC emacs-lisp
-(setq racket-memory-limit 128)
+(when (package-installed-p 'racket-mode)
+(setq racket-memory-limit 128))
 #+END_SRC
 ** Display inline images in the w3m browser from within emacs.
 #+BEGIN_SRC emacs-lisp
@@ -546,19 +551,6 @@ A quick way to access my most recently opened files (as I didn't want to have to
 (require 'recentf)
 (recentf-mode 1)
 #+END_SRC
-** Files to exclude from the recent files list
-The following files were added to the list just because emacs accessed them by itself, but I don't want to see them in the list.
-#+BEGIN_SRC emacs-lisp
-(add-to-list 'recentf-exclude "magit-autoloads.el")
-(add-to-list 'recentf-exclude "magit-popup-autoloads.el")
-(add-to-list 'recentf-exclude "emms-autoloads.el")
-(add-to-list 'recentf-exclude "ht-autoloads.el")
-(add-to-list 'recentf-exclude "org-autoloads.el")
-(add-to-list 'recentf-exclude "org-loaddefs.el")
-(add-to-list 'recentf-exclude "markdown-mode-autoloads.el")
-(add-to-list 'recentf-exclude "basic-mode-autoloads.el")
-(add-to-list 'recentf-exclude "dash-autoloads.el")
-#+END_SRC
 * Settings for multiple buffer management
 I wanted to be able to change the layout of the buffers from horizontal to vertical, as well as be able to flip frames, so that left goes right, and up goes down. I used to use some custom functions found at [[http://whattheemacsd.com][What the .emacs.d!?]] ([[http://whattheemacsd.com/buffer-defuns.el-03.html][here]] and [[http://whattheemacsd.com/buffer-defuns.el-02.html][here]], specifically), but then found the package [[https://github.com/emacsorphanage/transpose-frame/blob/master/transpose-frame.el][transpose-frame]] (available at MELPA), and decided to use that instead, as to make the README.org file less lengthy.
 #+BEGIN_SRC emacs-lisp
@@ -621,7 +613,8 @@ A better way to list buffers than buffer-menu([[https://www.emacswiki.org/emacs/
 #+END_SRC
 * Pdf-tools package
 #+BEGIN_SRC emacs-lisp
-(pdf-tools-install)
+(when (package-installed-p 'pdf-tools)
+(pdf-tools-install))
 #+END_SRC
 * Dired Mode Configurations
 ** Enable dired icon mode.
@@ -666,7 +659,8 @@ This is an org-mode subpackage that allows control of various things with the mo
 ** Define C-c l as the keybinding to org-cliplink.
 I used to have it as the shortcut to org-store-link, but it turns out I hardly used that one…
 #+BEGIN_SRC emacs-lisp
-(define-key org-mode-map (kbd "\C-cl") 'org-cliplink)
+(when (package-installed-p 'org-cliplink)
+(define-key org-mode-map (kbd "\C-cl") 'org-cliplink))
 #+END_SRC
 ** Define C-c d as the keybinding to org-toggle-link-display
 This command toggles between descriptive and literal links, and I need it so that I can edit on the literal links the text that will show up on the descriptive links (and it was too much of a hassle to go to the Org > Hyperlinks submenu just for that…).
@@ -767,14 +761,16 @@ M-p for M-previous and M-n for M-next. These might not be the most comfortable o
 * Olivetti mode - Mode for distraction-free writing.
 Hide the mode line when enabling olivetti.
 #+BEGIN_SRC emacs-lisp
-(setq olivetti-hide-mode-line t)
+(when (package-installed-p 'olivetti)
+(setq olivetti-hide-mode-line t))
 #+END_SRC
 Function to turn off the menu bar when olivetti mode is enabled
 #+BEGIN_SRC emacs-lisp
+(when (package-installed-p 'olivetti)
 (progn
   (defun turn-off-menu-with-olivetti ()
     (menu-bar-mode -1))
-  (add-hook 'olivetti-mode-hook 'turn-off-menu-with-olivetti))
+  (add-hook 'olivetti-mode-hook 'turn-off-menu-with-olivetti)))
 #+END_SRC
 * Web-search.el package config
 ** Set the default search provider
@@ -879,13 +875,15 @@ Btw,for those curious (as I was) where the term "porcelain" with which magit is 
 ** Set magit faces
 I changed the faces of ~magit-diff-context-highlight~ and ~magit-section-highlight~ because them being quasi-black didn't look good on my color theme.
 #+BEGIN_SRC emacs-lisp
+(when (package-installed-p 'magit)
 (custom-set-faces
  '(magit-diff-context-highlight ((t (:background "DodgerBlue4" :foreground "grey70"))))
- '(magit-section-highlight ((t (:background "PaleTurquoise4")))))
+ '(magit-section-highlight ((t (:background "PaleTurquoise4"))))))
 #+END_SRC
 ** Magit-status keybinding
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-x g") 'magit-status)
+(when (package-installed-p 'magit)
+(global-set-key (kbd "C-x g") 'magit-status))
 #+END_SRC
 * Emacs-lisp related configuration
 ** Enable show-paren-mode
