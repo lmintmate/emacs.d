@@ -100,5 +100,10 @@ web-search)
 (unless (package-installed-p 'olivetti)
   (package-install 'olivetti)))
 
+(prefer-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+
 (require 'org)
 (org-babel-load-file (concat user-emacs-directory "README.org"))
