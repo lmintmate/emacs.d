@@ -511,15 +511,6 @@ Modified from [[http://seancribbs.com/emacs.d#sec-5-8][Sean Cribbs' Emacs 25 Con
 
 (add-hook 'prog-mode-hook 'lmintmate/add-watchwords)
 #+END_SRC
-** Use y-or-n-p instead of yes-or-no-p only for kill-matching-buffers
-From [[https://emacs.stackexchange.com/a/22571][kill-buffer with y-or-n-p instead of yes-or-no-p - Emacs Stack Exchange]].
-#+BEGIN_SRC emacs-lisp
-(defun yes-or-no-p->-y-or-n-p (orig-fun &rest r)
-  (cl-letf (((symbol-function 'yes-or-no-p) #'y-or-n-p))
-    (apply orig-fun r)))
-
-(advice-add 'kill-matching-buffers :around #'yes-or-no-p->-y-or-n-p)
-#+END_SRC
 ** Enable recursive minibuffers (useful for Verbiste)
 #+BEGIN_SRC emacs-lisp
 (setq enable-recursive-minibuffers t)
