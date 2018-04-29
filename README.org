@@ -742,6 +742,11 @@ In my color theme, headline level 2 used to be plain white, while headline level
  '(org-level-2 ((t (:foreground "gold" :weight bold))))
  '(org-level-3 ((t (:foreground "cyan3" :weight bold)))))
 #+END_SRC
+** Remove postamble in html export
+I don't want to see the author, date, created by details on the bottom of the exported html file, and found out this parameter disables this.
+#+BEGIN_SRC emacs-lisp
+(setq org-html-postamble nil)
+#+END_SRC
 * Undo tree
 #+BEGIN_SRC emacs-lisp
 (require 'undo-tree)
