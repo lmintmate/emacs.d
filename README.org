@@ -742,11 +742,14 @@ In my color theme, headline level 2 used to be plain white, while headline level
  '(org-level-2 ((t (:foreground "gold" :weight bold))))
  '(org-level-3 ((t (:foreground "cyan3" :weight bold)))))
 #+END_SRC
-** Remove postamble in html export
-I don't want to see the author, date, created by details on the bottom of the exported html file, and found out this parameter disables this.
+** Custom postamble in html export
+I only want to see the date and not the author nor the created by details on the bottom of the exported html file, and found out the ~org-html-postamble~ can be modified to not show these things. I also wanted a custom way to show the date format (because I don't like the y-m-d format much), so I use here a custom function, adapted from [[https://stackoverflow.com/a/18933020][this stackoverflow answer]].
 #+BEGIN_SRC emacs-lisp
-(setq org-html-postamble nil)
+(defun my-org-html-postamble (plist)
+ (format "Last update : %s" (format-time-string "%a %d/%m/%Y")))
+(setq org-html-postamble 'my-org-html-postamble)
 #+END_SRC
+I don't want to print the postamble everywhere however, so I also found out that writing ~#+OPTIONS: html-postamble:nil~ on the file where the postamble should be exlcuded does the trick.
 ** Add shortcut templates
 These [[https://orgmode.org/org.html#Easy-templates][templates]], e.g. ~<s~, are very practical. Out of them I use most SRC emacs-lisp and ~#+TITLE~, so I wished I could create shortcuts for these too. Turns out I can!
 *** for emacs-lisp
