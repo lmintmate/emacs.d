@@ -77,19 +77,12 @@ w3m
 web-search)
   "Core packages")
 
-(if (version< emacs-version "24.4")
-(require 'cl) (require 'cl-lib))
-(defun lmintmate/packages-installed-p ()
-  (loop for pkg in lmintmate/packages
-        when (not (package-installed-p pkg)) do (return nil)
-        finally (return t)))
-
-(unless (lmintmate/packages-installed-p)
+(unless package-archive-contents
   (message "%s" "Refreshing package database...")
-  (package-refresh-contents)
+  (package-refresh-contents))
   (dolist (pkg lmintmate/packages)
-    (when (not (package-installed-p pkg))
-      (package-install pkg))))
+    (unless (package-installed-p pkg)
+      (package-install pkg)))
 
 ;; Conditionals for installing of certain packages (idea from https://github.com/pgdouyon/dotfiles/blob/master/emacs)
 
