@@ -18,7 +18,6 @@ free-keys
 htmlize
 malyon
 org
-rainbow-mode
 smex
 transpose-frame
 typo

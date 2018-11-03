@@ -67,7 +67,6 @@ free-keys
 htmlize
 malyon
 org
-rainbow-mode
 smex
 transpose-frame
 typo
@@ -987,11 +986,4 @@ Modified from [[http://oremacs.com/2017/03/18/dired-ediff/][Quickly ediff files 
 The keybinding
 #+BEGIN_SRC emacs-lisp
 (define-key dired-mode-map "e" 'ora-ediff-files)
-#+END_SRC
-* Rainbow mode
-[[http://elpa.gnu.org/packages/rainbow-mode.html][A mode that colorizes color names]]. Useful for html and css based modes.
-#+BEGIN_SRC emacs-lisp
-(add-hook 'sgml-mode-hook 'rainbow-mode)
-(add-hook 'css-mode-hook  'rainbow-mode)
-(add-hook 'nxml-mode-hook 'rainbow-mode)
 #+END_SRC
