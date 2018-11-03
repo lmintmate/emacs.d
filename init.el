@@ -63,10 +63,6 @@ web-search)
   (package-install 'racket-mode)))
 
 (when (eq system-type 'gnu/linux)
-(unless (package-installed-p 'zeal-at-point)
-  (package-install 'zeal-at-point)))
-
-(when (eq system-type 'gnu/linux)
 (unless (package-installed-p 'ox-pandoc)
   (package-install 'ox-pandoc)))
 
