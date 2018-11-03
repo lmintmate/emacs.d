@@ -61,7 +61,6 @@ counsel
 diminish
 dired-icon
 drag-stuff
-emmet-mode
 esup
 esxml
 free-keys
@@ -992,12 +991,6 @@ Modified from [[http://oremacs.com/2017/03/18/dired-ediff/][Quickly ediff files 
 The keybinding
 #+BEGIN_SRC emacs-lisp
 (define-key dired-mode-map "e" 'ora-ediff-files)
-#+END_SRC
-* Emmet mode
-[[https://github.com/smihica/emmet-mode#usage][A nifty mode that makes creating and editing html and css much easier]] (and also adds lorem ipsum as required). I'm hooking it to the relevant modes, so that I won't have to manually enable the mode.
-#+BEGIN_SRC emacs-lisp
-(add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
-(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
 #+END_SRC
 * Rainbow mode
 [[http://elpa.gnu.org/packages/rainbow-mode.html][A mode that colorizes color names]]. Useful for html and css based modes.

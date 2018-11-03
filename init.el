@@ -12,7 +12,6 @@ counsel
 diminish
 dired-icon
 drag-stuff
-emmet-mode
 esup
 esxml
 free-keys
