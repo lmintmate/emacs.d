@@ -55,8 +55,7 @@ From [[http://aaronbedra.com/emacs.d/#default-packages][Aaron Bedra's Emacs 24 C
 The first part of the code defines the packages to be installed ; from this list are absent the packages installed manually, present in the lisp folder. The second part of the code does the following: when Emacs boots, it checks to make sure all of the packages defined in lmintmate/packages are installed. If not, it has the package manager take care of it.\\
 P.S Just so you know, I’m aware that ~use-package~ can be used to achieve the same effect, but I’d have to change the entirety of my configuration for that, so it was more trouble than was worth.
 #+BEGIN_EXAMPLE
-(defvar lmintmate/packages '(bongo
-color-theme-modern
+(defvar lmintmate/packages '(color-theme-modern
 counsel
 diminish
 dired-icon
@@ -266,11 +265,6 @@ Here are gathered all the parameters that set directories for use with various p
 #+BEGIN_SRC emacs-lisp
 (setq malyon-stories-directory "~/other-games/frotz-games/")
 #+END_SRC
-*** My default music directory for use with Bongo.
-#+BEGIN_SRC emacs-lisp
-(setq bongo-default-directory "~/Μουσική")
-#+END_SRC
-I prefer the ncurses-based mocp over this one, but it doesn't play well with multiple buffers a la C-x 2 and C-x 3.
 * Nationality parameters
 ** Geographical and language parameters for the weather information fetcher wttrin.
 #+BEGIN_SRC emacs-lisp
@@ -609,11 +603,6 @@ Group directories first and make sizes human-readable.
 ** Dired dwim target
 #+BEGIN_SRC emacs-lisp
 (setq dired-dwim-target t)
-#+END_SRC
-* Bongo configuration
-The library view was confusing me, as it didn't play the next song automatically - the playlist view does though, so I'd rather start with that one.
-#+BEGIN_SRC emacs-lisp
-(setq bongo-prefer-library-buffers nil)
 #+END_SRC
 * Org Mode configuration
 The ~(require 'org)~ part is present in the init.el file instead of here, precisely in order to compile this very file.

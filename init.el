@@ -6,8 +6,7 @@
   (add-to-list 'package-archives (cons "org" (concat proto "://orgmode.org/elpa/")) t))
 (package-initialize)
 
-(defvar lmintmate/packages '(bongo
-color-theme-modern
+(defvar lmintmate/packages '(color-theme-modern
 counsel
 diminish
 dired-icon
