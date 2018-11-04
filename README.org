@@ -204,14 +204,12 @@ In this section I have some code in emacs lisp that downloads the lisp files I u
 #+BEGIN_SRC emacs-lisp
 (setq lisp-directory (concat user-emacs-directory "lisp"))
 
-(when (or (not (file-exists-p (expand-file-name "greek.el" lisp-directory))) (not (file-exists-p (expand-file-name "verbiste.el" lisp-directory))) (not (file-exists-p (expand-file-name "svg-2048.el" lisp-directory))))
+(when (or (not (file-exists-p (expand-file-name "greek.el" lisp-directory))) (not (file-exists-p (expand-file-name "verbiste.el" lisp-directory))))
   (unless (file-directory-p lisp-directory) (make-directory lisp-directory))
   (unless (file-exists-p (expand-file-name "greek.el" lisp-directory))
     (url-copy-file "http://myria.math.aegean.gr/~atsol/emacs-unicode/greek.el" (expand-file-name "greek.el" lisp-directory)))
   (unless (file-exists-p (expand-file-name "verbiste.el" lisp-directory))
-    (url-copy-file "https://raw.githubusercontent.com/daimrod/Emacs-config/master/elisp/verbiste.el" (expand-file-name "verbiste.el" lisp-directory)))
-  (unless (file-exists-p (expand-file-name "svg-2048.el" lisp-directory))
-    (url-copy-file "https://raw.githubusercontent.com/wasamasa/svg-2048/master/svg-2048.el" (expand-file-name "svg-2048.el" lisp-directory))))
+    (url-copy-file "https://raw.githubusercontent.com/daimrod/Emacs-config/master/elisp/verbiste.el" (expand-file-name "verbiste.el" lisp-directory))))
 #+END_SRC
 ** Where I bootstrap the org export theme
 Similar to the previous code, but it downloads the org export theme.
@@ -236,11 +234,6 @@ I’m used to writing Greek with the modern Greek layout, which is quite differe
 I use the somewhat newer version, that has a better presentation (the one whose link is dead on emacswiki), which can be found [[https://github.com/daimrod/Emacs-config/blob/master/elisp/verbiste.el][here]].
 #+BEGIN_SRC emacs-lisp
 (load "verbiste")
-#+END_SRC
-*** Loading the svg-2048 package
-This is a [[https://github.com/wasamasa/svg-2048][graphical 2048 implementation for Emacs]], which is great because all other implementations are textual. It can only be installed via quelpa however, so I preferred to load the file manually from my lisp directory. It also requires the esxml package.
-#+BEGIN_SRC emacs-lisp
-(load "svg-2048")
 #+END_SRC
 * Startup screen and scratch buffer options
 ** Inhibit startup screen
