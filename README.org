@@ -64,7 +64,6 @@ esup
 esxml
 free-keys
 htmlize
-malyon
 org
 smex
 transpose-frame
@@ -247,11 +246,6 @@ Here are gathered all the parameters that set directories for use with various p
 
 (when (package-installed-p 'racket-mode)
 (setq racket-program "~/racket/bin/racket"))
-#+END_SRC
-*** The directory where I save the interactive fiction/text game files:
-(for use with malyon)
-#+BEGIN_SRC emacs-lisp
-(setq malyon-stories-directory "~/other-games/frotz-games/")
 #+END_SRC
 * Nationality parameters
 ** Setting the calendar up in Greek.

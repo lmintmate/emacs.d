@@ -15,7 +15,6 @@ esup
 esxml
 free-keys
 htmlize
-malyon
 org
 smex
 transpose-frame
