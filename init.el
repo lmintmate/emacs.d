@@ -71,10 +71,6 @@ web-search)
   (package-install 'org-cliplink)))
 
 (unless (version< emacs-version "24.4")
-(unless (package-installed-p 'wttrin)
-  (package-install 'wttrin)))
-
-(unless (version< emacs-version "24.4")
 (unless (package-installed-p 'markdown-mode)
   (package-install 'markdown-mode)))
 

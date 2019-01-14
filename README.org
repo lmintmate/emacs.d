@@ -120,10 +120,6 @@ web-search)
   (package-install 'org-cliplink)))
 
 (unless (version< emacs-version "24.4")
-(unless (package-installed-p 'wttrin)
-  (package-install 'wttrin)))
-
-(unless (version< emacs-version "24.4")
 (unless (package-installed-p 'markdown-mode)
   (package-install 'markdown-mode)))
 
@@ -266,13 +262,6 @@ Here are gathered all the parameters that set directories for use with various p
 (setq malyon-stories-directory "~/other-games/frotz-games/")
 #+END_SRC
 * Nationality parameters
-** Geographical and language parameters for the weather information fetcher wttrin.
-#+BEGIN_SRC emacs-lisp
-(when (package-installed-p 'wttrin)
-(setq wttrin-default-cities (quote ("Nicosia" "Chania"))))
-(when (package-installed-p 'wttrin)
-(setq wttrin-default-accept-language '("Accept-Language" . "el-GR")))
-#+END_SRC
 ** Setting the calendar up in Greek.
 See also [[https://www.emacswiki.org/emacs/CalendarLocalization][EmacsWiki: Calendar Localization]].
 #+BEGIN_SRC emacs-lisp
