@@ -89,10 +89,6 @@ web-search)
   (package-install 'magit)))
 
 (when (eq system-type 'gnu/linux)
-(unless (package-installed-p 'pdf-tools)
-  (package-install 'pdf-tools)))
-
-(when (eq system-type 'gnu/linux)
 (unless (package-installed-p 'geiser)
   (package-install 'geiser)))
 
@@ -545,11 +541,6 @@ A better way to list buffers than buffer-menu([[https://www.emacswiki.org/emacs/
 		(mode 16 16 :left :elide)
 		" "
 		filename-and-process)))
-#+END_SRC
-* Pdf-tools package
-#+BEGIN_SRC emacs-lisp
-(when (package-installed-p 'pdf-tools)
-(pdf-tools-install))
 #+END_SRC
 * Dired Mode Configurations
 ** Enable dired icon mode.

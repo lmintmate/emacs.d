@@ -40,10 +40,6 @@ web-search)
   (package-install 'magit)))
 
 (when (eq system-type 'gnu/linux)
-(unless (package-installed-p 'pdf-tools)
-  (package-install 'pdf-tools)))
-
-(when (eq system-type 'gnu/linux)
 (unless (package-installed-p 'geiser)
   (package-install 'geiser)))
 
