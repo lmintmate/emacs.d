@@ -37,14 +37,6 @@ web-search)
 ;; Packages for use only on my Linux system
 
 (when (eq system-type 'gnu/linux)
-(unless (package-installed-p 'basic-mode)
-  (package-install 'basic-mode)))
-
-(when (eq system-type 'gnu/linux)
-(unless (package-installed-p 'isend-mode)
-  (package-install 'isend-mode)))
-
-(when (eq system-type 'gnu/linux)
 (unless (package-installed-p 'magit)
   (package-install 'magit)))
 

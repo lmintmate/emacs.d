@@ -86,14 +86,6 @@ web-search)
 ;; Packages for use only on my Linux system
 
 (when (eq system-type 'gnu/linux)
-(unless (package-installed-p 'basic-mode)
-  (package-install 'basic-mode)))
-
-(when (eq system-type 'gnu/linux)
-(unless (package-installed-p 'isend-mode)
-  (package-install 'isend-mode)))
-
-(when (eq system-type 'gnu/linux)
 (unless (package-installed-p 'magit)
   (package-install 'magit)))
 
@@ -875,24 +867,6 @@ Keybindings. The ~<backtab>~ string means Shift+Tab.
 (define-key prog-mode-map (kbd "TAB") 'hs-toggle-hiding)
 (define-key prog-mode-map (kbd "<backtab>") 'hs-hide-all)
 (define-key prog-mode-map (kbd "<C-tab>") 'hs-show-all)
-#+END_SRC
-* Basic mode
-[[https://github.com/dykstrom/basic-mode][Link]]. This mode deals with coloring and indentation of BASIC code (not with evaluation though sadly). I changed the ~basic-line-number-cols~ parameter so that it will account for the fact that I'll be using line numbers. The ~basic-auto-number~ option adds auto-numbering with an increment of 10.
-#+BEGIN_SRC emacs-lisp
-(when (package-installed-p 'basic-mode)
-(setq basic-line-number-cols 2))
-;; auto-numbering
-(when (package-installed-p 'basic-mode)
-(setq basic-auto-number 10))
-#+END_SRC
-* Isend mode
-[[https://github.com/ffevotte/isend-mode.el][This extension]] interactively sends the content of emacs buffers to ansi-term in a language agnostic way, so I thought it'd be a perfect companion for basic-mode. It works however when a prompt with the language of interest is already present, thus in my case, only with [[http://www.nicholson.com/rhn/basic/][Chipmunk BASIC]] (the other possible choice, [[http://www.vintage-basic.net/][Vintage BASIC]], had a use case of vintbas file.bas and so wasn't fit for my purpose).
-#+BEGIN_SRC emacs-lisp
-;; Keybindings
-(when (package-installed-p 'isend-mode)
-(global-set-key (kbd "C-c s") 'isend-send-buffer))
-(when (package-installed-p 'isend-mode)
-(global-set-key (kbd "C-x z") 'isend-display-buffer))
 #+END_SRC
 * Diminish mode and Dim
 Diminish mode that cuts off the display of minor modes which I want to work [[https://github.com/myrjola/diminish.el#introduction][discreetly, like janitors]]. Without any arguments, they are hidden entirely from the modeline, otherwise they are simply abbreviated to the specified abbreviation.
