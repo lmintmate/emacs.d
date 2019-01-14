@@ -40,14 +40,6 @@ web-search)
   (package-install 'magit)))
 
 (when (eq system-type 'gnu/linux)
-(unless (package-installed-p 'geiser)
-  (package-install 'geiser)))
-
-(when (eq system-type 'gnu/linux)
-(unless (package-installed-p 'racket-mode)
-  (package-install 'racket-mode)))
-
-(when (eq system-type 'gnu/linux)
 (unless (package-installed-p 'ox-pandoc)
   (package-install 'ox-pandoc)))
 

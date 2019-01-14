@@ -89,14 +89,6 @@ web-search)
   (package-install 'magit)))
 
 (when (eq system-type 'gnu/linux)
-(unless (package-installed-p 'geiser)
-  (package-install 'geiser)))
-
-(when (eq system-type 'gnu/linux)
-(unless (package-installed-p 'racket-mode)
-  (package-install 'racket-mode)))
-
-(when (eq system-type 'gnu/linux)
 (unless (package-installed-p 'ox-pandoc)
   (package-install 'ox-pandoc)))
 
@@ -232,17 +224,6 @@ I decided not to change the scratch buffer’s major mode however, because, as w
 (defun display-startup-echo-area-message ()
   (message "Καλωσήλθες!"))
 #+END_SRC
-* Personal directory parameters
-Here are gathered all the parameters that set directories for use with various packages.
-*** The directory where the Racket binary from DrRacket is stored:
-(for use with the geiser and racket-mode packages)
-#+BEGIN_SRC emacs-lisp
-(when (package-installed-p 'geiser)
-(setq geiser-racket-binary "~/racket/bin/racket"))
-
-(when (package-installed-p 'racket-mode)
-(setq racket-program "~/racket/bin/racket"))
-#+END_SRC
 * Nationality parameters
 ** Setting the calendar up in Greek.
 See also [[https://www.emacswiki.org/emacs/CalendarLocalization][EmacsWiki: Calendar Localization]].
@@ -344,16 +325,6 @@ That goes into showing that RT(F)M is valid advice…
 I recently tried M-e to go to the end of a long sentence I wrote, and was surprised when I went to the end of the paragraph instead. I searched a little about it and found out there are people that actually use two spaces to start a new sentence. I personally use only one space though (and when writing on paper zero), so I disable this setting.
 #+BEGIN_SRC emacs-lisp
 (setq sentence-end-double-space nil)
-#+END_SRC
-** Geiser's active implementations.
-#+BEGIN_SRC emacs-lisp
-(when (package-installed-p 'geiser)
-(setq geiser-active-implementations (quote (guile racket chez mit chibi))))
-#+END_SRC
-** Racket memory limit
-#+BEGIN_SRC emacs-lisp
-(when (package-installed-p 'racket-mode)
-(setq racket-memory-limit 128))
 #+END_SRC
 ** Display inline images in the w3m browser from within emacs.
 #+BEGIN_SRC emacs-lisp
