@@ -183,12 +183,6 @@ In this section I have some code in emacs lisp that downloads the lisp file I us
   (unless (file-exists-p (expand-file-name "greek.el" lisp-directory))
     (url-copy-file "http://myria.math.aegean.gr/~atsol/emacs-unicode/greek.el" (expand-file-name "greek.el" lisp-directory))))
 #+END_SRC
-** Where I bootstrap the org export theme
-Similar to the previous code, but it downloads the org export theme.
-#+BEGIN_SRC emacs-lisp
-(unless (file-exists-p (concat user-emacs-directory "theme-readtheorg.setup"))
-(url-copy-file "https://raw.githubusercontent.com/fniessen/org-html-themes/master/setup/theme-readtheorg.setup" (concat user-emacs-directory "theme-readtheorg.setup")))
-#+END_SRC
 ** Where I tell Emacs where is my personal lisp directory.
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'load-path lisp-directory)
