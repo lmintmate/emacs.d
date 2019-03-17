@@ -2,8 +2,7 @@
 #+SETUPFILE: theme-readtheorg.setup
 # Theme for html exporting from [[https://github.com/fniessen/org-html-themes][GitHub - fniessen/org-html-themes]]
 * Introduction
-Here begins my literate emacs configuration. I tended to comment my init file a whole lot, so I figured I preferred a better interface for the comments.\\
-This file was last exported at {{{time(%d/%m/%Y %H:%M)}}}.
+Here begins my literate emacs configuration. I tended to comment my init file a whole lot, so I figured I preferred a better interface for the comments.
 ** Notes on the evolution of my emacs initialisation
 I first started off with the .emacs file in my home directory. I had to look for it though amongst all the other hidden files in that directory. So, especially after I found out I could version-control my emacs dotfiles, I switched to .emacs.d/init.el. so that I could have my config in one place. That setup still wasn’t satisfactory enough though. So when I found out I could have my config in an org file, which would allow my comments to truly stand out, I was intrigued and wanted to accomplish that. I initially thought however it'd be too hard to do (I do think that a lot when trying new ways of doing things…). I took the plunge however, and it turned out to be way easier than I thought. So I now keep most my config in this here file, and use init.el only for the preliminary configs that need to be loaded before this file.
 * General aims of this configuration
