@@ -5,37 +5,7 @@
 Here begins my literate emacs configuration. I tended to comment my init file a whole lot, so I figured I preferred a better interface for the comments.
 ** Notes on the evolution of my emacs initialisation
 I first started off with the .emacs file in my home directory. I had to look for it though amongst all the other hidden files in that directory. So, especially after I found out I could version-control my emacs dotfiles, I switched to .emacs.d/init.el. so that I could have my config in one place. That setup still wasn’t satisfactory enough though. So when I found out I could have my config in an org file, which would allow my comments to truly stand out, I was intrigued and wanted to accomplish that. I initially thought however it'd be too hard to do (I do think that a lot when trying new ways of doing things…). I took the plunge however, and it turned out to be way easier than I thought. So I now keep most my config in this here file, and use init.el only for the preliminary configs that need to be loaded before this file.
-* General aims of this configuration
-** To be as portable/reproducible as possible
-I want to be able, if I switch computers in the future, to be able to get my config ready and working just by cloning the repo and launching emacs.
-Current state of progress: My custom packages installer didn't work in the beginning in a Linux Lite VM, until I made some modifications to it. I wonder if I should switch from this custom auto-install packages system to something more tried-and-true, like use-package.
-** To be as cross-platform as possible (at the very least with Windows)
-I have some Windows computers lying around, and I would like for my emacs config to also work there. Use-package might help, as it has builtin parameters for conditionals.
-** (Secondarily) To be as backward and forward-compatible as possible
-One of my windows computers is 32 bit, and thus not compatible with anything above emacs 24.3. I will also have to move to emacs 25+ at some point on my main pc (I'm currently on 24.5), so I want to be sure that I won't have to change much when I do update.
-* Things worth noting if you have Emacs 25+
-It is worth noting that the emacs version I'm using (on my main Linux system) is 24.5.1, and thus a couple settings are different in emacs 25+, and will need some adjustment to make certain the init files play well with that version.
-** Changes in emacs 25+ that affect the init files
-Source: [[https://www.masteringemacs.org/article/whats-new-in-emacs-25-1][Mickey Petersen's Emacs 25 changelog]].
-Concerning my init.el file:
-#+BEGIN_QUOTE
- 'package-initialize' now sets 'package-enable-at-startup' to nil if called during startup. Users who call this function in their init file and still expect it to be run after startup should set 'package-enable-at-startup' to t after the call to 'package-initialize'.
-#+END_QUOTE
-One will probably need to add the above-mentioned ~package-enable-at-startup~ line in the config.
-** Other notes
-I also include the old init file in case you don't like literate configs, and might update it along with the literate version, though I might stage the generated README.el file instead to save me some trouble.\\
-In this repository is also included an init-windows.el file with a separate configuration for my 32-bit windows pc, where the latest version that worked is 24.3.1.
-* Todo list
-I also include a TODO list with things I could incorporate to the config in the future, but don't have the time for right now.
-** ⏲ SOMEDAY Maybe change my config to use use-package
-This seems to be a tried-and-true solution to make one's config more portable. I will need to revamp my entire config for that though, if I am to use it.
-** ✔ DONE Replace ido by ivy.
-+Ivy seems to be rather popular, and similar in aims to ido. Ido works fine for me though, and I feel it'd be too much of a hassle to replace it with ivy.+
-A botched commit on ido-completing-read+ broke ido-yes-or-no, which effectively disallowed me from answering any yes-or-no prompts until it was fixed. I decided then to take the plunge to ivy, since it is way more popular (and thus supported).
-** ✔ DONE Possibly add a method to detect (non-)installed packages and auto-install them.
-Like in [[http://aaronbedra.com/emacs.d/#default-packages][Aaron Bedra's Emacs 24 Configuration]], or even sorting the packages in a table first, like [[http://pavpanchekha.com/misc/emacs.html][Pavel Panchekha's Emacs literate init]].
 * Main configuration
-So now that we got the intro out of the way, let's begin. First things first...
 * What precedes this file: the contents of init.el
 In order for this literate configuration to be complete, I need to quote first the code snippets I use in the init.el file, as to show how this magic happens in the first place.
 ** Add MELPA and org repositories
