@@ -1,7 +1,7 @@
 #+TITLE: My literate Emacs configuration
 #+SETUPFILE: theme-readtheorg.setup
 # Theme for html exporting from [[https://github.com/fniessen/org-html-themes][GitHub - fniessen/org-html-themes]]
-* Table of Contents                                                     :TOC:
+* Table of Contents                                                     :TOC_3:
 - [[#introduction][Introduction]]
   - [[#notes-on-the-evolution-of-my-emacs-initialisation][Notes on the evolution of my emacs initialisation]]
 - [[#main-configuration][Main configuration]]
@@ -20,6 +20,7 @@
   - [[#where-i-bootstrap-the-elisp-files][Where I bootstrap the elisp files]]
   - [[#where-i-tell-emacs-where-is-my-personal-lisp-directory][Where I tell Emacs where is my personal lisp directory.]]
   - [[#where-i-load-the-specific-packages][Where I load the specific packages.]]
+    - [[#loading-the-package-for-polytonic-greek][Loading the package for polytonic greek]]
 - [[#startup-screen-and-scratch-buffer-options][Startup screen and scratch buffer options]]
   - [[#inhibit-startup-screen][Inhibit startup screen]]
   - [[#scratch-buffer-message][Scratch buffer message]]
@@ -58,7 +59,11 @@
   - [[#use-human-readable-size-column][Use human readable size column.]]
 - [[#dired-mode-configurations][Dired Mode Configurations]]
   - [[#enable-dired-icon-mode][Enable dired icon mode.]]
+    - [[#setting-to-make-the-image-size-of-the-dired-icon-icons-bigger][Setting to make the image size of the dired-icon icons bigger.]]
   - [[#dired-listing][Dired listing]]
+    - [[#listing-switches][Listing switches.]]
+    - [[#sort-files-by-modified-date][Sort files by modified date.]]
+    - [[#hide-the-details-on-dired-mode-for-a-cleaner-appearance][Hide the details on dired mode, for a cleaner appearance.]]
   - [[#dired-dwim-target][Dired dwim target]]
 - [[#org-mode-configuration][Org Mode configuration]]
   - [[#hook-toc-org-to-org-mode][Hook toc-org to org-mode]]
@@ -77,6 +82,8 @@
   - [[#custom-color-for-headline-levels-2-and-3][Custom color for headline levels 2 and 3]]
   - [[#custom-postamble-in-html-export][Custom postamble in html export]]
   - [[#add-shortcut-templates][Add shortcut templates]]
+    - [[#for-emacs-lisp][for emacs-lisp]]
+    - [[#for-title][for TITLE]]
 - [[#undo-tree][Undo tree]]
 - [[#olivetti-mode---mode-for-distraction-free-writing][Olivetti mode - Mode for distraction-free writing.]]
 - [[#web-searchel-package-config][Web-search.el package config]]
