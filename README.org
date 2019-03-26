@@ -1,6 +1,108 @@
 #+TITLE: My literate Emacs configuration
 #+SETUPFILE: theme-readtheorg.setup
 # Theme for html exporting from [[https://github.com/fniessen/org-html-themes][GitHub - fniessen/org-html-themes]]
+* Table of Contents                                                     :TOC:
+- [[#introduction][Introduction]]
+  - [[#notes-on-the-evolution-of-my-emacs-initialisation][Notes on the evolution of my emacs initialisation]]
+- [[#main-configuration][Main configuration]]
+- [[#what-precedes-this-file-the-contents-of-initel][What precedes this file: the contents of init.el]]
+  - [[#add-melpa-and-org-repositories][Add MELPA and org repositories]]
+  - [[#auto-install-packages][Auto-install packages]]
+  - [[#ensure-utf-8][Ensure utf-8]]
+  - [[#require-org][Require Org]]
+  - [[#where-the-magic-happens][Where the magic happens]]
+- [[#disabling-the-tool-bar][Disabling the tool bar]]
+- [[#setting-the-font][Setting the font]]
+- [[#setting-up-my-must-use-theme---blue-mood-theme][Setting up my must use theme - Blue Mood theme.]]
+  - [[#mode-line-customisation][Mode line customisation]]
+  - [[#hide-line-between-fringes][Hide line between fringes]]
+- [[#manually-loading-external-files][Manually loading external files]]
+  - [[#where-i-bootstrap-the-elisp-files][Where I bootstrap the elisp files]]
+  - [[#where-i-tell-emacs-where-is-my-personal-lisp-directory][Where I tell Emacs where is my personal lisp directory.]]
+  - [[#where-i-load-the-specific-packages][Where I load the specific packages.]]
+- [[#startup-screen-and-scratch-buffer-options][Startup screen and scratch buffer options]]
+  - [[#inhibit-startup-screen][Inhibit startup screen]]
+  - [[#scratch-buffer-message][Scratch buffer message]]
+  - [[#new-message-for-the-startup-echo-area][New message for the startup echo area]]
+- [[#nationality-parameters][Nationality parameters]]
+  - [[#setting-the-calendar-up-in-greek][Setting the calendar up in Greek.]]
+  - [[#set-input-method-to-greek][Set input method to greek]]
+  - [[#redirect-keybindings-with-greek-letters][Redirect keybindings with Greek letters]]
+- [[#misc-configuration-parameters][Misc configuration parameters]]
+  - [[#the-bell][The Bell]]
+  - [[#separate-custom-file][Separate custom file]]
+  - [[#set-the-title-bar-to-show-buffer-name][Set the title bar to show buffer name]]
+  - [[#time-in-modeline][Time in modeline]]
+  - [[#do-not-autosave-nor-make-any-backup-files][Do not autosave nor make any backup files.]]
+  - [[#do-not-create-lockfiles][Do not create lockfiles]]
+  - [[#delete-by-moving-to-the-trash][Delete by moving to the trash]]
+  - [[#delete-selection-mode][Delete selection mode.]]
+  - [[#disable-double-space-as-end-of-sentence][Disable double space as end of sentence]]
+  - [[#display-inline-images-in-the-w3m-browser-from-within-emacs][Display inline images in the w3m browser from within emacs.]]
+  - [[#disabling-menu-bar-when-emacs-is-run-in-a--terminal][Disabling menu bar when emacs is run in a  terminal.]]
+  - [[#toggling-the-menu-bar-with-a-keyboard-shortcut][Toggling the menu bar with a keyboard shortcut.]]
+  - [[#toggling-the-scroll-bar-with-a-keyboard-shortcut][Toggling the scroll bar with a keyboard shortcut]]
+  - [[#toggle-maximizing-the-frame][Toggle maximizing the frame]]
+  - [[#visual-line-mode-only-for-text-mode][Visual line mode only for text mode.]]
+  - [[#associate-txt-files-with-the-goto-address-mode][Associate .txt files with the goto-address-mode.]]
+  - [[#bind-m-o-to-other-window][Bind M-o to other-window]]
+  - [[#adds-shift--arrows-for-changing-between-visible-buffers-in-addition-to-m-o][Adds shift + arrows for changing between visible buffers, in addition to M-o.]]
+  - [[#add-command-to-mark-a-line][Add command to mark a line]]
+  - [[#highlight-specific-words-in-prog-mode][Highlight specific words in prog-mode]]
+- [[#recent-files][Recent files]]
+- [[#settings-for-multiple-buffer-management][Settings for multiple buffer management]]
+- [[#ibuffer][Ibuffer]]
+  - [[#replace-buffer-menu][Replace buffer-menu.]]
+  - [[#set-buffer-groups][Set buffer groups.]]
+  - [[#dont-show-filter-groups-if-there-are-no-buffers-in-that-group][Don't show filter groups if there are no buffers in that group.]]
+  - [[#use-human-readable-size-column][Use human readable size column.]]
+- [[#dired-mode-configurations][Dired Mode Configurations]]
+  - [[#enable-dired-icon-mode][Enable dired icon mode.]]
+  - [[#dired-listing][Dired listing]]
+  - [[#dired-dwim-target][Dired dwim target]]
+- [[#org-mode-configuration][Org Mode configuration]]
+  - [[#hook-toc-org-to-org-mode][Hook toc-org to org-mode]]
+  - [[#org-mouse][Org-mouse]]
+  - [[#define-c-c-l-as-the-keybinding-to-org-cliplink][Define C-c l as the keybinding to org-cliplink.]]
+  - [[#define-c-c-d-as-the-keybinding-to-org-toggle-link-display][Define C-c d as the keybinding to org-toggle-link-display]]
+  - [[#define-c-c-e-as-the-keybinding-to-org-emphasize][Define C-c e as the keybinding to org-emphasize]]
+  - [[#set-keywords-for-org-progress-states][Set keywords for Org progress states.]]
+  - [[#special-ctrl-ae-behavior-in-org-mode][Special Ctrl-a/e behavior in org mode]]
+  - [[#use-query-to-confirm-killing-of-hidden-subtrees][Use query to confirm killing of hidden subtrees]]
+  - [[#override-shift--arrows-in-certain-places-in-favor-of-windmove][Override shift + arrows in certain places in favor of windmove]]
+  - [[#auto-adjust-footnotes][Auto adjust footnotes]]
+  - [[#follow-link-in-orgmode-by-pressing-enter-key][Follow link in orgmode by pressing Enter key]]
+  - [[#strikethrough-for-done-tasks][Strikethrough for Done tasks]]
+  - [[#color-only-the-stars-for-the-org-mode-levels][Color only the stars for the org mode levels]]
+  - [[#custom-color-for-headline-levels-2-and-3][Custom color for headline levels 2 and 3]]
+  - [[#custom-postamble-in-html-export][Custom postamble in html export]]
+  - [[#add-shortcut-templates][Add shortcut templates]]
+- [[#undo-tree][Undo tree]]
+- [[#olivetti-mode---mode-for-distraction-free-writing][Olivetti mode - Mode for distraction-free writing.]]
+- [[#web-searchel-package-config][Web-search.el package config]]
+  - [[#set-the-default-search-provider][Set the default search provider]]
+- [[#drag-stuff-package-config][Drag-stuff package config]]
+- [[#smex][Smex]]
+- [[#ivy-counsel-swiper-configuration][Ivy, counsel, swiper configuration]]
+- [[#terminal-configuration][Terminal configuration]]
+  - [[#kill-terminal-buffer-automatically-when-exiting][Kill terminal buffer automatically when exiting]]
+  - [[#redefine-keys-in-term-modes-to-their-normal-behavior][Redefine keys in term modes to their normal behavior]]
+- [[#typoel][Typo.el]]
+  - [[#enable-typo-mode-globally][Enable typo mode globally]]
+  - [[#hook-typo-mode-to-text-mode][Hook typo mode to text mode]]
+  - [[#disable-it-however-for-restructured-text][Disable it however for ReStructured text]]
+  - [[#set-language-template-for-typo-quotemarks][Set language template for typo quotemarks]]
+- [[#magit][Magit]]
+  - [[#set-magit-faces][Set magit faces]]
+  - [[#magit-status-keybinding][Magit-status keybinding]]
+- [[#emacs-lisp-related-configuration][Emacs-lisp related configuration]]
+  - [[#enable-show-paren-mode][Enable show-paren-mode]]
+  - [[#enable-electric-pair-mode][Enable electric-pair-mode]]
+- [[#hideshow-mode][HideShow mode]]
+- [[#diminish-mode-and-dim][Diminish mode and Dim]]
+- [[#ediff][Ediff]]
+  - [[#operate-ediff-through-dired][Operate ediff through dired]]
+
 * Introduction
 Here begins my literate emacs configuration. I tended to comment my init file a whole lot, so I figured I preferred a better interface for the comments.
 ** Notes on the evolution of my emacs initialisation
@@ -35,6 +137,7 @@ free-keys
 htmlize
 org
 smex
+toc-org
 transpose-frame
 typo
 undo-tree
@@ -477,6 +580,13 @@ Group directories first and make sizes human-readable.
 #+END_SRC
 * Org Mode configuration
 The ~(require 'org)~ part is present in the init.el file instead of here, precisely in order to compile this very file.
+** Hook toc-org to org-mode
+[[https://github.com/snosov1/toc-org][toc-org]] is a package that creates Table of Contents for org-mode files without exporting, which can thus give the rendered in github/lab README.org a table of contents, convenient for those who might want to browse said files. Here I add a snippet given in said repo to hook it to org-mode.
+#+BEGIN_SRC emacs-lisp
+(if (require 'toc-org nil t)
+    (add-hook 'org-mode-hook 'toc-org-mode)
+  (warn "toc-org not found"))
+#+END_SRC
 ** Org-mouse
 This is an org-mode subpackage that allows control of various things with the mouse. I enable it because I almost never remember which is the shortcut to tick checkboxes in org-mode.
 #+BEGIN_SRC emacs-lisp
@@ -530,8 +640,6 @@ Non-nil means `C-a' and `C-e' behave specially in headlines and items.
 #+BEGIN_SRC emacs-lisp
 (setq org-ctrl-k-protect-subtree t)
 #+END_SRC
-** +Enable support of shift selection of text in org-mode except in special instances.+ Discontinued in favor of C-Space, because I prefer using Shift + arrows for windmove.
-+(setq org-support-shift-select t)+
 ** Override shift + arrows in certain places in favor of windmove
 If you want to make the windmove function active in locations where Org mode does not have special functionality on S-<cursor>, add this to your configuration(from [[http://orgmode.org/manual/Conflicts.html][Conflicts - The Org Manual]]):
 #+BEGIN_SRC emacs-lisp

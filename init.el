@@ -17,6 +17,7 @@ free-keys
 htmlize
 org
 smex
+toc-org
 transpose-frame
 typo
 undo-tree
