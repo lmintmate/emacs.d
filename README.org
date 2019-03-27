@@ -50,6 +50,7 @@
   - [[#adds-shift--arrows-for-changing-between-visible-buffers-in-addition-to-m-o][Adds shift + arrows for changing between visible buffers, in addition to M-o.]]
   - [[#add-command-to-mark-a-line][Add command to mark a line]]
   - [[#highlight-specific-words-in-prog-mode][Highlight specific words in prog-mode]]
+  - [[#drag-selected-text-with-the-mouse-in-emacs][Drag selected text with the mouse in emacs]]
 - [[#recent-files][Recent files]]
 - [[#settings-for-multiple-buffer-management][Settings for multiple buffer management]]
 - [[#ibuffer][Ibuffer]]
@@ -491,6 +492,11 @@ Modified from [[http://seancribbs.com/emacs.d#sec-5-8][Sean Cribbs' Emacs 25 Con
           1 font-lock-builtin-face t))))
 
 (add-hook 'prog-mode-hook 'lmintmate/add-watchwords)
+#+END_SRC
+** Drag selected text with the mouse in emacs
+Sometimes I just want to cop out and use the mouse when trying to move text. I found out today, via [[https://emacs.stackexchange.com/a/48440][Stack Exchange]], that this is possible in emacs, and one just needs to set the function ~mouse-drag-and-drop-region~ to ~t~.
+#+BEGIN_SRC emacs-lisp
+(setq mouse-drag-and-drop-region t)
 #+END_SRC
 * Recent files
 A quick way to access my most recently opened files (as I didn't want to have to go all the way through the directory structure).
