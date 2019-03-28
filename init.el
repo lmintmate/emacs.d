@@ -15,6 +15,7 @@ esup
 esxml
 free-keys
 htmlize
+ivy-rich
 org
 smex
 toc-org

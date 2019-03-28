@@ -91,6 +91,7 @@
 - [[#drag-stuff-package-config][Drag-stuff package config]]
 - [[#smex][Smex]]
 - [[#ivy-counsel-swiper-configuration][Ivy, counsel, swiper configuration]]
+  - [[#ivy-rich][Ivy rich]]
   - [[#change-color-of-ivy-org-face][Change color of ivy-org face]]
 - [[#terminal-configuration][Terminal configuration]]
   - [[#kill-terminal-buffer-automatically-when-exiting][Kill terminal buffer automatically when exiting]]
@@ -143,6 +144,7 @@ esup
 esxml
 free-keys
 htmlize
+ivy-rich
 org
 smex
 toc-org
@@ -236,6 +238,7 @@ I also modified the fringe color to the same background color as the rest of the
  ;; If there is more than one, they won't work right.
  '(fringe ((t (:background "DodgerBlue4"))))
  '(font-lock-negation-char-face ((t (:foreground "tomato"))))
+ '(font-lock-doc-face ((t (:foreground "cyan"))))
  '(highlight ((t (:background "PaleTurquoise4")))))
 ;; setting so that hl-line-mode won't affect syntax coloring
 (set-face-foreground 'highlight nil)
@@ -775,12 +778,21 @@ Define the keybindings - the default being M- and arrow keys.
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 (global-set-key (kbd "\C-cu") 'counsel-unicode-char)
+(global-set-key (kbd "\C-h v") 'counsel-describe-variable)
+(global-set-key (kbd "\C-h f") 'counsel-describe-function)
+(setq ivy-format-function #'ivy-format-function-line)
 (setq ivy-wrap t)
 #+END_SRC
 To search for the entire word at point with swiper (and not only the part from the cursor onwards, as M-j does): the [[https://github.com/abo-abo/swiper/wiki/FAQ][Ivy FAQ]] says the following:
 #+BEGIN_QUOTE
 On a related note, you can paste symbol-at-point into the search with M-n, which is a common case for using C-w in Isearch.
 #+END_QUOTE
+** Ivy rich
+[[https://github.com/Yevgnen/ivy-rich][This package]] shows descriptions of the items in ~ivy-switch-buffer~, ~counsel-M-x~, ~counsel-describe-variable~, ~counsel-describe-function~ e.t.c.
+#+BEGIN_SRC emacs-lisp
+(require 'ivy-rich)
+(ivy-rich-mode 1)
+#+END_SRC
 ** Change color of ivy-org face
 The default one is inherited from org-level-4, which is gray, and thus always confused me when displaying the buffers, because I'm used to the convention that gray=inactive or comment. I changed it to inherit from org-level-1, which is chartreuse green.
 #+BEGIN_SRC emacs-lisp
