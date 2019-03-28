@@ -1,5 +1,4 @@
 #+TITLE: My literate Emacs configuration
-#+SETUPFILE: theme-readtheorg.setup
 # Theme for html exporting from [[https://github.com/fniessen/org-html-themes][GitHub - fniessen/org-html-themes]]
 * Table of Contents                                                     :TOC_3:
 - [[#introduction][Introduction]]
@@ -92,6 +91,7 @@
 - [[#drag-stuff-package-config][Drag-stuff package config]]
 - [[#smex][Smex]]
 - [[#ivy-counsel-swiper-configuration][Ivy, counsel, swiper configuration]]
+  - [[#change-color-of-ivy-org-face][Change color of ivy-org face]]
 - [[#terminal-configuration][Terminal configuration]]
   - [[#kill-terminal-buffer-automatically-when-exiting][Kill terminal buffer automatically when exiting]]
   - [[#redefine-keys-in-term-modes-to-their-normal-behavior][Redefine keys in term modes to their normal behavior]]
@@ -495,7 +495,7 @@ Modified from [[http://seancribbs.com/emacs.d#sec-5-8][Sean Cribbs' Emacs 25 Con
 (add-hook 'prog-mode-hook 'lmintmate/add-watchwords)
 #+END_SRC
 ** Drag selected text with the mouse in emacs
-Sometimes I just want to cop out and use the mouse when trying to move text. I found out today, via [[https://emacs.stackexchange.com/a/48440][Stack Exchange]], that this is possible in emacs, and one just needs to set the function ~mouse-drag-and-drop-region~ to ~t~.
+Sometimes I just want to cop out and use the mouse when trying to move text. I found out today, via [[https://emacs.stackexchange.com/a/48440][Stack Exchange]], that this is possible in emacs, and one just needs to set the function ~mouse-drag-and-drop-region~ to ~t~. This doesn't work when inside org-mode files however, for some some reason.
 #+BEGIN_SRC emacs-lisp
 (setq mouse-drag-and-drop-region t)
 #+END_SRC
@@ -781,6 +781,13 @@ To search for the entire word at point with swiper (and not only the part from t
 #+BEGIN_QUOTE
 On a related note, you can paste symbol-at-point into the search with M-n, which is a common case for using C-w in Isearch.
 #+END_QUOTE
+** Change color of ivy-org face
+The default one is inherited from org-level-4, which is gray, and thus always confused me when displaying the buffers, because I'm used to the convention that gray=inactive or comment. I changed it to inherit from org-level-1, which is chartreuse green.
+#+BEGIN_SRC emacs-lisp
+(when (package-installed-p 'ivy)
+(custom-set-faces
+  '(ivy-org ((t (:inherit org-level-1))))))
+#+END_SRC
 * Terminal configuration
 ** Kill terminal buffer automatically when exiting
 From [[https://oremacs.com/2015/01/01/three-ansi-term-tips/][oremacs]].
