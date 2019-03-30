@@ -85,7 +85,6 @@
     - [[#for-emacs-lisp][for emacs-lisp]]
     - [[#for-title][for TITLE]]
 - [[#undo-tree][Undo tree]]
-- [[#olivetti-mode---mode-for-distraction-free-writing][Olivetti mode - Mode for distraction-free writing.]]
 - [[#web-searchel-package-config][Web-search.el package config]]
   - [[#set-the-default-search-provider][Set the default search provider]]
 - [[#drag-stuff-package-config][Drag-stuff package config]]
@@ -188,10 +187,6 @@ web-search)
 (unless (version< emacs-version "24.4")
 (unless (package-installed-p 'dim)
   (package-install 'dim)))
-
-(unless (version< emacs-version "24.4")
-(unless (package-installed-p 'olivetti)
-  (package-install 'olivetti)))
 #+END_EXAMPLE
 ** Ensure utf-8
 Needed for Windows
@@ -730,20 +725,6 @@ M-p for M-previous and M-n for M-next. These might not be the most comfortable o
 #+BEGIN_SRC emacs-lisp
 (define-key global-map "\M-p" 'undo-tree-undo)
 (define-key global-map "\M-n" 'undo-tree-redo)
-#+END_SRC
-* Olivetti mode - Mode for distraction-free writing.
-Hide the mode line when enabling olivetti.
-#+BEGIN_SRC emacs-lisp
-(when (package-installed-p 'olivetti)
-(setq olivetti-hide-mode-line t))
-#+END_SRC
-Function to turn off the menu bar when olivetti mode is enabled
-#+BEGIN_SRC emacs-lisp
-(when (package-installed-p 'olivetti)
-(progn
-  (defun turn-off-menu-with-olivetti ()
-    (menu-bar-mode -1))
-  (add-hook 'olivetti-mode-hook 'turn-off-menu-with-olivetti)))
 #+END_SRC
 * Web-search.el package config
 ** Set the default search provider
