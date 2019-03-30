@@ -169,10 +169,6 @@ web-search)
 (unless (package-installed-p 'magit)
   (package-install 'magit)))
 
-(when (eq system-type 'gnu/linux)
-(unless (package-installed-p 'ox-pandoc)
-  (package-install 'ox-pandoc)))
-
 ;; Packages that require emacs 24.4 and up
 
 (unless (version< emacs-version "24.4")
