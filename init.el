@@ -11,7 +11,6 @@ counsel
 diminish
 dired-icon
 drag-stuff
-esup
 free-keys
 htmlize
 ivy-rich
