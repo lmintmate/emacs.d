@@ -12,7 +12,6 @@ diminish
 dired-icon
 drag-stuff
 esup
-esxml
 free-keys
 htmlize
 ivy-rich
