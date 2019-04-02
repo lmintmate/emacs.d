@@ -50,6 +50,7 @@
   - [[#add-command-to-mark-a-line][Add command to mark a line]]
   - [[#highlight-specific-words-in-prog-mode][Highlight specific words in prog-mode]]
   - [[#drag-selected-text-with-the-mouse-in-emacs][Drag selected text with the mouse in emacs]]
+  - [[#bind-zap-up-to-char-command][Bind zap-up-to-char command]]
 - [[#recent-files][Recent files]]
 - [[#settings-for-multiple-buffer-management][Settings for multiple buffer management]]
 - [[#ibuffer][Ibuffer]]
@@ -490,6 +491,11 @@ Modified from [[http://seancribbs.com/emacs.d#sec-5-8][Sean Cribbs' Emacs 25 Con
 Sometimes I just want to cop out and use the mouse when trying to move text. I found out today, via [[https://emacs.stackexchange.com/a/48440][Stack Exchange]], that this is possible in emacs, and one just needs to set the function ~mouse-drag-and-drop-region~ to ~t~. This doesn't work when inside org-mode files however, for some some reason.
 #+BEGIN_SRC emacs-lisp
 (setq mouse-drag-and-drop-region t)
+#+END_SRC
+** Bind zap-up-to-char command
+I found today the commands M-x zap-to-char and zap-up-to-char, which roughly correspond to vim's df and dt. The former is bound to M-z, but the latter isn't bound to anything. I bind it here to C-c z, since that isn't bound to anything.
+#+BEGIN_SRC emacs-lisp
+(define-key global-map "\C-cz" 'zap-up-to-char)
 #+END_SRC
 * Recent files
 A quick way to access my most recently opened files (as I didn't want to have to go all the way through the directory structure).
