@@ -133,7 +133,7 @@ First I add the MELPA and org repositories. I do this in init.el and not here as
 ** Auto-install packages
 From [[http://aaronbedra.com/emacs.d/#default-packages][Aaron Bedra's Emacs 24 Configuration]].\\
 The first part of the code defines the packages to be installed ; from this list are absent the packages installed manually, present in the lisp folder. The second part of the code does the following: when Emacs boots, it checks to make sure all of the packages defined in lmintmate/packages are installed. If not, it has the package manager take care of it.\\
-P.S Just so you know, I’m aware that ~use-package~ can be used to achieve the same effect, but I’d have to change the entirety of my configuration for that, so it was more trouble than was worth.
+N.B. Because org-mode is already builtin, it doesn't get reinstalled automatically from the org-mode repository, as it should. Thus, if I want the latest org-mode version, I have to install it manually from ~package-list-packages~, and only then it will overtake the builtin version (see also [[https://emacs.stackexchange.com/questions/31825/cant-install-org-through-package-manager#comment64743_31837][here]]).
 #+BEGIN_EXAMPLE
 (defvar lmintmate/packages '(color-theme-modern
 counsel
@@ -488,7 +488,7 @@ Modified from [[http://seancribbs.com/emacs.d#sec-5-8][Sean Cribbs' Emacs 25 Con
 (add-hook 'prog-mode-hook 'lmintmate/add-watchwords)
 #+END_SRC
 ** Drag selected text with the mouse in emacs
-Sometimes I just want to cop out and use the mouse when trying to move text. I found out today, via [[https://emacs.stackexchange.com/a/48440][Stack Exchange]], that this is possible in emacs, and one just needs to set the function ~mouse-drag-and-drop-region~ to ~t~. This doesn't work when inside org-mode files however, for some some reason.
+Sometimes I just want to cop out and use the mouse when trying to move text. I found out today, via [[https://emacs.stackexchange.com/a/48440][Stack Exchange]], that this is possible in emacs, and one just needs to set the function ~mouse-drag-and-drop-region~ to ~t~. This doesn't work when inside org-mode files however, an issue most probably related to the fact that I have ~org-mouse~ enabled, since, if I disable it, drag-and-drop works then fine.
 #+BEGIN_SRC emacs-lisp
 (setq mouse-drag-and-drop-region t)
 #+END_SRC
