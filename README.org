@@ -85,6 +85,7 @@
   - [[#add-shortcut-templates][Add shortcut templates]]
     - [[#for-emacs-lisp][for emacs-lisp]]
     - [[#for-title][for TITLE]]
+  - [[#enable-speed-keys][Enable Speed keys]]
 - [[#undo-tree][Undo tree]]
 - [[#web-searchel-package-config][Web-search.el package config]]
   - [[#set-the-default-search-provider][Set the default search provider]]
@@ -711,6 +712,12 @@ These [[https://orgmode.org/org.html#Easy-templates][templates]], e.g. ~<s~, are
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'org-structure-template-alist
          '("t" "#+TITLE: " ""))
+#+END_SRC
+** Enable Speed keys
+[[https://orgmode.org/manual/Speed-keys.html][Speed keys]] are single keystrokes without modifiers that can be used when the cursor is on a headline to e.g. move around the buffer. Here I enable them and set them to be able to be used on any star of the headline (code taken from the explanation string of the M-x customize section).
+#+BEGIN_SRC emacs-lisp
+ (setq org-use-speed-commands
+         (lambda () (and (looking-at org-outline-regexp) (looking-back "^\**"))))
 #+END_SRC
 * Undo tree
 #+BEGIN_SRC emacs-lisp
