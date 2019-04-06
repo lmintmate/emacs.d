@@ -15,6 +15,7 @@ free-keys
 htmlize
 ivy-rich
 org
+rainbow-mode
 smex
 toc-org
 transpose-frame
