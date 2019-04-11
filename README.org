@@ -1,5 +1,10 @@
 #+TITLE: My literate Emacs configuration
 # Theme for html exporting from [[https://github.com/fniessen/org-html-themes][GitHub - fniessen/org-html-themes]]
+
+#+html: <a href="https://www.gnu.org/software/emacs/"><img alt="Emacs" src="https://img.shields.io/badge/GNU%20Emacs-26.1-blueviolet.svg?style=for-the-badge&color=8e44bc&logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAAB7FBMVEUAAAAAAAAAAAAAAAAAAAAAABcTACchADcVCioaESsxAEEuAElDH2JQI3g%2BFGBSIHNDE2dCH19JJmxNJXNGIGBTKH5aNIZVLXpQKHFVL39bJ3xbN4RaN4RaNYJbOYRhM4hiM4ljOoxeOIhhQI9rMZBnOZBqUJ9tU6NiP49rOJVwNphrUaVsMJNtUKByL5h5Z7V3Z7J5a7V1ZbF7NaRwS65xUKRySq5yV7N3Tq94XLV8VrN8XLZ9T7J9W7V%2BVLN%2BWbR%2BYbeAX7eBX7aBYriCaLuDT7aDXbeQYL2WcMGXdsGcgcacg8eefMWji8qrlc%2Btm9Kvjc%2BwotW0jtPIqd%2FJvuF1Y7h1ZLV2Ybd3YbJ4Tqt6VLZ8br19cb9%2BdL9%2FYrp%2FcL5%2FcsCAb76AdcGAfMOBZMCCYr6CasCCgcmDXLuDZr%2BEfMSEgMaFWr2FYMCGg8aHcMWHd8SHg8uJVL%2BKRbmKiNGKitCLSryLh9GMOL2MWsCPTMKPT8KPVMKPfMeQQsSQi8qUhceWRciZk8%2BfT82gkc2inNGsds%2Bsotuxqdi1qti7tuC%2Bt9%2FGtd7GvODKwOLLxOTOw%2BTQyefS0erTyubazenb1uzc0erj3fDm4vLn4%2FLr6PTs5fPv7Pfv7ff29fr39%2Fv6%2Bfz8%2FP3%2B%2Fv%2F%2F%2F%2F9nzBDpAAAAVXRSTlMAAQIFCAsNFxgdHyY5OT0%2BQFBQUldZXWBlZnV7gYWanaCur7K0tri4wsLI2%2BHi5vX29vn7%2Fv7%2B%2Fv7%2B%2Fv7%2B%2Fv7%2B%2Fv7%2B%2Fv7%2B%2Fv7%2B%2Fv7%2B%2Fv7%2B%2Fv7%2B%2Fv7%2BoU1PmQAAAMhJREFUeAFjAANuUUkBZgYo4Fc3TIoJ05ZmAfPE9EvSs5u62tOU2YA8XqPSvPrW7rkLa1PkGBkY1MqTJ82f2t8b6JJpysPAZVAY2zGvM9zc0sExQ5ZBOD4rOrRlxkx%2FZ1v7HEUG8cSEholzpk%2Fwc7KyK1Jl4IsomLU4xNrEzMLGtVqBgVU3v2%2FRZF8vTw%2F3smIJBgaZ1DjvnmlTZi8IbtThYGBg08iNcvMJCGprNhYEuYpdKbKypqquQk8E4mYmIXlNLRUpTiATANjQND0tbgrkAAAAAElFTkSuQmCC"></a>
+
+#+html: <a href="https://orgmode.org/"><img alt="Org-mode" src="https://img.shields.io/badge/Powered%20by-Org--mode-blueviolet.svg?style=for-the-badge&color=8e44bc"></a>
+
 * Table of Contents                                                     :TOC_3:
 - [[#introduction][Introduction]]
   - [[#notes-on-the-evolution-of-my-emacs-initialisation][Notes on the evolution of my emacs initialisation]]
