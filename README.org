@@ -224,7 +224,7 @@ On systems different from the one I'm currently on (which is Linux Mint MATE), t
 * Setting up my must use theme - Blue Mood theme.
 I wasn't satisfied with the default Adawaita theme (but then who is?). I tried to find another theme, but most of them (even the popular ones) didn't satisfy my tastes. But when I found Blue Mood, I knew it was the one!\\
 In case you haven't encountered it (not too unlikely), it's because it's a part of the [[https://github.com/emacs-jp/replace-colorthemes][color-theme-modern]] package, which apparently recreates older themes for Emacs 24+. In the repository I linked just now, you can see all the other included themes too, complete with screenshots, and, of course, the way to apply them to your init file.\\
-I also modified the fringe color to the same background color as the rest of the theme, as its original color was black, and didn't fit in too well with the rest of the colorscheme for me, and the highlight color to PaleTurquoise4, as it had the same color as the one of the region so that I couldn't distinguish a highlighted region when hl-line-mode was turned on.
+I also modified the fringe color to the same background color as the rest of the theme, as its original color was black, and didn't fit in too well with the rest of the colorscheme for me, and the highlight color to PaleTurquoise4, as it had the same color as the one of the region so that I couldn't distinguish a highlighted region when hl-line-mode was turned on. In addition I modified the color of the edited state of a version-controlled file ~vc-edited-state~ so that it is more apparent.
 #+BEGIN_SRC emacs-lisp
 (load-theme 'blue-mood t t)
 (enable-theme 'blue-mood)
@@ -236,7 +236,8 @@ I also modified the fringe color to the same background color as the rest of the
  '(fringe ((t (:background "DodgerBlue4"))))
  '(font-lock-negation-char-face ((t (:foreground "tomato"))))
  '(font-lock-doc-face ((t (:foreground "cyan"))))
- '(highlight ((t (:background "PaleTurquoise4")))))
+ '(highlight ((t (:background "PaleTurquoise4"))))
+ '(vc-edited-state ((t (:background "tomato1" :foreground "black")))))
 ;; setting so that hl-line-mode won't affect syntax coloring
 (set-face-foreground 'highlight nil)
 #+END_SRC
