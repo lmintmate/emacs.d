@@ -59,6 +59,7 @@
   - [[#bind-zap-up-to-char-command][Bind zap-up-to-char command]]
   - [[#enable-display-line-numbers-mode-for-prog-mode][Enable display-line-numbers-mode for prog-mode]]
     - [[#disable-it-however-for-lisp-interaction-mode][Disable it however for lisp-interaction-mode]]
+    - [[#make-the-current-line-bold][Make the current line bold]]
 - [[#recent-files][Recent files]]
 - [[#settings-for-multiple-buffer-management][Settings for multiple buffer management]]
 - [[#ibuffer][Ibuffer]]
@@ -528,6 +529,13 @@ I don't want line numbers to display however for ~lisp-interaction-mode~, which 
 (defun disable-linum-in-li ()
   (display-line-numbers-mode -1))
 (add-hook 'lisp-interaction-mode-hook 'disable-linum-in-li)
+#+END_SRC
+*** Make the current line bold
+I set it conditionally so that it won't error out on versions lower than 26.1.
+#+BEGIN_SRC emacs-lisp
+(when (version<= "26.0.50" emacs-version )
+(custom-set-faces
+'(line-number-current-line ((t (:inherit line-number :weight bold))))))
 #+END_SRC
 * Recent files
 A quick way to access my most recently opened files (as I didn't want to have to go all the way through the directory structure).
