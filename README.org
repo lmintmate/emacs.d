@@ -57,6 +57,8 @@
   - [[#highlight-specific-words-in-prog-mode][Highlight specific words in prog-mode]]
   - [[#drag-selected-text-with-the-mouse-in-emacs][Drag selected text with the mouse in emacs]]
   - [[#bind-zap-up-to-char-command][Bind zap-up-to-char command]]
+  - [[#enable-display-line-numbers-mode-for-prog-mode][Enable display-line-numbers-mode for prog-mode]]
+    - [[#disable-it-however-for-lisp-interaction-mode][Disable it however for lisp-interaction-mode]]
 - [[#recent-files][Recent files]]
 - [[#settings-for-multiple-buffer-management][Settings for multiple buffer management]]
 - [[#ibuffer][Ibuffer]]
@@ -513,6 +515,19 @@ Sometimes I just want to cop out and use the mouse when trying to move text. I f
 I found today the commands M-x zap-to-char and zap-up-to-char, which roughly correspond to vim's df and dt. The former is bound to M-z, but the latter isn't bound to anything. I bind it here to C-c z, since that isn't bound to anything.
 #+BEGIN_SRC emacs-lisp
 (define-key global-map "\C-cz" 'zap-up-to-char)
+#+END_SRC
+** Enable display-line-numbers-mode for prog-mode
+This minor mode first appeared in 26.1 and makes line rendering faster than the previous system, ~linum-mode~. I hook it to ~prog-mode~, as I don't nedd it for text-mode, and enable it conditionally, so that it won't error out on a version lower than 26.1.
+#+BEGIN_SRC emacs-lisp
+(when (version<= "26.0.50" emacs-version )
+(add-hook 'prog-mode-hook 'display-line-numbers-mode))
+#+END_SRC
+*** Disable it however for lisp-interaction-mode
+I don't want line numbers to display however for ~lisp-interaction-mode~, which is the mode used in the ~*scratch*~ buffer (and, to my knowledge, only there). Defining a function to disable the line numbers and then proceeding to hook this function to lisp-interaction-mode was the only way to disable it there without emacs erroring out.
+#+BEGIN_SRC emacs-lisp
+(defun disable-linum-in-li ()
+  (display-line-numbers-mode -1))
+(add-hook 'lisp-interaction-mode-hook 'disable-linum-in-li)
 #+END_SRC
 * Recent files
 A quick way to access my most recently opened files (as I didn't want to have to go all the way through the directory structure).
