@@ -1,7 +1,7 @@
 #+TITLE: My literate Emacs configuration
 # Theme for html exporting from [[https://github.com/fniessen/org-html-themes][GitHub - fniessen/org-html-themes]]
 
-#+html: <a href="https://www.gnu.org/software/emacs/"><img alt="Emacs" src="https://frama.link/emacsd-badge"></a>
+#+html: <a href="https://www.gnu.org/software/emacs/"><img alt="Emacs" src="https://frama.link/emacsd-26-2-badge"></a>
 
 #+html: <a href="https://orgmode.org/"><img alt="Org-mode" src="https://img.shields.io/badge/Powered%20by-Org--mode-blueviolet.svg?style=for-the-badge&color=8e44bc"></a>
 
