@@ -25,6 +25,7 @@
   - [[#where-i-tell-emacs-where-is-my-personal-lisp-directory][Where I tell Emacs where is my personal lisp directory.]]
   - [[#where-i-load-the-specific-packages][Where I load the specific packages.]]
     - [[#loading-the-package-for-polytonic-greek][Loading the package for polytonic greek]]
+    - [[#loading-la-carte-for-executing-menu-commands-from-the-keyboard][Loading La Carte (for executing menu commands from the keyboard)]]
 - [[#startup-screen-and-scratch-buffer-options][Startup screen and scratch buffer options]]
   - [[#inhibit-startup-screen][Inhibit startup screen]]
   - [[#scratch-buffer-message][Scratch buffer message]]
@@ -254,16 +255,18 @@ Remove the strange white line between two fringes, which appears when the scroll
 (set-face-attribute 'vertical-border nil :foreground (face-attribute 'fringe :background))
 #+END_SRC
 * Manually loading external files
-I use an external lisp file and a theme for org to html export, and I thus need to load my personal lisp directory as well as the theme.
+I use a couple external lisp files, and I thus need to load my personal lisp directory.
 ** Where I bootstrap the elisp files
 In this section I have some code in emacs lisp that downloads the lisp file I use and places it in the correct place. Specifically, it checks whether the file exists, and if it doesn't, first creates the containing directory, if it doesn't exist, and then proceeds to download and store the file.
 #+BEGIN_SRC emacs-lisp
 (setq lisp-directory (concat user-emacs-directory "lisp"))
 
-(when (not (file-exists-p (expand-file-name "greek.el" lisp-directory)))
+(when (or (not (file-exists-p (expand-file-name "greek.el" lisp-directory))) (not (file-exists-p (expand-file-name "lacarte.el" lisp-directory))))
   (unless (file-directory-p lisp-directory) (make-directory lisp-directory))
   (unless (file-exists-p (expand-file-name "greek.el" lisp-directory))
-    (url-copy-file "http://myria.math.aegean.gr/~atsol/emacs-unicode/greek.el" (expand-file-name "greek.el" lisp-directory))))
+    (url-copy-file "http://myria.math.aegean.gr/~atsol/emacs-unicode/greek.el" (expand-file-name "greek.el" lisp-directory)))
+  (unless (file-exists-p (expand-file-name "lacarte.el" lisp-directory))
+    (url-copy-file "https://www.emacswiki.org/emacs/download/lacarte.el" (expand-file-name "lacarte.el" lisp-directory))))
 #+END_SRC
 ** Where I tell Emacs where is my personal lisp directory.
 #+BEGIN_SRC emacs-lisp
@@ -276,6 +279,12 @@ I’m used to writing Greek with the modern Greek layout, which is quite differe
  This solution to my problem can be found [[http://myria.math.aegean.gr/~atsol/emacs-unicode/][here]](look under the compiled greek.elc link for the greek.el source).
 #+BEGIN_SRC emacs-lisp
 (load "greek")
+#+END_SRC
+*** Loading La Carte (for executing menu commands from the keyboard)
+[[https://www.emacswiki.org/emacs/LaCarte][La Carte]] is a package that allows searching and executing menu commands from the keyboard, in a way similar to ivy (in fact, when ivy is installed, this package also benefits from ivy integration, which makes its autocompletion so much better). There is also a builtin in emacs command ~tmm-menubar~, but that one goes literally from menu to submenu, just with keyboard shortcuts instead of mouse clicks, and is thus much less discoverable. I also set up here a keybinding for it (specifically for ~lacarte-execute-menu-command~, because ~lacarte-execute-command~ also includes regular commands, and ~counsel-M-x~ already takes care of that).
+#+BEGIN_SRC emacs-lisp
+(require 'lacarte)
+(global-set-key [?\C-.] 'lacarte-execute-menu-command)
 #+END_SRC
 * Startup screen and scratch buffer options
 ** Inhibit startup screen
