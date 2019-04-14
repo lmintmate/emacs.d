@@ -786,6 +786,7 @@ Define the keybindings - the default being M- and arrow keys.
 (drag-stuff-define-keys)
 #+END_SRC
 * Smex
+Used for the completion history of ~counsel-M-x~.
 #+BEGIN_SRC emacs-lisp
 (require 'smex) ; Not needed if you use package.el
   (smex-initialize) ; Can be omitted. This might cause a (minimal) delay
