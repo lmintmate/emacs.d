@@ -106,11 +106,6 @@
 - [[#terminal-configuration][Terminal configuration]]
   - [[#kill-terminal-buffer-automatically-when-exiting][Kill terminal buffer automatically when exiting]]
   - [[#redefine-keys-in-term-modes-to-their-normal-behavior][Redefine keys in term modes to their normal behavior]]
-- [[#typoel][Typo.el]]
-  - [[#enable-typo-mode-globally][Enable typo mode globally]]
-  - [[#hook-typo-mode-to-text-mode][Hook typo mode to text mode]]
-  - [[#disable-it-however-for-restructured-text][Disable it however for ReStructured text]]
-  - [[#set-language-template-for-typo-quotemarks][Set language template for typo quotemarks]]
 - [[#magit][Magit]]
   - [[#set-magit-faces][Set magit faces]]
   - [[#magit-status-keybinding][Magit-status keybinding]]
@@ -159,7 +154,6 @@ smex
 toc-org
 transpose-frame
 try
-typo
 undo-tree
 w3m
 web-search)
@@ -856,31 +850,6 @@ Some key combinations don't behave as I'd expect in ansi-term. I thus have to re
       (define-key term-raw-map (kbd "M-x") 'counsel-M-x)
 ))
 #+END_SRC
-* Typo.el
-[[https://github.com/jorgenschaefer/typoel][An emacs extension for typographical editing]]\\
-This package allows me to use french guillemets, as is the convention in greek typography.
-** Enable typo mode globally
-#+BEGIN_SRC emacs-lisp
-(typo-global-mode 1)
-#+END_SRC
-** Hook typo mode to text mode
-#+BEGIN_SRC emacs-lisp
-(add-hook 'text-mode-hook 'typo-mode)
-#+END_SRC
-** Disable it however for ReStructured text
-ReStructured text uses monospace blocks ~``like so``~ which means that typo-mode, which changes that symbol to a "better" one typographically, makes me do twice the effort to use this specific symbol. Here's a trick to get Emacs ReStructured text mode to not have typo-mode enabled:
-#+BEGIN_SRC emacs-lisp
-(add-hook 'find-file-hook
-          (lambda ()
-            (when (string= (file-name-extension buffer-file-name) "rst")
-              (typo-mode -1))))
-#+END_SRC
-** Set language template for typo quotemarks
-A setting for Greek isn't available, and since I only ever use double quotes, the Italian template seemed the most appropriate to me.\\
-«Una faccia, una razza!», after all(as goes the saying emphasizing the similarities of Greeks with the Italians).
-#+BEGIN_SRC emacs-lisp
-(setq-default typo-language "Italian")
-#+END_SRC
 * Magit
 A very good git manager (the reports of its greatness aren’t overrated at all!).\\
 Btw,for those curious (as I was) where the term "porcelain" with which magit is self-described comes from, [[https://stackoverflow.com/questions/6976473/what-does-the-term-porcelain-mean-in-git][here’s]] an answer - the gist of it is that it is a more accessible interface, as opposed to the less user-friendly "plumbing" levels/commands.
@@ -937,7 +906,6 @@ Diminish mode that cuts off the display of minor modes which I want to work [[ht
 (diminish 'visual-line-mode "Vl")
 (diminish 'undo-tree-mode "Ut")
 (diminish 'drag-stuff-mode)
-(diminish 'typo-mode)
 (diminish 'ivy-mode)
 #+END_SRC
 [[https://github.com/alezost/dim.el][Dim]]. This is similar to diminish, but can also shorten the display of major modes. The problem with it though is that it crams all the abbreviations, regardless of length, next to the name of the unabbreviated mode (while diminish only does so with single character abbreviations), which is why I'm using it in addition to diminish, even through their functionality overlaps.\\

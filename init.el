@@ -20,7 +20,6 @@ smex
 toc-org
 transpose-frame
 try
-typo
 undo-tree
 w3m
 web-search)
