@@ -33,7 +33,7 @@
 - [[#nationality-parameters][Nationality parameters]]
   - [[#setting-the-calendar-up-in-greek][Setting the calendar up in Greek.]]
   - [[#set-input-method-to-greek][Set input method to greek]]
-  - [[#redirect-keybindings-with-greek-letters][Redirect keybindings with Greek letters]]
+  - [[#redirect-commands-with-greek-letters-to-the-correct-commands][Redirect commands with Greek letters to the correct commands]]
 - [[#misc-configuration-parameters][Misc configuration parameters]]
   - [[#the-bell][The Bell]]
   - [[#separate-custom-file][Separate custom file]]
@@ -323,35 +323,33 @@ In order to be able to write greek with the keyboard set to English (useful for 
 #+BEGIN_SRC emacs-lisp
 (set-input-method "el_GR")
 #+END_SRC
-** Redirect keybindings with Greek letters
-Sometimes I forget to switch the keyboard language from Greek to English (especially when I'm using emacs in tandem with other applications that require the keyboard be set to Greek in order to write in that language) and, as a result, I get something like «M-χ is undefined». This method, from [[https://stackoverflow.com/a/10658699][Stack Overflow]], gives a solution for those modifier-based shortcuts I use (I don't need a solution as radical and complicated as the one proposed above that one - not to mention that I tried that one and couldn't get it to work). It basically tells emacs to consider the given greek letter shortcut the same as the equivalent latin one.
+** Redirect commands with Greek letters to the correct commands
+Sometimes I forget to switch the keyboard language from Greek to English (especially when I'm using emacs in tandem with other applications that require the keyboard be set to Greek in order to write in that language) and, as a result, I get something like «M-χ is undefined». I used to use [[https://stackoverflow.com/a/10658699][this method from Stack Overflow]], which added bindings with Greek letters and told emacs to consider them equivalent to the ones with latin letters. This however didn't work for commands which had not only a modifier and a letter, but also additional letters (e.g. C-c u). Since the last time I checked this Stack Overflow thread however, [[https://stackoverflow.com/a/54647483][a new method has been added]] that also works for the commands the other method didn't. I modified it accordingly and will use that one from here on out.
 #+BEGIN_SRC emacs-lisp
-;; Common keyboard shortcuts I use and might mistype with Greek letters
-(define-key function-key-map [?\M-χ] [?\M-x])
-(define-key function-key-map [?\M-ς] [?\M-w])
-(define-key function-key-map [?\M-π] [?\M-p])
-(define-key function-key-map [?\M-ν] [?\M-n])
-(define-key function-key-map [?\M-ο] [?\M-o])
-(define-key function-key-map [?\M-β] [?\M-b])
-(define-key function-key-map [?\M-φ] [?\M-f])
-(define-key function-key-map [?\M-ω] [?\M-v])
-(define-key function-key-map [?\C-χ] [?\C-x])
-(define-key function-key-map [?\C-υ] [?\C-y])
-(define-key function-key-map [?\C-ψ] [?\C-c])
-(define-key function-key-map [?\C-γ] [?\C-g])
-(define-key function-key-map [?\C-σ] [?\C-s])
-(define-key function-key-map [?\C-φ] [?\C-f])
-(define-key function-key-map [?\C-α] [?\C-a])
-(define-key function-key-map [?\C-κ] [?\C-k])
-(define-key function-key-map [?\C-β] [?\C-b])
-(define-key function-key-map [?\C-ε] [?\C-e])
-(define-key function-key-map [?\C-π] [?\C-p])
-(define-key function-key-map [?\C-ν] [?\C-n])
-(define-key function-key-map [?\C-ς] [?\C-w])
-(define-key function-key-map [?\C-θ] [?\C-u])
-(define-key function-key-map [?\C-ρ] [?\C-r])
-(define-key function-key-map [?\C-ω] [?\C-v])
-(define-key function-key-map [?\C-ζ] [?\C-z])
+(defun reverse-input-method (input-method)
+  "Build the reverse mapping of single letters from INPUT-METHOD."
+  (interactive
+   (list (read-input-method-name "Use input method (default current): ")))
+  (if (and input-method (symbolp input-method))
+      (setq input-method (symbol-name input-method)))
+  (let ((current current-input-method)
+        (modifiers '(nil (control) (meta) (control meta))))
+    (when input-method
+      (activate-input-method input-method))
+    (when (and current-input-method quail-keyboard-layout)
+      (dolist (map (cdr (quail-map)))
+        (let* ((to (car map))
+               (from (quail-get-translation
+                      (cadr map) (char-to-string to) 1)))
+          (when (and (characterp from) (characterp to))
+            (dolist (mod modifiers)
+              (define-key local-function-key-map
+                (vector (append mod (list from)))
+                (vector (append mod (list to)))))))))
+    (when input-method
+      (activate-input-method current))))
+
+(reverse-input-method 'el_GR)
 #+END_SRC
 * Misc configuration parameters
 ** The Bell
