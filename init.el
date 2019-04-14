@@ -12,7 +12,6 @@ diminish
 dired-icon
 drag-stuff
 free-keys
-htmlize
 ivy-rich
 org
 rainbow-mode
