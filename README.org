@@ -44,7 +44,6 @@
   - [[#delete-by-moving-to-the-trash][Delete by moving to the trash]]
   - [[#delete-selection-mode][Delete selection mode.]]
   - [[#disable-double-space-as-end-of-sentence][Disable double space as end of sentence]]
-  - [[#display-inline-images-in-the-w3m-browser-from-within-emacs][Display inline images in the w3m browser from within emacs.]]
   - [[#disabling-menu-bar-when-emacs-is-run-in-a--terminal][Disabling menu bar when emacs is run in a  terminal.]]
   - [[#toggling-the-menu-bar-with-a-keyboard-shortcut][Toggling the menu bar with a keyboard shortcut.]]
   - [[#toggling-the-scroll-bar-with-a-keyboard-shortcut][Toggling the scroll bar with a keyboard shortcut]]
@@ -154,7 +153,6 @@ toc-org
 transpose-frame
 try
 undo-tree
-w3m
 web-search)
   "Core packages")
 
@@ -404,10 +402,6 @@ That goes into showing that RT(F)M is valid advice…
 I once tried M-e to go to the end of a long sentence I wrote, and was surprised when I went to the end of the paragraph instead. I searched a little about it and found out there are people that actually use two spaces to start a new sentence. I personally use only one space though (and when writing on paper zero), so I disable this setting.
 #+BEGIN_SRC emacs-lisp
 (setq sentence-end-double-space nil)
-#+END_SRC
-** Display inline images in the w3m browser from within emacs.
-#+BEGIN_SRC emacs-lisp
-(setq w3m-default-display-inline-images t)
 #+END_SRC
 ** Disabling menu bar when emacs is run in a  terminal.
 Since it can't be clicked anyways, it takes up space without reason...

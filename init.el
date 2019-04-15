@@ -20,7 +20,6 @@ toc-org
 transpose-frame
 try
 undo-tree
-w3m
 web-search)
   "Core packages")
 
