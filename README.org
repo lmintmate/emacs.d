@@ -897,10 +897,11 @@ Keybindings. The ~<backtab>~ string means Shift+Tab.
 Diminish mode that cuts off the display of minor modes which I want to work [[https://github.com/myrjola/diminish.el#introduction][discreetly, like janitors]]. Without any arguments, they are hidden entirely from the modeline, otherwise they are simply abbreviated to the specified abbreviation.
 #+BEGIN_SRC emacs-lisp
 (require 'diminish)
-(diminish 'visual-line-mode "Vl")
-(diminish 'undo-tree-mode "Ut")
+(diminish 'visual-line-mode)
+(diminish 'undo-tree-mode)
 (diminish 'drag-stuff-mode)
 (diminish 'ivy-mode)
+(diminish 'eldoc-mode)
 #+END_SRC
 [[https://github.com/alezost/dim.el][Dim]]. This is similar to diminish, but can also shorten the display of major modes. The problem with it though is that it crams all the abbreviations, regardless of length, next to the name of the unabbreviated mode (while diminish only does so with single character abbreviations), which is why I'm using it in addition to diminish, even through their functionality overlaps.\\
 And the reason I decided to try it in the first place is because I find the name of lisp-interaction-mode way too long…
