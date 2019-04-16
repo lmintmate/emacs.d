@@ -512,14 +512,10 @@ This minor mode first appeared in 26.1 and makes line rendering faster than the 
 (add-hook 'prog-mode-hook 'display-line-numbers-mode))
 #+END_SRC
 *** Disable it however for lisp-interaction-mode
-I don't want line numbers to display however for ~lisp-interaction-mode~, which is the mode used in the ~*scratch*~ buffer (and, to my knowledge, only there). Defining a function to disable the line numbers and then proceeding to hook this function to lisp-interaction-mode was the only way I found to disable it there without emacs erroring out. I set this conditionally so that it won't error out on versions lower than 26.1.
+I don't want line numbers to display however for ~lisp-interaction-mode~, which is the mode used in the ~*scratch*~ buffer (and, to my knowledge, only there). I set this conditionally so that it won't error out on versions lower than 26.1.
 #+BEGIN_SRC emacs-lisp
 (when (version<= "26.0.50" emacs-version )
-(defun disable-linum-in-li ()
-  (display-line-numbers-mode -1)))
-
-(when (version<= "26.0.50" emacs-version )
-(add-hook 'lisp-interaction-mode-hook 'disable-linum-in-li))
+(add-hook 'lisp-interaction-mode-hook (lambda () (display-line-numbers-mode -1))))
 #+END_SRC
 *** Make the current line bold
 I set it conditionally so that it won't error out on versions lower than 26.1.
