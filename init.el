@@ -20,6 +20,7 @@ toc-org
 transpose-frame
 try
 undo-tree
+vimrc-mode
 web-search)
   "Core packages")
 
