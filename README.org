@@ -90,7 +90,7 @@
   - [[#color-only-the-stars-for-the-org-mode-levels][Color only the stars for the org mode levels]]
   - [[#custom-color-for-headline-levels-2-and-3][Custom color for headline levels 2 and 3]]
   - [[#custom-postamble-in-html-export][Custom postamble in html export]]
-  - [[#add-shortcut-templates-for-emacs-lisp-and-title][Add shortcut templates for emacs lisp and title]]
+  - [[#add-shortcut-templates-for-emacs-lisp-org-and-title][Add shortcut templates for emacs lisp, org and title]]
   - [[#enable-speed-keys][Enable Speed keys]]
 - [[#undo-tree][Undo tree]]
 - [[#web-searchel-package-config][Web-search.el package config]]
@@ -726,7 +726,7 @@ I only want to see the date and not the author nor the created by details on the
 (setq org-html-postamble 'my-org-html-postamble)
 #+end_src
 I don't want to print the postamble everywhere however, so I also found out that writing ~#+OPTIONS: html-postamble:nil~ on the file where the postamble should be exlcuded does the trick.
-** Add shortcut templates for emacs lisp and title
+** Add shortcut templates for emacs lisp, org and title
 These [[https://orgmode.org/manual/Easy-templates.html][templates]], e.g. ~<s~, are very practical. Out of them I use most SRC emacs-lisp and ~#+TITLE~, so I wished I could create shortcuts for these too. However, [[https://orgmode.org/Changes.html][the previous shortcut system was changed in Org 9.2]] and I had to require org-tempo and modify my template config accordingly in order for the shortcuts to continue working (see [[https://www.reddit.com/r/emacs/comments/ad68zk/get_easytemplates_back_in_orgmode_92/eds5kcj?utm_source=share&utm_medium=web2x][here]]).
 #+begin_src emacs-lisp
 (require 'org-tempo)
