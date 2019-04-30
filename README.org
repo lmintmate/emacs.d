@@ -791,6 +791,7 @@ Used for the completion history of ~counsel-M-x~.
 (global-set-key (kbd "\C-h f") 'counsel-describe-function)
 (setq ivy-format-function #'ivy-format-function-line)
 (setq ivy-wrap t)
+(setq ivy-initial-inputs-alist nil)
 #+end_src
 To search for the entire word at point with swiper (and not only the part from the cursor onwards, as M-j does): the [[https://github.com/abo-abo/swiper/wiki/FAQ][Ivy FAQ]] says the following:
 #+begin_quote
