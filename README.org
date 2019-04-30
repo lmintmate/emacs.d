@@ -90,9 +90,7 @@
   - [[#color-only-the-stars-for-the-org-mode-levels][Color only the stars for the org mode levels]]
   - [[#custom-color-for-headline-levels-2-and-3][Custom color for headline levels 2 and 3]]
   - [[#custom-postamble-in-html-export][Custom postamble in html export]]
-  - [[#add-shortcut-templates][Add shortcut templates]]
-    - [[#for-emacs-lisp][for emacs-lisp]]
-    - [[#for-title][for TITLE]]
+  - [[#add-shortcut-templates-for-emacs-lisp-and-title][Add shortcut templates for emacs lisp and title]]
   - [[#enable-speed-keys][Enable Speed keys]]
 - [[#undo-tree][Undo tree]]
 - [[#web-searchel-package-config][Web-search.el package config]]
@@ -728,19 +726,12 @@ I only want to see the date and not the author nor the created by details on the
 (setq org-html-postamble 'my-org-html-postamble)
 #+END_SRC
 I don't want to print the postamble everywhere however, so I also found out that writing ~#+OPTIONS: html-postamble:nil~ on the file where the postamble should be exlcuded does the trick.
-** Add shortcut templates
-These [[https://orgmode.org/org.html#Easy-templates][templates]], e.g. ~<s~, are very practical. Out of them I use most SRC emacs-lisp and ~#+TITLE~, so I wished I could create shortcuts for these too. Turns out I can!
-*** for emacs-lisp
+** Add shortcut templates for emacs lisp and title
+These [[https://orgmode.org/manual/Easy-templates.html][templates]], e.g. ~<s~, are very practical. Out of them I use most SRC emacs-lisp and ~#+TITLE~, so I wished I could create shortcuts for these too. However, [[https://orgmode.org/Changes.html][the previous shortcut system was changed in Org 9.2]] and I had to require org-tempo and modify my template config accordingly in order for the shortcuts to continue working (see [[https://www.reddit.com/r/emacs/comments/ad68zk/get_easytemplates_back_in_orgmode_92/eds5kcj?utm_source=share&utm_medium=web2x][here]]).
 #+BEGIN_SRC emacs-lisp
-;; add <el for emacs-lisp expansion
-(add-to-list 'org-structure-template-alist
-         '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"
-           "<src lang=\"emacs-lisp\">\n?\n</src>"))
-#+END_SRC
-*** for TITLE
-#+BEGIN_SRC emacs-lisp
-(add-to-list 'org-structure-template-alist
-         '("t" "#+TITLE: " ""))
+(require 'org-tempo)
+(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("t" . "title"))
 #+END_SRC
 ** Enable Speed keys
 [[https://orgmode.org/manual/Speed-keys.html][Speed keys]] are single keystrokes without modifiers that can be used when the cursor is on a headline to e.g. move around the buffer. Here I enable them and set them to be able to be used on any star of the headline (code taken from the explanation string of the M-x customize section).
