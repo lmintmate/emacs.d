@@ -123,7 +123,7 @@ I first started off with the .emacs file in my home directory. I had to look for
 In order for this literate configuration to be complete, I need to quote first the code snippets I use in the init.el file, as to show how this magic happens in the first place.
 ** Add MELPA and org repositories
 First I add the MELPA and org repositories. I do this in init.el and not here as I use the version of Org from its own repo, which I need in order to load this very file. The code I use for this is taken from [[https://melpa.org/#/getting-started][MELPA's Getting Started section]] and it accounts for the incompatibility of Windows with Emacs's https support system, GnuTLS, by using http on Windows if GnuTLS isn't available. [[http://www.lonecpluspluscoder.com/2015/08/01/adding-tls-support-to-emacs-24-5-on-windows/][This article]] might be helpful in case I absolutely have to install GnuTLS on Windows.
-#+BEGIN_EXAMPLE
+#+begin_example
 (require 'package)
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
                     (not (gnutls-available-p))))
@@ -131,12 +131,12 @@ First I add the MELPA and org repositories. I do this in init.el and not here as
   (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
   (add-to-list 'package-archives (cons "org" (concat proto "://orgmode.org/elpa/")) t))
 (package-initialize)
-#+END_EXAMPLE
+#+end_example
 ** Auto-install packages
 From [[http://aaronbedra.com/emacs.d/#default-packages][Aaron Bedra's Emacs 24 Configuration]].\\
 The first part of the code defines the packages to be installed ; from this list are absent the packages installed manually, present in the lisp folder. The second part of the code does the following: when Emacs boots, it checks to make sure all of the packages defined in lmintmate/packages are installed. If not, it has the package manager take care of it.\\
 N.B. Because org-mode is already builtin, it doesn't get reinstalled automatically from the org-mode repository, as it should. Thus, if I want the latest org-mode version, I have to install it manually from ~package-list-packages~, and only then it will overtake the builtin version (see also [[https://emacs.stackexchange.com/questions/31825/cant-install-org-through-package-manager#comment64743_31837][here]]).
-#+BEGIN_EXAMPLE
+#+begin_example
 (defvar lmintmate/packages '(color-theme-modern
 counsel
 diminish
@@ -183,45 +183,45 @@ web-search)
 (unless (version< emacs-version "24.4")
 (unless (package-installed-p 'dim)
   (package-install 'dim)))
-#+END_EXAMPLE
+#+end_example
 ** Ensure utf-8
 Needed for Windows
-#+BEGIN_EXAMPLE
+#+begin_example
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
-#+END_EXAMPLE
+#+end_example
 ** Require Org
-#+BEGIN_EXAMPLE
+#+begin_example
 (require 'org)
-#+END_EXAMPLE
+#+end_example
 ** Where the magic happens
-#+BEGIN_EXAMPLE
+#+begin_example
 (org-babel-load-file (concat user-emacs-directory "README.org"))
-#+END_EXAMPLE
+#+end_example
 This snippet is the one that does the heavy work. It tracks down all the parts that say ~#+BEGIN_SRC emacs-lisp~ and evaluates them as emacs lisp code, creating a separate README.el in the process, as to reduce load time for the next run. Every time the org file is modified, the .el file is created anew.\\
 And now these are taken care of, let's proceed to the configuration present in this very file.
 * Disabling the tool bar
 The snippet below disables tool-bar-mode. I placed it this early in the config so that the toolbar won't be loaded and disabled afterwards, but be disabled from the get-go (I had some glitches with the title screen when I had it further down).
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (tool-bar-mode -1)
-#+END_SRC
+#+end_src
 * Setting the font
 Here, I'm setting the font and the font size. The default font emacs by itself used on my machine appeals a lot to me, so when I found out it was DejaVu Sans Mono, I decided to put it in the config, in case I move to another computer where the font might suddenly be something else entirely I won't like. I also set the font size to 14. The default size seems way too small for me, as if I were trying to watch a bunch of ants...
 On systems different from the one I'm currently on (which is Linux Mint MATE), the fonts might look thicker than they should, to an unappealing degree. This can be solved (on Linux systems at least) by going to Appearance > Fonts, and setting hinting to light instead of full. On Windows, where DejaVu Sans Mono is less likely to be preinstalled, Consolas will be used as a fallback.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (if (eq system-type 'windows-nt)
 (if (member "DejaVu Sans Mono" (font-family-list))
 (set-face-attribute 'default nil :family "DejaVu Sans Mono" :height 140)
 (set-face-attribute 'default nil :family "Consolas" :height 140))
 (set-face-attribute 'default nil :family "DejaVu Sans Mono" :height 140))
-#+END_SRC
+#+end_src
 * Setting up my must use theme - Blue Mood theme.
 I wasn't satisfied with the default Adawaita theme (but then who is?). I tried to find another theme, but most of them (even the popular ones) didn't satisfy my tastes. But when I found Blue Mood, I knew it was the one!\\
 In case you haven't encountered it (not too unlikely), it's because it's a part of the [[https://github.com/emacs-jp/replace-colorthemes][color-theme-modern]] package, which apparently recreates older themes for Emacs 24+. In the repository I linked just now, you can see all the other included themes too, complete with screenshots, and, of course, the way to apply them to your init file.\\
 I also modified the fringe color to the same background color as the rest of the theme, as its original color was black, and didn't fit in too well with the rest of the colorscheme for me, and changed the highlight color, as it had the same color as the one of the region so that I couldn't distinguish a highlighted region when hl-line-mode was turned on. In addition I modified the color of the edited state of a version-controlled file ~vc-edited-state~ so that it is more apparent.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (load-theme 'blue-mood t t)
 (enable-theme 'blue-mood)
 (custom-set-faces
@@ -236,26 +236,26 @@ I also modified the fringe color to the same background color as the rest of the
  '(vc-edited-state ((t (:background "tomato1" :foreground "black")))))
 ;; setting so that hl-line-mode won't affect syntax coloring
 (set-face-foreground 'highlight nil)
-#+END_SRC
+#+end_src
 ** Mode line customisation
 Where I give it a flat look.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (custom-set-faces
  '(mode-line ((t (:background "grey75" :foreground "black"))))
  '(mode-line-buffer-id ((t (:weight normal))))
  '(mode-line-highlight ((t (:box (:line-width 1 :color "grey20")))))
  '(mode-line-inactive ((t (:background "grey30" :foreground "grey80")))))
-#+END_SRC
+#+end_src
 ** Hide line between fringes
 Remove the strange white line between two fringes, which appears when the scrollbar is hidden (from [[https://ogbe.net/emacsconfig.html][Dennis Ogbe's Emacs configuration file]]).
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (set-face-attribute 'vertical-border nil :foreground (face-attribute 'fringe :background))
-#+END_SRC
+#+end_src
 * Manually loading external files
 I use a couple external lisp files, and I thus need to load my personal lisp directory.
 ** Where I bootstrap the elisp files
 In this section I have some code in emacs lisp that downloads the lisp files I use and places them in the correct place. Specifically, it checks whether the files exist, and if they don't, first creates the containing directory, if it doesn't exist, and then proceeds to download and store the files.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq lisp-directory (concat user-emacs-directory "lisp"))
 
 (when (or (not (file-exists-p (expand-file-name "greek.el" lisp-directory))) (not (file-exists-p (expand-file-name "lacarte.el" lisp-directory))))
@@ -264,34 +264,34 @@ In this section I have some code in emacs lisp that downloads the lisp files I u
     (url-copy-file "http://myria.math.aegean.gr/~atsol/emacs-unicode/greek.el" (expand-file-name "greek.el" lisp-directory)))
   (unless (file-exists-p (expand-file-name "lacarte.el" lisp-directory))
     (url-copy-file "https://www.emacswiki.org/emacs/download/lacarte.el" (expand-file-name "lacarte.el" lisp-directory))))
-#+END_SRC
+#+end_src
 ** Where I tell Emacs where is my personal lisp directory.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (add-to-list 'load-path lisp-directory)
-#+END_SRC
+#+end_src
 ** Where I load the specific packages
 In this section, I load the lisp files previously downloaded.
 *** Loading the package for polytonic greek
 I’m used to writing Greek with the modern Greek layout, which is quite different from the greek-babel polytonic layout in a way jarring to me. I tried to find a way to solve my problem, and found out with relief that I didn’t need to reinvent the wheel, as someone had already made a package for what I wanted ; a layout that would provide polytonic Greek while also keeping the regular keyboard layout I was used to.\\
  This solution to my problem can be found [[http://myria.math.aegean.gr/~atsol/emacs-unicode/][here]](look under the compiled greek.elc link for the greek.el source).
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (load "greek")
-#+END_SRC
+#+end_src
 *** Loading La Carte (for executing menu commands from the keyboard)
 [[https://www.emacswiki.org/emacs/LaCarte][La Carte]] is a package that allows searching and executing menu commands from the keyboard, in a way similar to ivy (in fact, when ivy is installed, this package also benefits from ivy integration, which makes its autocompletion so much better). There is also a builtin in emacs command ~tmm-menubar~, but that one goes literally from menu to submenu, just with keyboard shortcuts instead of mouse clicks, and is thus much less discoverable. I also set up here a keybinding for lacarte (specifically for ~lacarte-execute-menu-command~, because ~lacarte-execute-command~ also includes regular commands, and ~counsel-M-x~ already takes care of that).
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (require 'lacarte)
 (global-set-key [?\C-.] 'lacarte-execute-menu-command)
-#+END_SRC
+#+end_src
 * Startup screen and scratch buffer options
 ** Inhibit startup screen
 At this point I only use the quick link to the Customize interface, so I thought I’d hide it altogether.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq inhibit-startup-screen t)
-#+END_SRC
+#+end_src
 ** Scratch buffer message
 I added a reminder for the links to ~about-emacs~ and to the Customize interface to the default message.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq initial-scratch-message
    ";; This buffer is for notes you don't want to save, and for Lisp evaluation.
 ;; If you want to create a file, visit that file with C-x C-f,
@@ -299,17 +299,17 @@ I added a reminder for the links to ~about-emacs~ and to the Customize interface
 ;; Reminder: To see the startup screen's basic content, use M-x about-emacs.
 ;; To quickly access the Customize interface, use M-x customize.
 ")
-#+END_SRC
+#+end_src
 I decided not to change the scratch buffer’s major mode however, because, as weird as it may sound, I like [[https://en.wikipedia.org/wiki/Polish_notation][prefix notation]] a lot (and think that the [[https://en.wikipedia.org/wiki/Reverse_Polish_notation][Reverse Polish notation]] is overrated in comparison), and want to keep having it as a nifty little prefix calculation mode.
 ** New message for the startup echo area
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (defun display-startup-echo-area-message ()
   (message "Καλωσήλθες!"))
-#+END_SRC
+#+end_src
 * Nationality parameters
 ** Setting the calendar up in Greek.
 See also [[https://www.emacswiki.org/emacs/CalendarLocalization][EmacsWiki: Calendar Localization]].
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq calendar-week-start-day 1
           calendar-day-name-array ["Κυριακή" "Δευτέρα" "Τρίτη" "Τετάρτη"
                                    "Πέμπτη" "Παρασκευή" "Σάββατο"]
@@ -317,15 +317,15 @@ See also [[https://www.emacswiki.org/emacs/CalendarLocalization][EmacsWiki: Cale
                                      "Απρίλιος" "Μάιος" "Ιούνιος"
                                      "Ιούλιος" "Αύγουστος" "Σεπτέμβριος"
                                      "Οκτώβριος" "Νοέμβριος" "Δεκέμβριος"])
-#+END_SRC
+#+end_src
 ** Set input method to greek
 In order to be able to write greek with the keyboard set to English (useful for those pesky Latin C- and M- shortcuts). Toggle with C-\
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (set-input-method "el_GR")
-#+END_SRC
+#+end_src
 ** Redirect commands with Greek letters to the correct commands
 Sometimes I forget to switch the keyboard language from Greek to English (especially when I'm using emacs in tandem with other applications that require the keyboard be set to Greek in order to write in that language) and, as a result, I get something like «M-χ is undefined». I used to use [[https://stackoverflow.com/a/10658699][this method from Stack Overflow]], which added bindings with Greek letters and told emacs to consider them equivalent to the ones with latin letters. This however didn't work for commands which had not only a modifier and a letter, but also additional letters (e.g. C-c u). Since the last time I checked this Stack Overflow thread however, [[https://stackoverflow.com/a/54647483][a new method has been added]] that also works for the commands the other method didn't. I modified it accordingly and will use that one from here on out.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (defun reverse-input-method (input-method)
   "Build the reverse mapping of single letters from INPUT-METHOD."
   (interactive
@@ -350,128 +350,128 @@ Sometimes I forget to switch the keyboard language from Greek to English (especi
       (activate-input-method current))))
 
 (reverse-input-method 'el_GR)
-#+END_SRC
+#+end_src
 * Misc configuration parameters
 ** The Bell
 [[https://www.emacswiki.org/emacs/AlarmBell][That infamous bell…]] I only found out about its «charms» because it turns out my system sounds were disabled for some reason and I hadn't even realised this was the case. This is my way to exterminate those annoying sounds everytime anything out of the norm happens (that's why we have text messages in the first place after all!). I disabled alarms completely as even the visual indication (which is a nice wheat color in my colortheme) can be distracting…
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq ring-bell-function 'ignore)
-#+END_SRC
+#+end_src
 ** Separate custom file
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq custom-file (concat user-emacs-directory "custom.el"))
-#+END_SRC
+#+end_src
 ** Set the title bar to show buffer name
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq frame-title-format "%b - Emacs")
-#+END_SRC
+#+end_src
 ** Time in modeline
 The only way to have the time mode not display the load average, it turns out, is to put the relevant config before loading display-time-mode. Who would have thought? (I got the idea to try this approach from [[https://github.com/IvanMalison/.emacs.d#time-in-mode-line][Ivan Malison's emacs.d]]). An explanation of my ~display-time-format~ config: It basically shows the day of the week, then day/month, then hours:minutes. For more functions, Customize instructs to look at the function ~format-time-string~.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq display-time-default-load-average nil)
 (setq display-time-format "%a %d/%m %H:%M")
 (display-time-mode 1)
-#+END_SRC
+#+end_src
 ** Do not autosave nor make any backup files.
 All they do is litter the place and trigger a nagging prompt whenever I leave Emacs without having saved.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq auto-save-default nil)
 (setq make-backup-files nil)
-#+END_SRC
+#+end_src
 ** Do not create lockfiles
 The only thing they do is being annoying, and I'm not going to find myself in a situation where I'll be writing on the exact same file as someone else.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq create-lockfiles nil)
-#+END_SRC
+#+end_src
 ** Delete by moving to the trash
 (the default behavior being completely delete from the system)
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq delete-by-moving-to-trash t)
-#+END_SRC
+#+end_src
 ** Delete selection mode.
 I used to think that this enabled deleting selected text with the Delete key, but it turns out that one is the work of the ~delete-active-region~ parameter, which is enabled by default. What this does is allow the replacing of selected text with other inserted (e.g. pasted/yanked) text, thus bringing Emacs more in line with other text editors.\\
 I initially set this one from the Customization buffer, and got ~(setq delete-selection-mode t)~ as the resulting code snippet, so I assumed it would work even when outside the ~custom-set-variables~, but it didn't - and then I was wondering why pasting text didn't replace the selected text… Now I replaced that wrong parameter with the correct one.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (delete-selection-mode 1)
-#+END_SRC
+#+end_src
 P.S. Just so you know, here's precisely why the other wording hadn't worked:
-#+BEGIN_QUOTE
+#+begin_quote
 Setting this variable directly does not take effect;
    either customize it (see the info node `Easy Customization')
    or call the function `delete-selection-mode'
-#+END_QUOTE
+#+end_quote
 That goes into showing that RT(F)M is valid advice…
 ** Disable double space as end of sentence
 I once tried M-e to go to the end of a long sentence I wrote, and was surprised when I went to the end of the paragraph instead. I searched a little about it and found out there are people that actually use two spaces to start a new sentence. I personally use only one space though (and when writing on paper zero), so I disable this setting.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq sentence-end-double-space nil)
-#+END_SRC
+#+end_src
 ** Disabling menu bar when emacs is run in a  terminal.
 Since it can't be clicked anyways, it takes up space without reason...
 (I use ~display-graphic-p~ instead of ~window-system~ because the latter is now deprecated:)
-#+BEGIN_QUOTE
+#+begin_quote
 >From the doc string of `window-system':
 
  "Use of this function as a predicate is deprecated.  Instead,
   use `display-graphic-p' or any of the other `display-*-p'
   predicates which report frame's specific UI-related capabilities."
-#+END_QUOTE
-#+BEGIN_SRC emacs-lisp
+#+end_quote
+#+begin_src emacs-lisp
 (unless (display-graphic-p)
   (menu-bar-mode -1))
-#+END_SRC
+#+end_src
 ** Toggling the menu bar with a keyboard shortcut.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (global-set-key [f9] 'toggle-menu-bar-mode-from-frame)
-#+END_SRC
+#+end_src
 ** Toggling the scroll bar with a keyboard shortcut
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (global-set-key [f10] 'toggle-scroll-bar)
-#+END_SRC
+#+end_src
 ** Toggle maximizing the frame
 Useful for newsticker
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (global-set-key [f8] 'toggle-frame-maximized)
-#+END_SRC
+#+end_src
 ** Visual line mode only for text mode.
 Visual line wraps lines instead of cutting them as default.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
-#+END_SRC
+#+end_src
 Disable visual-line-mode however for the file where I keep all my urls (from the OneTab extension), as I want to be able to kill by logical lines in that particular file, since urls are 1 logical line each, but can span up to 2-3 visual lines.\\
 In case you're new to emacs and such terms as logical and visual lines might as well be in a foreign language, see [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Continuation-Lines.html][here]] (especially the last paragraph).
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (add-hook 'find-file-hook
           (lambda ()
             (when (string= (buffer-name) "onetab.txt")
               (visual-line-mode -1))))
-#+END_SRC
+#+end_src
 ** Associate .txt files with the goto-address-mode.
 This mode highlights urls and makes them clickable.\\
 (code adapted from [[https://stackoverflow.com/questions/13945782/emacs-auto-minor-mode-based-on-extension/39652226#39652226][this stackoverflow answer]])
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (add-hook 'find-file-hook
           (lambda ()
             (when (string= (file-name-extension buffer-file-name) "txt")
               (goto-address-mode 1))))
-#+END_SRC
+#+end_src
 ** Bind M-o to other-window
 C-x o is too long a binding for this simple action (idea drawn from [[https://masteringemacs.org/article/my-emacs-keybindings][My Emacs keybindings - Mastering Emacs]]).
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (define-key global-map "\M-o" 'other-window)
-#+END_SRC
+#+end_src
 ** Adds shift + arrows for changing between visible buffers, in addition to M-o.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
-#+END_SRC
+#+end_src
 The ~windmove-wrap-around~ setting allows for windmove movement off the edge of a frame to wrap around.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq windmove-wrap-around t)
-#+END_SRC
+#+end_src
 ** Add command to mark a line
 From [[https://ebzzry.io/en/emacs-tips-1/#marks][here]]. Executing it multiple times marks multiple lines.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (defun mark-line (&optional arg)
   (interactive "p")
   (if (not mark-active)
@@ -480,73 +480,73 @@ From [[https://ebzzry.io/en/emacs-tips-1/#marks][here]]. Executing it multiple t
         (push-mark)
         (setq mark-active t)))
   (forward-line arg))
-#+END_SRC
+#+end_src
 Its keybinding
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (define-key global-map "\C-z" 'mark-line)
-#+END_SRC
+#+end_src
 ** Highlight specific words in prog-mode
 Modified from [[http://seancribbs.com/emacs.d#sec-5-8][Sean Cribbs' Emacs 25 Configuration]].
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (defun lmintmate/add-watchwords ()
   (font-lock-add-keywords
    nil '(("\\<\\(FIX\\(ME\\)?\\|TODO\\|CURRENTLY\\|SOMEDAY\\|CANCELLED\\|HACK\\|REFACTOR\\|NOCOMMIT\\|LONGTERM\\)"
           1 font-lock-builtin-face t))))
 
 (add-hook 'prog-mode-hook 'lmintmate/add-watchwords)
-#+END_SRC
+#+end_src
 ** Drag selected text with the mouse in emacs
 Sometimes I just want to cop out and use the mouse when trying to move text. I found out via [[https://emacs.stackexchange.com/a/48440][Stack Exchange]] that this is possible in emacs, and one just needs to set the function ~mouse-drag-and-drop-region~ to ~t~. This feature was added in version 26.1 (see [[http://git.savannah.gnu.org/cgit/emacs.git/tree/etc/NEWS.26#n377][here]]), and I thus wrap it in a conditional so that it won't error out on versions lower than 26. This doesn't work when inside org-mode files however, an issue most probably related to the fact that I have ~org-mouse~ enabled, since, if I disable it, drag-and-drop works then fine.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (when (version<= "26.0.50" emacs-version )
 (setq mouse-drag-and-drop-region t))
-#+END_SRC
+#+end_src
 ** Bind zap-up-to-char command
 I found the commands M-x zap-to-char and zap-up-to-char, which roughly correspond to vim's df and dt. The former is bound to M-z, but the latter isn't bound to anything. I bind it here to C-c z, since that isn't bound to anything.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (define-key global-map "\C-cz" 'zap-up-to-char)
-#+END_SRC
+#+end_src
 ** Enable display-line-numbers-mode for prog-mode
 This minor mode first appeared in 26.1 and makes line rendering faster than the previous system, ~linum-mode~. I hook it to ~prog-mode~, as I don't need it for text-mode, and enable it conditionally, so that it won't error out on a version lower than 26.1.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (when (version<= "26.0.50" emacs-version )
 (add-hook 'prog-mode-hook 'display-line-numbers-mode))
-#+END_SRC
+#+end_src
 *** Disable it however for lisp-interaction-mode
 I don't want line numbers to display however for ~lisp-interaction-mode~, which is the mode used in the ~*scratch*~ buffer (and, to my knowledge, only there). I set this conditionally so that it won't error out on versions lower than 26.1.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (when (version<= "26.0.50" emacs-version )
 (add-hook 'lisp-interaction-mode-hook (lambda () (display-line-numbers-mode -1))))
-#+END_SRC
+#+end_src
 *** Make the current line bold
 I set it conditionally so that it won't error out on versions lower than 26.1.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (when (version<= "26.0.50" emacs-version )
 (custom-set-faces
 '(line-number-current-line ((t (:inherit line-number :weight bold))))))
-#+END_SRC
+#+end_src
 * Recent files
 A quick way to access my most recently opened files (as I didn't want to have to go all the way through the directory structure).
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (require 'recentf)
 (recentf-mode 1)
-#+END_SRC
+#+end_src
 * Settings for multiple buffer management
 I wanted to be able to change the layout of the buffers from horizontal to vertical, as well as be able to flip frames, so that left goes right, and up goes down. I used to use some custom functions found at [[http://whattheemacsd.com][What the .emacs.d!?]] ([[http://whattheemacsd.com/buffer-defuns.el-03.html][here]] and [[http://whattheemacsd.com/buffer-defuns.el-02.html][here]], specifically), but then found the package [[https://github.com/emacsorphanage/transpose-frame/blob/master/transpose-frame.el][transpose-frame]] (available at MELPA), and decided to use that instead, as to make the README.org file less lengthy.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (define-key global-map "\M-]" 'transpose-frame)
 (define-key global-map "\M-[" 'rotate-frame)
-#+END_SRC
+#+end_src
 * Ibuffer
 A better way to list buffers than buffer-menu([[https://www.emacswiki.org/emacs/IbufferMode][link]]). Config influenced from [[http://cestlaz.github.io/posts/using-emacs-34-ibuffer-emmet/][Using Emacs - 34 - ibuffer and emmet | C'est la Z]] and [[http://home.thep.lu.se/~karlf/emacs.html#sec-6-6][some dude's .emacs]].\\
 ** Replace buffer-menu.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (require 'ibuffer)
  (global-set-key (kbd "C-x C-b") 'ibuffer)
     (autoload 'ibuffer "ibuffer" "List buffers." t)
-#+END_SRC
+#+end_src
 ** Set buffer groups.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq ibuffer-saved-filter-groups
       (quote (("default"
 	       ("Dired" (mode . dired-mode))
@@ -563,13 +563,13 @@ A better way to list buffers than buffer-menu([[https://www.emacswiki.org/emacs/
 	  (lambda ()
 	    (ibuffer-auto-mode 1)
 	    (ibuffer-switch-to-saved-filter-groups "default")))
-#+END_SRC
+#+end_src
 ** Don't show filter groups if there are no buffers in that group.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq ibuffer-show-empty-filter-groups nil)
-#+END_SRC
+#+end_src
 ** Use human readable size column.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 ;; Use human readable Size column instead of original one
 (define-ibuffer-column size-h
   (:name "Size" :inline t)
@@ -589,75 +589,75 @@ A better way to list buffers than buffer-menu([[https://www.emacswiki.org/emacs/
 		(mode 16 16 :left :elide)
 		" "
 		filename-and-process)))
-#+END_SRC
+#+end_src
 * Dired Mode Configurations
 ** Enable dired icon mode.
 This functionality, coming from the dired-icon package, shows icons from the currently used icon theme next to the filenames, and thus makes for a better dired experience.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (add-hook 'dired-mode-hook 'dired-icon-mode)
-#+END_SRC
+#+end_src
 *** Setting to make the image size of the dired-icon icons bigger.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq dired-icon-image-size 32)
-#+END_SRC
+#+end_src
 ** Dired listing
 *** Listing switches.
 Group directories first and make sizes human-readable.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq dired-listing-switches "-alh --group-directories-first")
-#+END_SRC
+#+end_src
 *** Sort files by modified date.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (add-hook 'dired-mode-hook 'dired-sort-toggle-or-edit)
-#+END_SRC
+#+end_src
 *** Hide the details on dired mode, for a cleaner appearance.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (add-hook 'dired-mode-hook 'dired-hide-details-mode)
-#+END_SRC
+#+end_src
 ** Dired dwim target
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq dired-dwim-target t)
-#+END_SRC
+#+end_src
 * Org Mode configuration
 The ~(require 'org)~ part is present in the init.el file instead of here, precisely in order to compile this very file.
 ** Hook toc-org to org-mode
 [[https://github.com/snosov1/toc-org][toc-org]] is a package that creates Table of Contents for org-mode files without exporting, which can thus give the rendered in github/lab README.org a table of contents, convenient for those who might want to browse said files. Here I add a snippet given in said repo to hook it to org-mode.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (if (require 'toc-org nil t)
     (add-hook 'org-mode-hook 'toc-org-mode)
   (warn "toc-org not found"))
-#+END_SRC
+#+end_src
 ** Org-mouse
 This is an org-mode subpackage that allows control of various things with the mouse. I enable it because I almost never remember which is the shortcut to tick checkboxes in org-mode.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (require 'org-mouse)
-#+END_SRC
+#+end_src
 ** Define C-c l as the keybinding to org-cliplink.
 I used to have it as the shortcut to org-store-link, but it turns out I hardly used that one…
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (when (package-installed-p 'org-cliplink)
 (define-key org-mode-map (kbd "\C-cl") 'org-cliplink))
-#+END_SRC
+#+end_src
 ** Define C-c d as the keybinding to org-toggle-link-display
 This command toggles between descriptive and literal links, and I need it so that I can edit on the literal links the text that will show up on the descriptive links (and it was too much of a hassle to go to the Org > Hyperlinks submenu just for that…).
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (define-key org-mode-map (kbd "\C-cd") 'org-toggle-link-display)
-#+END_SRC
+#+end_src
 ** Define C-c e as the keybinding to [[http://orgmode.org/worg/doc.html#org-emphasize][org-emphasize]]
 This one helps to switch quickly between different text formattings (bold, italic e.t.c).
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (define-key org-mode-map (kbd "\C-ce") 'org-emphasize)
-#+END_SRC
+#+end_src
 ** Set keywords for Org progress states.
 These are, apart from TODO and DONE, also CURRENTLY and SOMEDAY. (Idea to add unicode symbols from [[https://thraxys.wordpress.com/2016/01/14/pimp-up-your-org-agenda/][Pimp Up Your Org-mode Files – thraxys]])
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq org-todo-keywords
    (quote
     ((sequence "TODO(t)" "⏳ CURRENTLY(c)" "⏲ SOMEDAY(s)" "✘ CANCELLED(x)" "✔ DONE(d)"))))
-#+END_SRC
+#+end_src
 ** Special Ctrl-a/e behavior in org mode
 From the Customize section of the parameter:
-#+BEGIN_QUOTE
+#+begin_quote
 Non-nil means `C-a' and `C-e' behave specially in headlines and items.
    
    When t, `C-a' will bring back the cursor to the beginning of the
@@ -672,114 +672,114 @@ Non-nil means `C-a' and `C-e' behave specially in headlines and items.
    this variable is non-nil, `C-e' also will never jump beyond the
    end of the heading of a folded section, i.e. not after the
    ellipses.
-#+END_QUOTE
-#+BEGIN_SRC emacs-lisp
+#+end_quote
+#+begin_src emacs-lisp
 (setq org-special-ctrl-a/e t)
-#+END_SRC
+#+end_src
 ** Use query to confirm killing of hidden subtrees
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq org-ctrl-k-protect-subtree t)
-#+END_SRC
+#+end_src
 ** Override shift + arrows in certain places in favor of windmove
 If you want to make the windmove function active in locations where Org mode does not have special functionality on S-<cursor>, add this to your configuration(from [[http://orgmode.org/manual/Conflicts.html][Conflicts - The Org Manual]]):
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 ;; Make windmove work in org-mode:
           (add-hook 'org-shiftup-final-hook 'windmove-up)
           (add-hook 'org-shiftleft-final-hook 'windmove-left)
           (add-hook 'org-shiftdown-final-hook 'windmove-down)
           (add-hook 'org-shiftright-final-hook 'windmove-right)
-#+END_SRC
+#+end_src
 ** Auto adjust footnotes
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq org-footnote-auto-adjust t)
-#+END_SRC
+#+end_src
 ** Follow link in orgmode by pressing Enter key
 This adds an alternative way to follow urls in orgmode without reaching out for the mouse.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq org-return-follows-link t)
-#+END_SRC
+#+end_src
 ** Strikethrough for Done tasks
 adapted from [[http://sachachua.com/blog/2012/12/emacs-strike-through-headlines-for-done-tasks-in-org/][Sacha Chua's blog]]
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq org-fontify-done-headline t)
 (custom-set-faces
  '(org-done ((t (:foreground "PaleGreen" :strike-through t :weight bold))))
  '(org-headline-done ((t (:foreground "LightSalmon" :strike-through t)))))
-#+END_SRC
+#+end_src
 ** Color only the stars for the org mode levels
 This is a nice little setting I found while browsing the Customize interface. It removes the color from the org headline levels, only keeping it on the stars. This makes the buffer way less colorful, but I find it more clean that way. Not to mention that because my color theme isn't amongst the most popular ones, the coloring was a bit bizzare, in that the first level was green, the second plain white and the third yellow, which was a bit disorienting, since I'd expect the second level to be colored instead of the third. So I've now removed the color from the text and can focus on the stars for denoting the hierarchy.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq org-level-color-stars-only t)
-#+END_SRC
+#+end_src
 ** Custom color for headline levels 2 and 3
 In my color theme, headline level 2 used to be plain white, while headline level 3 used to be bold «gold» in color, which was confusing, as I'd expect the inverse. So I took the initiative and customized the colors myself - on the way I decided I preferred level 3 to also be obvious as a headline, and distinguishable from the rest of the text.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (custom-set-faces
  '(org-level-2 ((t (:foreground "gold" :weight bold))))
  '(org-level-3 ((t (:foreground "cyan3" :weight bold)))))
-#+END_SRC
+#+end_src
 ** Custom postamble in html export
 I only want to see the date and not the author nor the created by details on the bottom of the exported html file, and found out the ~org-html-postamble~ can be modified to not show these things. I also wanted a custom way to show the date format (because I don't like the y-m-d format much), so I use here a custom function, adapted from [[https://stackoverflow.com/a/18933020][this stackoverflow answer]].
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (defun my-org-html-postamble (plist)
  (format "Last update : %s" (format-time-string "%a %d/%m/%Y")))
 (setq org-html-postamble 'my-org-html-postamble)
-#+END_SRC
+#+end_src
 I don't want to print the postamble everywhere however, so I also found out that writing ~#+OPTIONS: html-postamble:nil~ on the file where the postamble should be exlcuded does the trick.
 ** Add shortcut templates for emacs lisp and title
 These [[https://orgmode.org/manual/Easy-templates.html][templates]], e.g. ~<s~, are very practical. Out of them I use most SRC emacs-lisp and ~#+TITLE~, so I wished I could create shortcuts for these too. However, [[https://orgmode.org/Changes.html][the previous shortcut system was changed in Org 9.2]] and I had to require org-tempo and modify my template config accordingly in order for the shortcuts to continue working (see [[https://www.reddit.com/r/emacs/comments/ad68zk/get_easytemplates_back_in_orgmode_92/eds5kcj?utm_source=share&utm_medium=web2x][here]]).
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (require 'org-tempo)
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 (add-to-list 'org-structure-template-alist '("t" . "title"))
-#+END_SRC
+#+end_src
 ** Enable Speed keys
 [[https://orgmode.org/manual/Speed-keys.html][Speed keys]] are single keystrokes without modifiers that can be used when the cursor is on a headline to e.g. move around the buffer. Here I enable them and set them to be able to be used on any star of the headline (code taken from the explanation string of the M-x customize section).
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
  (setq org-use-speed-commands
          (lambda () (and (looking-at org-outline-regexp) (looking-back "^\**"))))
-#+END_SRC
+#+end_src
 * Undo tree
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (require 'undo-tree)
-#+END_SRC
+#+end_src
 Global undo tree mode.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (global-undo-tree-mode)
-#+END_SRC
+#+end_src
 Define undo and redo keys.\\
 M-p for M-previous and M-n for M-next. These might not be the most comfortable of keybindings, but they are the most easily memorable amongst the unbound keys.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (define-key global-map "\M-p" 'undo-tree-undo)
 (define-key global-map "\M-n" 'undo-tree-redo)
-#+END_SRC
+#+end_src
 * Web-search.el package config
 ** Set the default search provider
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq web-search-default-provider "DuckDuckGo")
-#+END_SRC
+#+end_src
 * Drag-stuff package config
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (require 'drag-stuff)
-#+END_SRC
+#+end_src
 Hook drag-stuff-mode to text-mode and prog-mode.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (add-hook 'text-mode-hook 'drag-stuff-mode)
 (add-hook 'prog-mode-hook 'drag-stuff-mode)
-#+END_SRC
+#+end_src
 Define the keybindings - the default being M- and arrow keys.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (drag-stuff-define-keys)
-#+END_SRC
+#+end_src
 * Smex
 Used for the completion history of ~counsel-M-x~.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (require 'smex) ; Not needed if you use package.el
   (smex-initialize) ; Can be omitted. This might cause a (minimal) delay
                     ; when Smex is auto-initialized on its first run.
-#+END_SRC
+#+end_src
 * Ivy, counsel, swiper configuration
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
 (setq ivy-count-format "(%d/%d) ")
@@ -791,31 +791,31 @@ Used for the completion history of ~counsel-M-x~.
 (global-set-key (kbd "\C-h f") 'counsel-describe-function)
 (setq ivy-format-function #'ivy-format-function-line)
 (setq ivy-wrap t)
-#+END_SRC
+#+end_src
 To search for the entire word at point with swiper (and not only the part from the cursor onwards, as M-j does): the [[https://github.com/abo-abo/swiper/wiki/FAQ][Ivy FAQ]] says the following:
-#+BEGIN_QUOTE
+#+begin_quote
 On a related note, you can paste symbol-at-point into the search with M-n, which is a common case for using C-w in Isearch.
-#+END_QUOTE
+#+end_quote
 ** Ivy rich
 [[https://github.com/Yevgnen/ivy-rich][This package]] shows descriptions of the items in ~ivy-switch-buffer~, ~counsel-M-x~, ~counsel-describe-variable~, ~counsel-describe-function~ e.t.c.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (require 'ivy-rich)
 (ivy-rich-mode 1)
-#+END_SRC
+#+end_src
 ** Change color of ivy-org face
 The default one is inherited from org-level-4, which is gray, and thus always confused me when displaying the buffers, because I'm used to the convention that gray=inactive or comment. I changed it to inherit from org-level-1, which is chartreuse green.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (when (package-installed-p 'ivy)
 (custom-set-faces
   '(ivy-org ((t (:inherit org-level-1))))))
-#+END_SRC
+#+end_src
 * Terminal configuration
 ** Kill terminal buffer automatically when exiting
 From [[https://oremacs.com/2015/01/01/three-ansi-term-tips/][oremacs]].
-#+BEGIN_QUOTE
+#+begin_quote
 After you close the terminal, you get a useless buffer with no process. It's probably left there for you to have a history of what you did. I find it not useful, so here's a way to kill that buffer automatically:
-#+END_QUOTE
-#+BEGIN_SRC emacs-lisp
+#+end_quote
+#+begin_src emacs-lisp
 (defun oleh-term-exec-hook ()
   (let* ((buff (current-buffer))
          (proc (get-buffer-process buff)))
@@ -826,94 +826,94 @@ After you close the terminal, you get a useless buffer with no process. It's pro
             (kill-buffer ,buff))))))
 
 (add-hook 'term-exec-hook 'oleh-term-exec-hook)
-#+END_SRC
+#+end_src
 ** Redefine keys in term modes to their normal behavior
 Some key combinations don't behave as I'd expect in ansi-term. I thus have to redefine them to behave as expected (Syntax from [[https://www.reddit.com/r/emacs/comments/4ccczt/keybindings_in_multiterm/d1i99dk/][a comment on the emacs subreddit]]).
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (add-hook 'term-mode-hook (lambda ()
       (define-key term-raw-map (kbd "M-x") 'counsel-M-x)
 ))
-#+END_SRC
+#+end_src
 * Magit
 A very good git manager (the reports of its greatness aren’t overrated at all!).\\
 Btw,for those curious (as I was) where the term "porcelain" with which magit is self-described comes from, [[https://stackoverflow.com/questions/6976473/what-does-the-term-porcelain-mean-in-git][here’s]] an answer - the gist of it is that it is a more accessible interface, as opposed to the less user-friendly "plumbing" levels/commands.
 ** Set magit faces
 I changed the faces of ~magit-diff-context-highlight~ and ~magit-section-highlight~ because them being quasi-black didn't look good on my color theme.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (when (package-installed-p 'magit)
 (custom-set-faces
  '(magit-diff-context-highlight ((t (:background "DodgerBlue4" :foreground "grey70"))))
  '(magit-section-highlight ((t (:inherit highlight))))))
-#+END_SRC
+#+end_src
 ** Magit-status keybinding
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (when (package-installed-p 'magit)
 (global-set-key (kbd "C-x g") 'magit-status))
-#+END_SRC
+#+end_src
 * Emacs-lisp related configuration
 ** Enable show-paren-mode
 This highlights matching parentheses. Turns out it is a global minor mode, and it thus has to be activated for everything or for nothing. The ~show-paren-delay~ option shows the matching parenthese instantaneously when set to 0. The ~show-paren-style~ option set to mixed shows the matching parenthesis when it is visible and highlights the expression when it isn’t.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq show-paren-delay 0)
 (show-paren-mode 1)
 (setq show-paren-style (quote mixed))
-#+END_SRC
+#+end_src
 ** Enable electric-pair-mode
 This autocompletes parentheses. It appears to be a global minor mode as well.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (electric-pair-mode 1)
-#+END_SRC
+#+end_src
 Here is however a trick to disable it from everywhere but lisp-related modes (from [[https://emacs.stackexchange.com/questions/5981/how-to-make-electric-pair-mode-buffer-local][How to make electric-pair-mode buffer local? - Emacs Stack Exchange]]).
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (defvar my-electric-pair-modes '(emacs-lisp-mode lisp-interaction-mode))
 
 (defun my-inhibit-electric-pair-mode (char)
   (not (member major-mode my-electric-pair-modes)))
 
 (setq electric-pair-inhibit-predicate #'my-inhibit-electric-pair-mode)
-#+END_SRC
+#+end_src
 * HideShow mode
 [[https://www.emacswiki.org/emacs/HideShow][Link]]. A nifty minor mode to fold code the same way org-mode headings are folded.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (add-hook 'prog-mode-hook 'hs-minor-mode)
-#+END_SRC
+#+end_src
 Keybindings. The ~<backtab>~ string means Shift+Tab.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (define-key prog-mode-map (kbd "TAB") 'hs-toggle-hiding)
 (define-key prog-mode-map (kbd "<backtab>") 'hs-hide-all)
 (define-key prog-mode-map (kbd "<C-tab>") 'hs-show-all)
-#+END_SRC
+#+end_src
 * Diminish mode and Dim
 Diminish mode that cuts off the display of minor modes which I want to work [[https://github.com/myrjola/diminish.el#introduction][discreetly, like janitors]]. Without any arguments, they are hidden entirely from the modeline, otherwise they are simply abbreviated to the specified abbreviation.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (require 'diminish)
 (diminish 'visual-line-mode)
 (diminish 'undo-tree-mode)
 (diminish 'drag-stuff-mode)
 (diminish 'ivy-mode)
 (diminish 'eldoc-mode)
-#+END_SRC
+#+end_src
 [[https://github.com/alezost/dim.el][Dim]]. This is similar to diminish, but can also shorten the display of major modes. The problem with it though is that it crams all the abbreviations, regardless of length, next to the name of the unabbreviated mode (while diminish only does so with single character abbreviations), which is why I'm using it in addition to diminish, even through their functionality overlaps.\\
 And the reason I decided to try it in the first place is because I find the name of lisp-interaction-mode way too long…
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (when (package-installed-p 'dim)
 (dim-major-name 'lisp-interaction-mode "LiN"))
 (when (and (package-installed-p 'dim) (package-installed-p 'markdown-mode))
 (dim-major-name 'markdown-mode "Md"))
-#+END_SRC
+#+end_src
 * Ediff
 I'm trying to move myself to emacs as much as possible, so I now decided to replace the functionality of [[http://meldmerge.org/][Meld]].\\
 This line splits the ediff windows horizontally instead of vertically.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq ediff-split-window-function (quote split-window-horizontally))
-#+END_SRC
+#+end_src
 This one puts the ediff help buffer in the same frame as the rest, as I was a bit bothered by the separate small window it had.
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq ediff-window-setup-function (quote ediff-setup-windows-plain))
-#+END_SRC
+#+end_src
 ** Operate ediff through dired
 Modified from [[http://oremacs.com/2017/03/18/dired-ediff/][Quickly ediff files from dired · (or emacs]]
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (require 'dired-aux)
 ;; -*- lexical-binding: t -*-
 (defun ora-ediff-files ()
@@ -930,8 +930,8 @@ Modified from [[http://oremacs.com/2017/03/18/dired-ediff/][Quickly ediff files 
               (ediff-files file2 file1)
             (ediff-files file1 file2)))
       (error "no more than 2 files should be marked"))))
-#+END_SRC
+#+end_src
 The keybinding
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (define-key dired-mode-map "e" 'ora-ediff-files)
-#+END_SRC
+#+end_src
