@@ -731,6 +731,7 @@ These [[https://orgmode.org/manual/Easy-templates.html][templates]], e.g. ~<s~, 
 #+begin_src emacs-lisp
 (require 'org-tempo)
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("o" . "src org"))
 (add-to-list 'org-structure-template-alist '("t" . "title"))
 #+end_src
 ** Enable Speed keys
