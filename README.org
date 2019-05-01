@@ -328,7 +328,7 @@ See also [[https://www.emacswiki.org/emacs/CalendarLocalization][EmacsWiki: Cale
                                      "Οκτώβριος" "Νοέμβριος" "Δεκέμβριος"])
 #+end_src
 ** Set input method to greek
-In order to be able to write greek with the keyboard set to English (useful for those pesky Latin C- and M- shortcuts). Toggle with C-\. ~set-input-method~ makes the set input method the default when emacs starts up, which usually isn't desired. Contrarily ~setq default-input-method~ sets the input method as available with ~toggle-input-method~, but doesn't make it the default when emacs starts up.
+In order to be able to write greek with the keyboard set to English (useful for those pesky Latin C- and M- shortcuts). Toggle with ~C-\~. ~set-input-method~ makes the set input method the default when emacs starts up, which usually isn't desired. Contrarily ~setq default-input-method~ sets the input method as available with ~toggle-input-method~, but doesn't make it the default when emacs starts up.
 #+begin_src emacs-lisp
 (setq default-input-method "el_GR")
 #+end_src
