@@ -15,6 +15,7 @@
   - [[#ensure-utf-8][Ensure utf-8]]
   - [[#require-org][Require Org]]
   - [[#where-the-magic-happens][Where the magic happens]]
+- [[#setting-the-default-frame-parameters-on-windows][Setting the default frame parameters on Windows]]
 - [[#disabling-the-tool-bar][Disabling the tool bar]]
 - [[#setting-the-font][Setting the font]]
 - [[#setting-up-my-must-use-theme---blue-mood-theme][Setting up my must use theme - Blue Mood theme.]]
@@ -201,8 +202,15 @@ Needed for Windows
 #+begin_example
 (org-babel-load-file (concat user-emacs-directory "README.org"))
 #+end_example
-This snippet is the one that does the heavy work. It tracks down all the parts that say ~#+BEGIN_SRC emacs-lisp~ and evaluates them as emacs lisp code, creating a separate README.el in the process, as to reduce load time for the next run. Every time the org file is modified, the .el file is created anew.\\
+This snippet is the one that does the heavy work. It tracks down all the parts that say ~#+begin_src emacs-lisp~ and evaluates them as emacs lisp code, creating a separate README.el in the process, as to reduce load time for the next run. Every time the org file is modified, the .el file is created anew.\\
 And now these are taken care of, let's proceed to the configuration present in this very file.
+* Setting the default frame parameters on Windows
+On Linux, Emacs places its frame just fine, but on Windows it places it on the left side and in such a manner that the mode line was hidden below the Windows toolbar, which meant I had to manually resize the frame every single time (needless to say, this got old very quickly). Here is thus some config to place the default frame near the center of the screen and above the Windows toolbar.
+#+begin_src emacs-lisp
+;; set frame
+(when (eq system-type 'windows-nt)
+(setq default-frame-alist '((top . 5) (left . 220) (width . 80) (height . 30))))
+#+end_src
 * Disabling the tool bar
 The snippet below disables tool-bar-mode. I placed it this early in the config so that the toolbar won't be loaded and disabled afterwards, but be disabled from the get-go (I had some glitches with the title screen when I had it further down).
 #+begin_src emacs-lisp
