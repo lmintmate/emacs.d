@@ -89,6 +89,7 @@
   - [[#strikethrough-for-done-tasks][Strikethrough for Done tasks]]
   - [[#color-only-the-stars-for-the-org-mode-levels][Color only the stars for the org mode levels]]
   - [[#custom-color-for-headline-levels-2-and-3][Custom color for headline levels 2 and 3]]
+  - [[#custom-color-for-org-source-code-blocks][Custom color for org source code blocks]]
   - [[#custom-postamble-in-html-export][Custom postamble in html export]]
   - [[#add-shortcut-templates-for-emacs-lisp-org-and-title][Add shortcut templates for emacs lisp, org and title]]
   - [[#enable-speed-keys][Enable Speed keys]]
@@ -717,6 +718,22 @@ In my color theme, headline level 2 used to be plain white, while headline level
 (custom-set-faces
  '(org-level-2 ((t (:foreground "gold" :weight bold))))
  '(org-level-3 ((t (:foreground "cyan3" :weight bold)))))
+#+end_src
+** Custom color for org source code blocks
+I didn't really like the fact that the org source code blocks had the color of the comments (grey), as this made them less visible and prominent. I found, via [[https://www.reddit.com/r/emacs/comments/415imd/prettier_orgmode_source_code_blocks/cz09wvh?utm_source=share&utm_medium=web2x][this reddit post]], that I can customize the faces of ~org-block-begin-line~ and ~org-block-end-line~. As the latter inherits from the former, I saw fit to only customize the former.
+#+begin_src emacs-lisp
+(custom-set-faces
+ '(org-block-begin-line ((t (:foreground "gold" :weight bold)))))
+#+end_src
+While looking at Customize in order to change ~org-block-begin-line~, I also found ~org-src-block-faces~, which changes the faces of the content of the source blocks. This only works with ~#+begin_src~ however and not with ~#+begin_example~ or anything else like that. I changed the faces for emacs-lisp and org source blocks (as these are the ones I use most) and set their foreground to whitesmoke, so that I could read them more easily.
+#+begin_src emacs-lisp
+(custom-set-variables
+ '(org-src-block-faces
+   (quote
+    (("emacs-lisp"
+      (:foreground "whitesmoke"))
+     ("org"
+      (:foreground "whitesmoke"))))))
 #+end_src
 ** Custom postamble in html export
 I only want to see the date and not the author nor the created by details on the bottom of the exported html file, and found out the ~org-html-postamble~ can be modified to not show these things. I also wanted a custom way to show the date format (because I don't like the y-m-d format much), so I use here a custom function, adapted from [[https://stackoverflow.com/a/18933020][this stackoverflow answer]].
