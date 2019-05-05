@@ -424,6 +424,13 @@ Bind up and down arrows to move by visual lines: I often want to move by visual 
 (define-key evil-visual-state-map (kbd "<up>") 'evil-previous-visual-line)
 (define-key evil-visual-state-map (kbd "<down>") 'evil-next-visual-line)
 #+end_src
+Create bindings to move to beginning and end of visual lines: Here I used the only bindings that remained available.
+#+begin_src emacs-lisp
+(define-key evil-normal-state-map (kbd "Q") 'evil-beginning-of-visual-line)
+(define-key evil-normal-state-map (kbd "U") 'evil-end-of-visual-line)
+(define-key evil-visual-state-map (kbd "Q") 'evil-beginning-of-visual-line)
+(define-key evil-visual-state-map (kbd "U") 'evil-end-of-visual-line)
+#+end_src
 Make the enter key in normal state act like enter in emacs state: Enter as a key in Vim is nigh useless, but I often want to open new lines without entering insert mode. Binding enter to the command used in emacs state did the trick.
 #+begin_src emacs-lisp
 (define-key evil-normal-state-map (kbd "<return>") 'open-line)
