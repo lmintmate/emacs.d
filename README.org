@@ -372,11 +372,11 @@ Sometimes I forget to switch the keyboard language from Greek to English (especi
 (reverse-input-method 'el_GR)
 #+end_src
 * Evil
-This is basically an admission of defeat. Specifically, the point of learning to use emacs is imo to also use the builtin keybindings, but I only managed to learn some of them that are however for tasks other than editing text. In regards to editing text, I only learnt a couple commands (mainly cut, copy and paste), but wasn't able to retain anything more adavnced. On the other hand, I was able to retain a lot more vim commands, firstly most probably because vim, due to its modal nature, is less forgiving to people that haven't learnt the commands properly, and secondly because vim's commands are also shorter and thus easier to remember. I thus decided to use a vim emulation method for text editing on emacs. I first tried to use [[https://www.emacswiki.org/emacs/ViperMode][Viper]], since its built into emacs, but that one not only lacked features I'm used to from regular Vim, such as Visual Mode, since it's emulating Vi instead, but also was more difficult to configure, as in I couldn't find snippets of code online to help me out because nobody uses Viper anymore. So Evil it is. Here, I am configuring Evil for my own needs: I care mainly about it working properly when editing text and don't want to have evil-type keybindings available everywhere, since I don't otherwise have a problem with emacs chords (as long as I can remember them).
+This is basically an admission of defeat. Specifically, the point of learning to use emacs is imo to also use the builtin keybindings, but I only managed to learn some of them that are however for tasks other than editing text. In regards to editing text, I only learnt a couple commands (mainly cut, copy and paste), but wasn't able to retain anything more advanced. On the other hand, I was able to retain a lot more vim commands, firstly most probably because vim, due to its modal nature, is less forgiving to people that haven't learnt the commands properly, and secondly because vim's commands are also shorter and thus easier to remember. I thus decided to use a vim emulation method for text editing on emacs. I first tried to use [[https://www.emacswiki.org/emacs/ViperMode][Viper]], since its built into emacs, but that one not only lacked features I'm used to from regular Vim, such as Visual Mode, since it's emulating Vi instead, but also was more difficult to configure, as in I couldn't find snippets of code online to help me out because nobody uses Viper anymore. So Evil it is. Here, I am configuring Evil for my own needs: I care mainly about it working properly when editing text and don't want to have evil-type keybindings available everywhere, since I don't otherwise have a problem with emacs chords (as long as I can remember them).
 ** Configuring evil itself
 *** Preliminaries before loading evil
 The configuration options of evil have to be placed before evil itself is loaded.\\
-Scroll up with C-u: normally emacs uses C-u as universal-argument (something like the prefixing of vim commands), but since vim uses a different prefixing method, we can use that key for scrolling up instead of whatever the emacs key combination is. I set it with ~custom-set-variables~ because I couldn't get it working otherwise (see [[https://github.com/emacs-evil/evil/issues/890#issuecomment-320428519][here]]).
+Scroll up with ~C-u~: normally emacs uses ~C-u~ as universal-argument (something like the prefixing of vim commands), but since vim uses a different prefixing method, we can use that key for scrolling up instead. I set it with ~custom-set-variables~ because I couldn't get it working otherwise (see [[https://github.com/emacs-evil/evil/issues/890#issuecomment-320428519][here]]).
 #+begin_src emacs-lisp
 (custom-set-variables '(evil-want-C-u-scroll t))
 #+end_src
@@ -427,6 +427,10 @@ Prevent ~x~ and ~X~ from copying to the clipboard: I bound these buttons to the 
 #+begin_src emacs-lisp
 (define-key evil-normal-state-map (kbd "x") 'delete-forward-char)
 (define-key evil-normal-state-map (kbd "X") 'delete-backward-char)
+#+end_src
+Evil keybinding for Lacarte: The regular keybinding I set earlier (~C-.~), is overridden by evil-repeat-pop, so I have to use another keybinding while in evil normal state. Since I set ~M-n~ (~undo-tree-redo~) to be active in emacs state only, I decided to use it for Lacarte while in evil normal state (and as a bonus, it can be kinda considered a mnemonic, as it resembles the word Menu).
+#+begin_src emacs-lisp
+(define-key evil-normal-state-map "\M-n" 'lacarte-execute-menu-command)
 #+end_src
 ** Enable and configure evil packages
 *** Linum relative
