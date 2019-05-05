@@ -380,6 +380,11 @@ Scroll up with ~C-u~: normally emacs uses ~C-u~ as universal-argument (something
 #+begin_src emacs-lisp
 (custom-set-variables '(evil-want-C-u-scroll t))
 #+end_src
+Prevent opening new lines (via o,O) from auto-indenting. This is annoying and besides, if I want to indent, I'll do it myself. I set it with ~custom-set-variables~ because otherwise the variable would only be buffer-local and wouldn't thus be properly enabled.
+#+begin_src emacs-lisp
+(custom-set-variables
+ '(evil-auto-indent nil))
+#+end_src
 Set evil-toggle-key: I set it to ~C-`~ because when I tried to set it to ~C-q~ (the Viper default) it didn't work for some reason, and I use ~C-z~ (the Evil default) for something else.
 #+begin_src emacs-lisp
 (setq evil-toggle-key "C-`")
