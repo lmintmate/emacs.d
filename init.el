@@ -56,6 +56,11 @@ web-search)
 (unless (package-installed-p 'dim)
   (package-install 'dim)))
 
+(unless (version< emacs-version "25")
+(unless (package-installed-p 'evil-fringe-mark)
+  (package-install 'evil-fringe-mark)))
+
+
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)

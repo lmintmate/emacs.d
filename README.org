@@ -43,6 +43,7 @@
   - [[#enable-and-configure-evil-packages][Enable and configure evil packages]]
     - [[#linum-relative][Linum relative]]
     - [[#evil-goggles][Evil goggles]]
+    - [[#evil-fringe-mark][evil-fringe-mark]]
 - [[#misc-configuration-parameters][Misc configuration parameters]]
   - [[#the-bell][The Bell]]
   - [[#separate-custom-file][Separate custom file]]
@@ -196,6 +197,10 @@ web-search)
 (unless (version< emacs-version "24.4")
 (unless (package-installed-p 'dim)
   (package-install 'dim)))
+
+(unless (version< emacs-version "25")
+(unless (package-installed-p 'evil-fringe-mark)
+  (package-install 'evil-fringe-mark)))
 #+end_example
 ** Ensure utf-8
 Needed for Windows
@@ -487,6 +492,17 @@ Also change delete and change face to tomato to denote that these change/remove 
 (custom-set-faces
  '(evil-goggles-delete-face ((t (:background "tomato"))))
  '(evil-goggles-change-face ((t (:background "tomato")))))
+#+end_src
+*** evil-fringe-mark
+[[https://github.com/Andrew-William-Smith/evil-fringe-mark][This package]] shows evil marks on the fringe using bitmaps (no idea why this was needed for the implementation, since [[https://github.com/kshenoy/vim-signature][vim-signature]] can use regular letters just fine - maybe to account for the presence of line numbers in the fringe? Though vim-signature seems fine in that case. Must be a difference between vim's sign column and emacs's fringe...).
+#+begin_src emacs-lisp
+(require 'evil-fringe-mark)
+(global-evil-fringe-mark-mode)
+#+end_src
+Face for buffer-local fringe marks: Make it chartreuse green, different from the gold of file marks.
+#+begin_src emacs-lisp
+(custom-set-faces
+ '(evil-fringe-mark-local-face ((t (:inherit font-lock-function-name-face)))))
 #+end_src
 * Misc configuration parameters
 ** The Bell
@@ -1039,6 +1055,7 @@ Diminish mode that cuts off the display of minor modes which I want to work [[ht
 (diminish 'eldoc-mode)
 (diminish 'evil-goggles-mode)
 (diminish 'linum-relative-mode)
+(diminish 'global-evil-fringe-mark-mode)
 #+end_src
 [[https://github.com/alezost/dim.el][Dim]]. This is similar to diminish, but can also shorten the display of major modes. The problem with it though is that it crams all the abbreviations, regardless of length, next to the name of the unabbreviated mode (while diminish only does so with single character abbreviations), which is why I'm using it in addition to diminish, even through their functionality overlaps.\\
 And the reason I decided to try it in the first place is because I find the name of lisp-interaction-mode way too long…
