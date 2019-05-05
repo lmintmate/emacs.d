@@ -35,6 +35,14 @@
   - [[#setting-the-calendar-up-in-greek][Setting the calendar up in Greek.]]
   - [[#set-input-method-to-greek][Set input method to greek]]
   - [[#redirect-commands-with-greek-letters-to-the-correct-commands][Redirect commands with Greek letters to the correct commands]]
+- [[#evil][Evil]]
+  - [[#configuring-evil-itself][Configuring evil itself]]
+    - [[#preliminaries-before-loading-evil][Preliminaries before loading evil]]
+    - [[#load-evil][Load evil]]
+    - [[#set-evil-keybindings][Set evil keybindings]]
+  - [[#enable-and-configure-evil-packages][Enable and configure evil packages]]
+    - [[#linum-relative][Linum relative]]
+    - [[#evil-goggles][Evil goggles]]
 - [[#misc-configuration-parameters][Misc configuration parameters]]
   - [[#the-bell][The Bell]]
   - [[#separate-custom-file][Separate custom file]]
@@ -144,8 +152,11 @@ counsel
 diminish
 dired-icon
 drag-stuff
+evil
+evil-goggles
 free-keys
 ivy-rich
+linum-relative
 org
 rainbow-mode
 smex
@@ -359,6 +370,107 @@ Sometimes I forget to switch the keyboard language from Greek to English (especi
       (activate-input-method current))))
 
 (reverse-input-method 'el_GR)
+#+end_src
+* Evil
+This is basically an admission of defeat. Specifically, the point of learning to use emacs is imo to also use the builtin keybindings, but I only managed to learn some of them that are however for tasks other than editing text. In regards to editing text, I only learnt a couple commands (mainly cut, copy and paste), but wasn't able to retain anything more adavnced. On the other hand, I was able to retain a lot more vim commands, firstly most probably because vim, due to its modal nature, is less forgiving to people that haven't learnt the commands properly, and secondly because vim's commands are also shorter and thus easier to remember. I thus decided to use a vim emulation method for text editing on emacs. I first tried to use [[https://www.emacswiki.org/emacs/ViperMode][Viper]], since its built into emacs, but that one not only lacked features I'm used to from regular Vim, such as Visual Mode, since it's emulating Vi instead, but also was more difficult to configure, as in I couldn't find snippets of code online to help me out because nobody uses Viper anymore. So Evil it is. Here, I am configuring Evil for my own needs: I care mainly about it working properly when editing text and don't want to have evil-type keybindings available everywhere, since I don't otherwise have a problem with emacs chords (as long as I can remember them).
+** Configuring evil itself
+*** Preliminaries before loading evil
+The configuration options of evil have to be placed before evil itself is loaded.\\
+Scroll up with C-u: normally emacs uses C-u as universal-argument (something like the prefixing of vim commands), but since vim uses a different prefixing method, we can use that key for scrolling up instead of whatever the emacs key combination is. I set it with ~custom-set-variables~ because I couldn't get it working otherwise (see [[https://github.com/emacs-evil/evil/issues/890#issuecomment-320428519][here]]).
+#+begin_src emacs-lisp
+(custom-set-variables '(evil-want-C-u-scroll t))
+#+end_src
+Set evil-toggle-key: I set it to ~C-`~ because when I tried to set it to ~C-q~ (the Viper default) it didn't work for some reason, and I use ~C-z~ (the Evil default) for something else.
+#+begin_src emacs-lisp
+(setq evil-toggle-key "C-`")
+#+end_src
+Option so that the stuff replaced by pasting in visual mode won't be copied to the clipboard. Note that while this does work as intended, CopyQ erroneously shows the replaced text as having been copied to the clipboard.
+#+begin_src emacs-lisp
+(setq evil-kill-on-visual-paste nil)
+#+end_src
+Set the mode line position of the evil state tag: The default position is somewhere in the middle of the modeline, but I put it in the beginning, as in [[https://github.com/itchyny/lightline.vim][lightline]] (see [[https://emacs.stackexchange.com/questions/19024/move-evil-tag-to-beginning-of-mode-line/19032#19032][here]]).
+#+begin_src emacs-lisp
+(setq evil-mode-line-format '(before . mode-line-front-space))
+#+end_src
+Propertize and color evil mode line state tag depending on the state: See [[https://github.com/Malabarba/smart-mode-line/issues/195#issuecomment-338447042][here]]. I changed the name of each state tag from the default ~<N>~, ~<I>~ e.t.c, to their full names (e.g. ~NORMAL~, ~INSERT~ e.t.c), as in lightline. For the colors, I chose shades of purple for Emacs and Motion states (since that's Emacs's logo color), and drew the rest of the colors from [[https://github.com/lmintmate/blue-mood-vim#lightline-theme][my blue-mood lightline theme]].
+#+begin_src emacs-lisp
+    (setq evil-normal-state-tag   (propertize " NORMAL " 'face '((:background "#4f94cd" :foreground "black")))
+          evil-emacs-state-tag    (propertize " EMACS " 'face '((:background "MediumPurple2"       :foreground "black")))
+          evil-insert-state-tag   (propertize " INSERT " 'face '((:background "#7fff00"    :foreground "black")))
+          evil-replace-state-tag  (propertize " REPLACE " 'face '((:background "#ff6347"      :foreground "black")))
+          evil-motion-state-tag   (propertize " MOTION " 'face '((:background "plum3"          :foreground "black")))
+          evil-visual-state-tag   (propertize " VISUAL " 'face '((:background "#ffd700"           :foreground "black")))
+          evil-operator-state-tag (propertize " OPERATOR " 'face '((:background "yellow"    :foreground "red"))))
+#+end_src
+*** Load evil
+#+begin_src emacs-lisp
+(require 'evil)
+(evil-mode 1)
+#+end_src
+*** Set evil keybindings
+First off, set the initial state of ~free-keys-mode~ to emacs, as it doesn't work properly with the normal evil state.
+#+begin_src emacs-lisp
+(evil-set-initial-state 'free-keys-mode 'emacs)
+#+end_src
+Bind up and down arrows to move by visual lines: I often want to move by visual lines, for example in text documents where I write long lines (such as this very text), but binding ~j~ and ~k~ for that broke prefixing them with numbers, so I decided to bind the arrow keys, which aren't used with a prefix, if at all, anyways.
+#+begin_src emacs-lisp
+(define-key evil-normal-state-map (kbd "<up>") 'evil-previous-visual-line)
+(define-key evil-normal-state-map (kbd "<down>") 'evil-next-visual-line)
+(define-key evil-visual-state-map (kbd "<up>") 'evil-previous-visual-line)
+(define-key evil-visual-state-map (kbd "<down>") 'evil-next-visual-line)
+#+end_src
+Make the enter key in normal state act like enter in emacs state: Enter as a key in Vim is nigh useless, but I often want to open new lines without entering insert mode. Binding enter to the command used in emacs state did the trick.
+#+begin_src emacs-lisp
+(define-key evil-normal-state-map (kbd "<return>") 'open-line)
+#+end_src
+Prevent ~x~ and ~X~ from copying to the clipboard: I bound these buttons to the commands used by delete and backspace in emacs state (though in the case of backspace, not exactly, as backspace also deletes indentation and I didn't want ~X~ to do that). Note that when prefixed by a number, they do copy to the clipboard, but that's to be expected.
+#+begin_src emacs-lisp
+(define-key evil-normal-state-map (kbd "x") 'delete-forward-char)
+(define-key evil-normal-state-map (kbd "X") 'delete-backward-char)
+#+end_src
+** Enable and configure evil packages
+*** Linum relative
+[[https://github.com/coldnew/linum-relative][This package]] enables relative line numbers.
+#+begin_src emacs-lisp
+(require 'linum-relative)
+#+end_src
+Set the backend to ~display-line-numbers-mode~ when emacs version is over 26.1
+#+begin_src emacs-lisp
+(when (version<= "26.0.50" emacs-version )
+(setq linum-relative-backend 'display-line-numbers-mode))
+#+end_src
+Hook it to text-mode (prog-mode uses abolute line numbers).
+#+begin_src emacs-lisp
+(add-hook 'text-mode-hook 'linum-relative-mode)
+#+end_src
+*** Evil goggles
+[[https://github.com/edkolev/evil-goggles][This package]] provides visual indications for various evil actions.\\
+First disable highlight for recording macros, as it's distracting. This has to be done before evil-goggles-mode is started.
+#+begin_src emacs-lisp
+(setq evil-goggles-enable-record-macro nil)
+#+end_src
+Enable evil-goggles.
+#+begin_src emacs-lisp
+(evil-goggles-mode)
+#+end_src
+Set the duration of the highlight.
+#+begin_src emacs-lisp
+(setq evil-goggles-duration 0.605)
+#+end_src
+Set the duration of the highlight for actions that are delayed until the highlight disappears e.g. delete, change.
+#+begin_src emacs-lisp
+(setq evil-goggles-blocking-duration 0.150)
+#+end_src
+Change evil-goggles default highlight color: the default setting (inheriting from region) didn't apply the foreground for whatever reason, and it being just red was kinda tacky, so I changed it to SteelBlue3.
+#+begin_src emacs-lisp
+(custom-set-faces
+ '(evil-goggles-default-face ((t (:background "#4f94cd")))))
+#+end_src
+Also change delete and change face to tomato to denote that these change/remove stuff.
+#+begin_src emacs-lisp
+(custom-set-faces
+ '(evil-goggles-delete-face ((t (:background "tomato"))))
+ '(evil-goggles-change-face ((t (:background "tomato")))))
 #+end_src
 * Misc configuration parameters
 ** The Bell
@@ -764,10 +876,10 @@ Global undo tree mode.
 (global-undo-tree-mode)
 #+end_src
 Define undo and redo keys.\\
-M-p for M-previous and M-n for M-next. These might not be the most comfortable of keybindings, but they are the most easily memorable amongst the unbound keys.
+M-p for M-previous and M-n for M-next in emacs state. These might not be the most comfortable of keybindings, but they are the most easily memorable amongst the unbound keys.
 #+begin_src emacs-lisp
-(define-key global-map "\M-p" 'undo-tree-undo)
-(define-key global-map "\M-n" 'undo-tree-redo)
+(define-key evil-emacs-state-map "\M-p" 'undo-tree-undo)
+(define-key evil-emacs-state-map "\M-n" 'undo-tree-redo)
 #+end_src
 * Web-search.el package config
 ** Set the default search provider
@@ -909,6 +1021,8 @@ Diminish mode that cuts off the display of minor modes which I want to work [[ht
 (diminish 'drag-stuff-mode)
 (diminish 'ivy-mode)
 (diminish 'eldoc-mode)
+(diminish 'evil-goggles-mode)
+(diminish 'linum-relative-mode)
 #+end_src
 [[https://github.com/alezost/dim.el][Dim]]. This is similar to diminish, but can also shorten the display of major modes. The problem with it though is that it crams all the abbreviations, regardless of length, next to the name of the unabbreviated mode (while diminish only does so with single character abbreviations), which is why I'm using it in addition to diminish, even through their functionality overlaps.\\
 And the reason I decided to try it in the first place is because I find the name of lisp-interaction-mode way too long…

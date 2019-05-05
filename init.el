@@ -11,8 +11,11 @@ counsel
 diminish
 dired-icon
 drag-stuff
+evil
+evil-goggles
 free-keys
 ivy-rich
+linum-relative
 org
 rainbow-mode
 smex
