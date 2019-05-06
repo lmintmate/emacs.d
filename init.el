@@ -11,6 +11,7 @@ counsel
 diminish
 dired-icon
 drag-stuff
+espy
 evil
 evil-goggles
 free-keys
