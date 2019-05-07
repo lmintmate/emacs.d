@@ -12,6 +12,7 @@
 - [[#what-precedes-this-file-the-contents-of-initel][What precedes this file: the contents of init.el]]
   - [[#add-melpa-and-org-repositories][Add MELPA and org repositories]]
   - [[#auto-install-packages][Auto-install packages]]
+  - [[#force-packageel-to-install-the-latest-version-of-org-mode][Force package.el to install the latest version of org-mode]]
   - [[#ensure-utf-8][Ensure utf-8]]
   - [[#require-org][Require Org]]
   - [[#where-the-magic-happens][Where the magic happens]]
@@ -147,7 +148,6 @@ First I add the MELPA and org repositories. I do this in init.el and not here as
 ** Auto-install packages
 From [[http://aaronbedra.com/emacs.d/#default-packages][Aaron Bedra's Emacs 24 Configuration]].\\
 The first part of the code defines the packages to be installed ; from this list are absent the packages installed manually, present in the lisp folder. The second part of the code does the following: when Emacs boots, it checks to make sure all of the packages defined in lmintmate/packages are installed. If not, it has the package manager take care of it.\\
-N.B. Because org-mode is already builtin, it doesn't get reinstalled automatically from the org-mode repository, as it should. Thus, if I want the latest org-mode version, I have to install it manually from ~package-list-packages~, and only then it will overtake the builtin version (see also [[https://emacs.stackexchange.com/questions/31825/cant-install-org-through-package-manager#comment64743_31837][here]]).
 #+begin_example
 (defvar lmintmate/packages '(color-theme-modern
 counsel
@@ -160,7 +160,6 @@ evil-goggles
 free-keys
 ivy-rich
 linum-relative
-org
 rainbow-mode
 smex
 toc-org
@@ -203,6 +202,13 @@ web-search)
 (unless (version< emacs-version "25")
 (unless (package-installed-p 'evil-fringe-mark)
   (package-install 'evil-fringe-mark)))
+#+end_example
+** Force package.el to install the latest version of org-mode
+Because org-mode is already builtin, it doesn't get reinstalled automatically from the org-mode repository, as it should. Thus, if I want the latest org-mode version, I would normally have to install it manually from ~package-list-packages~, and only then it would overtake the builtin version (see also [[https://emacs.stackexchange.com/questions/31825/cant-install-org-through-package-manager#comment64743_31837][here]]). However trying to start emacs without the latest version of org-mode installed causes emacs to error out saying that org-tempo wasn't detected, because I require that later in the config and it apparently wasn't included in the built in emacs version. I thus found [[https://github.com/jwiegley/use-package/issues/319#issuecomment-363981027][here]] a solution that looks for the latest version of org with a regex and, if it doesn't find it, proceeds to install it from the org repository.
+#+begin_example
+;; enforce installing the latest version of org mode
+(unless (file-expand-wildcards (concat package-user-dir "/org-[0-9]*"))
+  (package-install (elt (cdr (assoc 'org package-archive-contents)) 0)))
 #+end_example
 ** Ensure utf-8
 Needed for Windows

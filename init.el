@@ -17,7 +17,6 @@ evil-goggles
 free-keys
 ivy-rich
 linum-relative
-org
 rainbow-mode
 smex
 toc-org
@@ -61,6 +60,9 @@ web-search)
 (unless (package-installed-p 'evil-fringe-mark)
   (package-install 'evil-fringe-mark)))
 
+;; enforce installing the latest version of org mode
+(unless (file-expand-wildcards (concat package-user-dir "/org-[0-9]*"))
+  (package-install (elt (cdr (assoc 'org package-archive-contents)) 0)))
 
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
