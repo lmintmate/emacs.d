@@ -314,7 +314,7 @@ I’m used to writing Greek with the modern Greek layout, which is quite differe
 [[https://www.emacswiki.org/emacs/LaCarte][La Carte]] is a package that allows searching and executing menu commands from the keyboard, in a way similar to ivy (in fact, when ivy is installed, this package also benefits from ivy integration, which makes its autocompletion so much better). There is also a builtin in emacs command ~tmm-menubar~, but that one goes literally from menu to submenu, just with keyboard shortcuts instead of mouse clicks, and is thus much less discoverable. I also set up here a keybinding for lacarte (specifically for ~lacarte-execute-menu-command~, because ~lacarte-execute-command~ also includes regular commands, and ~counsel-M-x~ already takes care of that).
 #+begin_src emacs-lisp
 (require 'lacarte)
-(global-set-key [?\C-.] 'lacarte-execute-menu-command)
+(global-set-key (kbd "\C-c.") 'lacarte-execute-menu-command)
 #+end_src
 * Startup screen and scratch buffer options
 ** Inhibit startup screen
@@ -452,10 +452,6 @@ Prevent ~x~ and ~X~ from copying to the clipboard: I bound these buttons to the 
 #+begin_src emacs-lisp
 (define-key evil-normal-state-map (kbd "x") 'delete-forward-char)
 (define-key evil-normal-state-map (kbd "X") 'delete-backward-char)
-#+end_src
-Evil keybinding for Lacarte: The regular keybinding I set earlier (~C-.~), is overridden by evil-repeat-pop, so I have to use another keybinding while in evil normal state. Since I set ~M-n~ (~undo-tree-redo~) to be active in emacs state only, I decided to use it for Lacarte while in evil normal state (and as a bonus, it can be kinda considered a mnemonic, as it resembles the word Menu).
-#+begin_src emacs-lisp
-(define-key evil-normal-state-map "\M-n" 'lacarte-execute-menu-command)
 #+end_src
 ** Enable and configure evil packages
 *** Linum relative
