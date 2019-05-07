@@ -63,10 +63,10 @@
   - [[#associate-txt-files-with-the-goto-address-mode][Associate .txt files with the goto-address-mode.]]
   - [[#bind-m-o-to-other-window][Bind M-o to other-window]]
   - [[#adds-shift--arrows-for-changing-between-visible-buffers-in-addition-to-m-o][Adds shift + arrows for changing between visible buffers, in addition to M-o.]]
-  - [[#add-command-to-mark-a-line][Add command to mark a line]]
+  - [[#add-command-to-mark-a-line-in-emacs-state][Add command to mark a line in emacs state]]
   - [[#highlight-specific-words-in-prog-mode][Highlight specific words in prog-mode]]
   - [[#drag-selected-text-with-the-mouse-in-emacs][Drag selected text with the mouse in emacs]]
-  - [[#bind-zap-up-to-char-command][Bind zap-up-to-char command]]
+  - [[#bind-zap-up-to-char-command-in-emacs-state][Bind zap-up-to-char command in emacs state]]
   - [[#enable-display-line-numbers-mode-for-prog-mode][Enable display-line-numbers-mode for prog-mode]]
     - [[#disable-it-however-for-lisp-interaction-mode][Disable it however for lisp-interaction-mode]]
     - [[#make-the-current-line-bold][Make the current line bold]]
@@ -630,7 +630,7 @@ The ~windmove-wrap-around~ setting allows for windmove movement off the edge of 
 #+begin_src emacs-lisp
 (setq windmove-wrap-around t)
 #+end_src
-** Add command to mark a line
+** Add command to mark a line in emacs state
 From [[https://ebzzry.io/en/emacs-tips-1/#marks][here]]. Executing it multiple times marks multiple lines.
 #+begin_src emacs-lisp
 (defun mark-line (&optional arg)
@@ -644,7 +644,7 @@ From [[https://ebzzry.io/en/emacs-tips-1/#marks][here]]. Executing it multiple t
 #+end_src
 Its keybinding
 #+begin_src emacs-lisp
-(define-key global-map "\C-z" 'mark-line)
+(define-key evil-emacs-state-map "\C-z" 'mark-line)
 #+end_src
 ** Highlight specific words in prog-mode
 Modified from [[http://seancribbs.com/emacs.d#sec-5-8][Sean Cribbs' Emacs 25 Configuration]].
@@ -662,10 +662,10 @@ Sometimes I just want to cop out and use the mouse when trying to move text. I f
 (when (version<= "26.0.50" emacs-version )
 (setq mouse-drag-and-drop-region t))
 #+end_src
-** Bind zap-up-to-char command
+** Bind zap-up-to-char command in emacs state
 I found the commands M-x zap-to-char and zap-up-to-char, which roughly correspond to vim's df and dt. The former is bound to M-z, but the latter isn't bound to anything. I bind it here to C-c z, since that isn't bound to anything.
 #+begin_src emacs-lisp
-(define-key global-map "\C-cz" 'zap-up-to-char)
+(define-key evil-emacs-state-map "\C-cz" 'zap-up-to-char)
 #+end_src
 ** Enable display-line-numbers-mode for prog-mode
 This minor mode first appeared in 26.1 and makes line rendering faster than the previous system, ~linum-mode~. I hook it to ~prog-mode~, as I don't need it for text-mode, and enable it conditionally, so that it won't error out on a version lower than 26.1.
