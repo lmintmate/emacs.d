@@ -42,7 +42,6 @@
     - [[#load-evil][Load evil]]
     - [[#set-evil-keybindings][Set evil keybindings]]
   - [[#enable-and-configure-evil-packages][Enable and configure evil packages]]
-    - [[#linum-relative][Linum relative]]
     - [[#evil-goggles][Evil goggles]]
     - [[#evil-fringe-mark][evil-fringe-mark]]
 - [[#misc-configuration-parameters][Misc configuration parameters]]
@@ -67,7 +66,7 @@
   - [[#highlight-specific-words-in-prog-mode][Highlight specific words in prog-mode]]
   - [[#drag-selected-text-with-the-mouse-in-emacs][Drag selected text with the mouse in emacs]]
   - [[#bind-zap-up-to-char-command-in-emacs-state][Bind zap-up-to-char command in emacs state]]
-  - [[#enable-display-line-numbers-mode-for-prog-mode][Enable display-line-numbers-mode for prog-mode]]
+  - [[#enable-display-line-numbers-mode][Enable display-line-numbers-mode]]
     - [[#disable-it-however-for-lisp-interaction-mode][Disable it however for lisp-interaction-mode]]
     - [[#make-the-current-line-bold][Make the current line bold]]
 - [[#recent-files][Recent files]]
@@ -159,7 +158,6 @@ evil
 evil-goggles
 free-keys
 ivy-rich
-linum-relative
 rainbow-mode
 smex
 toc-org
@@ -454,20 +452,6 @@ Prevent ~x~ and ~X~ from copying to the clipboard: I bound these buttons to the 
 (define-key evil-normal-state-map (kbd "X") 'delete-backward-char)
 #+end_src
 ** Enable and configure evil packages
-*** Linum relative
-[[https://github.com/coldnew/linum-relative][This package]] enables relative line numbers.
-#+begin_src emacs-lisp
-(require 'linum-relative)
-#+end_src
-Set the backend to ~display-line-numbers-mode~ when emacs version is over 26.1
-#+begin_src emacs-lisp
-(when (version<= "26.0.50" emacs-version )
-(setq linum-relative-backend 'display-line-numbers-mode))
-#+end_src
-Hook it to text-mode (prog-mode uses abolute line numbers).
-#+begin_src emacs-lisp
-(add-hook 'text-mode-hook 'linum-relative-mode)
-#+end_src
 *** Evil goggles
 [[https://github.com/edkolev/evil-goggles][This package]] provides visual indications for various evil actions.\\
 First disable highlight for recording macros, as it's distracting. This has to be done before evil-goggles-mode is started.
@@ -663,11 +647,26 @@ I found the commands M-x zap-to-char and zap-up-to-char, which roughly correspon
 #+begin_src emacs-lisp
 (define-key evil-emacs-state-map "\C-cz" 'zap-up-to-char)
 #+end_src
-** Enable display-line-numbers-mode for prog-mode
-This minor mode first appeared in 26.1 and makes line rendering faster than the previous system, ~linum-mode~. I hook it to ~prog-mode~, as I don't need it for text-mode, and enable it conditionally, so that it won't error out on a version lower than 26.1.
+** Enable display-line-numbers-mode
+This minor mode first appeared in 26.1 and makes line rendering faster than the previous system, ~linum-mode~. I have ~prog-mode~ display absolute line numbers, and ~text-mode~ display relative line numbers, for help with evil movements (adapted from [[https://github.com/noctuid/evil-guide#how-can-i-have-relative-line-numbers][here]]). I enable it conditionally, so that it won't error out on a version lower than 26.1.
 #+begin_src emacs-lisp
+(setq-default display-line-numbers nil)
+
+(defun noct:relative ()
+  (setq-local display-line-numbers 'relative))
+
+(defun noct:line-number-relative ()
+  (setq-local display-line-numbers-current-absolute nil))
+
+(defun noct:absolute ()
+  (setq-local display-line-numbers t))
+
 (when (version<= "26.0.50" emacs-version )
-(add-hook 'prog-mode-hook 'display-line-numbers-mode))
+(add-hook 'text-mode-hook #'noct:relative)
+(add-hook 'text-mode-hook #'noct:line-number-relative))
+
+(when (version<= "26.0.50" emacs-version )
+(add-hook 'prog-mode-hook #'noct:absolute))
 #+end_src
 *** Disable it however for lisp-interaction-mode
 I don't want line numbers to display however for ~lisp-interaction-mode~, which is the mode used in the ~*scratch*~ buffer (and, to my knowledge, only there). I set this conditionally so that it won't error out on versions lower than 26.1.
@@ -1077,7 +1076,6 @@ Diminish mode that cuts off the display of minor modes which I want to work [[ht
 (diminish 'ivy-mode)
 (diminish 'eldoc-mode)
 (diminish 'evil-goggles-mode)
-(diminish 'linum-relative-mode)
 (diminish 'global-evil-fringe-mark-mode)
 #+end_src
 [[https://github.com/alezost/dim.el][Dim]]. This is similar to diminish, but can also shorten the display of major modes. The problem with it though is that it crams all the abbreviations, regardless of length, next to the name of the unabbreviated mode (while diminish only does so with single character abbreviations), which is why I'm using it in addition to diminish, even through their functionality overlaps.\\
