@@ -1050,11 +1050,22 @@ Here is however a trick to disable it from everywhere but lisp-related modes (fr
 #+begin_src emacs-lisp
 (add-hook 'prog-mode-hook 'hs-minor-mode)
 #+end_src
-Keybindings. The ~<backtab>~ string means Shift+Tab.
+Keybindings. The ~<backtab>~ string means Shift+Tab. After enabling evil, the tab was taken over by some jump list command, which was inconvenient to say the least. Thankfully I found out that I can use ~evil-define-key~ to define specific keys in specific states for specific modes (see [[https://github.com/noctuid/evil-guide#mode-specific-keybindings][here]]).
+The help string for ~evil-define-key~ also specifies that:
+#+begin_example
+It is possible to specify multiple states and/or bindings at
+once:
+
+    (evil-define-key ’(normal visual) foo-map
+      "a" ’bar
+      "b" ’foo)
+#+end_example
+Finally note that sometimes the action of the tab key doesn't take effect immediately (see [[https://github.com/noctuid/evil-guide#why-dont-keys-defined-with-evil-define-key-work-immediately][here]]). However backtab and C-tab work fine from the get-go for some reason.
 #+begin_src emacs-lisp
-(define-key prog-mode-map (kbd "TAB") 'hs-toggle-hiding)
-(define-key prog-mode-map (kbd "<backtab>") 'hs-hide-all)
-(define-key prog-mode-map (kbd "<C-tab>") 'hs-show-all)
+(evil-define-key '(normal emacs) prog-mode-map
+  (kbd "TAB") 'hs-toggle-hiding
+  (kbd "<backtab>") 'hs-hide-all
+  (kbd "<C-tab>") 'hs-show-all)
 #+end_src
 * Diminish mode and Dim
 Diminish mode that cuts off the display of minor modes which I want to work [[https://github.com/myrjola/diminish.el#introduction][discreetly, like janitors]]. Without any arguments, they are hidden entirely from the modeline, otherwise they are simply abbreviated to the specified abbreviation.
