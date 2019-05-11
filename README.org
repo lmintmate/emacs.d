@@ -648,7 +648,7 @@ I found the commands M-x zap-to-char and zap-up-to-char, which roughly correspon
 (define-key evil-emacs-state-map "\C-cz" 'zap-up-to-char)
 #+end_src
 ** Enable display-line-numbers-mode
-This minor mode first appeared in 26.1 and makes line rendering faster than the previous system, ~linum-mode~. I have ~prog-mode~ display absolute line numbers, and ~text-mode~ display relative line numbers, for help with evil movements (adapted from [[https://github.com/noctuid/evil-guide#how-can-i-have-relative-line-numbers][here]]). I enable it conditionally, so that it won't error out on a version lower than 26.1.
+This minor mode first appeared in 26.1 and makes line rendering faster than the previous system, ~linum-mode~. I have ~text-mode~ and ~prog-mode~ display relative line numbers, for help with evil movements (adapted from [[https://github.com/noctuid/evil-guide#how-can-i-have-relative-line-numbers][here]]). I enable it conditionally, so that it won't error out on a version lower than 26.1.
 #+begin_src emacs-lisp
 (setq-default display-line-numbers nil)
 
@@ -658,15 +658,11 @@ This minor mode first appeared in 26.1 and makes line rendering faster than the 
 (defun noct:line-number-relative ()
   (setq-local display-line-numbers-current-absolute nil))
 
-(defun noct:absolute ()
-  (setq-local display-line-numbers t))
-
 (when (version<= "26.0.50" emacs-version )
 (add-hook 'text-mode-hook #'noct:relative)
-(add-hook 'text-mode-hook #'noct:line-number-relative))
-
-(when (version<= "26.0.50" emacs-version )
-(add-hook 'prog-mode-hook #'noct:absolute))
+(add-hook 'text-mode-hook #'noct:line-number-relative)
+(add-hook 'prog-mode-hook #'noct:relative)
+(add-hook 'prog-mode-hook #'noct:line-number-relative))
 #+end_src
 *** Disable it however for lisp-interaction-mode
 I don't want line numbers to display however for ~lisp-interaction-mode~, which is the mode used in the ~*scratch*~ buffer (and, to my knowledge, only there). I set this conditionally so that it won't error out on versions lower than 26.1.
