@@ -79,6 +79,7 @@
 - [[#dired-mode-configurations][Dired Mode Configurations]]
   - [[#enable-dired-icon-mode][Enable dired icon mode.]]
     - [[#setting-to-make-the-image-size-of-the-dired-icon-icons-bigger][Setting to make the image size of the dired-icon icons bigger.]]
+  - [[#modify-evil-keybindings-for-dired-mode-map][Modify evil keybindings for dired-mode-map]]
   - [[#dired-listing][Dired listing]]
     - [[#listing-switches][Listing switches.]]
     - [[#sort-files-by-modified-date][Sort files by modified date.]]
@@ -752,6 +753,14 @@ This functionality, coming from the dired-icon package, shows icons from the cur
 #+begin_src emacs-lisp
 (setq dired-icon-image-size 32)
 #+end_src
+** Modify evil keybindings for dired-mode-map
+The default state for dired is evil normal. This mostly works as expected (e.g. j and k work as expected and the regular dired commands aren't altered), but the bindings to go to the first and last line (gg and G) didn't work. I found that I can solve this problem by using ~evil-define-key~ to define specific keys in specific states for specific modes (see [[https://github.com/noctuid/evil-guide#mode-specific-keybindings][here]]). I thus set up here gg and G to go to the first and last lines of the buffer, and because g was mapped to ~revert-buffer~, which I'd like to continue using, I remapped it to r. This setting of course shadows the default bindings of G and r, but I didn't need the actions they perform.
+#+begin_src emacs-lisp
+(evil-define-key 'normal dired-mode-map
+"G" 'evil-goto-line
+"gg" 'evil-goto-first-line
+"r" 'revert-buffer)
+#+end_src
 ** Dired listing
 *** Listing switches.
 Group directories first and make sizes human-readable.
@@ -1045,17 +1054,16 @@ Here is however a trick to disable it from everywhere but lisp-related modes (fr
 #+begin_src emacs-lisp
 (add-hook 'prog-mode-hook 'hs-minor-mode)
 #+end_src
-Keybindings. The ~<backtab>~ string means Shift+Tab. After enabling evil, the tab was taken over by some jump list command, which was inconvenient to say the least. Thankfully I found out that I can use ~evil-define-key~ to define specific keys in specific states for specific modes (see [[https://github.com/noctuid/evil-guide#mode-specific-keybindings][here]]).
-The help string for ~evil-define-key~ also specifies that:
+Keybindings. The ~<backtab>~ string means Shift+Tab. After enabling evil, the tab was taken over by some jump list command, which was inconvenient to say the least. I thus use here ~evil-define-key~ to overcome this problem (see above), since the help string for ~evil-define-key~ also specifies that:
 #+begin_example
 It is possible to specify multiple states and/or bindings at
 once:
 
-    (evil-define-key ’(normal visual) foo-map
-      "a" ’bar
-      "b" ’foo)
+    (evil-define-key '(normal visual) foo-map
+      "a" 'bar
+      "b" 'foo)
 #+end_example
-Finally note that sometimes the action of the tab key doesn't take effect immediately (see [[https://github.com/noctuid/evil-guide#why-dont-keys-defined-with-evil-define-key-work-immediately][here]]). However backtab and C-tab work fine from the get-go for some reason.
+Also note that sometimes the action of the tab key doesn't take effect immediately (see [[https://github.com/noctuid/evil-guide#why-dont-keys-defined-with-evil-define-key-work-immediately][here]]). However backtab and C-tab work fine from the get-go for some reason.
 #+begin_src emacs-lisp
 (evil-define-key '(normal emacs) prog-mode-map
   (kbd "TAB") 'hs-toggle-hiding
