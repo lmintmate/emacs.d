@@ -429,6 +429,10 @@ First off, set the initial state of ~free-keys-mode~ to emacs, as it doesn't wor
 #+begin_src emacs-lisp
 (evil-set-initial-state 'free-keys-mode 'emacs)
 #+end_src
+Set the initial state of ibuffer-mode to normal, so that I can use vim commands to navigate around the buffer. The other commands are kept the way they are.
+#+begin_src emacs-lisp
+(evil-set-initial-state 'ibuffer-mode 'normal)
+#+end_src
 Bind up and down arrows to move by visual lines: I often want to move by visual lines, for example in text documents where I write long lines (such as this very text), but binding ~j~ and ~k~ for that broke prefixing them with numbers, so I decided to bind the arrow keys, which aren't used with a prefix, if at all, anyways.
 #+begin_src emacs-lisp
 (define-key evil-normal-state-map (kbd "<up>") 'evil-previous-visual-line)
@@ -443,9 +447,13 @@ Create bindings to move to beginning and end of visual lines: Here I used the on
 (define-key evil-visual-state-map (kbd "Q") 'evil-beginning-of-visual-line)
 (define-key evil-visual-state-map (kbd "U") 'evil-end-of-visual-line)
 #+end_src
-Make the enter key in normal state act like enter in emacs state: Enter as a key in Vim is nigh useless, but I often want to open new lines without entering insert mode. Binding enter to the command used in emacs state did the trick.
+Make the enter key in normal state act like enter in emacs state: Enter as a key in Vim is nigh useless, but I often want to open new lines without entering insert mode. Binding enter to the command used in emacs state did the trick. However, I don't want this binding to apply in modes that have nothing to do with editing text. I found that I can solve this problem by using ~evil-define-key~ to define specific keys in specific states for specific modes (see [[https://github.com/noctuid/evil-guide#mode-specific-keybindings][here]]).
 #+begin_src emacs-lisp
-(define-key evil-normal-state-map (kbd "<return>") 'newline)
+(evil-define-key 'normal text-mode-map
+(kbd "<return>") 'newline)
+
+(evil-define-key 'normal prog-mode-map
+(kbd "<return>") 'newline)
 #+end_src
 Prevent ~x~ and ~X~ from copying to the clipboard: I bound these buttons to the commands used by delete and backspace in emacs state (though in the case of backspace, not exactly, as backspace also deletes indentation and I didn't want ~X~ to do that). Note that when prefixed by a number, they do copy to the clipboard, but that's to be expected.
 #+begin_src emacs-lisp
@@ -754,13 +762,12 @@ This functionality, coming from the dired-icon package, shows icons from the cur
 (setq dired-icon-image-size 32)
 #+end_src
 ** Modify evil keybindings for dired-mode-map
-The default state for dired is evil normal. This mostly works as expected (e.g. j and k work as expected and the regular dired commands aren't altered), but the bindings to go to the first and last line (gg and G) didn't work. I found that I can solve this problem by using ~evil-define-key~ to define specific keys in specific states for specific modes (see [[https://github.com/noctuid/evil-guide#mode-specific-keybindings][here]]). I thus set up here gg and G to go to the first and last lines of the buffer, and because g was mapped to ~revert-buffer~, which I'd like to continue using, I remapped it to r. This setting of course shadows the default bindings of G and r, but I didn't need the actions they perform. I also set up enter to open the file under point, as it does in emacs mode, because the default action was overridden by binding enter to newline in evil normal state above.
+The default state for dired is evil normal. This mostly works as expected (e.g. j and k work as expected and the regular dired commands aren't altered), but the bindings to go to the first and last line (gg and G) didn't work. I used ~evil-define-key~ (see above) to solve this problem. I thus set up here gg and G to go to the first and last lines of the buffer, and because g was mapped to ~revert-buffer~, which I'd like to continue using, I remapped it to r. This setting of course shadows the default bindings of G and r, but I didn't need the actions they perform.
 #+begin_src emacs-lisp
 (evil-define-key 'normal dired-mode-map
 "G" 'evil-goto-line
 "gg" 'evil-goto-first-line
-"r" 'revert-buffer
-(kbd "<return>") 'dired-find-file)
+"r" 'revert-buffer)
 #+end_src
 ** Dired listing
 *** Listing switches.
