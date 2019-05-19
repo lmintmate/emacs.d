@@ -398,13 +398,17 @@ Prevent opening new lines (via o,O) from auto-indenting. This is annoying and be
 (custom-set-variables
  '(evil-auto-indent nil))
 #+end_src
-Set evil-toggle-key: I set it to ~C-'~ because when I tried to set it to ~C-q~ (the Viper default) it didn't work for some reason, and I use ~C-z~ (the Evil default) for something else.
+Set evil-toggle-key: I set it to C-' because when I tried to set it to C-q (the Viper default) it didn't work for some reason, and I use C-z (the Evil default) for something else.
 #+begin_src emacs-lisp
 (setq evil-toggle-key "C-'")
 #+end_src
 Option so that the stuff replaced by pasting in visual mode won't be copied to the clipboard. Note that while this does work as intended, CopyQ erroneously shows the replaced text as having been copied to the clipboard.
 #+begin_src emacs-lisp
 (setq evil-kill-on-visual-paste nil)
+#+end_src
+Change undo behavior so that any changes made while in insert mode won't all be undone.
+#+begin_src emacs-lisp
+(setq evil-want-fine-undo t)
 #+end_src
 Set the mode line position of the evil state tag: The default position is somewhere in the middle of the modeline, but I put it in the beginning, as in [[https://github.com/itchyny/lightline.vim][lightline]] (see [[https://emacs.stackexchange.com/questions/19024/move-evil-tag-to-beginning-of-mode-line/19032#19032][here]]).
 #+begin_src emacs-lisp
