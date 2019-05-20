@@ -833,13 +833,19 @@ This one helps to switch quickly between different text formattings (bold, itali
 #+end_src
 ** Beautification settings
 *** Org bullets
-The stars used by the DejaVu Sans Mono font are rather plain, so when I noticed that the stars used by Hack (a DejaVu Sans Mono derivative that lacks many glyphs) were prettier, I got into my head the idea of beautifying org-mode. I first looked [[https://emacs.stackexchange.com/questions/38837/display-another-symbol-than-asterisks-in-org-headings][here]], but after I decided to use a different symbol for each headline, I thought I'd try something a little more tried and true. I thus use here [[https://github.com/emacsorphanage/org-bullets][org-bullets]], though I'm not sure how I feel about a such widely-used emacs package being in the emacs orphanage (poor little package...). Because I'm not the type to distinguish the level of the org headline by color or indentation, and used to use the number of stars to do so before, I decided to use some unicode symbols (found via ~counsel-unicode-char~) that would somehow denote this hierarchy. I settled on ~Negative Circled Latin Capital~ letters A, B and C, though the ~Negative Squared~ equivalents were also good candidates. Note that ~org-bullets~ might cause performance issues on some computers (thankfully it hasn't on mine). In case it has such a problem in another computer, [[https://github.com/sabof/org-bullets/issues/11#issuecomment-439228372][here]] is the solution.\\
+The stars used by the DejaVu Sans Mono font are rather plain, so when I noticed that the stars used by Hack (a DejaVu Sans Mono derivative that lacks many glyphs) were prettier, I got into my head the idea of beautifying org-mode. I first looked [[https://emacs.stackexchange.com/questions/38837/display-another-symbol-than-asterisks-in-org-headings][here]], but after I decided to use a different symbol for each headline, I thought I'd try something a little more tried and true. I thus use here [[https://github.com/emacsorphanage/org-bullets][org-bullets]], though I'm not sure how I feel about a such widely-used emacs package being in the emacs orphanage (poor little package...). Because I'm not the type to distinguish the level of the org headline by color or indentation, and used to use the number of stars to do so before, I decided to use some unicode symbols (found via ~counsel-unicode-char~) that would somehow denote this hierarchy.
+I settled on ~Negative Circled Latin Capital~ letters A, B and C, but because these symbols don't work under Windows, I use there the ~Inverse Circled Sans Serif~ digits one, two and three. Note that ~org-bullets~ causes performance issues on some computers, especially when under Windows. Since this problem appears in my Windows machine too, I use the fix from [[https://github.com/sabof/org-bullets/issues/11#issuecomment-439228372][here]].\\
 P.S. I would like an option to completely hide the leading stars, so that there won't be any sort of indentation on the headings. There was [[https://github.com/sabof/org-bullets/pull/13][a PR against the original repository that implemented this]], but this can't be applied on the emacsorphanage version, which is the one installed by MELPA, as that version made a number of changes that most likely make this change incompatible with the current state of the code, and I don't know enough emacs lisp to attempt to implement it again myself.
 #+begin_src emacs-lisp
 (require 'org-bullets)
 (add-hook 'org-mode-hook 'org-bullets-mode)
+(if (eq system-type 'windows-nt)
 (setq org-bullets-bullet-list
-      '("🅐" "🅑" "🅒"))
+      '("➊" "➋" "➌"))
+(setq org-bullets-bullet-list
+      '("🅐" "🅑" "🅒")))
+(when (eq system-type 'windows-nt)
+(setq inhibit-compacting-font-caches t))
 #+end_src
 *** Set org ellipsis symbol and color
 See [[http://endlessparentheses.com/changing-the-org-mode-ellipsis.html][Changing the org-mode ellipsis · Endless Parentheses]].
