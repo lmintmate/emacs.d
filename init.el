@@ -16,6 +16,7 @@ evil
 evil-goggles
 free-keys
 ivy-rich
+org-bullets
 rainbow-mode
 smex
 toc-org
