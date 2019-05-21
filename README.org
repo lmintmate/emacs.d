@@ -811,9 +811,10 @@ Group directories first and make sizes human-readable.
 (setq dired-dwim-target t)
 #+end_src
 * Emoji support
-Since for a while I've been adding emojis to my git commits, I wanted to be able to insert them somehow without having to remember their exact name. [[https://github.com/iqbalansari/emacs-emojify][The emojify package]] not only helps with that, but can also show unicode emojis inside emacs in their full glory (which also means that the git log from magit can now show the emoji icons and all...). Note that on the first installation, the package will download after asking an entire set of images that comprise the EmojiOne emojis, and will place them in a folder called ~emojis~ under the ~.emacs.d~ directory and this might take a couple minutes. This means however that it doesn't depend on icon fonts being installed, unlike other packages.
+Since for a while I've been adding emojis to my git commits, I wanted to be able to insert them somehow without having to remember their exact name. [[https://github.com/iqbalansari/emacs-emojify][The emojify package]] not only helps with that, but can also show unicode emojis inside emacs in their full glory (which also means that the git log from magit can now show the emoji icons and all...). Note that on the first installation, the package will download after asking an entire set of images that comprise the specified emoji set (EmojiOne by default), and will place them in a folder called ~emojis~ under the ~.emacs.d~ directory and this might take a couple minutes. This means however that it doesn't depend on icon fonts being installed, unlike other packages. Here thus I enable the emojify mode globally and use the twemoji set instead of the default EmojiOne, because I prefer the look of these ones (e.g. the flags are shown as rectangular, instead of having a circled form, and other symbols also have better appearance imo).
 #+begin_src emacs-lisp
 (add-hook 'after-init-hook #'global-emojify-mode)
+(setq emojify-emoji-set  "twemoji-v2-22")
 #+end_src
 *** TODO Maybe see whether I can add emojis to the mode line.
 I would love to see the greek input mode display the greek flag (unicode symbol: 🇬🇷, github string: :flag-gr:) instead of the ~el_GR~ string. This package indeed includes an experimental ~emojify-mode-line-mode~, so I'll have to investigate.
