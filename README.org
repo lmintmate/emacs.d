@@ -701,6 +701,12 @@ A quick way to access my most recently opened files (as I didn't want to have to
 (require 'recentf)
 (recentf-mode 1)
 #+end_src
+Don't add files from the elpa folder nor autoloads in the recentf list (adapted from [[https://www.reddit.com/r/emacs/comments/3g468d/stop_recent_files_showing_elpa_packages/ctv32rk?utm_source=share&utm_medium=web2x][here]]).
+#+begin_src emacs-lisp
+(setq recentf-exclude '(".*-autoloads\\.el\\'"
+                        "[/\\]\\elpa/"
+                        ))
+#+end_src
 * Settings for multiple buffer management
 I wanted to be able to change the layout of the buffers from horizontal to vertical, as well as be able to flip frames, so that left goes right, and up goes down. I used to use some custom functions found at [[http://whattheemacsd.com][What the .emacs.d!?]] ([[http://whattheemacsd.com/buffer-defuns.el-03.html][here]] and [[http://whattheemacsd.com/buffer-defuns.el-02.html][here]], specifically), but then found the package [[https://github.com/emacsorphanage/transpose-frame/blob/master/transpose-frame.el][transpose-frame]] (available at MELPA), and decided to use that instead, as to make the README.org file less lengthy.
 #+begin_src emacs-lisp
