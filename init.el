@@ -11,6 +11,7 @@ counsel
 diminish
 dired-icon
 drag-stuff
+emojify
 espy
 evil
 evil-goggles

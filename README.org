@@ -86,6 +86,8 @@
     - [[#sort-files-by-modified-date][Sort files by modified date.]]
     - [[#hide-the-details-on-dired-mode-for-a-cleaner-appearance][Hide the details on dired mode, for a cleaner appearance.]]
   - [[#dired-dwim-target][Dired dwim target]]
+- [[#emoji-support][Emoji support]]
+    - [[#maybe-see-whether-i-can-add-emojis-to-the-mode-line][Maybe see whether I can add emojis to the mode line.]]
 - [[#org-mode-configuration][Org Mode configuration]]
   - [[#hook-toc-org-to-org-mode][Hook toc-org to org-mode]]
   - [[#org-mouse][Org-mouse]]
@@ -158,6 +160,7 @@ counsel
 diminish
 dired-icon
 drag-stuff
+emojify
 espy
 evil
 evil-goggles
@@ -807,6 +810,13 @@ Group directories first and make sizes human-readable.
 #+begin_src emacs-lisp
 (setq dired-dwim-target t)
 #+end_src
+* Emoji support
+Since for a while I've been adding emojis to my git commits, I wanted to be able to insert them somehow without having to remember their exact name. [[https://github.com/iqbalansari/emacs-emojify][The emojify package]] not only helps with that, but can also show unicode emojis inside emacs in their full glory (which also means that the git log from magit can now show the emoji icons and all...). Note that on the first installation, the package will download after asking an entire set of images that comprise the EmojiOne emojis, and will place them in a folder called ~emojis~ under the ~.emacs.d~ directory and this might take a couple minutes. This means however that it doesn't depend on icon fonts being installed, unlike other packages.
+#+begin_src emacs-lisp
+(add-hook 'after-init-hook #'global-emojify-mode)
+#+end_src
+*** TODO Maybe see whether I can add emojis to the mode line.
+I would love to see the greek input mode display the greek flag (unicode symbol: 🇬🇷, github string: :flag-gr:) instead of the ~el_GR~ string. This package indeed includes an experimental ~emojify-mode-line-mode~, so I'll have to investigate.
 * Org Mode configuration
 The ~(require 'org)~ part is present in the init.el file instead of here, precisely in order to compile this very file.
 ** Hook toc-org to org-mode
