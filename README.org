@@ -273,18 +273,18 @@ I also modified the fringe color to the same background color as the rest of the
  '(font-lock-negation-char-face ((t (:foreground "tomato"))))
  '(font-lock-doc-face ((t (:foreground "cyan"))))
  '(highlight ((t (:background "#235c94"))))
- '(vc-edited-state ((t (:background "tomato1" :foreground "black")))))
+ '(vc-edited-state ((t (:background "tomato1" :foreground "black" :box (:line-width 2 :color "tomato1"))))))
 ;; setting so that hl-line-mode won't affect syntax coloring
 (set-face-foreground 'highlight nil)
 #+end_src
 ** Mode line customisation
-Where I give it a flat look.
+I give a flat look to the mode line, to make it look more modern. I also make it look thicker, by putting a box with line-width 2 and color same the foreground around it (trick borrowed from [[http://www.gonsie.com/blorg/modeline.html][Beautifying the Mode Line - Elsa Gonsiorowski]]). In order to keep that look uniform I also styled this way not only both active and inactive mode lines, but also the ~vc-edited-state~ and the various evil tags (see below).
 #+begin_src emacs-lisp
 (custom-set-faces
- '(mode-line ((t (:background "grey75" :foreground "black"))))
+ '(mode-line ((t (:background "grey75" :foreground "black" :box (:line-width 2 :color "grey75")))))
  '(mode-line-buffer-id ((t (:weight normal))))
  '(mode-line-highlight ((t (:box (:line-width 1 :color "grey20")))))
- '(mode-line-inactive ((t (:background "grey30" :foreground "grey80")))))
+ '(mode-line-inactive ((t (:background "grey30" :foreground "grey80" :box (:line-width 2 :color "grey30"))))))
 #+end_src
 ** Hide line between fringes
 Remove the strange white line between two fringes, which appears when the scrollbar is hidden (from [[https://ogbe.net/emacsconfig.html][Dennis Ogbe's Emacs configuration file]]).
@@ -423,13 +423,13 @@ Set the mode line position of the evil state tag: The default position is somewh
 #+end_src
 Propertize and color evil mode line state tag depending on the state: See [[https://github.com/Malabarba/smart-mode-line/issues/195#issuecomment-338447042][here]]. I changed the name of each state tag from the default ~<N>~, ~<I>~ e.t.c, to their full names (e.g. ~NORMAL~, ~INSERT~ e.t.c), as in lightline. For the colors, I chose shades of purple for Emacs and Motion states (since that's Emacs's logo color), and drew the rest of the colors from [[https://github.com/lmintmate/blue-mood-vim#lightline-theme][my blue-mood lightline theme]].
 #+begin_src emacs-lisp
-    (setq evil-normal-state-tag   (propertize " NORMAL " 'face '((:background "#4f94cd" :foreground "black")))
-          evil-emacs-state-tag    (propertize " EMACS " 'face '((:background "MediumPurple2"       :foreground "black")))
-          evil-insert-state-tag   (propertize " INSERT " 'face '((:background "#7fff00"    :foreground "black")))
-          evil-replace-state-tag  (propertize " REPLACE " 'face '((:background "#ff6347"      :foreground "black")))
-          evil-motion-state-tag   (propertize " MOTION " 'face '((:background "plum3"          :foreground "black")))
-          evil-visual-state-tag   (propertize " VISUAL " 'face '((:background "#ffd700"           :foreground "black")))
-          evil-operator-state-tag (propertize " OPERATOR " 'face '((:background "yellow"    :foreground "red"))))
+    (setq evil-normal-state-tag   (propertize " NORMAL " 'face '((:background "#4f94cd" :foreground "black" :box (:line-width 2 :color "#4f94cd"))))
+          evil-emacs-state-tag    (propertize " EMACS " 'face '((:background "MediumPurple2"       :foreground "black" :box (:line-width 2 :color "MediumPurple2"))))
+          evil-insert-state-tag   (propertize " INSERT " 'face '((:background "#7fff00"    :foreground "black" :box (:line-width 2 :color "#7fff00"))))
+          evil-replace-state-tag  (propertize " REPLACE " 'face '((:background "#ff6347"      :foreground "black" :box (:line-width 2 :color "#ff6347"))))
+          evil-motion-state-tag   (propertize " MOTION " 'face '((:background "plum3"          :foreground "black" :box (:line-width 2 :color "plum3"))))
+          evil-visual-state-tag   (propertize " VISUAL " 'face '((:background "#ffd700"           :foreground "black" :box (:line-width 2 :color "#ffd700"))))
+          evil-operator-state-tag (propertize " OPERATOR " 'face '((:background "yellow"    :foreground "red" :box (:line-width 2 :color "yellow")))))
 #+end_src
 *** Load evil
 #+begin_src emacs-lisp
