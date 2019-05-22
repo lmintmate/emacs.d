@@ -32,11 +32,11 @@
   - [[#inhibit-startup-screen][Inhibit startup screen]]
   - [[#scratch-buffer-message][Scratch buffer message]]
   - [[#new-message-for-the-startup-echo-area][New message for the startup echo area]]
-- [[#nationality-parameters][Nationality parameters]]
+- [[#-nationality-parameters][🇬🇷 Nationality parameters]]
   - [[#setting-the-calendar-up-in-greek][Setting the calendar up in Greek.]]
   - [[#set-input-method-to-greek][Set input method to greek]]
   - [[#redirect-commands-with-greek-letters-to-the-correct-commands][Redirect commands with Greek letters to the correct commands]]
-- [[#evil][Evil]]
+- [[#-evil][😈 Evil]]
   - [[#configuring-evil-itself][Configuring evil itself]]
     - [[#preliminaries-before-loading-evil][Preliminaries before loading evil]]
     - [[#load-evil][Load evil]]
@@ -86,7 +86,7 @@
     - [[#sort-files-by-modified-date][Sort files by modified date.]]
     - [[#hide-the-details-on-dired-mode-for-a-cleaner-appearance][Hide the details on dired mode, for a cleaner appearance.]]
   - [[#dired-dwim-target][Dired dwim target]]
-- [[#emoji-support][Emoji support]]
+- [[#-emoji-support][😄 Emoji support]]
     - [[#maybe-see-whether-i-can-add-emojis-to-the-mode-line][Maybe see whether I can add emojis to the mode line.]]
 - [[#org-mode-configuration][Org Mode configuration]]
   - [[#hook-toc-org-to-org-mode][Hook toc-org to org-mode]]
@@ -346,7 +346,7 @@ I decided not to change the scratch buffer’s major mode however, because, as w
 (defun display-startup-echo-area-message ()
   (message "Καλωσήλθες!"))
 #+end_src
-* Nationality parameters
+* 🇬🇷 Nationality parameters
 ** Setting the calendar up in Greek.
 See also [[https://www.emacswiki.org/emacs/CalendarLocalization][EmacsWiki: Calendar Localization]].
 #+begin_src emacs-lisp
@@ -391,7 +391,7 @@ Sometimes I forget to switch the keyboard language from Greek to English (especi
 
 (reverse-input-method 'el_GR)
 #+end_src
-* Evil
+* 😈 Evil
 This is basically an admission of defeat. Specifically, the point of learning to use emacs is imo to also use the builtin keybindings, but I only managed to learn some of them that are however for tasks other than editing text. In regards to editing text, I only learnt a couple commands (mainly cut, copy and paste), but wasn't able to retain anything more advanced. On the other hand, I was able to retain a lot more vim commands, firstly most probably because vim, due to its modal nature, is less forgiving to people that haven't learnt the commands properly, and secondly because vim's commands are also shorter and thus easier to remember. I thus decided to use a vim emulation method for text editing on emacs. I first tried to use [[https://www.emacswiki.org/emacs/ViperMode][Viper]], since its built into emacs, but that one not only lacked features I'm used to from regular Vim, such as Visual Mode, since it's emulating Vi instead, but also was more difficult to configure, as in I couldn't find snippets of code online to help me out because nobody uses Viper anymore. So Evil it is. Here, I am configuring Evil for my own needs: I care mainly about it working properly when editing text and don't want to have evil-type keybindings available everywhere, since I don't otherwise have a problem with emacs chords (as long as I can remember them).
 ** Configuring evil itself
 *** Preliminaries before loading evil
@@ -810,7 +810,7 @@ Group directories first and make sizes human-readable.
 #+begin_src emacs-lisp
 (setq dired-dwim-target t)
 #+end_src
-* Emoji support
+* 😄 Emoji support
 Since for a while I've been adding emojis to my git commits, I wanted to be able to insert them somehow without having to remember their exact name. [[https://github.com/iqbalansari/emacs-emojify][The emojify package]] not only helps with that, but can also show unicode emojis inside emacs in their full glory (which also means that the git log from magit can now show the emoji icons and all...). Note that on the first installation, the package will download after asking an entire set of images that comprise the specified emoji set (EmojiOne by default), and will place them in a folder called ~emojis~ under the ~.emacs.d~ directory and this might take a couple minutes. This means however that it doesn't depend on icon fonts being installed, unlike other packages. Here thus I enable the emojify mode globally and use the twemoji set instead of the default EmojiOne, because I prefer the look of these ones (e.g. the flags are shown as rectangular, instead of having a circled form, and other symbols also have better appearance imo).
 #+begin_src emacs-lisp
 (add-hook 'after-init-hook #'global-emojify-mode)
