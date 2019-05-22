@@ -87,7 +87,7 @@
     - [[#hide-the-details-on-dired-mode-for-a-cleaner-appearance][Hide the details on dired mode, for a cleaner appearance.]]
   - [[#dired-dwim-target][Dired dwim target]]
 - [[#-emoji-support][😄 Emoji support]]
-    - [[#maybe-see-whether-i-can-add-emojis-to-the-mode-line][Maybe see whether I can add emojis to the mode line.]]
+    - [[#-currently-todo-maybe-see-whether-i-can-add-emojis-to-the-mode-line][⏳ CURRENTLY todo: Maybe see whether I can add emojis to the mode line.]]
 - [[#org-mode-configuration][Org Mode configuration]]
   - [[#hook-toc-org-to-org-mode][Hook toc-org to org-mode]]
   - [[#org-mouse][Org-mouse]]
@@ -816,8 +816,18 @@ Since for a while I've been adding emojis to my git commits, I wanted to be able
 (add-hook 'after-init-hook #'global-emojify-mode)
 (setq emojify-emoji-set  "twemoji-v2-22")
 #+end_src
-*** TODO Maybe see whether I can add emojis to the mode line.
-I would love to see the greek input mode display the greek flag (unicode symbol: 🇬🇷, github string: :flag-gr:) instead of the ~el_GR~ string. This package indeed includes an experimental ~emojify-mode-line-mode~, so I'll have to investigate.
+*** ⏳ CURRENTLY todo: Maybe see whether I can add emojis to the mode line.
+I would love to see the greek input mode display the greek flag (unicode symbol: 🇬🇷, github string: :flag-gr:) instead of the ~el_GR~ string. This package indeed includes an experimental ~emojify-mode-line-mode~, so I'll have to investigate.\\
+Update: The mode line can render emojis just fine when ~emojify-mode-line-mode~ is activated. The key to this is the function ~emojify-string~ which renders a given unicode emoji as an emoji instead of its unicode symbol (which was going to look like a tofu block most of the time). Note that, for some reason, ~emojify-string~ must be written with the dash in all other contexts e.g.
+#+begin_example
+(message (emojify-string "😈 Welcome master!"))
+#+end_example
+but when part of a mode line construct, it must be written without the dash in order to work, like so:
+#+begin_example
+(setq mode-line-format
+      '((:eval (format-mode-line '("%e" mode-line-front-space (emojify string " 🇬🇷 ") " " mode-line-mule-info mode-line-buffer-identification mode-line-modified " " mode-line-position mode-line-modes mode-line-end-spaces)))))
+#+end_example
+What complicates what I want to do is that the ~mode-line-mule-info~ property of the mode line shows both the input method when enabled and the encoding and line endings (which can otherwise be rendered with ~%z~ (just encoding) or ~%Z~ (also line ending)), which means that if I want to replace just the input method string, I would have to isolate it from the other functions and I have no idea how I would do that...
 * Org Mode configuration
 The ~(require 'org)~ part is present in the init.el file instead of here, precisely in order to compile this very file.
 ** Hook toc-org to org-mode
