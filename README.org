@@ -1,3 +1,4 @@
+#+property: header-args :tangle init.el
 #+title: My literate Emacs configuration
 # Theme for html exporting from [[https://github.com/fniessen/org-html-themes][GitHub - fniessen/org-html-themes]]
 
@@ -8,14 +9,13 @@
 * Table of Contents                                                     :TOC_3:
 - [[#introduction][Introduction]]
   - [[#notes-on-the-evolution-of-my-emacs-initialisation][Notes on the evolution of my emacs initialisation]]
+  - [[#on-tangling-initel-from-the-org-file][On tangling init.el from the org file]]
 - [[#main-configuration][Main configuration]]
-- [[#what-precedes-this-file-the-contents-of-initel][What precedes this file: the contents of init.el]]
+- [[#preliminaries-package-management-settings][Preliminaries: package management settings]]
   - [[#add-melpa-and-org-repositories][Add MELPA and org repositories]]
   - [[#auto-install-packages][Auto-install packages]]
   - [[#force-packageel-to-install-the-latest-version-of-org-mode][Force package.el to install the latest version of org-mode]]
-  - [[#ensure-utf-8][Ensure utf-8]]
-  - [[#require-org][Require Org]]
-  - [[#where-the-magic-happens][Where the magic happens]]
+- [[#ensure-utf-8][Ensure utf-8]]
 - [[#setting-the-default-frame-parameters-on-windows][Setting the default frame parameters on Windows]]
 - [[#disabling-the-tool-bar][Disabling the tool bar]]
 - [[#setting-the-font][Setting the font]]
@@ -134,17 +134,24 @@
 - [[#diminish-mode-and-dim][Diminish mode and Dim]]
 - [[#ediff][Ediff]]
   - [[#operate-ediff-through-dired][Operate ediff through dired]]
+- [[#tangle-the-org-file-on-save][Tangle the org file on save]]
 
 * Introduction
 Here begins my literate emacs configuration. I tended to comment my init file a whole lot, so I figured I preferred a better interface for the comments.
 ** Notes on the evolution of my emacs initialisation
-I first started off with the .emacs file in my home directory. I had to look for it though amongst all the other hidden files in that directory. So, especially after I found out I could version-control my emacs dotfiles, I switched to .emacs.d/init.el. so that I could have my config in one place. That setup still wasn’t satisfactory enough though. So when I found out I could have my config in an org file, which would allow my comments to truly stand out, I was intrigued and wanted to accomplish that. I initially thought however it'd be too hard to do (I do think that a lot when trying new ways of doing things…). I took the plunge however, and it turned out to be way easier than I thought. So I now keep most my config in this here file, and use init.el only for the preliminary configs that need to be loaded before this file.
-* Main configuration
-* What precedes this file: the contents of init.el
-In order for this literate configuration to be complete, I need to quote first the code snippets I use in the init.el file, as to show how this magic happens in the first place.
-** Add MELPA and org repositories
-First I add the MELPA and org repositories. I do this in init.el and not here as I use the version of Org from its own repo, which I need in order to load this very file. The code I use for this is taken from [[https://melpa.org/#/getting-started][MELPA's Getting Started section]] and it accounts for the incompatibility of Windows with Emacs's https support system, GnuTLS, by using http on Windows if GnuTLS isn't available. [[http://www.lonecpluspluscoder.com/2015/08/01/adding-tls-support-to-emacs-24-5-on-windows/][This article]] might be helpful in case I absolutely have to install GnuTLS on Windows.
+I first started off with the .emacs file in my home directory. I had to look for it though amongst all the other hidden files in that directory. So, especially after I found out I could version-control my emacs dotfiles, I switched to .emacs.d/init.el. so that I could have my config in one place. That setup still wasn’t satisfactory enough though. So when I found out I could have my config in an org file, which would allow my comments to truly stand out, I was intrigued and wanted to accomplish that. I initially thought however it'd be too hard to do (I do think that a lot when trying new ways of doing things…). I took the plunge however, and it turned out to be way easier than I thought. For a while I kept most of my config in README.org and used init.el only for the preliminary configs that needed to be loaded before loading README.org with ~org-babel-load-file~. If I wanted however to change a preliminary setting, I had to remember to do this on both files and when I changed README.org, emacs took a little longer to load because it tangled README.el. I thus ended up deciding to put everything in README.org and tangle init.el from it.
+** On tangling init.el from the org file
+I tangle the init.el file by writing on the top of the README.org file the following:
 #+begin_example
+#+property: header-args :tangle init.el
+#+end_example
+Note that when changing the property headings, we need to use C-c C-c with the cursor on it to refresh its setting (see [[https://emacs.stackexchange.com/a/19363][here]]).\\
+This configures that the file will be tangled to a file called init.el. This can be triggered manually with ~C-c C-v t~, but can also be done automatically upon saving (see [[https://www.reddit.com/r/emacs/comments/bex2ko/pure_emacs_lisp_init_skeleton/el99cse/?utm_source=share&utm_medium=web2x][here]] and [[https://www.reddit.com/r/emacs/comments/372nxd/how_to_move_init_to_orgbabel/crjicdv/?utm_source=share&utm_medium=web2x][here]]). This uses file local variables set at the end of the org file and said variables need to be declared as safe so that emacs won't warn about them being unsafe (see [[https://www.reddit.com/r/emacs/comments/5d4hqq/using_babel_to_put_your_init_file_in_org/da1vmvb?utm_source=share&utm_medium=web2x][here]]) - the implementation of this can thus be found at the end of this file.
+* Main configuration
+* Preliminaries: package management settings
+** Add MELPA and org repositories
+First I add the MELPA and org repositories. The code I use for this is taken from [[https://melpa.org/#/getting-started][MELPA's Getting Started section]] and it accounts for the incompatibility of Windows with Emacs's https support system, GnuTLS, by using http on Windows if GnuTLS isn't available. [[http://www.lonecpluspluscoder.com/2015/08/01/adding-tls-support-to-emacs-24-5-on-windows/][This article]] might be helpful in case I absolutely have to install GnuTLS on Windows.
+#+begin_src emacs-lisp
 (require 'package)
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
                     (not (gnutls-available-p))))
@@ -152,11 +159,11 @@ First I add the MELPA and org repositories. I do this in init.el and not here as
   (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
   (add-to-list 'package-archives (cons "org" (concat proto "://orgmode.org/elpa/")) t))
 (package-initialize)
-#+end_example
+#+end_src
 ** Auto-install packages
 From [[http://aaronbedra.com/emacs.d/#default-packages][Aaron Bedra's Emacs 24 Configuration]].\\
 The first part of the code defines the packages to be installed ; from this list are absent the packages installed manually, present in the lisp folder. The second part of the code does the following: when Emacs boots, it checks to make sure all of the packages defined in lmintmate/packages are installed. If not, it has the package manager take care of it.\\
-#+begin_example
+#+begin_src emacs-lisp
 (defvar lmintmate/packages '(color-theme-modern
 counsel
 diminish
@@ -211,32 +218,22 @@ web-search)
 (unless (version< emacs-version "25")
 (unless (package-installed-p 'evil-fringe-mark)
   (package-install 'evil-fringe-mark)))
-#+end_example
+#+end_src
 ** Force package.el to install the latest version of org-mode
 Because org-mode is already builtin, it doesn't get reinstalled automatically from the org-mode repository, as it should. Thus, if I want the latest org-mode version, I would normally have to install it manually from ~package-list-packages~, and only then it would overtake the builtin version (see also [[https://emacs.stackexchange.com/questions/31825/cant-install-org-through-package-manager#comment64743_31837][here]]). However trying to start emacs without the latest version of org-mode installed causes emacs to error out saying that org-tempo wasn't detected, because I require that later in the config and it apparently wasn't included in the built in emacs version. I thus found [[https://github.com/jwiegley/use-package/issues/319#issuecomment-363981027][here]] a solution that looks for the latest version of org with a regex and, if it doesn't find it, proceeds to install it from the org repository.
-#+begin_example
+#+begin_src emacs-lisp
 ;; enforce installing the latest version of org mode
 (unless (file-expand-wildcards (concat package-user-dir "/org-[0-9]*"))
   (package-install (elt (cdr (assoc 'org package-archive-contents)) 0)))
-#+end_example
-** Ensure utf-8
+#+end_src
+* Ensure utf-8
 Needed for Windows
-#+begin_example
+#+begin_src emacs-lisp
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
-#+end_example
-** Require Org
-#+begin_example
-(require 'org)
-#+end_example
-** Where the magic happens
-#+begin_example
-(org-babel-load-file (concat user-emacs-directory "README.org"))
-#+end_example
-This snippet is the one that does the heavy work. It tracks down all the parts that say ~#+begin_src emacs-lisp~ and evaluates them as emacs lisp code, creating a separate README.el in the process, as to reduce load time for the next run. Every time the org file is modified, the .el file is created anew.\\
-And now these are taken care of, let's proceed to the configuration present in this very file.
+#+end_src
 * Setting the default frame parameters on Windows
 On Linux, Emacs places its frame just fine, but on Windows it places it on the left side and in such a manner that the mode line was hidden below the Windows toolbar, which meant I had to manually resize the frame every single time (needless to say, this got old very quickly). Here is thus some config to place the default frame near the center of the screen and above the Windows toolbar.
 #+begin_src emacs-lisp
@@ -845,7 +842,10 @@ Afterwards, things are mostly left the same, with the exception that I removed t
  " " "L%l" " " (vc-mode vc-mode) " " mode-line-modes mode-line-misc-info mode-line-end-spaces)))))
 #+end_src
 * Org Mode configuration
-The ~(require 'org)~ part is present in the init.el file instead of here, precisely in order to compile this very file.
+First off, require org.
+#+begin_src emacs-lisp
+(require 'org)
+#+end_src
 ** Hook toc-org to org-mode
 [[https://github.com/snosov1/toc-org][toc-org]] is a package that creates Table of Contents for org-mode files without exporting, which can thus give the rendered in github/lab README.org a table of contents, convenient for those who might want to browse said files. Here I add a snippet given in said repo to hook it to org-mode.
 #+begin_src emacs-lisp
@@ -1213,3 +1213,14 @@ The keybinding
 #+begin_src emacs-lisp
 (define-key dired-mode-map "e" 'ora-ediff-files)
 #+end_src
+* Tangle the org file on save
+The local variables set here are invisible when weaving. I also set these variables here as safe, so that emacs won't warn me every time.
+#+begin_src emacs-lisp
+(add-to-list 'safe-local-variable-values
+             '(eval add-hook 'after-save-hook
+	                (lambda () (org-babel-tangle))
+	                nil t))
+#+end_src
+# Local Variables:
+# eval: (add-hook 'after-save-hook (lambda ()(org-babel-tangle)) nil t)
+# End:
