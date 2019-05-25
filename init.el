@@ -15,6 +15,7 @@ emojify
 espy
 evil
 evil-goggles
+evil-snipe
 free-keys
 ivy-rich
 org-bullets
@@ -232,6 +233,13 @@ web-search)
 
 (custom-set-faces
  '(evil-fringe-mark-local-face ((t (:inherit font-lock-function-name-face)))))
+
+(require 'evil-snipe)
+(evil-snipe-mode 1)
+(evil-snipe-override-mode 1)
+
+(evil-define-key '(normal motion) evil-snipe-local-mode-map
+  "S" nil)
 
 (setq ring-bell-function 'ignore)
 
@@ -581,6 +589,10 @@ web-search)
 (diminish 'eldoc-mode)
 (diminish 'evil-goggles-mode)
 (diminish 'global-evil-fringe-mark-mode)
+(diminish 'evil-snipe-mode)
+(diminish 'evil-snipe-local-mode)
+(diminish 'evil-snipe-override-mode)
+(diminish 'evil-snipe-override-local-mode)
 
 (setq ediff-split-window-function (quote split-window-horizontally))
 

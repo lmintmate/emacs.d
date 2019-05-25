@@ -44,6 +44,7 @@
   - [[#enable-and-configure-evil-packages][Enable and configure evil packages]]
     - [[#evil-goggles][Evil goggles]]
     - [[#evil-fringe-mark][evil-fringe-mark]]
+    - [[#evil-snipe][evil-snipe]]
 - [[#misc-configuration-parameters][Misc configuration parameters]]
   - [[#the-bell][The Bell]]
   - [[#separate-custom-file][Separate custom file]]
@@ -173,6 +174,7 @@ emojify
 espy
 evil
 evil-goggles
+evil-snipe
 free-keys
 ivy-rich
 org-bullets
@@ -507,6 +509,18 @@ Face for buffer-local fringe marks: Make it chartreuse green, different from the
 #+begin_src emacs-lisp
 (custom-set-faces
  '(evil-fringe-mark-local-face ((t (:inherit font-lock-function-name-face)))))
+#+end_src
+*** evil-snipe
+[[https://github.com/hlissner/evil-snipe][This package]] provides 2-character based motions bound by default to s and S and also provides highlight for the 1-character motions f,F,t,T. I enable here both the regular ~evil-snipe-mode~, which enables the s and S motions because using 2-characters does indeed seem more accurate than using 1, and also the ~evil-snipe-override-mode~ which adds highlighting to the f,F,t,T motions.
+#+begin_src emacs-lisp
+(require 'evil-snipe)
+(evil-snipe-mode 1)
+(evil-snipe-override-mode 1)
+#+end_src
+I don't however want to override the default action of the S key, because, while the s key isn't much quicker than just using ~i~ or ~a~ and delete or backspace, the ~S~ key substitutes a whole line, which is useful if I've written 4-5 words in a new line and want to rewrite e.g. the start of a sentence. Thus here I disable the ~S~ motion of evil-snipe because all it does is using the 2-char motion but from the end of the line, and I find the default action of ~S~ (that is, substituting a line) more useful.
+#+begin_src emacs-lisp
+(evil-define-key '(normal motion) evil-snipe-local-mode-map
+  "S" nil)
 #+end_src
 * Misc configuration parameters
 ** The Bell
@@ -1166,6 +1180,10 @@ Diminish mode: this cuts off the display of minor modes which I want to work [[h
 (diminish 'eldoc-mode)
 (diminish 'evil-goggles-mode)
 (diminish 'global-evil-fringe-mark-mode)
+(diminish 'evil-snipe-mode)
+(diminish 'evil-snipe-local-mode)
+(diminish 'evil-snipe-override-mode)
+(diminish 'evil-snipe-override-local-mode)
 #+end_src
 * Ediff
 I'm trying to move myself to emacs as much as possible, so I now decided to replace the functionality of [[http://meldmerge.org/][Meld]].\\
