@@ -131,7 +131,7 @@
   - [[#enable-show-paren-mode][Enable show-paren-mode]]
   - [[#enable-electric-pair-mode][Enable electric-pair-mode]]
 - [[#hideshow-mode][HideShow mode]]
-- [[#diminish-mode-and-dim][Diminish mode and Dim]]
+- [[#diminish-mode][Diminish mode]]
 - [[#ediff][Ediff]]
   - [[#operate-ediff-through-dired][Operate ediff through dired]]
 - [[#tangle-the-org-file-on-save][Tangle the org file on save]]
@@ -210,10 +210,6 @@ web-search)
 (unless (version< emacs-version "24.4")
 (unless (package-installed-p 'markdown-mode)
   (package-install 'markdown-mode)))
-
-(unless (version< emacs-version "24.4")
-(unless (package-installed-p 'dim)
-  (package-install 'dim)))
 
 (unless (version< emacs-version "25")
 (unless (package-installed-p 'evil-fringe-mark)
@@ -1159,8 +1155,8 @@ Also note that sometimes the action of the tab key doesn't take effect immediate
   (kbd "<backtab>") 'hs-hide-all
   (kbd "<C-tab>") 'hs-show-all)
 #+end_src
-* Diminish mode and Dim
-Diminish mode that cuts off the display of minor modes which I want to work [[https://github.com/myrjola/diminish.el#introduction][discreetly, like janitors]]. Without any arguments, they are hidden entirely from the modeline, otherwise they are simply abbreviated to the specified abbreviation.
+* Diminish mode
+Diminish mode: this cuts off the display of minor modes which I want to work [[https://github.com/myrjola/diminish.el#introduction][discreetly, like janitors]]. Without any arguments, they are hidden entirely from the modeline, otherwise they are simply abbreviated to the specified abbreviation.
 #+begin_src emacs-lisp
 (require 'diminish)
 (diminish 'visual-line-mode)
@@ -1170,14 +1166,6 @@ Diminish mode that cuts off the display of minor modes which I want to work [[ht
 (diminish 'eldoc-mode)
 (diminish 'evil-goggles-mode)
 (diminish 'global-evil-fringe-mark-mode)
-#+end_src
-[[https://github.com/alezost/dim.el][Dim]]. This is similar to diminish, but can also shorten the display of major modes. The problem with it though is that it crams all the abbreviations, regardless of length, next to the name of the unabbreviated mode (while diminish only does so with single character abbreviations), which is why I'm using it in addition to diminish, even through their functionality overlaps.\\
-And the reason I decided to try it in the first place is because I find the name of lisp-interaction-mode way too long…
-#+begin_src emacs-lisp
-(when (package-installed-p 'dim)
-(dim-major-name 'lisp-interaction-mode "LiN"))
-(when (and (package-installed-p 'dim) (package-installed-p 'markdown-mode))
-(dim-major-name 'markdown-mode "Md"))
 #+end_src
 * Ediff
 I'm trying to move myself to emacs as much as possible, so I now decided to replace the functionality of [[http://meldmerge.org/][Meld]].\\

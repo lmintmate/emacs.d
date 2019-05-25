@@ -53,10 +53,6 @@ web-search)
 (unless (package-installed-p 'markdown-mode)
   (package-install 'markdown-mode)))
 
-(unless (version< emacs-version "24.4")
-(unless (package-installed-p 'dim)
-  (package-install 'dim)))
-
 (unless (version< emacs-version "25")
 (unless (package-installed-p 'evil-fringe-mark)
   (package-install 'evil-fringe-mark)))
@@ -585,11 +581,6 @@ web-search)
 (diminish 'eldoc-mode)
 (diminish 'evil-goggles-mode)
 (diminish 'global-evil-fringe-mark-mode)
-
-(when (package-installed-p 'dim)
-(dim-major-name 'lisp-interaction-mode "LiN"))
-(when (and (package-installed-p 'dim) (package-installed-p 'markdown-mode))
-(dim-major-name 'markdown-mode "Md"))
 
 (setq ediff-split-window-function (quote split-window-horizontally))
 
