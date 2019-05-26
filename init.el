@@ -8,7 +8,6 @@
 
 (defvar lmintmate/packages '(color-theme-modern
 counsel
-diminish
 dired-icon
 drag-stuff
 emojify
@@ -57,6 +56,10 @@ web-search)
 (unless (version< emacs-version "25")
 (unless (package-installed-p 'evil-fringe-mark)
   (package-install 'evil-fringe-mark)))
+
+(unless (version< emacs-version "25.2")
+(unless (package-installed-p 'minions)
+  (package-install 'minions)))
 
 ;; enforce installing the latest version of org mode
 (unless (file-expand-wildcards (concat package-user-dir "/org-[0-9]*"))
@@ -581,18 +584,8 @@ web-search)
   (kbd "<backtab>") 'hs-hide-all
   (kbd "<C-tab>") 'hs-show-all)
 
-(require 'diminish)
-(diminish 'visual-line-mode)
-(diminish 'undo-tree-mode)
-(diminish 'drag-stuff-mode)
-(diminish 'ivy-mode)
-(diminish 'eldoc-mode)
-(diminish 'evil-goggles-mode)
-(diminish 'global-evil-fringe-mark-mode)
-(diminish 'evil-snipe-mode)
-(diminish 'evil-snipe-local-mode)
-(diminish 'evil-snipe-override-mode)
-(diminish 'evil-snipe-override-local-mode)
+(minions-mode 1)
+(setq minions-mode-line-lighter "≡")
 
 (setq ediff-split-window-function (quote split-window-horizontally))
 

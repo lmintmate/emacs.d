@@ -132,7 +132,7 @@
   - [[#enable-show-paren-mode][Enable show-paren-mode]]
   - [[#enable-electric-pair-mode][Enable electric-pair-mode]]
 - [[#hideshow-mode][HideShow mode]]
-- [[#diminish-mode][Diminish mode]]
+- [[#hide-minor-mode-indicators-from-mode-line][Hide minor mode indicators from mode line]]
 - [[#ediff][Ediff]]
   - [[#operate-ediff-through-dired][Operate ediff through dired]]
 - [[#tangle-the-org-file-on-save][Tangle the org file on save]]
@@ -167,7 +167,6 @@ The first part of the code defines the packages to be installed ; from this list
 #+begin_src emacs-lisp
 (defvar lmintmate/packages '(color-theme-modern
 counsel
-diminish
 dired-icon
 drag-stuff
 emojify
@@ -216,6 +215,10 @@ web-search)
 (unless (version< emacs-version "25")
 (unless (package-installed-p 'evil-fringe-mark)
   (package-install 'evil-fringe-mark)))
+
+(unless (version< emacs-version "25.2")
+(unless (package-installed-p 'minions)
+  (package-install 'minions)))
 #+end_src
 ** Force package.el to install the latest version of org-mode
 Because org-mode is already builtin, it doesn't get reinstalled automatically from the org-mode repository, as it should. Thus, if I want the latest org-mode version, I would normally have to install it manually from ~package-list-packages~, and only then it would overtake the builtin version (see also [[https://emacs.stackexchange.com/questions/31825/cant-install-org-through-package-manager#comment64743_31837][here]]). However trying to start emacs without the latest version of org-mode installed causes emacs to error out saying that org-tempo wasn't detected, because I require that later in the config and it apparently wasn't included in the built in emacs version. I thus found [[https://github.com/jwiegley/use-package/issues/319#issuecomment-363981027][here]] a solution that looks for the latest version of org with a regex and, if it doesn't find it, proceeds to install it from the org repository.
@@ -1169,21 +1172,11 @@ Also note that sometimes the action of the tab key doesn't take effect immediate
   (kbd "<backtab>") 'hs-hide-all
   (kbd "<C-tab>") 'hs-show-all)
 #+end_src
-* Diminish mode
-Diminish mode: this cuts off the display of minor modes which I want to work [[https://github.com/myrjola/diminish.el#introduction][discreetly, like janitors]]. Without any arguments, they are hidden entirely from the modeline, otherwise they are simply abbreviated to the specified abbreviation.
+* Hide minor mode indicators from mode line
+To hide the various minor modes from the mode line, I was initially using [[https://github.com/myrjola/diminish.el][diminish]], but after a while I felt like hiding all minor modes, since I was adding more and more modes for diminish to hide. So I looked into alternatives. I knew first about [[https://github.com/Malabarba/rich-minority][rich-minority]], but it looked kinda complicated to configure, what with it using regexes and all. I ended up thus using [[https://github.com/tarsius/minions][minions]], which hides all minor modes, using a whitelist to show any, but also gives access to them with a menu hidden behind a symbol. I replaced the default symbol ~;-~ with the ~identical to~ (~≡~) math symbol because the default one doesn't feel like a menu symbol to me.
 #+begin_src emacs-lisp
-(require 'diminish)
-(diminish 'visual-line-mode)
-(diminish 'undo-tree-mode)
-(diminish 'drag-stuff-mode)
-(diminish 'ivy-mode)
-(diminish 'eldoc-mode)
-(diminish 'evil-goggles-mode)
-(diminish 'global-evil-fringe-mark-mode)
-(diminish 'evil-snipe-mode)
-(diminish 'evil-snipe-local-mode)
-(diminish 'evil-snipe-override-mode)
-(diminish 'evil-snipe-override-local-mode)
+(minions-mode 1)
+(setq minions-mode-line-lighter "≡")
 #+end_src
 * Ediff
 I'm trying to move myself to emacs as much as possible, so I now decided to replace the functionality of [[http://meldmerge.org/][Meld]].\\
