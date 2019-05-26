@@ -193,9 +193,9 @@ web-search)
   (dolist (pkg lmintmate/packages)
     (unless (package-installed-p pkg)
       (package-install pkg)))
-
-;; Conditionals for installing of certain packages (idea from https://github.com/pgdouyon/dotfiles/blob/master/emacs)
-
+#+end_src
+Conditionals for installation of certain packages (idea from [[https://github.com/pgdouyon/dotfiles/blob/master/emacs][here]]).
+#+begin_src emacs-lisp
 ;; Packages for use only on my Linux system
 
 (when (eq system-type 'gnu/linux)
@@ -287,7 +287,7 @@ I give a flat look to the mode line, to make it look more modern. I also make it
  '(mode-line-inactive ((t (:background "grey30" :foreground "grey80" :box (:line-width 2 :color "grey30"))))))
 #+end_src
 ** Hide line between fringes
-Remove the strange white line between two fringes, which appears when the scrollbar is hidden (from [[https://ogbe.net/emacsconfig.html][Dennis Ogbe's Emacs configuration file]]).
+Remove the strange white line between two fringes, which appears when the scrollbar is hidden (from [[https://web.archive.org/web/20170413150436/https://ogbe.net/emacsconfig.html][Dennis Ogbe's Emacs configuration file]]).
 #+begin_src emacs-lisp
 (set-face-attribute 'vertical-border nil :foreground (face-attribute 'fringe :background))
 #+end_src

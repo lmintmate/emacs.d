@@ -35,8 +35,6 @@ web-search)
     (unless (package-installed-p pkg)
       (package-install pkg)))
 
-;; Conditionals for installing of certain packages (idea from https://github.com/pgdouyon/dotfiles/blob/master/emacs)
-
 ;; Packages for use only on my Linux system
 
 (when (eq system-type 'gnu/linux)
