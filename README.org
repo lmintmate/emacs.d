@@ -523,7 +523,7 @@ Face for buffer-local fringe marks: Make it chartreuse green, different from the
 #+end_src
 I don't however want to override the default action of the S key, because, while the s key isn't much quicker than just using ~i~ or ~a~ and delete or backspace, the ~S~ key substitutes a whole line, which is useful if I've written 4-5 words in a new line and want to rewrite e.g. the start of a sentence. Thus here I disable the ~S~ motion of evil-snipe because all it does is using the 2-char motion but from the end of the line, and I find the default action of ~S~ (that is, substituting a line) more useful.
 #+begin_src emacs-lisp
-(evil-define-key '(normal motion) evil-snipe-local-mode-map
+(evil-define-key 'normal evil-snipe-local-mode-map
   "S" nil)
 #+end_src
 * Misc configuration parameters

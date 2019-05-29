@@ -239,7 +239,7 @@ web-search)
 (evil-snipe-mode 1)
 (evil-snipe-override-mode 1)
 
-(evil-define-key '(normal motion) evil-snipe-local-mode-map
+(evil-define-key 'normal evil-snipe-local-mode-map
   "S" nil)
 
 (setq ring-bell-function 'ignore)
