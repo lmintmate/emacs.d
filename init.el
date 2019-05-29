@@ -335,6 +335,8 @@ web-search)
 (custom-set-faces
 '(line-number-current-line ((t (:inherit line-number :weight bold))))))
 
+(setq-default help-window-select t)
+
 (require 'recentf)
 (recentf-mode 1)
 
