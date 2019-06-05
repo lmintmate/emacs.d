@@ -81,6 +81,7 @@
 - [[#dired-mode-configurations][Dired Mode Configurations]]
   - [[#enable-dired-icon-mode][Enable dired icon mode.]]
     - [[#setting-to-make-the-image-size-of-the-dired-icon-icons-bigger][Setting to make the image size of the dired-icon icons bigger.]]
+  - [[#dired-recent][Dired recent]]
   - [[#modify-evil-keybindings-for-dired-mode-map][Modify evil keybindings for dired-mode-map]]
   - [[#auto-revert-dired-buffers][Auto-revert dired buffers]]
   - [[#dired-listing][Dired listing]]
@@ -169,6 +170,7 @@ The first part of the code defines the packages to be installed ; from this list
 (defvar lmintmate/packages '(color-theme-modern
 counsel
 dired-icon
+dired-recent
 drag-stuff
 emojify
 espy
@@ -796,6 +798,11 @@ This functionality, coming from the dired-icon package, shows icons from the cur
 *** Setting to make the image size of the dired-icon icons bigger.
 #+begin_src emacs-lisp
 (setq dired-icon-image-size 32)
+#+end_src
+** Dired recent
+[[https://github.com/vifon/dired-recent.el][This package]] remembers directories recently visited through dired.
+#+begin_src emacs-lisp
+(dired-recent-mode 1)
 #+end_src
 ** Modify evil keybindings for dired-mode-map
 The default state for dired is evil normal. This mostly works as expected (e.g. j and k work as expected and the regular dired commands aren't altered), but the bindings to go to the first and last line (gg and G) didn't work. I used ~evil-define-key~ (see above) to solve this problem. This setting of course shadows the default bindings of G and g, but I didn't need the actions they perform.

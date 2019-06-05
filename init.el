@@ -9,6 +9,7 @@
 (defvar lmintmate/packages '(color-theme-modern
 counsel
 dired-icon
+dired-recent
 drag-stuff
 emojify
 espy
@@ -393,6 +394,8 @@ web-search)
 (add-hook 'dired-mode-hook 'dired-icon-mode)
 
 (setq dired-icon-image-size 32)
+
+(dired-recent-mode 1)
 
 (evil-define-key 'normal dired-mode-map
 "G" 'evil-goto-line
