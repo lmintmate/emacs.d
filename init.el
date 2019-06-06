@@ -29,40 +29,34 @@ vimrc-mode
 web-search)
   "Core packages")
 
-(unless package-archive-contents
-  (message "%s" "Refreshing package database...")
-  (package-refresh-contents))
-  (dolist (pkg lmintmate/packages)
-    (unless (package-installed-p pkg)
-      (package-install pkg)))
+(setq package-selected-packages lmintmate/packages)
 
 ;; Packages for use only on my Linux system
 
 (when (eq system-type 'gnu/linux)
-(unless (package-installed-p 'magit)
-  (package-install 'magit)))
+  (add-to-list 'package-selected-packages 'magit))
 
 ;; Packages that require emacs 24.4 and up
 
 (unless (version< emacs-version "24.4")
-(unless (package-installed-p 'org-cliplink)
-  (package-install 'org-cliplink)))
+  (add-to-list 'package-selected-packages 'org-cliplink))
 
 (unless (version< emacs-version "24.4")
-(unless (package-installed-p 'markdown-mode)
-  (package-install 'markdown-mode)))
+  (add-to-list 'package-selected-packages 'markdown-mode))
 
 (unless (version< emacs-version "25")
-(unless (package-installed-p 'evil-fringe-mark)
-  (package-install 'evil-fringe-mark)))
+  (add-to-list 'package-selected-packages 'evil-fringe-mark))
 
 (unless (version< emacs-version "25.2")
-(unless (package-installed-p 'minions)
-  (package-install 'minions)))
+  (add-to-list 'package-selected-packages 'minions))
+
+(package-install-selected-packages)
 
 ;; enforce installing the latest version of org mode
 (unless (file-expand-wildcards (concat package-user-dir "/org-[0-9]*"))
   (package-install (elt (cdr (assoc 'org package-archive-contents)) 0)))
+
+(add-to-list 'package-selected-packages 'org)
 
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)

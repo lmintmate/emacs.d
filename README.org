@@ -164,8 +164,8 @@ First I add the MELPA and org repositories. The code I use for this is taken fro
 (package-initialize)
 #+end_src
 ** Auto-install packages
-From [[http://aaronbedra.com/emacs.d/#default-packages][Aaron Bedra's Emacs 24 Configuration]].\\
-The first part of the code defines the packages to be installed ; from this list are absent the packages installed manually, present in the lisp folder. The second part of the code does the following: when Emacs boots, it checks to make sure all of the packages defined in lmintmate/packages are installed. If not, it has the package manager take care of it.\\
+Ideas from [[http://aaronbedra.com/emacs.d/#default-packages][Aaron Bedra's Emacs 24 Configuration]] and [[http://www.icode9.com/content-3-87243.html][here]].\\
+The first part of the code defines a variable containing the core packages to be installed ; from this list are absent the packages installed manually, present in the lisp folder, and packages that are only installed under certain conditions (see below). Afterwards, the value of ~package-selected-packages~ is set to the value of ~lmintmate/packages~, so that we can benefit from the ~package-selected-packages~ feature and its benefits (e.g. autoremoving packages not on the list, clearly setting dependencies as opposed to packages installed by the user e.t.c).
 #+begin_src emacs-lisp
 (defvar lmintmate/packages '(color-theme-modern
 counsel
@@ -190,45 +190,39 @@ vimrc-mode
 web-search)
   "Core packages")
 
-(unless package-archive-contents
-  (message "%s" "Refreshing package database...")
-  (package-refresh-contents))
-  (dolist (pkg lmintmate/packages)
-    (unless (package-installed-p pkg)
-      (package-install pkg)))
+(setq package-selected-packages lmintmate/packages)
 #+end_src
-Conditionals for installation of certain packages (idea from [[https://github.com/pgdouyon/dotfiles/blob/master/emacs][here]]).
+Here I conditionally add to the value of ~package-selected-packages~ some packages that are compatible with only certain OS or emacs versions. Finally, all packages in the ~package-selected-packages~ list are installed with ~package-install-selected-packages~.
 #+begin_src emacs-lisp
 ;; Packages for use only on my Linux system
 
 (when (eq system-type 'gnu/linux)
-(unless (package-installed-p 'magit)
-  (package-install 'magit)))
+  (add-to-list 'package-selected-packages 'magit))
 
 ;; Packages that require emacs 24.4 and up
 
 (unless (version< emacs-version "24.4")
-(unless (package-installed-p 'org-cliplink)
-  (package-install 'org-cliplink)))
+  (add-to-list 'package-selected-packages 'org-cliplink))
 
 (unless (version< emacs-version "24.4")
-(unless (package-installed-p 'markdown-mode)
-  (package-install 'markdown-mode)))
+  (add-to-list 'package-selected-packages 'markdown-mode))
 
 (unless (version< emacs-version "25")
-(unless (package-installed-p 'evil-fringe-mark)
-  (package-install 'evil-fringe-mark)))
+  (add-to-list 'package-selected-packages 'evil-fringe-mark))
 
 (unless (version< emacs-version "25.2")
-(unless (package-installed-p 'minions)
-  (package-install 'minions)))
+  (add-to-list 'package-selected-packages 'minions))
+
+(package-install-selected-packages)
 #+end_src
 ** Force package.el to install the latest version of org-mode
-Because org-mode is already builtin, it doesn't get reinstalled automatically from the org-mode repository, as it should. Thus, if I want the latest org-mode version, I would normally have to install it manually from ~package-list-packages~, and only then it would overtake the builtin version (see also [[https://emacs.stackexchange.com/questions/31825/cant-install-org-through-package-manager#comment64743_31837][here]]). However trying to start emacs without the latest version of org-mode installed causes emacs to error out saying that org-tempo wasn't detected, because I require that later in the config and it apparently wasn't included in the built in emacs version. I thus found [[https://github.com/jwiegley/use-package/issues/319#issuecomment-363981027][here]] a solution that looks for the latest version of org with a regex and, if it doesn't find it, proceeds to install it from the org repository.
+Because org-mode is already builtin, it doesn't get reinstalled automatically from the org-mode repository, as it should. Thus, if I want the latest org-mode version, I would normally have to install it manually from ~package-list-packages~, and only then it would overtake the builtin version (see also [[https://emacs.stackexchange.com/questions/31825/cant-install-org-through-package-manager#comment64743_31837][here]]). However trying to start emacs without the latest version of org-mode installed causes emacs to error out saying that org-tempo wasn't detected, because I require that later in the config and it apparently wasn't included in the built in emacs version. I thus found [[https://github.com/jwiegley/use-package/issues/319#issuecomment-363981027][here]] a solution that looks for the latest version of org with a regex and, if it doesn't find it, proceeds to install it from the org repository. I also add org to the list of selected packages, so that it won't propose to autoremove it.
 #+begin_src emacs-lisp
 ;; enforce installing the latest version of org mode
 (unless (file-expand-wildcards (concat package-user-dir "/org-[0-9]*"))
   (package-install (elt (cdr (assoc 'org package-archive-contents)) 0)))
+
+(add-to-list 'package-selected-packages 'org)
 #+end_src
 * Ensure utf-8
 Needed for Windows
