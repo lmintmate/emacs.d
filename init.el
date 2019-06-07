@@ -50,6 +50,10 @@ web-search)
 (unless (version< emacs-version "25.2")
   (add-to-list 'package-selected-packages 'minions))
 
+(unless package-archive-contents
+  (message "%s" "Refreshing package database...")
+  (package-refresh-contents))
+
 (package-install-selected-packages)
 
 ;; enforce installing the latest version of org mode
