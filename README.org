@@ -1092,6 +1092,10 @@ Keybindings for counsel and swiper functions. ~swiper-isearch~ is like regular s
 (global-set-key (kbd "\C-h v") 'counsel-describe-variable)
 (global-set-key (kbd "\C-h f") 'counsel-describe-function)
 #+end_src
+Note: To search for the entire word at point with swiper (and not only the part from the cursor onwards, as M-j does): the [[https://github.com/abo-abo/swiper/wiki/FAQ][Ivy FAQ]] says the following:
+#+begin_quote
+On a related note, you can paste symbol-at-point into the search with M-n, which is a common case for using C-w in Isearch.
+#+end_quote
 Wrap around the first and last candidate in the minibuffer.
 #+begin_src emacs-lisp
 (setq ivy-wrap t)
@@ -1108,10 +1112,12 @@ Don't show parent and current directories in counsel-find-file (found from [[htt
 #+begin_src emacs-lisp
 (setq ivy-extra-directories nil)
 #+end_src
-Note: To search for the entire word at point with swiper (and not only the part from the cursor onwards, as M-j does): the [[https://github.com/abo-abo/swiper/wiki/FAQ][Ivy FAQ]] says the following:
-#+begin_quote
-On a related note, you can paste symbol-at-point into the search with M-n, which is a common case for using C-w in Isearch.
-#+end_quote
+Have ivy minibuffer selection highlight the entire current line. This was recommended from the [[https://github.com/Yevgnen/ivy-rich/blob/master/README.org][ivy-rich README]] and used to be configured with ~(setq ivy-format-function #'ivy-format-function-line)~. However since [[https://github.com/abo-abo/swiper/commit/7feb14f476e108dc10fe5380ee7c33de3b5fe3f1?diff=split#diff-fb788f1f3b47b493f0eb3eb62cde17b3R1548][a commit from the 3rd of June 2019]], ~ivy-format-function~ has been obsoleted and replaced with ~ivy-format-functions-alist~. As can be seen from the diff I just cited, this is an alist instead of a variable, and indeed other stuff is added to it via ~add-to-list~ (see e.g. further down the diff). The options available for the regular selection (now denoted as ~t~), as can also be seen from the diff, continue to be default (highlight until end of candidate), arrow (put arrow in front of candidate), and line (highlight until the end of the line). In order thus to set ~ivy-format-function-line~, I have to use ~add-to-list~. However, this keeps in the list the default ~(t. ivy-format-function-default)~, which could cause problems, since this is basically a duplicated setting. I thus also remove the default setting from the list, using the [[https://www.emacswiki.org/emacs/ListModification#toc1][delete function]].
+#+begin_src emacs-lisp
+(add-to-list 'ivy-format-functions-alist '(t . ivy-format-function-line))
+
+(delete '(t . ivy-format-function-default) ivy-format-functions-alist)
+#+end_src
 ** Ivy rich
 [[https://github.com/Yevgnen/ivy-rich][This package]] shows descriptions of the items in ~ivy-switch-buffer~, ~counsel-M-x~, ~counsel-describe-variable~, ~counsel-describe-function~ e.t.c.
 #+begin_src emacs-lisp
