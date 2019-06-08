@@ -540,6 +540,8 @@ web-search)
 
 (setq ivy-virtual-abbreviate 'abbreviate)
 
+(setq ivy-extra-directories nil)
+
 (require 'ivy-rich)
 (ivy-rich-mode 1)
 
