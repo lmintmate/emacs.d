@@ -521,8 +521,11 @@ web-search)
                     ; when Smex is auto-initialized on its first run.
 
 (ivy-mode 1)
+
 (setq ivy-use-virtual-buffers t)
+
 (setq ivy-count-format "(%d/%d) ")
+
 (global-set-key (kbd "C-s") 'swiper-isearch)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
@@ -530,9 +533,11 @@ web-search)
 (global-set-key (kbd "\C-cr") 'counsel-recentf)
 (global-set-key (kbd "\C-h v") 'counsel-describe-variable)
 (global-set-key (kbd "\C-h f") 'counsel-describe-function)
-(setq ivy-format-function #'ivy-format-function-line)
+
 (setq ivy-wrap t)
+
 (setq ivy-initial-inputs-alist nil)
+
 (setq ivy-virtual-abbreviate 'abbreviate)
 
 (require 'ivy-rich)

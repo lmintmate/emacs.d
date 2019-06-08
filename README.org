@@ -122,6 +122,7 @@
 - [[#espy-password-fetcher-package-config][Espy password fetcher package config]]
 - [[#smex][Smex]]
 - [[#ivy-counsel-swiper-configuration][Ivy, counsel, swiper configuration]]
+  - [[#basic-settings][Basic settings]]
   - [[#ivy-rich][Ivy rich]]
   - [[#change-color-of-ivy-org-face][Change color of ivy-org face]]
 - [[#terminal-configuration][Terminal configuration]]
@@ -1068,10 +1069,21 @@ Used for the completion history of ~counsel-M-x~.
                     ; when Smex is auto-initialized on its first run.
 #+end_src
 * Ivy, counsel, swiper configuration
+First, enable ivy mode.
 #+begin_src emacs-lisp
 (ivy-mode 1)
+#+end_src
+** Basic settings
+Add recent files and bookmarks to ivy-switch-buffer.
+#+begin_src emacs-lisp
 (setq ivy-use-virtual-buffers t)
+#+end_src
+Show current candidate index and count for ivy minibuffer completion.
+#+begin_src emacs-lisp
 (setq ivy-count-format "(%d/%d) ")
+#+end_src
+Keybindings for counsel and swiper functions. ~swiper-isearch~ is like regular swiper, only it shows all results corresponding to a search string from the current line, instead of only the first one, and it also doesn't show the line numbers of the results (see [[https://oremacs.com/2019/04/07/swiper-isearch/][Swiper-isearch - a more isearch-like swiper · (or emacs]]).
+#+begin_src emacs-lisp
 (global-set-key (kbd "C-s") 'swiper-isearch)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
@@ -1079,9 +1091,17 @@ Used for the completion history of ~counsel-M-x~.
 (global-set-key (kbd "\C-cr") 'counsel-recentf)
 (global-set-key (kbd "\C-h v") 'counsel-describe-variable)
 (global-set-key (kbd "\C-h f") 'counsel-describe-function)
-(setq ivy-format-function #'ivy-format-function-line)
+#+end_src
+Wrap around the first and last candidate in the minibuffer.
+#+begin_src emacs-lisp
 (setq ivy-wrap t)
+#+end_src
+Do not add a ~^~ (beginning of line anchor) when completing (see [[https://github.com/kshenoy/dotfiles/blob/master/emacs.org#ivy-et-al][here]]).
+#+begin_src emacs-lisp
 (setq ivy-initial-inputs-alist nil)
+#+end_src
+Show abbreviated path for ivy virtual buffers: Useful when there are files with the same name in different directories and we want to be sure we won't open the wrong file.
+#+begin_src emacs-lisp
 (setq ivy-virtual-abbreviate 'abbreviate)
 #+end_src
 To search for the entire word at point with swiper (and not only the part from the cursor onwards, as M-j does): the [[https://github.com/abo-abo/swiper/wiki/FAQ][Ivy FAQ]] says the following:
