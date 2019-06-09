@@ -47,6 +47,9 @@ web-search)
 (unless (version< emacs-version "25")
   (add-to-list 'package-selected-packages 'evil-fringe-mark))
 
+(unless (version< emacs-version "25.1")
+  (add-to-list 'package-selected-packages 'helpful))
+
 (unless (version< emacs-version "25.2")
   (add-to-list 'package-selected-packages 'minions))
 
@@ -552,6 +555,13 @@ web-search)
 (when (package-installed-p 'ivy)
 (custom-set-faces
   '(ivy-org ((t (:inherit org-level-1))))))
+
+(evil-set-initial-state 'helpful-mode 'motion)
+
+(setq counsel-describe-function-function #'helpful-callable)
+(setq counsel-describe-variable-function #'helpful-variable)
+
+(global-set-key (kbd "C-h k") #'helpful-key)
 
 (defun oleh-term-exec-hook ()
   (let* ((buff (current-buffer))
