@@ -93,7 +93,10 @@ web-search)
  '(font-lock-negation-char-face ((t (:foreground "tomato"))))
  '(font-lock-doc-face ((t (:foreground "cyan"))))
  '(highlight ((t (:background "#235c94"))))
- '(vc-edited-state ((t (:background "tomato1" :foreground "black" :box (:line-width 2 :color "tomato1"))))))
+ '(vc-edited-state ((t (:background "tomato1" :foreground "black" :box (:line-width 2 :color "tomato1")))))
+ '(package-status-built-in ((t (:inherit font-lock-comment-face))))
+ '(package-status-dependency ((t (:inherit font-lock-builtin-face))))
+ '(package-status-installed ((t (:inherit font-lock-function-name-face)))))
 ;; setting so that hl-line-mode won't affect syntax coloring
 (set-face-foreground 'highlight nil)
 
