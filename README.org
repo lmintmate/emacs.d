@@ -424,7 +424,7 @@ Set evil-toggle-key: I set it to C-' because when I tried to set it to C-q (the 
 #+begin_src emacs-lisp
 (setq evil-toggle-key "C-'")
 #+end_src
-Option so that the stuff replaced by pasting in visual mode won't be copied to the clipboard. Note that while this does work as intended, CopyQ erroneously shows the replaced text as having been copied to the clipboard.
+Option so that the stuff replaced by pasting in visual mode won't be copied to the clipboard. While this does work as intended inside emacs, it seems that the replaced text is otherwise copied to the system-wide clipboard and thus using paste outside emacs after pasting over some selected text pastes the replaced by pasting text instead of the text that was in the clipboard before doing so.
 #+begin_src emacs-lisp
 (setq evil-kill-on-visual-paste nil)
 #+end_src
