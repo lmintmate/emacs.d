@@ -99,6 +99,7 @@
   - [[#define-c-c-l-as-the-keybinding-to-org-cliplink][Define C-c l as the keybinding to org-cliplink.]]
   - [[#define-c-c-d-as-the-keybinding-to-org-toggle-link-display][Define C-c d as the keybinding to org-toggle-link-display]]
   - [[#define-c-c-e-as-the-keybinding-to-org-emphasize][Define C-c e as the keybinding to org-emphasize]]
+  - [[#unbind-c-c--so-that-lacarte-can-function-properly][Unbind C-c . so that Lacarte can function properly]]
   - [[#beautification-settings][Beautification settings]]
     - [[#org-bullets][Org bullets]]
     - [[#set-org-ellipsis-symbol-and-color][Set org ellipsis symbol and color]]
@@ -907,6 +908,11 @@ This command toggles between descriptive and literal links, and I need it so tha
 This one helps to switch quickly between different text formattings (bold, italic e.t.c).
 #+begin_src emacs-lisp
 (define-key org-mode-map (kbd "\C-ce") 'org-emphasize)
+#+end_src
+** Unbind C-c . so that Lacarte can function properly
+In org mode, ~C-c .~ is by default bound to ~org-time-stamp~, which I don't use but which overrides the binding that I want to use for Lacarte (see above). Here I unbind this key from org-mode-map so that Lacarte can function properly (idea from [[https://superuser.com/a/828744][How to override a keybinding in Emacs org-mode - Super User]]).
+#+begin_src emacs-lisp
+(define-key org-mode-map (kbd "\C-c.") nil)
 #+end_src
 ** Beautification settings
 *** Org bullets

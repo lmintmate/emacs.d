@@ -441,6 +441,8 @@ web-search)
 
 (define-key org-mode-map (kbd "\C-ce") 'org-emphasize)
 
+(define-key org-mode-map (kbd "\C-c.") nil)
+
 (require 'org-bullets)
 (add-hook 'org-mode-hook 'org-bullets-mode)
 (if (eq system-type 'windows-nt)
