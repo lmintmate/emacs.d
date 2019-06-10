@@ -1186,12 +1186,12 @@ Some key combinations don't behave as I'd expect in ansi-term. I thus have to re
 A very good git manager (the reports of its greatness aren’t overrated at all!).\\
 Btw,for those curious (as I was) where the term "porcelain" with which magit is self-described comes from, [[https://stackoverflow.com/questions/6976473/what-does-the-term-porcelain-mean-in-git][here’s]] an answer - the gist of it is that it is a more accessible interface, as opposed to the less user-friendly "plumbing" levels/commands.
 ** Set magit faces
-I changed the faces of ~magit-diff-context-highlight~ and ~magit-section-highlight~ because them being quasi-black didn't look good on my color theme.
+I changed the faces of ~magit-diff-context-highlight~ and ~magit-section-highlight~ because them being quasi-black didn't look good on my color theme. I set them to be loada with ~with-eval-after-load 'magit~ since magit is only loaded when called, and these settings thus errored out otherwise (because iirc, while ~custom-set-faces~ is evaluated after loading a package, this isn't the case with ~set-face-attribute~).
 #+begin_src emacs-lisp
 (when (package-installed-p 'magit)
-(custom-set-faces
- '(magit-diff-context-highlight ((t (:background "DodgerBlue4" :foreground "grey70"))))
- '(magit-section-highlight ((t (:inherit highlight))))))
+(with-eval-after-load 'magit
+(set-face-attribute 'magit-diff-context-highlight nil :background "DodgerBlue4" :foreground "grey70")
+(set-face-attribute 'magit-section-highlight nil :background "#235c94")))
 #+end_src
 ** Magit-status keybinding
 #+begin_src emacs-lisp

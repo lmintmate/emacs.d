@@ -577,9 +577,9 @@ web-search)
 ))
 
 (when (package-installed-p 'magit)
-(custom-set-faces
- '(magit-diff-context-highlight ((t (:background "DodgerBlue4" :foreground "grey70"))))
- '(magit-section-highlight ((t (:inherit highlight))))))
+(with-eval-after-load 'magit
+(set-face-attribute 'magit-diff-context-highlight nil :background "DodgerBlue4" :foreground "grey70")
+(set-face-attribute 'magit-section-highlight nil :background "#235c94")))
 
 (when (package-installed-p 'magit)
 (global-set-key (kbd "C-x g") 'magit-status))
