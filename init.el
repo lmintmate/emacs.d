@@ -87,7 +87,7 @@ web-search)
 
 (set-face-attribute 'fringe nil :background "DodgerBlue4")
 (set-face-attribute 'font-lock-negation-char-face nil :foreground "tomato")
-(set-face-attribute 'font-lock-doc-face nil :foreground "cyan" :inherit nil)
+(set-face-attribute 'font-lock-doc-face nil :foreground "cyan" :inherit 'unspecified)
 (set-face-attribute 'highlight nil :background "#235c94")
 (set-face-attribute 'package-status-built-in nil :inherit font-lock-comment-face)
 (set-face-attribute 'package-status-dependency nil :inherit font-lock-builtin-face)
@@ -226,10 +226,10 @@ web-search)
 
 (setq evil-goggles-blocking-duration 0.150)
 
-(set-face-attribute 'evil-goggles-default-face nil :background "#4f94cd" :inherit nil)
+(set-face-attribute 'evil-goggles-default-face nil :background "#4f94cd" :inherit 'unspecified)
 
-(set-face-attribute 'evil-goggles-delete-face nil :background "tomato" :inherit nil)
-(set-face-attribute 'evil-goggles-change-face nil :background "tomato" :inherit nil)
+(set-face-attribute 'evil-goggles-delete-face nil :background "tomato" :inherit 'unspecified)
+(set-face-attribute 'evil-goggles-change-face nil :background "tomato" :inherit 'unspecified)
 
 (require 'evil-fringe-mark)
 (global-evil-fringe-mark-mode)
@@ -453,7 +453,7 @@ web-search)
 (setq inhibit-compacting-font-caches t))
 
 (setq org-ellipsis "↪")
-(set-face-attribute 'org-ellipsis nil :foreground "cyan3" :underline nil)
+(set-face-attribute 'org-ellipsis nil :foreground "cyan3" :underline 'unspecified)
 
 (setq org-todo-keywords
    (quote
@@ -484,7 +484,7 @@ web-search)
  '(org-level-2 ((t (:foreground "gold" :weight bold))))
  '(org-level-3 ((t (:foreground "cyan3" :weight bold)))))
 
-(set-face-attribute 'org-block nil :foreground "whitesmoke" :inherit nil)
+(set-face-attribute 'org-block nil :foreground "whitesmoke" :inherit 'unspecified)
 
 (defun my-org-html-postamble (plist)
  (format "Last update : %s" (format-time-string "%a %d/%m/%Y")))
@@ -582,7 +582,7 @@ web-search)
 (set-face-attribute 'magit-section-highlight nil :background "#235c94")
 (set-face-attribute 'magit-branch-local nil :foreground "cyan")
 (set-face-attribute 'magit-branch-remote nil :foreground "chartreuse")
-(set-face-attribute 'magit-section-heading nil :foreground "gold")))
+(set-face-attribute 'magit-section-heading nil :foreground "gold" :weight 'bold)))
 
 (when (package-installed-p 'magit)
 (global-set-key (kbd "C-x g") 'magit-status))
