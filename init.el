@@ -87,7 +87,7 @@ web-search)
 
 (set-face-attribute 'fringe nil :background "DodgerBlue4")
 (set-face-attribute 'font-lock-negation-char-face nil :foreground "tomato")
-(set-face-attribute 'font-lock-doc-face nil :foreground "cyan")
+(set-face-attribute 'font-lock-doc-face nil :foreground "cyan" :inherit nil)
 (set-face-attribute 'highlight nil :background "#235c94")
 (set-face-attribute 'package-status-built-in nil :inherit font-lock-comment-face)
 (set-face-attribute 'package-status-dependency nil :inherit font-lock-builtin-face)
@@ -226,12 +226,10 @@ web-search)
 
 (setq evil-goggles-blocking-duration 0.150)
 
-(custom-set-faces
- '(evil-goggles-default-face ((t (:background "#4f94cd")))))
+(set-face-attribute 'evil-goggles-default-face nil :background "#4f94cd" :inherit nil)
 
-(custom-set-faces
- '(evil-goggles-delete-face ((t (:background "tomato"))))
- '(evil-goggles-change-face ((t (:background "tomato")))))
+(set-face-attribute 'evil-goggles-delete-face nil :background "tomato" :inherit nil)
+(set-face-attribute 'evil-goggles-change-face nil :background "tomato" :inherit nil)
 
 (require 'evil-fringe-mark)
 (global-evil-fringe-mark-mode)
@@ -487,7 +485,7 @@ web-search)
  '(org-level-2 ((t (:foreground "gold" :weight bold))))
  '(org-level-3 ((t (:foreground "cyan3" :weight bold)))))
 
-(set-face-attribute 'org-block nil :foreground "whitesmoke")
+(set-face-attribute 'org-block nil :foreground "whitesmoke" :inherit nil)
 
 (defun my-org-html-postamble (plist)
  (format "Last update : %s" (format-time-string "%a %d/%m/%Y")))

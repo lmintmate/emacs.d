@@ -279,7 +279,7 @@ I also modified the fringe color to the same background color as the rest of the
 
 (set-face-attribute 'fringe nil :background "DodgerBlue4")
 (set-face-attribute 'font-lock-negation-char-face nil :foreground "tomato")
-(set-face-attribute 'font-lock-doc-face nil :foreground "cyan")
+(set-face-attribute 'font-lock-doc-face nil :foreground "cyan" :inherit nil)
 (set-face-attribute 'highlight nil :background "#235c94")
 (set-face-attribute 'package-status-built-in nil :inherit font-lock-comment-face)
 (set-face-attribute 'package-status-dependency nil :inherit font-lock-builtin-face)
@@ -507,14 +507,12 @@ Set the duration of the highlight for actions that are delayed until the highlig
 #+end_src
 Change evil-goggles default highlight color: the foreground isn't applied with the default settings of this package, because, as shown by [[https://github.com/edkolev/evil-goggles/issues/16][edkolev/evil-goggles#16 Evil goggles ignores faces :foreground property]], the default pulsing behavior of the visual hints doesn't support changing the foreground color. In order to solve this I would have to set ~(setq evil-goggles-pulse nil)~ after which the visual hint would (less elegantly) just appear and disappear, but the foreground color would work. I got used to the nicer pulsing however and thus can't switch to the appear and disappear behavior. Thus, since the foreground isn't applied, and with the default color inheriting the region color, it had just the red foreground and this was kinda tacky, so I changed it to SteelBlue3.
 #+begin_src emacs-lisp
-(custom-set-faces
- '(evil-goggles-default-face ((t (:background "#4f94cd")))))
+(set-face-attribute 'evil-goggles-default-face nil :background "#4f94cd" :inherit nil)
 #+end_src
 Also change delete and change face to tomato to denote that these change/remove stuff.
 #+begin_src emacs-lisp
-(custom-set-faces
- '(evil-goggles-delete-face ((t (:background "tomato"))))
- '(evil-goggles-change-face ((t (:background "tomato")))))
+(set-face-attribute 'evil-goggles-delete-face nil :background "tomato" :inherit nil)
+(set-face-attribute 'evil-goggles-change-face nil :background "tomato" :inherit nil)
 #+end_src
 *** evil-fringe-mark
 [[https://github.com/Andrew-William-Smith/evil-fringe-mark][This package]] shows evil marks on the fringe using bitmaps (no idea why this was needed for the implementation, since [[https://github.com/kshenoy/vim-signature][vim-signature]] can use regular letters just fine - maybe to account for the presence of line numbers in the fringe? Though vim-signature seems fine in that case. Must be a difference between vim's sign column and emacs's fringe...).
@@ -1011,7 +1009,7 @@ In my color theme, headline level 2 used to be plain white, while headline level
 ** Custom color for org source code blocks
 I didn't really like the fact that the org source code blocks had the color of the comments (grey), as this made them less visible and prominent. I found, via [[https://www.reddit.com/r/emacs/comments/415imd/prettier_orgmode_source_code_blocks/cz09wvh?utm_source=share&utm_medium=web2x][this reddit post]], that I can customize the faces of ~org-block-begin-line~ and ~org-block-end-line~. I decided however to leave the default settings for these, as the file became too flashy otherwise. I customized ~org-block~ to change the faces of the content of the source blocks and set their foreground to whitesmoke so that I can read them more easily.
 #+begin_src emacs-lisp
-(set-face-attribute 'org-block nil :foreground "whitesmoke")
+(set-face-attribute 'org-block nil :foreground "whitesmoke" :inherit nil)
 #+end_src
 ** Custom postamble in html export
 I only want to see the date and not the author nor the created by details on the bottom of the exported html file, and found out the ~org-html-postamble~ can be modified to not show these things. I also wanted a custom way to show the date format (because I don't like the y-m-d format much), so I use here a custom function, adapted from [[https://stackoverflow.com/a/18933020][this stackoverflow answer]].
