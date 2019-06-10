@@ -453,8 +453,7 @@ web-search)
 (setq inhibit-compacting-font-caches t))
 
 (setq org-ellipsis "↪")
-(custom-set-faces
- '(org-ellipsis ((t (:foreground "cyan3")))))
+(set-face-attribute 'org-ellipsis nil :foreground "cyan3" :underline nil)
 
 (setq org-todo-keywords
    (quote

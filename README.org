@@ -933,8 +933,7 @@ P.S. I would like an option to completely hide the leading stars, so that there 
 See [[http://endlessparentheses.com/changing-the-org-mode-ellipsis.html][Changing the org-mode ellipsis · Endless Parentheses]].
 #+begin_src emacs-lisp
 (setq org-ellipsis "↪")
-(custom-set-faces
- '(org-ellipsis ((t (:foreground "cyan3")))))
+(set-face-attribute 'org-ellipsis nil :foreground "cyan3" :underline nil)
 #+end_src
 ** Set keywords for Org progress states.
 These are, apart from TODO and DONE, also CURRENTLY and SOMEDAY. (Idea to add unicode symbols from [[https://thraxys.wordpress.com/2016/01/14/pimp-up-your-org-agenda/][Pimp Up Your Org-mode Files – thraxys]])
