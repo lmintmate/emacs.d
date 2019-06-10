@@ -276,19 +276,18 @@ I also modified the fringe color to the same background color as the rest of the
 #+begin_src emacs-lisp
 (load-theme 'blue-mood t t)
 (enable-theme 'blue-mood)
+
+(set-face-attribute 'fringe nil :background "DodgerBlue4")
+(set-face-attribute 'font-lock-negation-char-face nil :foreground "tomato")
+(set-face-attribute 'font-lock-doc-face nil :foreground "cyan")
+(set-face-attribute 'highlight nil :background "#235c94")
+(set-face-attribute 'package-status-built-in nil :inherit font-lock-comment-face)
+(set-face-attribute 'package-status-dependency nil :inherit font-lock-builtin-face)
+(set-face-attribute 'package-status-installed nil :inherit font-lock-function-name-face)
+
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(fringe ((t (:background "DodgerBlue4"))))
- '(font-lock-negation-char-face ((t (:foreground "tomato"))))
- '(font-lock-doc-face ((t (:foreground "cyan"))))
- '(highlight ((t (:background "#235c94"))))
- '(vc-edited-state ((t (:background "tomato1" :foreground "black" :box (:line-width 2 :color "tomato1")))))
- '(package-status-built-in ((t (:inherit font-lock-comment-face))))
- '(package-status-dependency ((t (:inherit font-lock-builtin-face))))
- '(package-status-installed ((t (:inherit font-lock-function-name-face)))))
+ '(vc-edited-state ((t (:background "tomato1" :foreground "black" :box (:line-width 2 :color "tomato1"))))))
+
 ;; setting so that hl-line-mode won't affect syntax coloring
 (set-face-foreground 'highlight nil)
 #+end_src
