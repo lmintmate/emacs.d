@@ -236,8 +236,7 @@ web-search)
 (require 'evil-fringe-mark)
 (global-evil-fringe-mark-mode)
 
-(custom-set-faces
- '(evil-fringe-mark-local-face ((t (:inherit font-lock-function-name-face)))))
+(set-face-attribute 'evil-fringe-mark-local-face nil :inherit font-lock-function-name-face)
 
 (require 'evil-snipe)
 (evil-snipe-mode 1)
@@ -488,8 +487,7 @@ web-search)
  '(org-level-2 ((t (:foreground "gold" :weight bold))))
  '(org-level-3 ((t (:foreground "cyan3" :weight bold)))))
 
-(custom-set-faces
- '(org-block ((t (:foreground "whitesmoke")))))
+(set-face-attribute 'org-block nil :foreground "whitesmoke")
 
 (defun my-org-html-postamble (plist)
  (format "Last update : %s" (format-time-string "%a %d/%m/%Y")))

@@ -524,8 +524,7 @@ Also change delete and change face to tomato to denote that these change/remove 
 #+end_src
 Face for buffer-local fringe marks: Make it chartreuse green, different from the gold of file marks.
 #+begin_src emacs-lisp
-(custom-set-faces
- '(evil-fringe-mark-local-face ((t (:inherit font-lock-function-name-face)))))
+(set-face-attribute 'evil-fringe-mark-local-face nil :inherit font-lock-function-name-face)
 #+end_src
 *** evil-snipe
 [[https://github.com/hlissner/evil-snipe][This package]] provides 2-character based motions bound by default to s and S and also provides highlight for the 1-character motions f,F,t,T. I enable here both the regular ~evil-snipe-mode~, which enables the s and S motions because using 2-characters does indeed seem more accurate than using 1, and also the ~evil-snipe-override-mode~ which adds highlighting to the f,F,t,T motions.
@@ -1012,8 +1011,7 @@ In my color theme, headline level 2 used to be plain white, while headline level
 ** Custom color for org source code blocks
 I didn't really like the fact that the org source code blocks had the color of the comments (grey), as this made them less visible and prominent. I found, via [[https://www.reddit.com/r/emacs/comments/415imd/prettier_orgmode_source_code_blocks/cz09wvh?utm_source=share&utm_medium=web2x][this reddit post]], that I can customize the faces of ~org-block-begin-line~ and ~org-block-end-line~. I decided however to leave the default settings for these, as the file became too flashy otherwise. I customized ~org-block~ to change the faces of the content of the source blocks and set their foreground to whitesmoke so that I can read them more easily.
 #+begin_src emacs-lisp
-(custom-set-faces
- '(org-block ((t (:foreground "whitesmoke")))))
+(set-face-attribute 'org-block nil :foreground "whitesmoke")
 #+end_src
 ** Custom postamble in html export
 I only want to see the date and not the author nor the created by details on the bottom of the exported html file, and found out the ~org-html-postamble~ can be modified to not show these things. I also wanted a custom way to show the date format (because I don't like the y-m-d format much), so I use here a custom function, adapted from [[https://stackoverflow.com/a/18933020][this stackoverflow answer]].
