@@ -738,6 +738,7 @@ Don't add files from the elpa folder nor autoloads in the recentf list (adapted 
                         "[/\\]\\elpa/"
                         ))
 #+end_src
+Note that the command ~recentf-edit-list~ provides a way to remove undesired files from the recentf list without having to edit the file by hand. I should have found about this earlier!
 * Settings for multiple buffer management
 I wanted to be able to change the layout of the buffers from horizontal to vertical, as well as be able to flip frames, so that left goes right, and up goes down. I used to use some custom functions found at [[http://whattheemacsd.com][What the .emacs.d!?]] ([[http://whattheemacsd.com/buffer-defuns.el-03.html][here]] and [[http://whattheemacsd.com/buffer-defuns.el-02.html][here]], specifically), but then found the package [[https://github.com/emacsorphanage/transpose-frame/blob/master/transpose-frame.el][transpose-frame]] (available at MELPA), and decided to use that instead, as to make the README.org file less lengthy.
 #+begin_src emacs-lisp
