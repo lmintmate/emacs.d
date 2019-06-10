@@ -1001,9 +1001,8 @@ This is a nice little setting I found while browsing the Customize interface. It
 ** Custom color for headline levels 2 and 3
 In my color theme, headline level 2 used to be plain white, while headline level 3 used to be bold «gold» in color, which was confusing, as I'd expect the inverse. So I took the initiative and customized the colors myself - on the way I decided I preferred level 3 to also be obvious as a headline, and distinguishable from the rest of the text.
 #+begin_src emacs-lisp
-(custom-set-faces
- '(org-level-2 ((t (:foreground "gold" :weight bold))))
- '(org-level-3 ((t (:foreground "cyan3" :weight bold)))))
+(set-face-attribute 'org-level-2 nil :foreground "gold" :weight 'bold :inherit 'unspecified)
+(set-face-attribute 'org-level-3 nil :foreground "cyan3" :weight 'bold :inherit 'unspecified)
 #+end_src
 ** Custom color for org source code blocks
 I didn't really like the fact that the org source code blocks had the color of the comments (grey), as this made them less visible and prominent. I found, via [[https://www.reddit.com/r/emacs/comments/415imd/prettier_orgmode_source_code_blocks/cz09wvh?utm_source=share&utm_medium=web2x][this reddit post]], that I can customize the faces of ~org-block-begin-line~ and ~org-block-end-line~. I decided however to leave the default settings for these, as the file became too flashy otherwise. I customized ~org-block~ to change the faces of the content of the source blocks and set their foreground to whitesmoke so that I can read them more easily.

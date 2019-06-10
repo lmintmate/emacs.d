@@ -480,9 +480,8 @@ web-search)
 
 (setq org-level-color-stars-only t)
 
-(custom-set-faces
- '(org-level-2 ((t (:foreground "gold" :weight bold))))
- '(org-level-3 ((t (:foreground "cyan3" :weight bold)))))
+(set-face-attribute 'org-level-2 nil :foreground "gold" :weight 'bold :inherit 'unspecified)
+(set-face-attribute 'org-level-3 nil :foreground "cyan3" :weight 'bold :inherit 'unspecified)
 
 (set-face-attribute 'org-block nil :foreground "whitesmoke" :inherit 'unspecified)
 
