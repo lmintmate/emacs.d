@@ -172,7 +172,7 @@ web-search)
 
 (reverse-input-method 'el_GR)
 
-(custom-set-variables '(evil-want-C-u-scroll t))
+(setq evil-want-C-u-scroll t)
 
 (custom-set-variables
  '(evil-auto-indent nil))

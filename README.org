@@ -411,9 +411,9 @@ This is basically an admission of defeat. Specifically, the point of learning to
 ** Configuring evil itself
 *** Preliminaries before loading evil
 The configuration options of evil have to be placed before evil itself is loaded.\\
-Scroll up with ~C-u~: normally emacs uses ~C-u~ as universal-argument (something like the prefixing of vim commands), but since vim uses a different prefixing method, we can use that key for scrolling up instead. I set it with ~custom-set-variables~ because I couldn't get it working otherwise (see [[https://github.com/emacs-evil/evil/issues/890#issuecomment-320428519][here]]).
+Scroll up with ~C-u~: normally emacs uses ~C-u~ as universal-argument (something like the prefixing of vim commands), but since vim uses a different prefixing method, we can use that key for scrolling up instead.
 #+begin_src emacs-lisp
-(custom-set-variables '(evil-want-C-u-scroll t))
+(setq evil-want-C-u-scroll t)
 #+end_src
 Prevent opening new lines (via o,O) from auto-indenting. This is annoying and besides, if I want to indent, I'll do it myself. I set it with ~custom-set-variables~ because otherwise the variable would only be buffer-local and wouldn't thus be properly enabled.
 #+begin_src emacs-lisp
