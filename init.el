@@ -552,8 +552,7 @@ web-search)
 (ivy-rich-mode 1)
 
 (when (package-installed-p 'ivy)
-(custom-set-faces
-  '(ivy-org ((t (:inherit org-level-1))))))
+(set-face-attribute 'ivy-org nil :inherit font-lock-function-name-face))
 
 (evil-set-initial-state 'helpful-mode 'motion)
 
