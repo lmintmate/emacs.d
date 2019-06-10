@@ -554,6 +554,7 @@ web-search)
 (set-face-attribute 'ivy-org nil :inherit font-lock-function-name-face))
 
 (evil-set-initial-state 'helpful-mode 'motion)
+(evil-set-initial-state 'elisp-refs-mode 'motion)
 
 (setq counsel-describe-function-function #'helpful-callable)
 (setq counsel-describe-variable-function #'helpful-variable)
