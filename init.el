@@ -579,7 +579,10 @@ web-search)
 (when (package-installed-p 'magit)
 (with-eval-after-load 'magit
 (set-face-attribute 'magit-diff-context-highlight nil :background "DodgerBlue4" :foreground "grey70")
-(set-face-attribute 'magit-section-highlight nil :background "#235c94")))
+(set-face-attribute 'magit-section-highlight nil :background "#235c94")
+(set-face-attribute 'magit-branch-local nil :foreground "cyan")
+(set-face-attribute 'magit-branch-remote nil :foreground "chartreuse")
+(set-face-attribute 'magit-section-heading nil :foreground "gold")))
 
 (when (package-installed-p 'magit)
 (global-set-key (kbd "C-x g") 'magit-status))
