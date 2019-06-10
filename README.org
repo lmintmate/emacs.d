@@ -715,11 +715,11 @@ I don't want line numbers to display however for ~lisp-interaction-mode~, which 
 (add-hook 'lisp-interaction-mode-hook (lambda () (display-line-numbers-mode -1))))
 #+end_src
 *** Make the current line bold
-I set it conditionally so that it won't error out on versions lower than 26.1.
+I set it conditionally so that it won't error out on versions lower than 26.1.  I set it to be loaded with ~with-eval-after-load~ because ~set-face-attribute~ needs for the package being configured to be loaded, unlike ~custom-set-faces~.
 #+begin_src emacs-lisp
 (when (version<= "26.0.50" emacs-version )
-(custom-set-faces
-'(line-number-current-line ((t (:inherit line-number :weight bold))))))
+(with-eval-after-load 'display-line-numbers
+(set-face-attribute 'line-number-current-line nil :inherit font-lock-comment-face)))
 #+end_src
 ** Make help windows active by default
 When I call a help window, I want to immediately scroll through it, and having to either click to it or use the other-window command to make it active was somewhat annoying. This parameter makes such windows active by default (found from [[https://www.reddit.com/r/emacs/comments/bty1eq/why_doesnt_emacs_set_the_focus_to_information/ep4b0uf?utm_source=share&utm_medium=web2x][Why doesn't emacs set the focus to information windows? : emacs subreddit]]).
@@ -1185,7 +1185,7 @@ Some key combinations don't behave as I'd expect in ansi-term. I thus have to re
 A very good git manager (the reports of its greatness aren’t overrated at all!).\\
 Btw,for those curious (as I was) where the term "porcelain" with which magit is self-described comes from, [[https://stackoverflow.com/questions/6976473/what-does-the-term-porcelain-mean-in-git][here’s]] an answer - the gist of it is that it is a more accessible interface, as opposed to the less user-friendly "plumbing" levels/commands.
 ** Set magit faces
-I changed the faces of ~magit-diff-context-highlight~ and ~magit-section-highlight~ because them being quasi-black didn't look good on my color theme. I also adjusted the faces of ~magit-branch-local~, ~magit-branch-remote~ and ~magit-section-heading~ to fit in more with my colorscheme. I set them to be loaded with ~with-eval-after-load 'magit~ since magit is only loaded when called, and these settings thus errored out otherwise (because iirc, while ~custom-set-faces~ is evaluated after loading a package, this isn't the case with ~set-face-attribute~).
+I changed the faces of ~magit-diff-context-highlight~ and ~magit-section-highlight~ because them being quasi-black didn't look good on my color theme. I also adjusted the faces of ~magit-branch-local~, ~magit-branch-remote~ and ~magit-section-heading~ to fit in more with my colorscheme.
 #+begin_src emacs-lisp
 (when (package-installed-p 'magit)
 (with-eval-after-load 'magit

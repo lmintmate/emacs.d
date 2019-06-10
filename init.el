@@ -333,8 +333,8 @@ web-search)
 (add-hook 'lisp-interaction-mode-hook (lambda () (display-line-numbers-mode -1))))
 
 (when (version<= "26.0.50" emacs-version )
-(custom-set-faces
-'(line-number-current-line ((t (:inherit line-number :weight bold))))))
+(with-eval-after-load 'display-line-numbers
+(set-face-attribute 'line-number-current-line nil :inherit font-lock-comment-face)))
 
 (setq-default help-window-select t)
 
