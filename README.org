@@ -16,6 +16,7 @@
   - [[#auto-install-packages][Auto-install packages]]
   - [[#force-packageel-to-install-the-latest-version-of-org-mode][Force package.el to install the latest version of org-mode]]
 - [[#ensure-utf-8][Ensure utf-8]]
+- [[#no-littering][No littering]]
 - [[#setting-the-default-frame-parameters-on-windows][Setting the default frame parameters on Windows]]
 - [[#disabling-the-tool-bar][Disabling the tool bar]]
 - [[#setting-the-font][Setting the font]]
@@ -189,6 +190,7 @@ evil-goggles
 evil-snipe
 free-keys
 ivy-rich
+no-littering
 org-bullets
 rainbow-mode
 smex
@@ -250,6 +252,14 @@ Needed for Windows
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
+#+end_src
+* No littering
+#+begin_src emacs-lisp
+(setq no-littering-etc-directory
+      (expand-file-name "config/" user-emacs-directory))
+(setq no-littering-var-directory
+      (expand-file-name "data/" user-emacs-directory))
+(require 'no-littering)
 #+end_src
 * Setting the default frame parameters on Windows
 On Linux, Emacs places its frame just fine, but on Windows it places it on the left side and in such a manner that the mode line was hidden below the Windows toolbar, which meant I had to manually resize the frame every single time (needless to say, this got old very quickly). Here is thus some config to place the default frame near the center of the screen and above the Windows toolbar.

@@ -18,6 +18,7 @@ evil-goggles
 evil-snipe
 free-keys
 ivy-rich
+no-littering
 org-bullets
 rainbow-mode
 smex
@@ -69,6 +70,12 @@ web-search)
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
+
+(setq no-littering-etc-directory
+      (expand-file-name "config/" user-emacs-directory))
+(setq no-littering-var-directory
+      (expand-file-name "data/" user-emacs-directory))
+(require 'no-littering)
 
 ;; set frame
 (when (eq system-type 'windows-nt)
