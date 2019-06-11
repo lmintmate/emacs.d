@@ -595,6 +595,10 @@ web-search)
 (when (package-installed-p 'magit)
 (global-set-key (kbd "C-x g") 'magit-status))
 
+(when (package-installed-p 'magit)
+(with-eval-after-load 'magit
+(define-key with-editor-mode-map (kbd "C-c e") 'emojify-insert-emoji)))
+
 (setq show-paren-delay 0)
 (show-paren-mode 1)
 (setq show-paren-style (quote mixed))
