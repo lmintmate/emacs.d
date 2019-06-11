@@ -173,8 +173,7 @@ web-search)
 
 (setq evil-want-C-u-scroll t)
 
-(custom-set-variables
- '(evil-auto-indent nil))
+(setq-default evil-auto-indent nil)
 
 (setq evil-toggle-key "C-'")
 
@@ -196,6 +195,8 @@ web-search)
 (evil-mode 1)
 
 (evil-set-initial-state 'free-keys-mode 'emacs)
+
+(evil-set-initial-state 'Info-mode 'emacs)
 
 (evil-set-initial-state 'ibuffer-mode 'normal)
 

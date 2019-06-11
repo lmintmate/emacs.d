@@ -414,10 +414,9 @@ Scroll up with ~C-u~: normally emacs uses ~C-u~ as universal-argument (something
 #+begin_src emacs-lisp
 (setq evil-want-C-u-scroll t)
 #+end_src
-Prevent opening new lines (via o,O) from auto-indenting. This is annoying and besides, if I want to indent, I'll do it myself. I set it with ~custom-set-variables~ because otherwise the variable would only be buffer-local and wouldn't thus be properly enabled.
+Prevent opening new lines (via o,O) from auto-indenting. This is annoying and besides, if I want to indent, I'll do it myself. I set it with ~setq-default~ because otherwise the variable would only be buffer-local and wouldn't thus be properly enabled.
 #+begin_src emacs-lisp
-(custom-set-variables
- '(evil-auto-indent nil))
+(setq-default evil-auto-indent nil)
 #+end_src
 Set evil-toggle-key: I set it to C-' because when I tried to set it to C-q (the Viper default) it didn't work for some reason, and I use C-z (the Evil default) for something else.
 #+begin_src emacs-lisp
@@ -454,6 +453,10 @@ Propertize and color evil mode line state tag depending on the state: See [[http
 First off, set the initial state of ~free-keys-mode~ to emacs, as it doesn't work properly with the normal evil state.
 #+begin_src emacs-lisp
 (evil-set-initial-state 'free-keys-mode 'emacs)
+#+end_src
+Set the initial state of info mode to emacs, as I feel that the default motion state is of a transitive nature, and thus not fitting for info manuals.
+#+begin_src emacs-lisp
+(evil-set-initial-state 'Info-mode 'emacs)
 #+end_src
 Set the initial state of ibuffer-mode to normal, so that I can use vim commands to navigate around the buffer. The other commands are kept the way they are.
 #+begin_src emacs-lisp
