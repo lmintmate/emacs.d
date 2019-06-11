@@ -196,8 +196,6 @@ web-search)
 
 (evil-set-initial-state 'free-keys-mode 'emacs)
 
-(evil-set-initial-state 'Info-mode 'emacs)
-
 (evil-set-initial-state 'ibuffer-mode 'normal)
 
 (define-key evil-normal-state-map (kbd "<up>") 'evil-previous-visual-line)
@@ -338,6 +336,10 @@ web-search)
 (set-face-attribute 'line-number-current-line nil :inherit font-lock-comment-face)))
 
 (setq-default help-window-select t)
+
+(evil-set-initial-state 'Info-mode 'emacs)
+
+(define-key Info-mode-map (kbd "q") nil)
 
 (require 'recentf)
 (recentf-mode 1)

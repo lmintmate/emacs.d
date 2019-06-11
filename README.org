@@ -71,6 +71,7 @@
     - [[#disable-it-however-for-lisp-interaction-mode][Disable it however for lisp-interaction-mode]]
     - [[#make-the-current-line-bold][Make the current line bold]]
   - [[#make-help-windows-active-by-default][Make help windows active by default]]
+  - [[#info-mode-settings][Info mode settings]]
 - [[#recent-files][Recent files]]
 - [[#settings-for-multiple-buffer-management][Settings for multiple buffer management]]
 - [[#ibuffer][Ibuffer]]
@@ -455,10 +456,6 @@ First off, set the initial state of ~free-keys-mode~ to emacs, as it doesn't wor
 #+begin_src emacs-lisp
 (evil-set-initial-state 'free-keys-mode 'emacs)
 #+end_src
-Set the initial state of info mode to emacs, as I feel that the default motion state is of a transitive nature, and thus not fitting for info manuals.
-#+begin_src emacs-lisp
-(evil-set-initial-state 'Info-mode 'emacs)
-#+end_src
 Set the initial state of ibuffer-mode to normal, so that I can use vim commands to navigate around the buffer. The other commands are kept the way they are.
 #+begin_src emacs-lisp
 (evil-set-initial-state 'ibuffer-mode 'normal)
@@ -729,6 +726,15 @@ I set it conditionally so that it won't error out on versions lower than 26.1.  
 When I call a help window, I want to immediately scroll through it, and having to either click to it or use the other-window command to make it active was somewhat annoying. This parameter makes such windows active by default (found from [[https://www.reddit.com/r/emacs/comments/bty1eq/why_doesnt_emacs_set_the_focus_to_information/ep4b0uf?utm_source=share&utm_medium=web2x][Why doesn't emacs set the focus to information windows? : emacs subreddit]]).
 #+begin_src emacs-lisp
 (setq-default help-window-select t)
+#+end_src
+** Info mode settings
+Set the initial state of info mode to emacs, as I feel that the default motion state is of a transitive nature, and thus not fitting for info manuals.
+#+begin_src emacs-lisp
+(evil-set-initial-state 'Info-mode 'emacs)
+#+end_src
+Also disable q, as this binding also makes the whole mode feel temporary, which isn't very fitting imo.
+#+begin_src emacs-lisp
+(define-key Info-mode-map (kbd "q") nil)
 #+end_src
 * Recent files
 A quick way to access my most recently opened files (as I didn't want to have to go all the way through the directory structure).
