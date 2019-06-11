@@ -341,11 +341,14 @@ web-search)
 
 (define-key Info-mode-map (kbd "q") nil)
 
+(global-set-key (kbd "C-x r d") 'bookmark-delete)
+
 (require 'recentf)
 (recentf-mode 1)
 
 (setq recentf-exclude '(".*-autoloads\\.el\\'"
                         "[/\\]\\elpa/"
+                        "bookmarks"
                         ))
 
 (define-key global-map "\M-]" 'transpose-frame)
