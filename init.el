@@ -562,6 +562,8 @@ web-search)
 
 (global-set-key (kbd "C-h k") #'helpful-key)
 
+(add-to-list 'ibuffer-help-buffer-modes 'helpful-mode)
+
 (defun oleh-term-exec-hook ()
   (let* ((buff (current-buffer))
          (proc (get-buffer-process buff)))

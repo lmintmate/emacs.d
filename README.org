@@ -130,6 +130,7 @@
   - [[#set-evil-motion-state-as-the-default-initial-state-for-helpful-mode][Set evil motion state as the default initial state for helpful-mode]]
   - [[#integrate-helpful-with-counsel][Integrate helpful with counsel]]
   - [[#also-bind-helpful-key-to-the-key-used-by-default-for-describe-key][Also bind helpful-key to the key used by default for describe-key]]
+  - [[#add-helpful-mode-to-ibuffer-help-buffer-modes][Add helpful-mode to ibuffer help buffer modes]]
 - [[#terminal-configuration][Terminal configuration]]
   - [[#kill-terminal-buffer-automatically-when-exiting][Kill terminal buffer automatically when exiting]]
   - [[#redefine-keys-in-term-modes-to-their-normal-behavior][Redefine keys in term modes to their normal behavior]]
@@ -1160,6 +1161,11 @@ The default helpful commands do not offer integration with ivy-rich. Thankfully,
 ** Also bind helpful-key to the key used by default for describe-key
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-h k") #'helpful-key)
+#+end_src
+** Add helpful-mode to ibuffer help buffer modes
+This styles it the same way as other help buffers on the ibuffer list.
+#+begin_src emacs-lisp
+(add-to-list 'ibuffer-help-buffer-modes 'helpful-mode)
 #+end_src
 * Terminal configuration
 ** Kill terminal buffer automatically when exiting
