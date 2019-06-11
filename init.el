@@ -355,7 +355,7 @@ web-search)
 
 (setq recentf-exclude '(".*-autoloads\\.el\\'"
                         "[/\\]\\elpa/"
-                        "bookmarks"
+                        "bookmark"
                         ))
 
 (define-key global-map "\M-]" 'transpose-frame)

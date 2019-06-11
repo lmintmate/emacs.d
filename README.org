@@ -763,7 +763,7 @@ Don't add files from the elpa folder, autoloads or bookmarks in the recentf list
 #+begin_src emacs-lisp
 (setq recentf-exclude '(".*-autoloads\\.el\\'"
                         "[/\\]\\elpa/"
-                        "bookmarks"
+                        "bookmark"
                         ))
 #+end_src
 Note that the command ~recentf-edit-list~ provides a way to remove undesired files from the recentf list without having to edit the file by hand. I should have found about this earlier!
