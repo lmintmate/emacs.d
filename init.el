@@ -98,10 +98,7 @@ vimrc-mode)
 (set-face-attribute 'package-status-built-in nil :inherit font-lock-comment-face)
 (set-face-attribute 'package-status-dependency nil :inherit font-lock-builtin-face)
 (set-face-attribute 'package-status-installed nil :inherit font-lock-function-name-face)
-
-(custom-set-faces
- '(vc-edited-state ((t (:background "tomato1" :foreground "black" :box (:line-width 2 :color "tomato1"))))))
-
+(set-face-attribute 'vc-edited-state nil :background "tomato1" :foreground "black" :box '(:line-width 2 :color "tomato1"))
 ;; setting so that hl-line-mode won't affect syntax coloring
 (set-face-foreground 'highlight nil)
 
