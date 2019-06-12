@@ -302,11 +302,12 @@ I also modified the fringe color to the same background color as the rest of the
 ** Mode line customisation
 I give a flat look to the mode line, to make it look more modern. I also make it look thicker, by putting a box with line-width 2 and color same the foreground around it (trick borrowed from [[http://www.gonsie.com/blorg/modeline.html][Beautifying the Mode Line - Elsa Gonsiorowski]]). In order to keep that look uniform I also styled this way not only both active and inactive mode lines, but also the ~vc-edited-state~ and the various evil tags (see below).
 #+begin_src emacs-lisp
+(set-face-attribute 'mode-line nil :background "grey75" :foreground "black" :box '(:line-width 2 :color "grey75"))
+(set-face-attribute 'mode-line-inactive nil :background "grey30" :foreground "grey80" :box '(:line-width 2 :color "grey30"))
+(set-face-attribute 'mode-line-highlight nil :box '(:line-width 1 :color "grey20"))
+
 (custom-set-faces
- '(mode-line ((t (:background "grey75" :foreground "black" :box (:line-width 2 :color "grey75")))))
- '(mode-line-buffer-id ((t (:weight normal))))
- '(mode-line-highlight ((t (:box (:line-width 1 :color "grey20")))))
- '(mode-line-inactive ((t (:background "grey30" :foreground "grey80" :box (:line-width 2 :color "grey30"))))))
+ '(mode-line-buffer-id ((t (:weight normal)))))
 #+end_src
 ** Hide line between fringes
 Remove the strange white line between two fringes, which appears when the scrollbar is hidden (from [[https://web.archive.org/web/20170413150436/https://ogbe.net/emacsconfig.html][Dennis Ogbe's Emacs configuration file]]).
