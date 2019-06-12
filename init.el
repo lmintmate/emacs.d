@@ -240,6 +240,8 @@ vimrc-mode)
 
 (setq ring-bell-function 'ignore)
 
+(setq use-dialog-box nil)
+
 (setq custom-file (concat user-emacs-directory "custom.el"))
 
 (setq frame-title-format "%b - Emacs")

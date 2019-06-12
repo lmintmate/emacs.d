@@ -48,6 +48,7 @@
     - [[#evil-snipe][evil-snipe]]
 - [[#misc-configuration-parameters][Misc configuration parameters]]
   - [[#the-bell][The Bell]]
+  - [[#disable-dialog-boxes][Disable dialog boxes]]
   - [[#separate-custom-file][Separate custom file]]
   - [[#set-the-title-bar-to-show-buffer-name][Set the title bar to show buffer name]]
   - [[#time-in-modeline][Time in modeline]]
@@ -540,6 +541,10 @@ I don't however want to override the default action of the S key, because, while
 [[https://www.emacswiki.org/emacs/AlarmBell][That infamous bell…]] I only found out about its «charms» because it turns out my system sounds were disabled for some reason and I hadn't even realised this was the case. This is my way to exterminate those annoying sounds everytime anything out of the norm happens (that's why we have text messages in the first place after all!). I disabled alarms completely as even the visual indication (which is a nice wheat color in my colortheme) can be distracting…
 #+begin_src emacs-lisp
 (setq ring-bell-function 'ignore)
+#+end_src
+** Disable dialog boxes
+#+begin_src emacs-lisp
+(setq use-dialog-box nil)
 #+end_src
 ** Separate custom file
 #+begin_src emacs-lisp
