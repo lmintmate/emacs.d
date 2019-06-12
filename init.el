@@ -26,8 +26,7 @@ toc-org
 transpose-frame
 try
 undo-tree
-vimrc-mode
-web-search)
+vimrc-mode)
   "Core packages")
 
 (setq package-selected-packages lmintmate/packages)
@@ -516,8 +515,6 @@ web-search)
 
 (define-key evil-emacs-state-map "\M-p" 'undo-tree-undo)
 (define-key evil-emacs-state-map "\M-n" 'undo-tree-redo)
-
-(setq web-search-default-provider "DuckDuckGo")
 
 (require 'drag-stuff)
 

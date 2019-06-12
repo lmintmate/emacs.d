@@ -120,8 +120,6 @@
   - [[#add-shortcut-templates-for-emacs-lisp-org-and-title][Add shortcut templates for emacs lisp, org and title]]
   - [[#enable-speed-keys][Enable Speed keys]]
 - [[#undo-tree][Undo tree]]
-- [[#web-searchel-package-config][Web-search.el package config]]
-  - [[#set-the-default-search-provider][Set the default search provider]]
 - [[#drag-stuff-package-config][Drag-stuff package config]]
 - [[#espy-password-fetcher-package-config][Espy password fetcher package config]]
 - [[#smex][Smex]]
@@ -198,8 +196,7 @@ toc-org
 transpose-frame
 try
 undo-tree
-vimrc-mode
-web-search)
+vimrc-mode)
   "Core packages")
 
 (setq package-selected-packages lmintmate/packages)
@@ -1073,11 +1070,6 @@ M-p for M-previous and M-n for M-next in emacs state. These might not be the mos
 #+begin_src emacs-lisp
 (define-key evil-emacs-state-map "\M-p" 'undo-tree-undo)
 (define-key evil-emacs-state-map "\M-n" 'undo-tree-redo)
-#+end_src
-* Web-search.el package config
-** Set the default search provider
-#+begin_src emacs-lisp
-(setq web-search-default-provider "DuckDuckGo")
 #+end_src
 * Drag-stuff package config
 #+begin_src emacs-lisp
