@@ -105,9 +105,7 @@ vimrc-mode)
 (set-face-attribute 'mode-line nil :background "grey75" :foreground "black" :box '(:line-width 2 :color "grey75"))
 (set-face-attribute 'mode-line-inactive nil :background "grey30" :foreground "grey80" :box '(:line-width 2 :color "grey30"))
 (set-face-attribute 'mode-line-highlight nil :box '(:line-width 1 :color "grey20"))
-
-(custom-set-faces
- '(mode-line-buffer-id ((t (:weight normal)))))
+(set-face-attribute 'mode-line-buffer-id nil :weight 'normal)
 
 (set-face-attribute 'vertical-border nil :foreground (face-attribute 'fringe :background))
 

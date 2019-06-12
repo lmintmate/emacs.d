@@ -305,9 +305,7 @@ I give a flat look to the mode line, to make it look more modern. I also make it
 (set-face-attribute 'mode-line nil :background "grey75" :foreground "black" :box '(:line-width 2 :color "grey75"))
 (set-face-attribute 'mode-line-inactive nil :background "grey30" :foreground "grey80" :box '(:line-width 2 :color "grey30"))
 (set-face-attribute 'mode-line-highlight nil :box '(:line-width 1 :color "grey20"))
-
-(custom-set-faces
- '(mode-line-buffer-id ((t (:weight normal)))))
+(set-face-attribute 'mode-line-buffer-id nil :weight 'normal)
 #+end_src
 ** Hide line between fringes
 Remove the strange white line between two fringes, which appears when the scrollbar is hidden (from [[https://web.archive.org/web/20170413150436/https://ogbe.net/emacsconfig.html][Dennis Ogbe's Emacs configuration file]]).
