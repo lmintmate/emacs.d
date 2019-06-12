@@ -131,13 +131,7 @@ vimrc-mode)
 
 (setq inhibit-startup-screen t)
 
-(setq initial-scratch-message
-   ";; This buffer is for notes you don't want to save, and for Lisp evaluation.
-;; If you want to create a file, visit that file with C-x C-f,
-;; then enter the text in that file's own buffer.
-;; Reminder: To see the startup screen's basic content, use M-x about-emacs.
-;; To quickly access the Customize interface, use M-x customize.
-")
+(setq initial-scratch-message nil)
 
 (defun display-startup-echo-area-message ()
   (message "Καλωσήλθες!"))

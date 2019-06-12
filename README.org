@@ -31,7 +31,7 @@
     - [[#loading-la-carte-for-executing-menu-commands-from-the-keyboard][Loading La Carte (for executing menu commands from the keyboard)]]
 - [[#startup-screen-and-scratch-buffer-options][Startup screen and scratch buffer options]]
   - [[#inhibit-startup-screen][Inhibit startup screen]]
-  - [[#scratch-buffer-message][Scratch buffer message]]
+  - [[#disable-scratch-buffer-message][Disable scratch buffer message]]
   - [[#new-message-for-the-startup-echo-area][New message for the startup echo area]]
 - [[#-nationality-parameters][🇬🇷 Nationality parameters]]
   - [[#setting-the-calendar-up-in-greek][Setting the calendar up in Greek.]]
@@ -354,16 +354,9 @@ At this point I only use the quick link to the Customize interface, so I thought
 #+begin_src emacs-lisp
 (setq inhibit-startup-screen t)
 #+end_src
-** Scratch buffer message
-I added a reminder for the links to ~about-emacs~ and to the Customize interface to the default message.
+** Disable scratch buffer message
 #+begin_src emacs-lisp
-(setq initial-scratch-message
-   ";; This buffer is for notes you don't want to save, and for Lisp evaluation.
-;; If you want to create a file, visit that file with C-x C-f,
-;; then enter the text in that file's own buffer.
-;; Reminder: To see the startup screen's basic content, use M-x about-emacs.
-;; To quickly access the Customize interface, use M-x customize.
-")
+(setq initial-scratch-message nil)
 #+end_src
 I decided not to change the scratch buffer’s major mode however, because, as weird as it may sound, I like [[https://en.wikipedia.org/wiki/Polish_notation][prefix notation]] a lot (and think that the [[https://en.wikipedia.org/wiki/Reverse_Polish_notation][Reverse Polish notation]] is overrated in comparison), and want to keep having it as a nifty little prefix calculation mode.
 ** New message for the startup echo area
