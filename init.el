@@ -476,9 +476,8 @@ vimrc-mode)
 (setq org-return-follows-link t)
 
 (setq org-fontify-done-headline t)
-(custom-set-faces
- '(org-done ((t (:foreground "PaleGreen" :strike-through t :weight bold))))
- '(org-headline-done ((t (:foreground "LightSalmon" :strike-through t)))))
+(set-face-attribute 'org-done nil :foreground "PaleGreen" :strike-through t :weight 'bold)
+(set-face-attribute 'org-headline-done nil :foreground "LightSalmon" :strike-through t)
 
 (setq org-level-color-stars-only t)
 
