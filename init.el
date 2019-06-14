@@ -127,7 +127,14 @@ vimrc-mode)
 
 (setq inhibit-startup-screen t)
 
-(setq initial-scratch-message nil)
+(if (executable-find "fortune")
+   (setq initial-scratch-message
+         (with-temp-buffer
+           (shell-command "fortune" t)
+           (let ((comment-start ";;"))
+             (comment-region (point-min) (point-max)))
+           (concat (buffer-string) "\n")))
+(setq initial-scratch-message ";; Είς οιωνός άριστος, αμύνεσθαι περί πάτρης."))
 
 (defun display-startup-echo-area-message ()
   (message "Καλωσήλθες!"))

@@ -31,7 +31,7 @@
     - [[#loading-la-carte-for-executing-menu-commands-from-the-keyboard][Loading La Carte (for executing menu commands from the keyboard)]]
 - [[#startup-screen-and-scratch-buffer-options][Startup screen and scratch buffer options]]
   - [[#inhibit-startup-screen][Inhibit startup screen]]
-  - [[#disable-scratch-buffer-message][Disable scratch buffer message]]
+  - [[#scratch-buffer-message][Scratch buffer message]]
   - [[#new-message-for-the-startup-echo-area][New message for the startup echo area]]
 - [[#-nationality-parameters][🇬🇷 Nationality parameters]]
   - [[#setting-the-calendar-up-in-greek][Setting the calendar up in Greek.]]
@@ -351,9 +351,17 @@ At this point I only use the quick link to the Customize interface, so I thought
 #+begin_src emacs-lisp
 (setq inhibit-startup-screen t)
 #+end_src
-** Disable scratch buffer message
+** Scratch buffer message
+Supply a random fortune cookie as the scratch message if the fortune executable can be found (found from [[https://www.emacswiki.org/emacs/Fortune#toc2][EmacsWiki: Fortune]]). Otherwise, show a custom fortune-style message.
 #+begin_src emacs-lisp
-(setq initial-scratch-message nil)
+(if (executable-find "fortune")
+   (setq initial-scratch-message
+         (with-temp-buffer
+           (shell-command "fortune" t)
+           (let ((comment-start ";;"))
+             (comment-region (point-min) (point-max)))
+           (concat (buffer-string) "\n")))
+(setq initial-scratch-message ";; Είς οιωνός άριστος, αμύνεσθαι περί πάτρης."))
 #+end_src
 I decided not to change the scratch buffer’s major mode however, because, as weird as it may sound, I like [[https://en.wikipedia.org/wiki/Polish_notation][prefix notation]] a lot (and think that the [[https://en.wikipedia.org/wiki/Reverse_Polish_notation][Reverse Polish notation]] is overrated in comparison), and want to keep having it as a nifty little prefix calculation mode.
 ** New message for the startup echo area
