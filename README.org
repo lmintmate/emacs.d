@@ -127,6 +127,7 @@
 - [[#ivy-counsel-swiper-configuration][Ivy, counsel, swiper configuration]]
   - [[#basic-settings][Basic settings]]
   - [[#ivy-rich][Ivy rich]]
+    - [[#add-custom-display-transformer-for-try][Add custom display transformer for try]]
   - [[#change-color-of-ivy-org-face][Change color of ivy-org face]]
 - [[#helpful-enhanced-help-buffers][Helpful: Enhanced help buffers]]
   - [[#set-evil-motion-state-as-the-default-initial-state-for-helpful-mode][Set evil motion state as the default initial state for helpful-mode]]
@@ -1154,6 +1155,16 @@ Have ivy minibuffer selection highlight the entire current line. This was recomm
 #+begin_src emacs-lisp
 (require 'ivy-rich)
 (ivy-rich-mode 1)
+#+end_src
+*** Add custom display transformer for try
+[[https://github.com/Yevgnen/ivy-rich/pull/58][A pull request]] added ivy-rich support for the ~package-install~ command. Inspired by this, I decided to add the same sort of transformer to the ~try~ command, which I use way more often than ~package-install~ since I prefer to try packages from inside emacs, and when I install them, I usually do this by writing their name in my init file.
+#+begin_src emacs-lisp
+(plist-put ivy-rich-display-transformers-list
+             'try
+    '(:columns
+     ((ivy-rich-candidate (:width 40))
+      (ivy-rich-package-install-summary (:face font-lock-doc-face)))))
+(ivy-rich-set-display-transformer)
 #+end_src
 ** Change color of ivy-org face
 The default one is inherited from org-level-4, which is gray, and thus always confused me when displaying the buffers, because I'm used to the convention that gray=inactive or comment. I changed it thus to chartreuse green, which is the same color that org-level-1 has.

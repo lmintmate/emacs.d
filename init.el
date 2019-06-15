@@ -558,6 +558,13 @@ vimrc-mode)
 (require 'ivy-rich)
 (ivy-rich-mode 1)
 
+(plist-put ivy-rich-display-transformers-list
+             'try
+    '(:columns
+     ((ivy-rich-candidate (:width 40))
+      (ivy-rich-package-install-summary (:face font-lock-doc-face)))))
+(ivy-rich-set-display-transformer)
+
 (when (package-installed-p 'ivy)
 (set-face-attribute 'ivy-org nil :inherit font-lock-function-name-face))
 
