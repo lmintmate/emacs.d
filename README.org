@@ -1106,7 +1106,7 @@ First, enable ivy mode.
 (ivy-mode 1)
 #+end_src
 ** Basic settings
-Add recent files and bookmarks to ivy-switch-buffer.
+Add recent files and bookmarks to ivy-switch-buffer. Note that in order to remove unwanted files from the virtual buffers list one can use the command ~ivy-switch-buffer-kill~ (by default bound to ~C-c~ ~C-k~) from inside the ~ivy-switch-buffer~ menu (see [[https://github.com/abo-abo/swiper/issues/1888][here]]).
 #+begin_src emacs-lisp
 (setq ivy-use-virtual-buffers t)
 #+end_src
