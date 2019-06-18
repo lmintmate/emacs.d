@@ -251,7 +251,13 @@ vimrc-mode)
 
 (setq custom-file (concat user-emacs-directory "custom.el"))
 
-(setq frame-title-format "%b - Emacs")
+(setq frame-title-format
+    '((:eval (if (buffer-file-name)
+                  (abbreviate-file-name (buffer-file-name))
+                    "%b"))
+      (:eval (if (buffer-modified-p)
+                 " [+]"))
+      " - Emacs " emacs-version))
 
 (setq display-time-default-load-average nil)
 (setq display-time-format "%a %d/%m %H:%M")

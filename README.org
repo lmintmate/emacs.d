@@ -50,7 +50,7 @@
   - [[#the-bell][The Bell]]
   - [[#disable-dialog-boxes][Disable dialog boxes]]
   - [[#separate-custom-file][Separate custom file]]
-  - [[#set-the-title-bar-to-show-buffer-name][Set the title bar to show buffer name]]
+  - [[#set-the-format-of-the-frame-title][Set the format of the frame title]]
   - [[#time-in-modeline][Time in modeline]]
   - [[#do-not-autosave-nor-make-any-backup-files][Do not autosave nor make any backup files.]]
   - [[#do-not-create-lockfiles][Do not create lockfiles]]
@@ -559,9 +559,16 @@ I don't however want to override the default action of the S key, because, while
 #+begin_src emacs-lisp
 (setq custom-file (concat user-emacs-directory "custom.el"))
 #+end_src
-** Set the title bar to show buffer name
+** Set the format of the frame title
+It shows relative file path if a file is opened, whether the buffer is modified or not, and the emacs version (adapted from [[https://www.emacswiki.org/emacs/FrameTitle][EmacsWiki: Frame Title]]).
 #+begin_src emacs-lisp
-(setq frame-title-format "%b - Emacs")
+(setq frame-title-format
+    '((:eval (if (buffer-file-name)
+                  (abbreviate-file-name (buffer-file-name))
+                    "%b"))
+      (:eval (if (buffer-modified-p)
+                 " [+]"))
+      " - Emacs " emacs-version))
 #+end_src
 ** Time in modeline
 The only way to have the time mode not display the load average, it turns out, is to put the relevant config before loading display-time-mode. Who would have thought? (I got the idea to try this approach from [[https://github.com/IvanMalison/.emacs.d#time-in-mode-line][Ivan Malison's emacs.d]]). An explanation of my ~display-time-format~ config: It basically shows the day of the week, then day/month, then hours:minutes. For more functions, Customize instructs to look at the function ~format-time-string~.
