@@ -47,7 +47,7 @@ vimrc-mode)
 (unless (version< emacs-version "25")
   (add-to-list 'package-selected-packages 'evil-fringe-mark))
 
-(unless (version< emacs-version "25.1")
+(unless (version< emacs-version "25")
   (add-to-list 'package-selected-packages 'helpful))
 
 (unless (version< emacs-version "25.2")

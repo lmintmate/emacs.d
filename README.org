@@ -221,7 +221,7 @@ Here I conditionally add to the value of ~package-selected-packages~ some packag
 (unless (version< emacs-version "25")
   (add-to-list 'package-selected-packages 'evil-fringe-mark))
 
-(unless (version< emacs-version "25.1")
+(unless (version< emacs-version "25")
   (add-to-list 'package-selected-packages 'helpful))
 
 (unless (version< emacs-version "25.2")
