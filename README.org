@@ -701,7 +701,7 @@ Modified from [[http://seancribbs.com/emacs.d#sec-5-8][Sean Cribbs' Emacs 25 Con
 (add-hook 'prog-mode-hook 'lmintmate/add-watchwords)
 #+end_src
 ** Drag selected text with the mouse in emacs
-Sometimes I just want to cop out and use the mouse when trying to move text. I found out via [[https://emacs.stackexchange.com/a/48440][Stack Exchange]] that this is possible in emacs, and one just needs to set the function ~mouse-drag-and-drop-region~ to ~t~. This feature was added in version 26.1 (see [[http://git.savannah.gnu.org/cgit/emacs.git/tree/etc/NEWS.26#n377][here]]), and I thus wrap it in a conditional so that it won't error out on versions lower than 26. This doesn't work when inside org-mode files however, an issue most probably related to the fact that I have ~org-mouse~ enabled, since, if I disable it, drag-and-drop works then fine.
+Sometimes I just want to cop out and use the mouse when trying to move text. I found out via [[https://emacs.stackexchange.com/a/48440][Stack Exchange]] that this is possible in emacs, and one just needs to set the function ~mouse-drag-and-drop-region~ to ~t~. This feature was added in version 26.1 (see [[http://git.savannah.gnu.org/cgit/emacs.git/tree/etc/NEWS.26#n395][here]]), and I thus wrap it in a conditional so that it won't error out on versions lower than 26. This doesn't work when inside org-mode files however, an issue most probably related to the fact that I have ~org-mouse~ enabled, since, if I disable it, drag-and-drop works then fine.
 #+begin_src emacs-lisp
 (when (version<= "26.0.50" emacs-version )
 (setq mouse-drag-and-drop-region t))
