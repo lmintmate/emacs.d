@@ -133,7 +133,7 @@ vimrc-mode)
            (shell-command "fortune" t)
            (let ((comment-start ";;"))
              (comment-region (point-min) (point-max)))
-           (concat (buffer-string) "\n")))
+           (concat (buffer-string))))
 (setq initial-scratch-message ";; Είς οιωνός άριστος, αμύνεσθαι περί πάτρης."))
 
 (defun display-startup-echo-area-message ()

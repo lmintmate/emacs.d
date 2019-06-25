@@ -361,7 +361,7 @@ Supply a random fortune cookie as the scratch message if the fortune executable 
            (shell-command "fortune" t)
            (let ((comment-start ";;"))
              (comment-region (point-min) (point-max)))
-           (concat (buffer-string) "\n")))
+           (concat (buffer-string))))
 (setq initial-scratch-message ";; Είς οιωνός άριστος, αμύνεσθαι περί πάτρης."))
 #+end_src
 I decided not to change the scratch buffer’s major mode however, because, as weird as it may sound, I like [[https://en.wikipedia.org/wiki/Polish_notation][prefix notation]] a lot (and think that the [[https://en.wikipedia.org/wiki/Reverse_Polish_notation][Reverse Polish notation]] is overrated in comparison), and want to keep having it as a nifty little prefix calculation mode.
