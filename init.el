@@ -127,6 +127,16 @@ vimrc-mode)
 
 (setq inhibit-startup-screen t)
 
+(unless (executable-find "fortune")
+(require 'cookie1)
+(defun lmintmate/cookie-insert (phrase-file &optional count startmsg endmsg)
+  (setq phrase-file (cookie-check-file phrase-file))
+  (let ((cookie-vector (cookie-snarf phrase-file startmsg endmsg)))
+    (cookie-shuffle-vector cookie-vector)
+    (let ((start (point)))
+      (cookie1 (min (- (length cookie-vector) 1) (or count 1)) cookie-vector)
+      (fill-region-as-paragraph start (point) nil)))))
+
 (if (executable-find "fortune")
    (setq initial-scratch-message
          (with-temp-buffer
@@ -134,7 +144,15 @@ vimrc-mode)
            (let ((comment-start ";;"))
              (comment-region (point-min) (point-max)))
            (concat (buffer-string))))
-(setq initial-scratch-message ";; Είς οιωνός άριστος, αμύνεσθαι περί πάτρης."))
+(if (file-exists-p (concat user-emacs-directory "apofthegmata-emacs.txt"))
+(setq initial-scratch-message
+(with-temp-buffer
+           (lmintmate/cookie-insert
+(concat user-emacs-directory "apofthegmata-emacs.txt"))
+           (let ((comment-start ";;"))
+             (comment-region (point-min) (point-max)))
+           (concat (buffer-string) "\n")))
+(setq initial-scratch-message (concat ";; Είς οιωνός άριστος, αμύνεσθαι περί πάτρης." "\n"))))
 
 (defun display-startup-echo-area-message ()
   (message "Καλωσήλθες!"))
