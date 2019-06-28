@@ -128,6 +128,8 @@ vimrc-mode)
 (setq inhibit-startup-screen t)
 
 (unless (executable-find "fortune")
+(unless (file-exists-p (concat user-emacs-directory "apofthegmata.txt"))
+(url-copy-file "https://gitlab.com/snippets/1870200/raw" (concat user-emacs-directory "apofthegmata.txt")))
 (require 'cookie1)
 (defun lmintmate/cookie-insert (phrase-file &optional count startmsg endmsg)
   (setq phrase-file (cookie-check-file phrase-file))
@@ -144,11 +146,11 @@ vimrc-mode)
            (let ((comment-start ";;"))
              (comment-region (point-min) (point-max)))
            (concat (buffer-string))))
-(if (file-exists-p (concat user-emacs-directory "apofthegmata-emacs.txt"))
+(if (file-exists-p (concat user-emacs-directory "apofthegmata.txt"))
 (setq initial-scratch-message
 (with-temp-buffer
            (lmintmate/cookie-insert
-(concat user-emacs-directory "apofthegmata-emacs.txt"))
+(concat user-emacs-directory "apofthegmata.txt"))
            (let ((comment-start ";;"))
              (comment-region (point-min) (point-max)))
            (concat (buffer-string) "\n")))

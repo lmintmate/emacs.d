@@ -353,10 +353,12 @@ At this point I only use the quick link to the Customize interface, so I thought
 (setq inhibit-startup-screen t)
 #+end_src
 ** Scratch buffer message
-If the fortune executable can be found, supply a random fortune cookie as the scratch message (found from [[https://www.emacswiki.org/emacs/Fortune#toc2][EmacsWiki: Fortune]]). Otherwise, use the builtin-in lisp library [[http://git.savannah.gnu.org/cgit/emacs.git/tree/lisp/play/cookie1.el][cookie1]]. This library can retrieve random phrases from fortune cookie style files. The type of phrase files it accepts is similar to the default form of fortune files, the only difference being that the delimiter between cookies is ~%%~ instead of ~%~ and the file also has to end with ~%%~ on a line by itself (see [[http://git.savannah.gnu.org/cgit/emacs.git/tree/lisp/play/cookie1.el#n38][here]]). The function normally used to insert cookies is [[http://git.savannah.gnu.org/cgit/emacs.git/tree/lisp/play/cookie1.el#n100][cookie-insert]]. I don't like however that this function by default adds new lines unnecessarily, so I redefine it without the new lines as ~lmintmate/cookie-insert~. Both the ~cookie-insert~ function and my customised variant have to have the phrase file to be used (here named ~apofthegmata-emacs.txt~, and located in the ~user-emacs-directory~) as an argument. In case that file isn't present, show a custom fortune-style message to avoid erroring out.\\
+If the fortune executable can be found, supply a random fortune cookie as the scratch message (found from [[https://www.emacswiki.org/emacs/Fortune#toc2][EmacsWiki: Fortune]]). Otherwise, use the builtin-in lisp library [[http://git.savannah.gnu.org/cgit/emacs.git/tree/lisp/play/cookie1.el][cookie1]]. This library can retrieve random phrases from fortune cookie style files. The type of phrase files it accepts is similar to the default form of fortune files, with the variation that it accepts either ~%~ or ~%%~ as the delimiter between cookies and needs an empty final line after the final delimiter, while the fortune program doesn't require this and works fine without said empty final line (see [[http://git.savannah.gnu.org/cgit/emacs.git/tree/lisp/play/cookie1.el#n38][here]]). The function normally used to insert cookies is [[http://git.savannah.gnu.org/cgit/emacs.git/tree/lisp/play/cookie1.el#n100][cookie-insert]]. I don't like however that this function by default adds new lines unnecessarily, so I redefine it without the new lines as ~lmintmate/cookie-insert~. Both the ~cookie-insert~ function and my customised variant have to have the phrase file to be used (here named ~apofthegmata.txt~, and located in the ~user-emacs-directory~) as an argument. In case that file isn't present (e.g. if the code for downloading it fails for whatever reason), show a custom fortune-style message to avoid erroring out.\\
 Worth noting: The ~cookie1~ method is very satisfactory, but its only problem is that it doesn't respect the lines of the phrase file (that is, it puts some stuff that is on separate lines on the same line). Until I figure out how to solve this, I'm keeping the ~shell-command "fortune"~ method around, even though I would rather not depend on an external program for this, since there is a builtin library that does (almost) the same.
 #+begin_src emacs-lisp
 (unless (executable-find "fortune")
+(unless (file-exists-p (concat user-emacs-directory "apofthegmata.txt"))
+(url-copy-file "https://gitlab.com/snippets/1870200/raw" (concat user-emacs-directory "apofthegmata.txt")))
 (require 'cookie1)
 (defun lmintmate/cookie-insert (phrase-file &optional count startmsg endmsg)
   (setq phrase-file (cookie-check-file phrase-file))
@@ -373,11 +375,11 @@ Worth noting: The ~cookie1~ method is very satisfactory, but its only problem is
            (let ((comment-start ";;"))
              (comment-region (point-min) (point-max)))
            (concat (buffer-string))))
-(if (file-exists-p (concat user-emacs-directory "apofthegmata-emacs.txt"))
+(if (file-exists-p (concat user-emacs-directory "apofthegmata.txt"))
 (setq initial-scratch-message
 (with-temp-buffer
            (lmintmate/cookie-insert
-(concat user-emacs-directory "apofthegmata-emacs.txt"))
+(concat user-emacs-directory "apofthegmata.txt"))
            (let ((comment-start ";;"))
              (comment-region (point-min) (point-max)))
            (concat (buffer-string) "\n")))
