@@ -578,9 +578,7 @@ vimrc-mode)
 
 (setq ivy-extra-directories nil)
 
-(add-to-list 'ivy-format-functions-alist '(t . ivy-format-function-line))
-
-(delete '(t . ivy-format-function-default) ivy-format-functions-alist)
+(setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
 
 (require 'ivy-rich)
 (ivy-rich-mode 1)
