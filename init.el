@@ -19,7 +19,6 @@ evil-snipe
 free-keys
 ivy-rich
 no-littering
-org-bullets
 rainbow-mode
 smex
 toc-org
@@ -110,13 +109,13 @@ vimrc-mode)
 (set-face-attribute 'vertical-border nil :foreground (face-attribute 'fringe :background))
 
 (setq lisp-directory (concat user-emacs-directory "lisp"))
-
-(when (or (not (file-exists-p (expand-file-name "greek.el" lisp-directory))) (not (file-exists-p (expand-file-name "lacarte.el" lisp-directory))))
-  (unless (file-directory-p lisp-directory) (make-directory lisp-directory))
-  (unless (file-exists-p (expand-file-name "greek.el" lisp-directory))
+(unless (file-directory-p lisp-directory) (make-directory lisp-directory))
+(unless (file-exists-p (expand-file-name "greek.el" lisp-directory))
     (url-copy-file "http://myria.math.aegean.gr/~atsol/emacs-unicode/greek.el" (expand-file-name "greek.el" lisp-directory)))
-  (unless (file-exists-p (expand-file-name "lacarte.el" lisp-directory))
-    (url-copy-file "https://www.emacswiki.org/emacs/download/lacarte.el" (expand-file-name "lacarte.el" lisp-directory))))
+(unless (file-exists-p (expand-file-name "lacarte.el" lisp-directory))
+    (url-copy-file "https://www.emacswiki.org/emacs/download/lacarte.el" (expand-file-name "lacarte.el" lisp-directory)))
+(unless (file-exists-p (expand-file-name "org-bullets.el" lisp-directory))
+   (url-copy-file "https://raw.githubusercontent.com/lmintmate/org-bullets/master/org-bullets.el" (expand-file-name "org-bullets.el" lisp-directory)))
 
 (add-to-list 'load-path lisp-directory)
 
@@ -488,6 +487,8 @@ vimrc-mode)
       '("🅐" "🅑" "🅒")))
 (when (eq system-type 'windows-nt)
 (setq inhibit-compacting-font-caches t))
+;; completely hide the leading stars
+(setq org-bullets-invisible-leading-stars t)
 
 (setq org-ellipsis "↪")
 (set-face-attribute 'org-ellipsis nil :foreground "cyan3" :underline 'unspecified)

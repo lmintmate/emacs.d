@@ -191,7 +191,6 @@ evil-snipe
 free-keys
 ivy-rich
 no-littering
-org-bullets
 rainbow-mode
 smex
 toc-org
@@ -320,13 +319,13 @@ I use a couple external lisp files, and I thus need to load my personal lisp dir
 In this section I have some code in emacs lisp that downloads the lisp files I use and places them in the correct place. Specifically, it checks whether the files exist, and if they don't, first creates the containing directory, if it doesn't exist, and then proceeds to download and store the files.
 #+begin_src emacs-lisp
 (setq lisp-directory (concat user-emacs-directory "lisp"))
-
-(when (or (not (file-exists-p (expand-file-name "greek.el" lisp-directory))) (not (file-exists-p (expand-file-name "lacarte.el" lisp-directory))))
-  (unless (file-directory-p lisp-directory) (make-directory lisp-directory))
-  (unless (file-exists-p (expand-file-name "greek.el" lisp-directory))
+(unless (file-directory-p lisp-directory) (make-directory lisp-directory))
+(unless (file-exists-p (expand-file-name "greek.el" lisp-directory))
     (url-copy-file "http://myria.math.aegean.gr/~atsol/emacs-unicode/greek.el" (expand-file-name "greek.el" lisp-directory)))
-  (unless (file-exists-p (expand-file-name "lacarte.el" lisp-directory))
-    (url-copy-file "https://www.emacswiki.org/emacs/download/lacarte.el" (expand-file-name "lacarte.el" lisp-directory))))
+(unless (file-exists-p (expand-file-name "lacarte.el" lisp-directory))
+    (url-copy-file "https://www.emacswiki.org/emacs/download/lacarte.el" (expand-file-name "lacarte.el" lisp-directory)))
+(unless (file-exists-p (expand-file-name "org-bullets.el" lisp-directory))
+   (url-copy-file "https://raw.githubusercontent.com/lmintmate/org-bullets/master/org-bullets.el" (expand-file-name "org-bullets.el" lisp-directory)))
 #+end_src
 ** Where I tell Emacs where is my personal lisp directory.
 #+begin_src emacs-lisp
@@ -972,9 +971,7 @@ In org mode, ~C-c .~ is by default bound to ~org-time-stamp~, which I don't use 
 #+end_src
 ** Beautification settings
 *** Org bullets
-The stars used by the DejaVu Sans Mono font are rather plain, so when I noticed that the stars used by Hack (a DejaVu Sans Mono derivative that lacks many glyphs) were prettier, I got into my head the idea of beautifying org-mode. I first looked [[https://emacs.stackexchange.com/questions/38837/display-another-symbol-than-asterisks-in-org-headings][here]], but after I decided to use a different symbol for each headline, I thought I'd try something a little more tried and true. I thus use here [[https://github.com/emacsorphanage/org-bullets][org-bullets]], though I'm not sure how I feel about a such widely-used emacs package being in the emacs orphanage (poor little package...). Because I'm not the type to distinguish the level of the org headline by color or indentation, and used to use the number of stars to do so before, I decided to use some unicode symbols (found via ~counsel-unicode-char~) that would somehow denote this hierarchy.
-I settled on ~Negative Circled Latin Capital~ letters A, B and C, but because these symbols don't work under Windows, I use there the ~Inverse Circled Sans Serif~ digits one, two and three. Note that ~org-bullets~ causes performance issues on some computers, especially when under Windows. Since this problem appears in my Windows machine too, I use the fix from [[https://github.com/sabof/org-bullets/issues/11#issuecomment-439228372][here]].\\
-P.S. I would like an option to completely hide the leading stars, so that there won't be any sort of indentation on the headings. There was [[https://github.com/sabof/org-bullets/pull/13][a PR against the original repository that implemented this]], but this can't be applied on the emacsorphanage version, which is the one installed by MELPA, as that version made a number of changes that most likely make this change incompatible with the current state of the code, and I don't know enough emacs lisp to attempt to implement it again myself.
+The stars used by the DejaVu Sans Mono font are rather plain, so when I noticed that the stars used by Hack (a DejaVu Sans Mono derivative that lacks many glyphs) were prettier, I got into my head the idea of beautifying org-mode. I first looked [[https://emacs.stackexchange.com/questions/38837/display-another-symbol-than-asterisks-in-org-headings][here]], but after I decided to use a different symbol for each headline, I thought I'd try something a little more tried and true. I thus use [[https://github.com/emacsorphanage/org-bullets][org-bullets]], though I'm not sure how I feel about a such widely-used emacs package being in the emacs orphanage (poor little package...). In particular, I use [[https://github.com/lmintmate/org-bullets][a fork I made]] that adds the ability to completely hide the leading stars, instead of just masking them with a different color (which also removes the indentation effect and puts all bullets at the same level screenwise), found from [[https://github.com/sabof/org-bullets/pull/13][a pull request against the original repository]]. Because I'm not the type to distinguish the level of the org headline by color or indentation, and used to use the number of stars to do so before, I decided to use some unicode symbols (found via ~counsel-unicode-char~) that would somehow denote this hierarchy. I settled on ~Negative Circled Latin Capital~ letters A, B and C, but because these symbols don't work under Windows, I use there the ~Inverse Circled Sans Serif~ digits one, two and three. Note that ~org-bullets~ causes performance issues on some computers, especially when under Windows. Since this problem appears in my Windows machine too, I use the fix from [[https://github.com/sabof/org-bullets/issues/11#issuecomment-439228372][here]].
 #+begin_src emacs-lisp
 (require 'org-bullets)
 (add-hook 'org-mode-hook 'org-bullets-mode)
@@ -985,6 +982,8 @@ P.S. I would like an option to completely hide the leading stars, so that there 
       '("🅐" "🅑" "🅒")))
 (when (eq system-type 'windows-nt)
 (setq inhibit-compacting-font-caches t))
+;; completely hide the leading stars
+(setq org-bullets-invisible-leading-stars t)
 #+end_src
 *** Set org ellipsis symbol and color
 See [[http://endlessparentheses.com/changing-the-org-mode-ellipsis.html][Changing the org-mode ellipsis · Endless Parentheses]].
