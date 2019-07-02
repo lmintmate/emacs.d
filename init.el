@@ -580,6 +580,8 @@ vimrc-mode)
 
 (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
 
+(evil-set-initial-state 'ivy-occur-mode 'emacs)
+
 (require 'ivy-rich)
 (ivy-rich-mode 1)
 

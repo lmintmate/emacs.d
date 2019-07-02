@@ -1175,6 +1175,10 @@ Have ivy minibuffer selection highlight the entire current line (recommended fro
 #+begin_src emacs-lisp
 (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
 #+end_src
+Set the initial state of [[https://oremacs.com/2015/11/04/ivy-occur/][ivy-occur-mode]] (which keeps a list of completion candidates in a separate buffer when pressing ~C-c C-o~) to emacs, as it doesn't work properly with the normal evil state.
+#+begin_src emacs-lisp
+(evil-set-initial-state 'ivy-occur-mode 'emacs)
+#+end_src
 ** Ivy rich
 [[https://github.com/Yevgnen/ivy-rich][This package]] shows descriptions of the items in ~ivy-switch-buffer~, ~counsel-M-x~, ~counsel-describe-variable~, ~counsel-describe-function~ e.t.c.
 #+begin_src emacs-lisp
