@@ -558,13 +558,12 @@ vimrc-mode)
 
 (ivy-mode 1)
 
-(setq ivy-use-virtual-buffers t)
-
 (setq ivy-count-format "(%d/%d) ")
 
 (global-set-key (kbd "C-s") 'swiper-isearch)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "\C-xb") 'counsel-switch-buffer)
 (global-set-key (kbd "\C-cu") 'counsel-unicode-char)
 (global-set-key (kbd "\C-cr") 'counsel-recentf)
 (global-set-key (kbd "\C-h v") 'counsel-describe-variable)
@@ -590,6 +589,18 @@ vimrc-mode)
     '(:columns
      ((ivy-rich-candidate (:width 40))
       (ivy-rich-package-install-summary (:face font-lock-doc-face)))))
+
+(plist-put ivy-rich-display-transformers-list
+'counsel-switch-buffer
+  '(:columns
+   ((ivy-rich-candidate (:width 30))  ; return the candidate itself
+    (ivy-rich-switch-buffer-size (:width 7))  ; return the buffer size
+    (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right)); return the buffer indicators
+    (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))          ; return the major mode info
+    (ivy-rich-switch-buffer-project (:width 15 :face success))             ; return project name using `projectile'
+    (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))  ; return file path relative to project root or `default-directory' if project is nil
+   :predicate
+   (lambda (cand) (get-buffer cand))))
 
 (defun +ivy-rich-describe-variable-transformer (cand)
   "Previews the value of the variable in the minibuffer"

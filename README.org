@@ -128,7 +128,8 @@
   - [[#basic-settings][Basic settings]]
   - [[#ivy-rich][Ivy rich]]
     - [[#add-custom-display-transformer-for-try][Add custom display transformer for try]]
-    - [[#modify-display-tranformer-for-counsel-describe-variable][Modify display tranformer for counsel-describe-variable]]
+    - [[#add-display-transformer-for-counsel-switch-buffer][Add display transformer for counsel-switch-buffer]]
+    - [[#modify-display-transformer-for-counsel-describe-variable][Modify display transformer for counsel-describe-variable]]
     - [[#enable-display-transformers][Enable display transformers]]
   - [[#change-color-of-ivy-org-face][Change color of ivy-org face]]
 - [[#helpful-enhanced-help-buffers][Helpful: Enhanced help buffers]]
@@ -1135,19 +1136,16 @@ First, enable ivy mode.
 (ivy-mode 1)
 #+end_src
 ** Basic settings
-Add recent files and bookmarks to ivy-switch-buffer. Note that in order to remove unwanted files from the virtual buffers list one can use the command ~ivy-switch-buffer-kill~ (by default bound to ~C-c~ ~C-k~) from inside the ~ivy-switch-buffer~ menu (see [[https://github.com/abo-abo/swiper/issues/1888][here]]).
-#+begin_src emacs-lisp
-(setq ivy-use-virtual-buffers t)
-#+end_src
 Show current candidate index and count for ivy minibuffer completion.
 #+begin_src emacs-lisp
 (setq ivy-count-format "(%d/%d) ")
 #+end_src
-Keybindings for counsel and swiper functions. ~swiper-isearch~ is like regular swiper, only it shows all results corresponding to a search string from the current line, instead of only the first one, and it also doesn't show the line numbers of the results (see [[https://oremacs.com/2019/04/07/swiper-isearch/][Swiper-isearch - a more isearch-like swiper · (or emacs]]).
+Keybindings for counsel and swiper functions. ~swiper-isearch~ is like regular swiper, only it shows all results corresponding to a search string from the current line, instead of only the first one, and it also doesn't show the line numbers of the results (see [[https://oremacs.com/2019/04/07/swiper-isearch/][Swiper-isearch - a more isearch-like swiper · (or emacs]]). ~counsel-switch-buffer~ is like ~ivy-switch-buffer~, but it also shows the preview of each buffer.
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-s") 'swiper-isearch)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "\C-xb") 'counsel-switch-buffer)
 (global-set-key (kbd "\C-cu") 'counsel-unicode-char)
 (global-set-key (kbd "\C-cr") 'counsel-recentf)
 (global-set-key (kbd "\C-h v") 'counsel-describe-variable)
@@ -1196,7 +1194,22 @@ Set the initial state of [[https://oremacs.com/2015/11/04/ivy-occur/][ivy-occur-
      ((ivy-rich-candidate (:width 40))
       (ivy-rich-package-install-summary (:face font-lock-doc-face)))))
 #+end_src
-*** Modify display tranformer for counsel-describe-variable
+*** Add display transformer for counsel-switch-buffer
+Make it the same as ivy-switch-buffer
+#+begin_src emacs-lisp
+(plist-put ivy-rich-display-transformers-list
+'counsel-switch-buffer
+  '(:columns
+   ((ivy-rich-candidate (:width 30))  ; return the candidate itself
+    (ivy-rich-switch-buffer-size (:width 7))  ; return the buffer size
+    (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right)); return the buffer indicators
+    (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))          ; return the major mode info
+    (ivy-rich-switch-buffer-project (:width 15 :face success))             ; return project name using `projectile'
+    (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))  ; return file path relative to project root or `default-directory' if project is nil
+   :predicate
+   (lambda (cand) (get-buffer cand))))
+#+end_src
+*** Modify display transformer for counsel-describe-variable
 Adds a preview of the current value of the variable. Adapted from doom-emacs, specifically from [[https://github.com/hlissner/doom-emacs/blob/develop/modules/completion/ivy/autoload/ivy.el#L63][here]] and [[https://github.com/hlissner/doom-emacs/blob/develop/modules/completion/ivy/config.el#L132][here]], and found via [[https://www.reddit.com/r/emacs/comments/c8czhe/variable_explorer/esm3ib6?utm_source=share&utm_medium=web2x][r/emacs]].
 #+begin_src emacs-lisp
 (defun +ivy-rich-describe-variable-transformer (cand)
