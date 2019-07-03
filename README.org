@@ -1163,10 +1163,6 @@ Do not add a ~^~ (beginning of line anchor) when completing (see [[https://githu
 #+begin_src emacs-lisp
 (setq ivy-initial-inputs-alist nil)
 #+end_src
-Show abbreviated path for ivy virtual buffers: Useful when there are files with the same name in different directories and we want to be sure we won't open the wrong file.
-#+begin_src emacs-lisp
-(setq ivy-virtual-abbreviate 'abbreviate)
-#+end_src
 Don't show parent and current directories in counsel-find-file (found from [[https://github.com/kshenoy/dotfiles/blob/master/emacs.org#ivy-et-al][here]]).
 #+begin_src emacs-lisp
 (setq ivy-extra-directories nil)

@@ -573,8 +573,6 @@ vimrc-mode)
 
 (setq ivy-initial-inputs-alist nil)
 
-(setq ivy-virtual-abbreviate 'abbreviate)
-
 (setq ivy-extra-directories nil)
 
 (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
