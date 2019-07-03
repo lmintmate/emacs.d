@@ -130,6 +130,7 @@
     - [[#add-custom-display-transformer-for-try][Add custom display transformer for try]]
     - [[#add-display-transformer-for-counsel-switch-buffer][Add display transformer for counsel-switch-buffer]]
     - [[#modify-display-transformer-for-counsel-describe-variable][Modify display transformer for counsel-describe-variable]]
+    - [[#modify-display-transformer-for-counsel-recentf][Modify display transformer for counsel-recentf]]
     - [[#enable-display-transformers][Enable display transformers]]
   - [[#change-color-of-ivy-org-face][Change color of ivy-org face]]
 - [[#helpful-enhanced-help-buffers][Helpful: Enhanced help buffers]]
@@ -1240,6 +1241,20 @@ Adds a preview of the current value of the variable. Adapted from doom-emacs, sp
                      ((counsel-describe-variable-transformer (:width 40)) ; the original transformer
                       (+ivy-rich-describe-variable-transformer (:width 10))
                       (ivy-rich-counsel-variable-docstring (:face font-lock-doc-face)))))
+#+end_src
+*** Modify display transformer for counsel-recentf
+Change date format from Y-m-d to d-m-Y.
+#+begin_src emacs-lisp
+(defun lmintmate/ivy-rich-file-last-modified-time (candidate)
+  (if (file-remote-p candidate)
+      "?"
+    (format-time-string "%d-%m-%Y %H:%M:%S" (nth 5 (file-attributes candidate)))))
+
+(plist-put ivy-rich-display-transformers-list
+'counsel-recentf
+    '(:columns
+     ((ivy-rich-candidate (:width 0.8))
+      (lmintmate/ivy-rich-file-last-modified-time (:face font-lock-comment-face)))))
 #+end_src
 *** Enable display transformers
 #+begin_src emacs-lisp

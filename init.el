@@ -633,6 +633,17 @@ vimrc-mode)
                       (+ivy-rich-describe-variable-transformer (:width 10))
                       (ivy-rich-counsel-variable-docstring (:face font-lock-doc-face)))))
 
+(defun lmintmate/ivy-rich-file-last-modified-time (candidate)
+  (if (file-remote-p candidate)
+      "?"
+    (format-time-string "%d-%m-%Y %H:%M:%S" (nth 5 (file-attributes candidate)))))
+
+(plist-put ivy-rich-display-transformers-list
+'counsel-recentf
+    '(:columns
+     ((ivy-rich-candidate (:width 0.8))
+      (lmintmate/ivy-rich-file-last-modified-time (:face font-lock-comment-face)))))
+
 (ivy-rich-set-display-transformer)
 
 (when (package-installed-p 'ivy)
