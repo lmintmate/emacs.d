@@ -582,10 +582,29 @@ vimrc-mode)
 (require 'ivy-rich)
 (ivy-rich-mode 1)
 
+(defun ivy-rich-package-archive-summary (candidate)
+    (let ((package-arch (cadr (assoc-string candidate package-archive-contents))))
+      (if package-arch (package-desc-archive package-arch) "")))
+
 (plist-put ivy-rich-display-transformers-list
              'try
     '(:columns
-     ((ivy-rich-candidate (:width 40))
+     ((ivy-rich-candidate (:width 35))
+      (ivy-rich-package-archive-summary (:width 10 :face font-lock-doc-face))
+      (ivy-rich-package-install-summary (:face font-lock-doc-face)))))
+
+(plist-put ivy-rich-display-transformers-list
+             'package-install
+    '(:columns
+     ((ivy-rich-candidate (:width 35))
+      (ivy-rich-package-archive-summary (:width 10 :face font-lock-doc-face))
+      (ivy-rich-package-install-summary (:face font-lock-doc-face)))))
+
+(plist-put ivy-rich-display-transformers-list
+             'package-reinstall
+    '(:columns
+     ((ivy-rich-candidate (:width 35))
+      (ivy-rich-package-archive-summary (:width 10 :face font-lock-doc-face))
       (ivy-rich-package-install-summary (:face font-lock-doc-face)))))
 
 (plist-put ivy-rich-display-transformers-list
