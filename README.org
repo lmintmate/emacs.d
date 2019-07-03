@@ -128,6 +128,8 @@
   - [[#basic-settings][Basic settings]]
   - [[#ivy-rich][Ivy rich]]
     - [[#add-custom-display-transformer-for-try][Add custom display transformer for try]]
+    - [[#modify-display-tranformer-for-counsel-describe-variable][Modify display tranformer for counsel-describe-variable]]
+    - [[#enable-display-transformers][Enable display transformers]]
   - [[#change-color-of-ivy-org-face][Change color of ivy-org face]]
 - [[#helpful-enhanced-help-buffers][Helpful: Enhanced help buffers]]
   - [[#set-evil-motion-state-as-the-default-initial-state-for-helpful-mode][Set evil motion state as the default initial state for helpful-mode]]
@@ -1193,6 +1195,45 @@ Set the initial state of [[https://oremacs.com/2015/11/04/ivy-occur/][ivy-occur-
     '(:columns
      ((ivy-rich-candidate (:width 40))
       (ivy-rich-package-install-summary (:face font-lock-doc-face)))))
+#+end_src
+*** Modify display tranformer for counsel-describe-variable
+Adds a preview of the current value of the variable. Adapted from doom-emacs, specifically from [[https://github.com/hlissner/doom-emacs/blob/develop/modules/completion/ivy/autoload/ivy.el#L63][here]] and [[https://github.com/hlissner/doom-emacs/blob/develop/modules/completion/ivy/config.el#L132][here]], and found via [[https://www.reddit.com/r/emacs/comments/c8czhe/variable_explorer/esm3ib6?utm_source=share&utm_medium=web2x][r/emacs]].
+#+begin_src emacs-lisp
+(defun +ivy-rich-describe-variable-transformer (cand)
+  "Previews the value of the variable in the minibuffer"
+  (let* ((sym (intern cand))
+         (val (and (boundp sym) (symbol-value sym)))
+         (print-level 3))
+    (replace-regexp-in-string
+     "[\n\t\^[\^M\^@\^G]" " "
+     (cond ((booleanp val)
+            (propertize (format "%s" val) 'face
+                        (if (null val)
+                            'font-lock-comment-face
+                          'font-lock-function-name-face)))
+           ((symbolp val)
+            (propertize (format "'%s" val)
+                        'face 'highlight-quoted-symbol))
+           ((keymapp val)
+            (propertize "<keymap>" 'face 'font-lock-constant-face))
+           ((listp val)
+            (prin1-to-string val))
+           ((stringp val)
+            (propertize (format "%S" val) 'face 'font-lock-string-face))
+           ((numberp val)
+            (propertize (format "%s" val) 'face 'highlight-numbers-number))
+           ((format "%s" val)))
+     t)))
+
+        (plist-put ivy-rich-display-transformers-list
+                   'counsel-describe-variable
+                   '(:columns
+                     ((counsel-describe-variable-transformer (:width 40)) ; the original transformer
+                      (+ivy-rich-describe-variable-transformer (:width 10))
+                      (ivy-rich-counsel-variable-docstring (:face font-lock-doc-face)))))
+#+end_src
+*** Enable display transformers
+#+begin_src emacs-lisp
 (ivy-rich-set-display-transformer)
 #+end_src
 ** Change color of ivy-org face

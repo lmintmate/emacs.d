@@ -590,6 +590,40 @@ vimrc-mode)
     '(:columns
      ((ivy-rich-candidate (:width 40))
       (ivy-rich-package-install-summary (:face font-lock-doc-face)))))
+
+(defun +ivy-rich-describe-variable-transformer (cand)
+  "Previews the value of the variable in the minibuffer"
+  (let* ((sym (intern cand))
+         (val (and (boundp sym) (symbol-value sym)))
+         (print-level 3))
+    (replace-regexp-in-string
+     "[\n\t\^[\^M\^@\^G]" " "
+     (cond ((booleanp val)
+            (propertize (format "%s" val) 'face
+                        (if (null val)
+                            'font-lock-comment-face
+                          'font-lock-function-name-face)))
+           ((symbolp val)
+            (propertize (format "'%s" val)
+                        'face 'highlight-quoted-symbol))
+           ((keymapp val)
+            (propertize "<keymap>" 'face 'font-lock-constant-face))
+           ((listp val)
+            (prin1-to-string val))
+           ((stringp val)
+            (propertize (format "%S" val) 'face 'font-lock-string-face))
+           ((numberp val)
+            (propertize (format "%s" val) 'face 'highlight-numbers-number))
+           ((format "%s" val)))
+     t)))
+
+        (plist-put ivy-rich-display-transformers-list
+                   'counsel-describe-variable
+                   '(:columns
+                     ((counsel-describe-variable-transformer (:width 40)) ; the original transformer
+                      (+ivy-rich-describe-variable-transformer (:width 10))
+                      (ivy-rich-counsel-variable-docstring (:face font-lock-doc-face)))))
+
 (ivy-rich-set-display-transformer)
 
 (when (package-installed-p 'ivy)
