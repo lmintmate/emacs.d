@@ -15,6 +15,7 @@
   - [[#add-melpa-and-org-repositories][Add MELPA and org repositories]]
   - [[#auto-install-packages][Auto-install packages]]
   - [[#force-packageel-to-install-the-latest-version-of-org-mode][Force package.el to install the latest version of org-mode]]
+  - [[#function-to-update-all-packages-at-once-without-list-packages][Function to update all packages at once without ~list-packages~]]
 - [[#ensure-utf-8][Ensure utf-8]]
 - [[#no-littering][No littering]]
 - [[#setting-the-default-frame-parameters-on-windows][Setting the default frame parameters on Windows]]
@@ -248,6 +249,39 @@ Because org-mode is already builtin, it doesn't get reinstalled automatically fr
   (package-install (elt (cdr (assoc 'org package-archive-contents)) 0)))
 
 (add-to-list 'package-selected-packages 'org)
+#+end_src
+** Function to update all packages at once without ~list-packages~
+From [[https://emacs.stackexchange.com/a/16407][Noninteractively upgrade all packages - Emacs Stack Exchange]].
+#+begin_src emacs-lisp
+(defun package-upgrade-all ()
+  "Upgrade all packages automatically without showing *Packages* buffer."
+  (interactive)
+  (package-refresh-contents)
+  (let (upgrades)
+    (cl-flet ((get-version (name where)
+                (let ((pkg (cadr (assq name where))))
+                  (when pkg
+                    (package-desc-version pkg)))))
+      (dolist (package (mapcar #'car package-alist))
+        (let ((in-archive (get-version package package-archive-contents)))
+          (when (and in-archive
+                     (version-list-< (get-version package package-alist)
+                                     in-archive))
+            (push (cadr (assq package package-archive-contents))
+                  upgrades)))))
+    (if upgrades
+        (when (yes-or-no-p
+               (message "Upgrade %d package%s (%s)? "
+                        (length upgrades)
+                        (if (= (length upgrades) 1) "" "s")
+                        (mapconcat #'package-desc-full-name upgrades ", ")))
+          (save-window-excursion
+            (dolist (package-desc upgrades)
+              (let ((old-package (cadr (assq (package-desc-name package-desc)
+                                             package-alist))))
+                (package-install package-desc)
+                (package-delete  old-package)))))
+      (message "All packages are up to date"))))
 #+end_src
 * Ensure utf-8
 Needed for Windows
