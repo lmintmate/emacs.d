@@ -609,6 +609,11 @@ vimrc-mode)
 
 (evil-set-initial-state 'ivy-occur-mode 'emacs)
 
+(add-to-list 'ivy-format-functions-alist '(counsel-describe-face . counsel--faces-format-function))
+
+(when (package-installed-p 'ivy)
+(set-face-attribute 'ivy-org nil :inherit font-lock-function-name-face))
+
 (require 'ivy-rich)
 (ivy-rich-mode 1)
 
@@ -694,9 +699,6 @@ vimrc-mode)
       (lmintmate/ivy-rich-file-last-modified-time (:face font-lock-comment-face)))))
 
 (ivy-rich-set-display-transformer)
-
-(when (package-installed-p 'ivy)
-(set-face-attribute 'ivy-org nil :inherit font-lock-function-name-face))
 
 (evil-set-initial-state 'helpful-mode 'motion)
 (evil-set-initial-state 'elisp-refs-mode 'motion)

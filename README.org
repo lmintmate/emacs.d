@@ -135,7 +135,6 @@
     - [[#modify-display-transformer-for-counsel-describe-variable][Modify display transformer for counsel-describe-variable]]
     - [[#modify-display-transformer-for-counsel-recentf][Modify display transformer for counsel-recentf]]
     - [[#enable-display-transformers][Enable display transformers]]
-  - [[#change-color-of-ivy-org-face][Change color of ivy-org face]]
 - [[#helpful-enhanced-help-buffers][Helpful: Enhanced help buffers]]
   - [[#set-evil-motion-state-as-the-default-initial-state-for-helpful-mode][Set evil motion state as the default initial state for helpful-mode]]
   - [[#integrate-helpful-with-counsel][Integrate helpful with counsel]]
@@ -1212,6 +1211,15 @@ Set the initial state of [[https://oremacs.com/2015/11/04/ivy-occur/][ivy-occur-
 #+begin_src emacs-lisp
 (evil-set-initial-state 'ivy-occur-mode 'emacs)
 #+end_src
+Make ~counsel-describe-face~ look like ~counsel-faces~ (found from [[https://github.com/seagle0128/.emacs.d/blob/master/lisp/init-ivy.el#L121][here]]).
+#+begin_src emacs-lisp
+(add-to-list 'ivy-format-functions-alist '(counsel-describe-face . counsel--faces-format-function))
+#+end_src
+Change color of ivy-org face: The default one is inherited from org-level-4, which is gray, and thus always confused me when displaying the buffers, because I'm used to the convention that gray=inactive or comment. I changed it thus to chartreuse green, which is the same color that org-level-1 has.
+#+begin_src emacs-lisp
+(when (package-installed-p 'ivy)
+(set-face-attribute 'ivy-org nil :inherit font-lock-function-name-face))
+#+end_src
 ** Ivy rich
 [[https://github.com/Yevgnen/ivy-rich][This package]] shows descriptions of the items in ~ivy-switch-buffer~, ~counsel-M-x~, ~counsel-describe-variable~, ~counsel-describe-function~ e.t.c.
 #+begin_src emacs-lisp
@@ -1320,12 +1328,6 @@ Change date format from Y-m-d to d-m-Y.
 *** Enable display transformers
 #+begin_src emacs-lisp
 (ivy-rich-set-display-transformer)
-#+end_src
-** Change color of ivy-org face
-The default one is inherited from org-level-4, which is gray, and thus always confused me when displaying the buffers, because I'm used to the convention that gray=inactive or comment. I changed it thus to chartreuse green, which is the same color that org-level-1 has.
-#+begin_src emacs-lisp
-(when (package-installed-p 'ivy)
-(set-face-attribute 'ivy-org nil :inherit font-lock-function-name-face))
 #+end_src
 * Helpful: Enhanced help buffers
 [[https://github.com/Wilfred/helpful][The helpful package]] enhances the content of the help buffers.
