@@ -1323,12 +1323,12 @@ Adds a preview of the current value of the variable. Adapted from doom-emacs, sp
                       (ivy-rich-counsel-variable-docstring (:face font-lock-doc-face)))))
 #+end_src
 *** Modify display transformer for counsel-recentf
-Change date format from Y-m-d to d-m-Y.
+Change date format from Y-m-d to d/m/Y.
 #+begin_src emacs-lisp
 (defun lmintmate/ivy-rich-file-last-modified-time (candidate)
   (if (file-remote-p candidate)
       "?"
-    (format-time-string "%d-%m-%Y %H:%M:%S" (nth 5 (file-attributes candidate)))))
+    (format-time-string "%d/%m/%Y %H:%M:%S" (nth 5 (file-attributes candidate)))))
 
 (plist-put ivy-rich-display-transformers-list
 'counsel-recentf

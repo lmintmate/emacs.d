@@ -700,7 +700,7 @@ vimrc-mode)
 (defun lmintmate/ivy-rich-file-last-modified-time (candidate)
   (if (file-remote-p candidate)
       "?"
-    (format-time-string "%d-%m-%Y %H:%M:%S" (nth 5 (file-attributes candidate)))))
+    (format-time-string "%d/%m/%Y %H:%M:%S" (nth 5 (file-attributes candidate)))))
 
 (plist-put ivy-rich-display-transformers-list
 'counsel-recentf
