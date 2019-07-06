@@ -38,6 +38,9 @@ vimrc-mode)
 ;; Packages that require emacs 24.4 and up
 
 (unless (version< emacs-version "24.4")
+  (add-to-list 'package-selected-packages 'elisp-demos))
+
+(unless (version< emacs-version "24.4")
   (add-to-list 'package-selected-packages 'org-cliplink))
 
 (unless (version< emacs-version "24.4")
@@ -716,6 +719,8 @@ vimrc-mode)
 (global-set-key (kbd "C-h k") #'helpful-key)
 
 (add-to-list 'ibuffer-help-buffer-modes 'helpful-mode)
+
+(advice-add 'helpful-update :after #'elisp-demos-advice-helpful-update)
 
 (defun oleh-term-exec-hook ()
   (let* ((buff (current-buffer))
