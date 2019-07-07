@@ -129,7 +129,6 @@
   - [[#basic-settings][Basic settings]]
   - [[#ivy-rich][Ivy rich]]
     - [[#add-custom-display-transformer-for-try][Add custom display transformer for try]]
-    - [[#modify-display-transformer-for-package-install][Modify display transformer for package-install]]
     - [[#add-display-transformer-for-package-reinstall][Add display transformer for package-reinstall]]
     - [[#add-display-transformer-for-counsel-switch-buffer][Add display transformer for counsel-switch-buffer]]
     - [[#modify-display-transformer-for-counsel-describe-variable][Modify display transformer for counsel-describe-variable]]
@@ -1231,16 +1230,8 @@ Change color of ivy-org face: The default one is inherited from org-level-4, whi
 (ivy-rich-mode 1)
 #+end_src
 *** Add custom display transformer for try
-[[https://github.com/Yevgnen/ivy-rich/pull/58][A pull request]] added ivy-rich support for the ~package-install~ command. Inspired by this, I decided to add the same sort of transformer to the ~try~ command, which I use way more often than ~package-install~ since I prefer to try packages from inside emacs, and when I install them, I usually do this by writing their name in my init file. I also decided to experiment a bit and thus also added columns to show the name of the archive the package comes from (which is melpa most of the time, but would be good to know which ones are from GNU Elpa too) and the package version.
+Make it the same as package-install.
 #+begin_src emacs-lisp
-(defun ivy-rich-package-archive-summary (candidate)
-    (let ((package-arch (cadr (assoc-string candidate package-archive-contents))))
-      (if package-arch (package-desc-archive package-arch) "")))
-
-(defun ivy-rich-package-version (candidate)
-    (let ((package-vers (cadr (assoc-string candidate package-archive-contents))))
-      (if package-vers (package-version-join (package-desc-version package-vers)) "")))
-
 (plist-put ivy-rich-display-transformers-list
              'try
     '(:columns
@@ -1249,19 +1240,8 @@ Change color of ivy-org face: The default one is inherited from org-level-4, whi
       (ivy-rich-package-archive-summary (:width 7 :face font-lock-builtin-face))
       (ivy-rich-package-install-summary (:face font-lock-doc-face)))))
 #+end_src
-*** Modify display transformer for package-install
-Make it the same as try.
-#+begin_src emacs-lisp
-(plist-put ivy-rich-display-transformers-list
-             'package-install
-    '(:columns
-     ((ivy-rich-candidate (:width 30))
-      (ivy-rich-package-version (:width 16 :face font-lock-comment-face))
-      (ivy-rich-package-archive-summary (:width 7 :face font-lock-builtin-face))
-      (ivy-rich-package-install-summary (:face font-lock-doc-face)))))
-#+end_src
 *** Add display transformer for package-reinstall
-Make it the same as try.
+Make it the same as package-install.
 #+begin_src emacs-lisp
 (plist-put ivy-rich-display-transformers-list
              'package-reinstall
@@ -1272,7 +1252,7 @@ Make it the same as try.
       (ivy-rich-package-install-summary (:face font-lock-doc-face)))))
 #+end_src
 *** Add display transformer for counsel-switch-buffer
-Make it the same as ivy-switch-buffer
+Make it the same as ivy-switch-buffer.
 #+begin_src emacs-lisp
 (plist-put ivy-rich-display-transformers-list
 'counsel-switch-buffer
