@@ -1334,6 +1334,10 @@ The default helpful commands do not offer integration with ivy-rich. Thankfully,
 (setq counsel-describe-function-function #'helpful-callable)
 (setq counsel-describe-variable-function #'helpful-variable)
 #+end_src
+Also change the function used for ~counsel-descbinds~ (which shows a candidate list of active keybindings and the function they correspond to, going to the function definition upon pressing enter) to ~helpful-callable~, as it was ~describe-function~ by default (see [[https://github.com/abo-abo/swiper/blob/master/counsel.el#L1079][here]]).
+#+begin_src emacs-lisp
+(setq counsel-descbinds-function #'helpful-callable)
+#+end_src
 ** Also bind helpful-key to the key used by default for describe-key
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-h k") #'helpful-key)

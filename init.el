@@ -700,6 +700,8 @@ vimrc-mode)
 (setq counsel-describe-function-function #'helpful-callable)
 (setq counsel-describe-variable-function #'helpful-variable)
 
+(setq counsel-descbinds-function #'helpful-callable)
+
 (global-set-key (kbd "C-h k") #'helpful-key)
 
 (add-to-list 'ibuffer-help-buffer-modes 'helpful-mode)
