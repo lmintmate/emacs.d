@@ -633,7 +633,7 @@ It shows relative file path if a file is opened, whether the buffer is modified 
       " - Emacs " emacs-version))
 #+end_src
 ** Time in modeline
-The only way to have the time mode not display the load average, it turns out, is to put the relevant config before loading display-time-mode. Who would have thought? (I got the idea to try this approach from [[https://github.com/IvanMalison/.emacs.d#time-in-mode-line][Ivan Malison's emacs.d]]). An explanation of my ~display-time-format~ config: It basically shows the day of the week, then day/month, then hours:minutes. For more functions, Customize instructs to look at the function ~format-time-string~.
+The only way to have the time mode not display the load average, it turns out, is to put the relevant config before loading display-time-mode. Who would have thought? (I got the idea to try this approach from [[http://ivanmalison.github.io/dotfiles/#timeinmodeline][Ivan Malison's dotfiles]]). An explanation of my ~display-time-format~ config: It basically shows the day of the week, then day/month, then hours:minutes. For more functions, Customize instructs to look at the function ~format-time-string~.
 #+begin_src emacs-lisp
 (setq display-time-default-load-average nil)
 (setq display-time-format "%a %d/%m %H:%M")
