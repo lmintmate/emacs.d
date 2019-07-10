@@ -402,6 +402,10 @@ vimrc-mode)
 
 (setq custom-safe-themes t)
 
+(defadvice load-theme (before clear-previous-themes activate)
+    "Clear existing theme settings instead of layering them"
+    (mapc #'disable-theme custom-enabled-themes))
+
 (evil-set-initial-state 'Info-mode 'emacs)
 
 (define-key Info-mode-map (kbd "q") nil)

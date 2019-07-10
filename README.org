@@ -74,7 +74,9 @@
     - [[#disable-it-however-for-lisp-interaction-mode][Disable it however for lisp-interaction-mode]]
     - [[#make-the-current-line-bold][Make the current line bold]]
   - [[#make-help-windows-active-by-default][Make help windows active by default]]
-  - [[#treat-all-themes-as-safe][Treat all themes as safe]]
+  - [[#theme-settings][Theme settings]]
+    - [[#treat-all-themes-as-safe][Treat all themes as safe]]
+    - [[#load-only-one-theme-at-a-time][Load only one theme at a time]]
   - [[#info-mode-settings][Info mode settings]]
   - [[#bookmark-settings][Bookmark settings]]
 - [[#recent-files][Recent files]]
@@ -810,9 +812,17 @@ When I call a help window, I want to immediately scroll through it, and having t
 #+begin_src emacs-lisp
 (setq-default help-window-select t)
 #+end_src
-** Treat all themes as safe
+** Theme settings
+*** Treat all themes as safe
 #+begin_src emacs-lisp
 (setq custom-safe-themes t)
+#+end_src
+*** Load only one theme at a time
+Found from [[https://git.sr.ht/~bandali/dotfiles/tree/master/.emacs.d/init.el#L222][here]].
+#+begin_src emacs-lisp
+(defadvice load-theme (before clear-previous-themes activate)
+    "Clear existing theme settings instead of layering them"
+    (mapc #'disable-theme custom-enabled-themes))
 #+end_src
 ** Info mode settings
 Set the initial state of info mode to emacs, as I feel that the default motion state is of a transitive nature, and thus not fitting for info manuals.
