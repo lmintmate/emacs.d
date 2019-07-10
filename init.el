@@ -400,6 +400,8 @@ vimrc-mode)
 
 (setq-default help-window-select t)
 
+(setq custom-safe-themes t)
+
 (evil-set-initial-state 'Info-mode 'emacs)
 
 (define-key Info-mode-map (kbd "q") nil)
