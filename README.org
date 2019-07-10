@@ -619,8 +619,9 @@ I don't however want to override the default action of the S key, because, while
 (setq use-dialog-box nil)
 #+end_src
 ** Separate custom file
+Put it in the no-littering config folder. Idea from [[https://git.sr.ht/~bandali/dotfiles/tree/master/.emacs.d/init.el#L200][here]] - also see [[https://github.com/emacscollective/no-littering/blob/master/no-littering.el#L187][here]].
 #+begin_src emacs-lisp
-(setq custom-file (concat user-emacs-directory "custom.el"))
+(setq custom-file (no-littering-expand-etc-file-name "custom.el"))
 #+end_src
 ** Set the format of the frame title
 It shows relative file path if a file is opened, whether the buffer is modified or not, and the emacs version (adapted from [[https://www.emacswiki.org/emacs/FrameTitle][EmacsWiki: Frame Title]]).

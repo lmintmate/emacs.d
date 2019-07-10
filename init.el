@@ -301,7 +301,7 @@ vimrc-mode)
 
 (setq use-dialog-box nil)
 
-(setq custom-file (concat user-emacs-directory "custom.el"))
+(setq custom-file (no-littering-expand-etc-file-name "custom.el"))
 
 (setq frame-title-format
     '((:eval (if (buffer-file-name)
