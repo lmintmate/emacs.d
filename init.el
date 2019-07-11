@@ -412,6 +412,16 @@ vimrc-mode)
 
 (global-set-key (kbd "C-x r d") 'bookmark-delete)
 
+(defun d/download-file (&optional url name)
+  "Download a file from url to specified path."
+  (interactive)
+  (let* ((file-url (or url (read-from-minibuffer "URL: ")))
+         (file-name
+          (or name
+              (counsel-find-file
+               (file-name-nondirectory file-url)))))
+    (url-copy-file file-url file-name)))
+
 (require 'recentf)
 (recentf-mode 1)
 

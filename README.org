@@ -79,6 +79,7 @@
     - [[#load-only-one-theme-at-a-time][Load only one theme at a time]]
   - [[#info-mode-settings][Info mode settings]]
   - [[#bookmark-settings][Bookmark settings]]
+  - [[#function-to-download-a-file-from-url-to-specified-path][Function to download a file from url to specified path]]
 - [[#recent-files][Recent files]]
 - [[#settings-for-multiple-buffer-management][Settings for multiple buffer management]]
 - [[#ibuffer][Ibuffer]]
@@ -839,6 +840,19 @@ Also disable q, as this binding also makes the whole mode feel temporary, which 
 In order to remember where I last left reading a particular info manual I can use the bookmarks feature of emacs. In particular, I can add a bookmark with the command ~bookmark-set~ (~C-x r m~), access bookmarks with the command ~bookmark-jump~ (~C-x r b~), view a more detailed list of bookmarks with ~bookmark-bmenu-list~ (~C-x r l~) and delete a bookmark with the command ~bookmark-delete~. I set the latter command to ~C-x r d~, overriding it default setting ~delete-rectangle~, because I thought I wanted to keep the ~C-x r~ line of commands for all bookmark related commands.
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-x r d") 'bookmark-delete)
+#+end_src
+** Function to download a file from url to specified path
+Found from [[https://github.com/dieggsy/dotfiles/blob/master/emacs/.emacs.d/init.org#filebuffer-manipulation][here]].
+#+begin_src emacs-lisp
+(defun d/download-file (&optional url name)
+  "Download a file from url to specified path."
+  (interactive)
+  (let* ((file-url (or url (read-from-minibuffer "URL: ")))
+         (file-name
+          (or name
+              (counsel-find-file
+               (file-name-nondirectory file-url)))))
+    (url-copy-file file-url file-name)))
 #+end_src
 * Recent files
 A quick way to access my most recently opened files (as I didn't want to have to go all the way through the directory structure).
