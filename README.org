@@ -1239,6 +1239,11 @@ Change color of ivy-org face: The default one is inherited from org-level-4, whi
 (when (package-installed-p 'ivy)
 (set-face-attribute 'ivy-org nil :inherit font-lock-function-name-face))
 #+end_src
+Change color of ivy-highlight-face: This face is used in ~counsel-describe-function~ to highlight the interactive functions and in ~counsel-describe-variable~ to highlight the variables defined with ~defcustom~. By default it inherits from ~highlight~, which is a subtle color in my current setup, and thus I change it to bold chartreuse green to make it more obvious.
+#+begin_src emacs-lisp
+(when (package-installed-p 'ivy)
+(set-face-attribute 'ivy-highlight-face nil :inherit font-lock-function-name-face))
+#+end_src
 ** Ivy rich
 [[https://github.com/Yevgnen/ivy-rich][This package]] shows descriptions of the items in ~ivy-switch-buffer~, ~counsel-M-x~, ~counsel-describe-variable~, ~counsel-describe-function~ e.t.c.
 #+begin_src emacs-lisp

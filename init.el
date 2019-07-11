@@ -623,6 +623,9 @@ vimrc-mode)
 (when (package-installed-p 'ivy)
 (set-face-attribute 'ivy-org nil :inherit font-lock-function-name-face))
 
+(when (package-installed-p 'ivy)
+(set-face-attribute 'ivy-highlight-face nil :inherit font-lock-function-name-face))
+
 (require 'ivy-rich)
 (ivy-rich-mode 1)
 
