@@ -428,6 +428,16 @@ vimrc-mode)
   (switch-to-buffer "*scratch*"))
 (global-set-key (kbd "\C-cs") 'd/switch-to-scratch)
 
+(defun spacemacs/dos2unix ()
+  "Converts the current buffer to UNIX file format."
+  (interactive)
+  (set-buffer-file-coding-system 'undecided-unix nil))
+
+(defun spacemacs/unix2dos ()
+  "Converts the current buffer to DOS file format."
+  (interactive)
+  (set-buffer-file-coding-system 'undecided-dos nil))
+
 (require 'recentf)
 (recentf-mode 1)
 

@@ -79,8 +79,10 @@
     - [[#load-only-one-theme-at-a-time][Load only one theme at a time]]
   - [[#info-mode-settings][Info mode settings]]
   - [[#bookmark-settings][Bookmark settings]]
-  - [[#function-to-download-a-file-from-url-to-specified-path][Function to download a file from url to specified path]]
-  - [[#function-to-quickly-switch-to-the-scratch-buffer][Function to quickly switch to the *scratch* buffer]]
+  - [[#custom-functions][Custom functions]]
+    - [[#function-to-download-a-file-from-url-to-specified-path][Function to download a file from url to specified path]]
+    - [[#function-to-quickly-switch-to-the-scratch-buffer][Function to quickly switch to the ~*scratch*~ buffer]]
+    - [[#function-to-change-file-formats][Function to change file formats]]
 - [[#recent-files][Recent files]]
 - [[#settings-for-multiple-buffer-management][Settings for multiple buffer management]]
 - [[#ibuffer][Ibuffer]]
@@ -842,7 +844,8 @@ In order to remember where I last left reading a particular info manual I can us
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-x r d") 'bookmark-delete)
 #+end_src
-** Function to download a file from url to specified path
+** Custom functions
+*** Function to download a file from url to specified path
 Found from [[https://github.com/dieggsy/dotfiles/blob/master/emacs/.emacs.d/init.org#filebuffer-manipulation][here]].
 #+begin_src emacs-lisp
 (defun d/download-file (&optional url name)
@@ -855,7 +858,7 @@ Found from [[https://github.com/dieggsy/dotfiles/blob/master/emacs/.emacs.d/init
                (file-name-nondirectory file-url)))))
     (url-copy-file file-url file-name)))
 #+end_src
-** Function to quickly switch to the *scratch* buffer
+*** Function to quickly switch to the ~*scratch*~ buffer
 Useful when I want to experiment with some elisp code, but have also opened a gazillion help buffers and thus have to actually /type/ (gasp, the horror!) the name of the scratch buffer in order to get back there. Also add a keybinding to make the switching even faster. Found from [[https://github.com/dieggsy/dotfiles/blob/master/emacs/.emacs.d/init.org#switching][here]].
 #+begin_src emacs-lisp
 (defun d/switch-to-scratch ()
@@ -863,6 +866,19 @@ Useful when I want to experiment with some elisp code, but have also opened a ga
   (interactive)
   (switch-to-buffer "*scratch*"))
 (global-set-key (kbd "\C-cs") 'd/switch-to-scratch)
+#+end_src
+*** Function to change file formats
+Found from [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bspacemacs/spacemacs-defaults/funcs.el#L1143][here]].
+#+begin_src emacs-lisp
+(defun spacemacs/dos2unix ()
+  "Converts the current buffer to UNIX file format."
+  (interactive)
+  (set-buffer-file-coding-system 'undecided-unix nil))
+
+(defun spacemacs/unix2dos ()
+  "Converts the current buffer to DOS file format."
+  (interactive)
+  (set-buffer-file-coding-system 'undecided-dos nil))
 #+end_src
 * Recent files
 A quick way to access my most recently opened files (as I didn't want to have to go all the way through the directory structure).
