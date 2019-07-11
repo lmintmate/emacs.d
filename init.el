@@ -626,6 +626,9 @@ vimrc-mode)
 (when (package-installed-p 'ivy)
 (set-face-attribute 'ivy-highlight-face nil :inherit font-lock-function-name-face))
 
+(when (package-installed-p 'ivy)
+(set-face-attribute 'ivy-minibuffer-match-face-2 nil :foreground "blue" :background "pale turquoise" :weight 'bold :inherit 'unspecified))
+
 (define-key org-mode-map (kbd "\C-co") 'counsel-outline)
 (setq counsel-org-headline-display-todo t)
 (setq counsel-outline-face-style 'org)

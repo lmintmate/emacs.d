@@ -1247,6 +1247,11 @@ Change color of ivy-highlight-face: This face is used in ~counsel-describe-funct
 (when (package-installed-p 'ivy)
 (set-face-attribute 'ivy-highlight-face nil :inherit font-lock-function-name-face))
 #+end_src
+Change color of ivy-minibuffer-match-face-2: This is the color used when a single search string is used in the minibuffer. I change it from the default grey because I didn't like that one.
+#+begin_src emacs-lisp
+(when (package-installed-p 'ivy)
+(set-face-attribute 'ivy-minibuffer-match-face-2 nil :foreground "blue" :background "pale turquoise" :weight 'bold :inherit 'unspecified))
+#+end_src
 *** Configure counsel-outline
 The ~counsel-outline~ command allows for easier searching of and landing on org and other headlines. Here I set a keybinding for it on org-mode buffers, and also set it to display todo states, color the headings according to their org colors and customize the separator between the headlines.
 #+begin_src emacs-lisp
