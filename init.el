@@ -422,6 +422,12 @@ vimrc-mode)
                (file-name-nondirectory file-url)))))
     (url-copy-file file-url file-name)))
 
+(defun d/switch-to-scratch ()
+  "Switch to scratch buffer."
+  (interactive)
+  (switch-to-buffer "*scratch*"))
+(global-set-key (kbd "\C-cs") 'd/switch-to-scratch)
+
 (require 'recentf)
 (recentf-mode 1)
 

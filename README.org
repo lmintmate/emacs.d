@@ -80,6 +80,7 @@
   - [[#info-mode-settings][Info mode settings]]
   - [[#bookmark-settings][Bookmark settings]]
   - [[#function-to-download-a-file-from-url-to-specified-path][Function to download a file from url to specified path]]
+  - [[#function-to-quickly-switch-to-the-scratch-buffer][Function to quickly switch to the *scratch* buffer]]
 - [[#recent-files][Recent files]]
 - [[#settings-for-multiple-buffer-management][Settings for multiple buffer management]]
 - [[#ibuffer][Ibuffer]]
@@ -853,6 +854,15 @@ Found from [[https://github.com/dieggsy/dotfiles/blob/master/emacs/.emacs.d/init
               (counsel-find-file
                (file-name-nondirectory file-url)))))
     (url-copy-file file-url file-name)))
+#+end_src
+** Function to quickly switch to the *scratch* buffer
+Useful when I want to experiment with some elisp code, but have also opened a gazillion help buffers and thus have to actually /type/ (gasp, the horror!) the name of the scratch buffer in order to get back there. Also add a keybinding to make the switching even faster. Found from [[https://github.com/dieggsy/dotfiles/blob/master/emacs/.emacs.d/init.org#switching][here]].
+#+begin_src emacs-lisp
+(defun d/switch-to-scratch ()
+  "Switch to scratch buffer."
+  (interactive)
+  (switch-to-buffer "*scratch*"))
+(global-set-key (kbd "\C-cs") 'd/switch-to-scratch)
 #+end_src
 * Recent files
 A quick way to access my most recently opened files (as I didn't want to have to go all the way through the directory structure).
