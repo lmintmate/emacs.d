@@ -130,6 +130,8 @@
 - [[#smex][Smex]]
 - [[#ivy-counsel-swiper-configuration][Ivy, counsel, swiper configuration]]
   - [[#basic-settings][Basic settings]]
+    - [[#ivy-faces][Ivy faces]]
+    - [[#configure-counsel-outline][Configure counsel-outline]]
   - [[#ivy-rich][Ivy rich]]
     - [[#add-custom-display-transformer-for-try][Add custom display transformer for try]]
     - [[#add-display-transformer-for-package-reinstall][Add display transformer for package-reinstall]]
@@ -1234,6 +1236,7 @@ Make ~counsel-describe-face~ look like ~counsel-faces~ (found from [[https://git
 #+begin_src emacs-lisp
 (add-to-list 'ivy-format-functions-alist '(counsel-describe-face . counsel--faces-format-function))
 #+end_src
+*** Ivy faces
 Change color of ivy-org face: The default one is inherited from org-level-4, which is gray, and thus always confused me when displaying the buffers, because I'm used to the convention that gray=inactive or comment. I changed it thus to chartreuse green, which is the same color that org-level-1 has.
 #+begin_src emacs-lisp
 (when (package-installed-p 'ivy)
@@ -1243,6 +1246,14 @@ Change color of ivy-highlight-face: This face is used in ~counsel-describe-funct
 #+begin_src emacs-lisp
 (when (package-installed-p 'ivy)
 (set-face-attribute 'ivy-highlight-face nil :inherit font-lock-function-name-face))
+#+end_src
+*** Configure counsel-outline
+The ~counsel-outline~ command allows for easier searching of and landing on org and other headlines. Here I set a keybinding for it on org-mode buffers, and also set it to display todo states, color the headings according to their org colors and customize the separator between the headlines.
+#+begin_src emacs-lisp
+(define-key org-mode-map (kbd "\C-co") 'counsel-outline)
+(setq counsel-org-headline-display-todo t)
+(setq counsel-outline-face-style 'org)
+(setq counsel-outline-path-separator "→")
 #+end_src
 ** Ivy rich
 [[https://github.com/Yevgnen/ivy-rich][This package]] shows descriptions of the items in ~ivy-switch-buffer~, ~counsel-M-x~, ~counsel-describe-variable~, ~counsel-describe-function~ e.t.c.

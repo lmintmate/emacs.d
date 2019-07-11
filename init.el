@@ -626,6 +626,11 @@ vimrc-mode)
 (when (package-installed-p 'ivy)
 (set-face-attribute 'ivy-highlight-face nil :inherit font-lock-function-name-face))
 
+(define-key org-mode-map (kbd "\C-co") 'counsel-outline)
+(setq counsel-org-headline-display-todo t)
+(setq counsel-outline-face-style 'org)
+(setq counsel-outline-path-separator "→")
+
 (require 'ivy-rich)
 (ivy-rich-mode 1)
 
