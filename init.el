@@ -20,7 +20,6 @@ free-keys
 ivy-rich
 no-littering
 rainbow-mode
-smex
 toc-org
 transpose-frame
 try
@@ -51,6 +50,9 @@ vimrc-mode)
 
 (unless (version< emacs-version "25")
   (add-to-list 'package-selected-packages 'helpful))
+
+(unless (version< emacs-version "25.1")
+  (add-to-list 'package-selected-packages 'ivy-prescient))
 
 (unless (version< emacs-version "25.2")
   (add-to-list 'package-selected-packages 'minions))
@@ -716,11 +718,14 @@ initialized with the current directory instead of filename."
 (setq espy-password-file "~/Λήψεις/σημαντικά αρχεία txt/passwords.org")
 (setq espy-pass-prefix "password:")
 
-(require 'smex) ; Not needed if you use package.el
-  (smex-initialize) ; Can be omitted. This might cause a (minimal) delay
-                    ; when Smex is auto-initialized on its first run.
-
 (ivy-mode 1)
+
+(ivy-prescient-mode 1)
+
+(prescient-persist-mode 1)
+(setq prescient-save-file (no-littering-expand-var-file-name "prescient-save.el"))
+
+(setq prescient-sort-length-enable nil)
 
 (setq ivy-count-format "(%d/%d) ")
 
@@ -752,7 +757,7 @@ initialized with the current directory instead of filename."
 (set-face-attribute 'ivy-highlight-face nil :inherit font-lock-function-name-face))
 
 (when (package-installed-p 'ivy)
-(set-face-attribute 'ivy-minibuffer-match-face-2 nil :foreground "blue" :background "pale turquoise" :weight 'bold :inherit 'unspecified))
+(set-face-attribute 'ivy-minibuffer-match-face-1 nil :foreground "blue" :background "pale turquoise" :weight 'bold :inherit 'unspecified))
 
 (define-key org-mode-map (kbd "\C-co") 'counsel-outline)
 (setq counsel-org-headline-display-todo t)

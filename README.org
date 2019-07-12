@@ -132,9 +132,9 @@
 - [[#undo-tree][Undo tree]]
 - [[#drag-stuff-package-config][Drag-stuff package config]]
 - [[#espy-password-fetcher-package-config][Espy password fetcher package config]]
-- [[#smex][Smex]]
-- [[#ivy-counsel-swiper-configuration][Ivy, counsel, swiper configuration]]
-  - [[#basic-settings][Basic settings]]
+- [[#ivy-counsel-swiper-and-ivy-prescient-configuration][Ivy-counsel-swiper and ivy-prescient configuration]]
+  - [[#ivy-prescient][Ivy prescient]]
+  - [[#basic-ivy-settings][Basic ivy settings]]
     - [[#ivy-faces][Ivy faces]]
     - [[#configure-counsel-outline][Configure counsel-outline]]
   - [[#ivy-rich][Ivy rich]]
@@ -208,7 +208,6 @@ free-keys
 ivy-rich
 no-littering
 rainbow-mode
-smex
 toc-org
 transpose-frame
 try
@@ -241,6 +240,9 @@ Here I conditionally add to the value of ~package-selected-packages~ some packag
 
 (unless (version< emacs-version "25")
   (add-to-list 'package-selected-packages 'helpful))
+
+(unless (version< emacs-version "25.1")
+  (add-to-list 'package-selected-packages 'ivy-prescient))
 
 (unless (version< emacs-version "25.2")
   (add-to-list 'package-selected-packages 'minions))
@@ -1323,19 +1325,27 @@ Define the keybindings - the default being M- and arrow keys.
 (setq espy-password-file "~/Λήψεις/σημαντικά αρχεία txt/passwords.org")
 (setq espy-pass-prefix "password:")
 #+end_src
-* Smex
-Used for the completion history of ~counsel-M-x~.
-#+begin_src emacs-lisp
-(require 'smex) ; Not needed if you use package.el
-  (smex-initialize) ; Can be omitted. This might cause a (minimal) delay
-                    ; when Smex is auto-initialized on its first run.
-#+end_src
-* Ivy, counsel, swiper configuration
+* Ivy-counsel-swiper and ivy-prescient configuration
 First, enable ivy mode.
 #+begin_src emacs-lisp
 (ivy-mode 1)
 #+end_src
-** Basic settings
+** Ivy prescient
+Ivy prescient is much like smex, but it also remembers the history for not only counsel-M-x, but also many other commands that have a candidate list, and it is also actually maintained.//
+Enable ivy-prescient-mode.
+#+begin_src emacs-lisp
+(ivy-prescient-mode 1)
+#+end_src
+Enable prescient-persist-mode to keep usage statistics. Also properly hide the prescient-save-file, since I've renamed the no-littering folders.
+#+begin_src emacs-lisp
+(prescient-persist-mode 1)
+(setq prescient-save-file (no-littering-expand-var-file-name "prescient-save.el"))
+#+end_src
+Don't sort candidates by length.
+#+begin_src emacs-lisp
+(setq prescient-sort-length-enable nil)
+#+end_src
+** Basic ivy settings
 Show current candidate index and count for ivy minibuffer completion.
 #+begin_src emacs-lisp
 (setq ivy-count-format "(%d/%d) ")
@@ -1390,10 +1400,10 @@ Change color of ivy-highlight-face: This face is used in ~counsel-describe-funct
 (when (package-installed-p 'ivy)
 (set-face-attribute 'ivy-highlight-face nil :inherit font-lock-function-name-face))
 #+end_src
-Change color of ivy-minibuffer-match-face-2: This is the color used when a single search string is used in the minibuffer. I change it from the default grey because I didn't like that one.
+Change color of ivy-minibuffer-match-face-1: This is the color used when a single search string is used in the minibuffer. I change it from the default grey because I didn't like that one.
 #+begin_src emacs-lisp
 (when (package-installed-p 'ivy)
-(set-face-attribute 'ivy-minibuffer-match-face-2 nil :foreground "blue" :background "pale turquoise" :weight 'bold :inherit 'unspecified))
+(set-face-attribute 'ivy-minibuffer-match-face-1 nil :foreground "blue" :background "pale turquoise" :weight 'bold :inherit 'unspecified))
 #+end_src
 *** Configure counsel-outline
 The ~counsel-outline~ command allows for easier searching of and landing on org and other headlines. Here I set a keybinding for it on org-mode buffers, and also set it to display todo states, color the headings according to their org colors and customize the separator between the headlines.
