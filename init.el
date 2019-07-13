@@ -280,7 +280,7 @@ vimrc-mode)
 
 (setq evil-goggles-duration 0.605)
 
-(setq evil-goggles-blocking-duration 0.150)
+(setq evil-goggles-blocking-duration 0.250)
 
 (set-face-attribute 'evil-goggles-default-face nil :background "#4f94cd" :inherit 'unspecified)
 
