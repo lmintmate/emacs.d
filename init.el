@@ -750,6 +750,10 @@ initialized with the current directory instead of filename."
 
 (add-to-list 'ivy-format-functions-alist '(counsel-describe-face . counsel--faces-format-function))
 
+(add-to-list 'ivy-switch-buffer-faces-alist '(emacs-lisp-mode . font-lock-keyword-face))
+(add-to-list 'ivy-switch-buffer-faces-alist '(helpful-mode . font-lock-comment-face))
+(add-to-list 'ivy-switch-buffer-faces-alist '(ivy-occur-mode . font-lock-comment-face))
+
 (when (package-installed-p 'ivy)
 (set-face-attribute 'ivy-org nil :inherit font-lock-function-name-face))
 

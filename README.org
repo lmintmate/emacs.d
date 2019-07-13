@@ -1389,6 +1389,12 @@ Make ~counsel-describe-face~ look like ~counsel-faces~ (found from [[https://git
 #+begin_src emacs-lisp
 (add-to-list 'ivy-format-functions-alist '(counsel-describe-face . counsel--faces-format-function))
 #+end_src
+Fontify more elements in the switch buffer list: Some elements (namely directories and org files) are colored by default in the switch buffer list. This is controlled by the ~ivy-switch-buffer-faces-alist~ variable. Here I add to it some more elements to fontify, namely emacs-lisp, helpful and ivy-occur buffers.
+#+begin_src emacs-lisp
+(add-to-list 'ivy-switch-buffer-faces-alist '(emacs-lisp-mode . font-lock-keyword-face))
+(add-to-list 'ivy-switch-buffer-faces-alist '(helpful-mode . font-lock-comment-face))
+(add-to-list 'ivy-switch-buffer-faces-alist '(ivy-occur-mode . font-lock-comment-face))
+#+end_src
 *** Ivy faces
 Change color of ivy-org face: The default one is inherited from org-level-4, which is gray, and thus always confused me when displaying the buffers, because I'm used to the convention that gray=inactive or comment. I changed it thus to chartreuse green, which is the same color that org-level-1 has.
 #+begin_src emacs-lisp
