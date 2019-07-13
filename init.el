@@ -443,8 +443,7 @@ vimrc-mode)
 (defun lmintmate/rename-file (filename &optional new-filename)
   "Rename FILENAME to NEW-FILENAME.
 When NEW-FILENAME is not specified, asks user for a new name.
-Also renames associated buffers (if any exists), invalidates
-projectile cache and updates recentf list."
+Also renames associated buffers (if any exists) and updates recentf list."
   (interactive "f")
   (when (and filename (file-exists-p filename))
     (let* ((is-dir (file-directory-p filename))

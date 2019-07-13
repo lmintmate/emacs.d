@@ -889,8 +889,7 @@ Adapted from [[https://github.com/syl20bnr/spacemacs/blob/develop/layers/%2Bspac
 (defun lmintmate/rename-file (filename &optional new-filename)
   "Rename FILENAME to NEW-FILENAME.
 When NEW-FILENAME is not specified, asks user for a new name.
-Also renames associated buffers (if any exists), invalidates
-projectile cache and updates recentf list."
+Also renames associated buffers (if any exists) and updates recentf list."
   (interactive "f")
   (when (and filename (file-exists-p filename))
     (let* ((is-dir (file-directory-p filename))
@@ -1385,7 +1384,7 @@ Set the initial state of [[https://oremacs.com/2015/11/04/ivy-occur/][ivy-occur-
 #+begin_src emacs-lisp
 (evil-set-initial-state 'ivy-occur-mode 'emacs)
 #+end_src
-Make ~counsel-describe-face~ look like ~counsel-faces~ (found from [[https://github.com/seagle0128/.emacs.d/blob/master/lisp/init-ivy.el#L121][here]]).
+Make ~counsel-describe-face~ look like ~counsel-faces~ (found from [[https://github.com/seagle0128/.emacs.d/blob/eefe8a8699b7284215f72eb4ce38d46ad3924805/lisp/init-ivy.el#L116][here]]).
 #+begin_src emacs-lisp
 (add-to-list 'ivy-format-functions-alist '(counsel-describe-face . counsel--faces-format-function))
 #+end_src
