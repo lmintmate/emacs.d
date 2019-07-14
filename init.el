@@ -255,6 +255,8 @@ vimrc-mode)
 
 (evil-set-initial-state 'ibuffer-mode 'normal)
 
+(evil-set-initial-state 'xref--xref-buffer-mode 'emacs)
+
 (define-key evil-normal-state-map (kbd "<up>") 'evil-previous-visual-line)
 (define-key evil-normal-state-map (kbd "<down>") 'evil-next-visual-line)
 (define-key evil-visual-state-map (kbd "<up>") 'evil-previous-visual-line)

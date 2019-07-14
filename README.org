@@ -542,6 +542,10 @@ Set the initial state of ibuffer-mode to normal, so that I can use vim commands 
 #+begin_src emacs-lisp
 (evil-set-initial-state 'ibuffer-mode 'normal)
 #+end_src
+Set the initial state of xref mode to emacs, as it doesn't work properly with the normal evil state.
+#+begin_src emacs-lisp
+(evil-set-initial-state 'xref--xref-buffer-mode 'emacs)
+#+end_src
 Bind up and down arrows to move by visual lines: I often want to move by visual lines, for example in text documents where I write long lines (such as this very text), but binding ~j~ and ~k~ for that broke prefixing them with numbers, so I decided to bind the arrow keys, which aren't used with a prefix, if at all, anyways.
 #+begin_src emacs-lisp
 (define-key evil-normal-state-map (kbd "<up>") 'evil-previous-visual-line)
