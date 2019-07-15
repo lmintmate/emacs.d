@@ -1502,7 +1502,7 @@ Adds a preview of the current value of the variable. Adapted from doom-emacs, sp
                       (ivy-rich-counsel-variable-docstring (:face font-lock-doc-face)))))
 #+end_src
 *** Modify display transformer for counsel-recentf
-Change date format from Y-m-d to d/m/Y, and (more importantly) show the candidates in such a way as to shorten the intermediate directories depending on the width of the frame so that the filenames aren't cut off (adapted from ~ivy-rich-switch-buffer-path~). For this to work properly, that is keep the line adjustment correct, the last modified time was put first and the seconds were removed from its date format.
+Change date format from Y-m-d to d/m/y, and (more importantly) show the candidates in such a way as to shorten the intermediate directories depending on the width of the frame so that the filenames aren't cut off (adapted from ~ivy-rich-switch-buffer-path~). For this to work properly, that is keep the line adjustment correct, the last modified time was put first and the seconds were removed from its date format.
 #+begin_src emacs-lisp
 (defun lmintmate/ivy-rich-file-last-modified-time (candidate)
   (if (file-remote-p candidate)
@@ -1513,7 +1513,7 @@ Change date format from Y-m-d to d/m/Y, and (more importantly) show the candidat
 'counsel-recentf
     '(:columns
       ((lmintmate/ivy-rich-file-last-modified-time (:face font-lock-comment-face))
-       (ivy-rich-candidate (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.9))))))))
+       (ivy-rich-candidate (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.8))))))))
 #+end_src
 *** Enable display transformers
 #+begin_src emacs-lisp

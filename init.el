@@ -842,7 +842,7 @@ initialized with the current directory instead of filename."
 'counsel-recentf
     '(:columns
       ((lmintmate/ivy-rich-file-last-modified-time (:face font-lock-comment-face))
-       (ivy-rich-candidate (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.9))))))))
+       (ivy-rich-candidate (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.8))))))))
 
 (ivy-rich-set-display-transformer)
 
