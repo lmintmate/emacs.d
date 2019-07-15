@@ -560,10 +560,13 @@ Create bindings to move to beginning and end of visual lines: Here I used the on
 (define-key evil-visual-state-map (kbd "Q") 'evil-beginning-of-visual-line)
 (define-key evil-visual-state-map (kbd "U") 'evil-end-of-visual-line)
 #+end_src
-Make the enter key in normal state act like enter in emacs state: Enter as a key in Vim is nigh useless, but I often want to open new lines without entering insert mode. Binding enter to the command used in emacs state did the trick. However, I don't want this binding to apply in modes that have nothing to do with editing text. I found that I can solve this problem by using ~evil-define-key~ to define specific keys in specific states for specific modes (see [[https://github.com/noctuid/evil-guide#mode-specific-keybindings][here]]).
+Make the enter key in normal state act like enter in emacs state: Enter as a key in Vim is nigh useless, but I often want to open new lines without entering insert mode. Binding enter to the command used in emacs state did the trick. However, I don't want this binding to apply in modes that have nothing to do with editing text. I found that I can solve this problem by using ~evil-define-key~ to define specific keys in specific states for specific modes (see [[https://github.com/noctuid/evil-guide#mode-specific-keybindings][here]]). For org-mode, I use the command ~org-return~ instead, as it acts as a newline or follows a link depending on the context, and I didn't want to lose the latter capability.
 #+begin_src emacs-lisp
 (evil-define-key 'normal text-mode-map
 (kbd "<return>") 'newline)
+
+(evil-define-key 'normal org-mode-map
+(kbd "<return>") 'org-return)
 
 (evil-define-key 'normal prog-mode-map
 (kbd "<return>") 'newline)

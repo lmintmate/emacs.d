@@ -270,6 +270,9 @@ vimrc-mode)
 (evil-define-key 'normal text-mode-map
 (kbd "<return>") 'newline)
 
+(evil-define-key 'normal org-mode-map
+(kbd "<return>") 'org-return)
+
 (evil-define-key 'normal prog-mode-map
 (kbd "<return>") 'newline)
 
