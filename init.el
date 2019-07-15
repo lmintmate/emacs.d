@@ -836,13 +836,13 @@ initialized with the current directory instead of filename."
 (defun lmintmate/ivy-rich-file-last-modified-time (candidate)
   (if (file-remote-p candidate)
       "?"
-    (format-time-string "%d/%m/%Y %H:%M:%S" (nth 5 (file-attributes candidate)))))
+    (format-time-string "%d/%m/%Y %H:%M" (nth 5 (file-attributes candidate)))))
 
 (plist-put ivy-rich-display-transformers-list
 'counsel-recentf
     '(:columns
-     ((ivy-rich-candidate (:width 0.8))
-      (lmintmate/ivy-rich-file-last-modified-time (:face font-lock-comment-face)))))
+      ((lmintmate/ivy-rich-file-last-modified-time (:face font-lock-comment-face))
+       (ivy-rich-candidate (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.9))))))))
 
 (ivy-rich-set-display-transformer)
 
