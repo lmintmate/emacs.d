@@ -836,7 +836,7 @@ initialized with the current directory instead of filename."
 (defun lmintmate/ivy-rich-file-last-modified-time (candidate)
   (if (file-remote-p candidate)
       "?"
-    (format-time-string "%d/%m/%Y %H:%M" (nth 5 (file-attributes candidate)))))
+    (format-time-string "%d/%m/%y %H:%M" (nth 5 (file-attributes candidate)))))
 
 (plist-put ivy-rich-display-transformers-list
 'counsel-recentf
