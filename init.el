@@ -623,7 +623,11 @@ initialized with the current directory instead of filename."
 
 (global-emojify-mode-line-mode)
 (setq-default mode-line-format
-      '((:eval (format-mode-line '("%e" evil-mode-line-tag mode-line-front-space (current-input-method (emojify string "🇬🇷")) " " "%Z" " " mode-line-buffer-identification " " (:eval
+      '((:eval (format-mode-line '("%e" evil-mode-line-tag mode-line-front-space (current-input-method (emojify string "🇬🇷")) " " (:eval (propertize
+      "%Z"
+      'help-echo 'mode-line-mule-info-help-echo
+      'mouse-face 'mode-line-highlight
+      'local-map mode-line-coding-system-map)) " " mode-line-buffer-identification " " (:eval
     (cond (buffer-read-only
            (emojify-string "🔒"))
           ((buffer-modified-p)

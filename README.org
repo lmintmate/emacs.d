@@ -104,7 +104,7 @@
   - [[#dired-dwim-target][Dired dwim target]]
 - [[#-emoji-support][😄 Emoji support]]
 - [[#mode-line-format][Mode line format]]
-  - [[#a-small-diatribe-on-attempting-to-customise-the-mode-line][A small diatribe on attempting to customise the mode line]]
+  - [[#a-small-diatribe-on-customising-the-mode-line][A small diatribe on customising the mode line]]
   - [[#the-code-of-my-mode-line-customisation][The code of my mode line customisation]]
 - [[#org-mode-configuration][Org Mode configuration]]
   - [[#hook-toc-org-to-org-mode][Hook toc-org to org-mode]]
@@ -1117,7 +1117,7 @@ Since for a while I've been adding emojis to my git commits, I wanted to be able
 (setq emojify-emoji-set "twemoji-v2-22")
 #+end_src
 * Mode line format
-** A small diatribe on attempting to customise the mode line
+** A small diatribe on customising the mode line
 I wanted for a while to see the greek input method displayed as the greek flag (unicode symbol: 🇬🇷, github string: :flag-gr:) instead of the ~el_GR~ string it uses by default. I can now do that with the ~emojify~ package, since the function ~global-emojify-mode-line-mode~ allows for emojis to be shown on the mode line. This can be activated by modifying the ~mode-line-format~ and including the function ~emojify-string~, followed by the desired emoji.
 This function renders a given unicode emoji as an emoji instead of its unicode symbol (which was going to look like a tofu block most of the time).
 The next roadblock I had to overcome in order to achieve what I wanted was that the ~mode-line-mule-info~ property of the mode line shows both the input method when enabled and the encoding and line endings (which can otherwise be rendered with ~%z~ (just encoding) or ~%Z~ (also line ending)), which means that if I wanted to replace just the input method string, I would have to isolate it from the other functions and I had no idea how I would do that. In that context, I looked into the variable ~mode-line-mule-info~ (defined in [[http://git.savannah.gnu.org/cgit/emacs.git/tree/lisp/bindings.el#n201][the bindings.el file in the emacs source code]] ; also see [[http://doc.endlessparentheses.com/Var/mode-line-mule-info.html][here]]) and from there found the variables ~current-input-method~ and ~current-input-method-title~ (both defined in [[http://git.savannah.gnu.org/cgit/emacs.git/tree/lisp/international/mule-cmds.el#n1314][the mule-cmds.el file in the emacs source code]] ; see also e.g. [[http://doc.endlessparentheses.com/Var/current-input-method.html][here]]). I still had to find out however how I would propertize the latter 2 variables in order for the mode line to render them. Thankfully, I didn't need to trouble myself with that, as I found [[https://github.com/Fuco1/.emacs.d/blob/master/files/mode-line.el][Fuco1's custom mode line format]], which [[https://github.com/Fuco1/.emacs.d/blob/master/files/mode-line.el#L52][in lines 52-55]] isolates the input-method from the other two things shown by ~mode-line-mule-info~ and shows it by itself.\\
@@ -1127,14 +1127,18 @@ Using this meant that I had to redefine the whole mode-line-format. Here, after 
 #+end_example
 (I need to write ~emojify string~ without dashes here for some reason, or it won't work otherwise)\\
 This admittedly is kind of a hack, because this way it will show the greek flag regardless of what the current input method actually is, but it works for me for now, as I only use the ~el_GR~ input method anyways, and I can't think of a way to code something like "if the current-input-method-title is el_GR, show it as the greek flag emoji, otherwise show it as a string (with Fuco1's method)" and get it to actually work, because the fact that the input method is initially nil complicates things, since it prevents the activation of whatever code to that effect I might write.\\
-After propertizing the input method, I use the ~%Z~ string to keep showing the encoding and the end-of-line values. The only problem with the ~%Z~ string is that it can't be clicked with the mouse, which is useful, as it allows to change encoding and end-of-line on the fly and in a simple manner (in general the ~%~ strings of the mode line can't be clicked with the mouse). I should probably study more the relevant parts of ~mode-line-mule-info~ to see what it uses.\\
+After propertizing the input method, I use the ~%Z~ string to keep showing the encoding and the end-of-line values, and propertize it in the way ~mode-line-mule-info~ does it.\\
 The next thing I changed was the showing of the modified and read-only values. I got the idea to propertize these too [[https://github.com/Fuco1/.emacs.d/blob/master/files/mode-line.el#L20][again from Fuco1]], and adapted his code to propertize these as emojis as well, showing read-only as a closed padlock and modified as a fountain pen. For some reason, these emojis show up with a thin line that has the same color as the background of my theme, while the flag either doesn't or it isn't as obvious because that one's blue. Also, interestingly enough, while I had to use emojify string without dashes for the greek flag to show up, these needed the dashes. I also entirely removed from the mode line the emacsclient and remote indications, as I don't use emacsclient and don't work with remote files, and the read-only/modified indications are now to the right of the buffer indication instead of to the left, as was the default.\\
 Afterwards, things are mostly left the same, with the exception that I removed the percentage into file indication (by replacing ~mode-line-position~ with ~L%l~ to show just the current line number preceded by the letter L), because I couldn't get it to show the percent sign, as it does when the mode-line-format is unmodified.
 ** The code of my mode line customisation
 #+begin_src emacs-lisp
 (global-emojify-mode-line-mode)
 (setq-default mode-line-format
-      '((:eval (format-mode-line '("%e" evil-mode-line-tag mode-line-front-space (current-input-method (emojify string "🇬🇷")) " " "%Z" " " mode-line-buffer-identification " " (:eval
+      '((:eval (format-mode-line '("%e" evil-mode-line-tag mode-line-front-space (current-input-method (emojify string "🇬🇷")) " " (:eval (propertize
+      "%Z"
+      'help-echo 'mode-line-mule-info-help-echo
+      'mouse-face 'mode-line-highlight
+      'local-map mode-line-coding-system-map)) " " mode-line-buffer-identification " " (:eval
     (cond (buffer-read-only
            (emojify-string "🔒"))
           ((buffer-modified-p)
