@@ -853,8 +853,8 @@ initialized with the current directory instead of filename."
 
 (ivy-rich-set-display-transformer)
 
-(evil-set-initial-state 'helpful-mode 'motion)
-(evil-set-initial-state 'elisp-refs-mode 'motion)
+(evil-set-initial-state 'helpful-mode 'emacs)
+(evil-set-initial-state 'elisp-refs-mode 'emacs)
 
 (setq counsel-describe-function-function #'helpful-callable)
 (setq counsel-describe-variable-function #'helpful-variable)

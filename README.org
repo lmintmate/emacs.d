@@ -145,7 +145,7 @@
     - [[#modify-display-transformer-for-counsel-recentf][Modify display transformer for counsel-recentf]]
     - [[#enable-display-transformers][Enable display transformers]]
 - [[#helpful-enhanced-help-buffers][Helpful: Enhanced help buffers]]
-  - [[#set-evil-motion-state-as-the-default-initial-state-for-helpful-mode][Set evil motion state as the default initial state for helpful-mode]]
+  - [[#set-evil-emacs-state-as-the-default-initial-state-for-helpful-mode][Set evil emacs state as the default initial state for helpful-mode]]
   - [[#integrate-helpful-with-counsel][Integrate helpful with counsel]]
   - [[#also-bind-helpful-key-to-the-key-used-by-default-for-describe-key][Also bind helpful-key to the key used by default for describe-key]]
   - [[#add-helpful-mode-to-ibuffer-help-buffer-modes][Add helpful-mode to ibuffer help buffer modes]]
@@ -1528,11 +1528,11 @@ Change date format from Y-m-d to d/m/y, and (more importantly) show the candidat
 #+end_src
 * Helpful: Enhanced help buffers
 [[https://github.com/Wilfred/helpful][The helpful package]] enhances the content of the help buffers.
-** Set evil motion state as the default initial state for helpful-mode
-The default initial state is normal, which makes it harder to close the buffer (having to use ~C-x k~ or ~:bd~ instead of just using ~q~). I'd rather have it as motion state, like the default help buffers. Similarly, I change ~elisp-refs-mode~ to motion state, as this is the mode used for the output of the "Find all references" link in helpful buffers.
+** Set evil emacs state as the default initial state for helpful-mode
+The default initial state is normal, which makes it harder to close the buffer (having to use ~C-x k~ or ~:bd~ instead of just using ~q~). I'd rather have it as emacs state, like the default help buffers. Similarly, I change ~elisp-refs-mode~ to emacs state, as this is the mode used for the output of the "Find all references" link in helpful buffers.
 #+begin_src emacs-lisp
-(evil-set-initial-state 'helpful-mode 'motion)
-(evil-set-initial-state 'elisp-refs-mode 'motion)
+(evil-set-initial-state 'helpful-mode 'emacs)
+(evil-set-initial-state 'elisp-refs-mode 'emacs)
 #+end_src
 ** Integrate helpful with counsel
 The default helpful commands do not offer integration with ivy-rich. Thankfully, there are variables that define the function to be used to show the result of ~counsel-describe-function~ and ~counsel-describe-variable~ commands, so that I can have the enhanced help and keep the ivy-rich integration too (found from [[https://www.reddit.com/r/emacs/comments/a6rxga/helpful_an_alternative_to_the_builtin_emacs_help/ec0b2qw?utm_source=share&utm_medium=web2x][here]]). Note: the built-in ~describe-function~ includes both functions and macros. ~helpful-function~ is functions only, so ~helpful-callable~ is provided as a drop-in replacement (see [[https://github.com/Wilfred/helpful#usage][here]]).
