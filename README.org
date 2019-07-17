@@ -1534,6 +1534,11 @@ The default initial state is normal, which makes it harder to close the buffer (
 (evil-set-initial-state 'helpful-mode 'emacs)
 (evil-set-initial-state 'elisp-refs-mode 'emacs)
 #+end_src
+However, this disables using ~C-]~ to view the definition under point in its original file. Binding this in special-mode-map (the parent of helpful-mode-map and elisp-refs-mode map) to emacs state re-enables it.
+#+begin_src emacs-lisp
+(evil-define-key 'emacs special-mode-map
+(kbd "\C-]") 'evil-jump-to-tag)
+#+end_src
 ** Integrate helpful with counsel
 The default helpful commands do not offer integration with ivy-rich. Thankfully, there are variables that define the function to be used to show the result of ~counsel-describe-function~ and ~counsel-describe-variable~ commands, so that I can have the enhanced help and keep the ivy-rich integration too (found from [[https://www.reddit.com/r/emacs/comments/a6rxga/helpful_an_alternative_to_the_builtin_emacs_help/ec0b2qw?utm_source=share&utm_medium=web2x][here]]). Note: the built-in ~describe-function~ includes both functions and macros. ~helpful-function~ is functions only, so ~helpful-callable~ is provided as a drop-in replacement (see [[https://github.com/Wilfred/helpful#usage][here]]).
 #+begin_src emacs-lisp

@@ -856,6 +856,9 @@ initialized with the current directory instead of filename."
 (evil-set-initial-state 'helpful-mode 'emacs)
 (evil-set-initial-state 'elisp-refs-mode 'emacs)
 
+(evil-define-key 'emacs special-mode-map
+(kbd "\C-]") 'evil-jump-to-tag)
+
 (setq counsel-describe-function-function #'helpful-callable)
 (setq counsel-describe-variable-function #'helpful-variable)
 
