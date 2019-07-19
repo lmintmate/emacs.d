@@ -1355,6 +1355,10 @@ Don't sort candidates by length.
 #+begin_src emacs-lisp
 (setq prescient-sort-length-enable nil)
 #+end_src
+Fix so that ~counsel-unicode-char~ will be sorted properly: Most other commands were sorted with prescient (except of course those commands that under ~ivy-read~ have ~:sort~ as either ~nil~ or absent - see [[https://github.com/raxod502/prescient.el#configuration][here]]), but the output of ~counsel-unicode-char~ remained unsorted. And this while said command had ~:sort t~ and looking at ~prescient-save.el~ showed that the candidates I had chosen were indeed recorded by prescient. I was on the verge of filing an issue, when I saw [[https://github.com/raxod502/prescient.el/issues/38][another, unrelated, issue]] in the prescient repo mentioning ~ivy-sort-functions-alist~. I took a look at that and saw there a little note to also see ~ivy-sort-max-size~. I took then a look at this one and it said that this determined the max number of candidates after which sorting would be disabled. The default was 30000. Turns out the number of candidates for ~counsel-unicode-char~ was 43519, hence it wasn't sorted. Here I set the max size to 44000 so that sorting with prescient will be enabled there too.
+#+begin_src emacs-lisp
+(setq ivy-sort-max-size 44000)
+#+end_src
 ** Basic ivy settings
 Show current candidate index and count for ivy minibuffer completion.
 #+begin_src emacs-lisp

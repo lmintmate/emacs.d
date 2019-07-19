@@ -735,6 +735,8 @@ initialized with the current directory instead of filename."
 
 (setq prescient-sort-length-enable nil)
 
+(setq ivy-sort-max-size 44000)
+
 (setq ivy-count-format "(%d/%d) ")
 
 (global-set-key (kbd "C-s") 'swiper-isearch)
