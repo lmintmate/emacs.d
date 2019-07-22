@@ -290,10 +290,7 @@ vimrc-mode)
 
 (setq evil-goggles-blocking-duration 0.250)
 
-(set-face-attribute 'evil-goggles-default-face nil :background "#4f94cd" :inherit 'unspecified)
-
-(set-face-attribute 'evil-goggles-delete-face nil :background "tomato" :inherit 'unspecified)
-(set-face-attribute 'evil-goggles-change-face nil :background "tomato" :inherit 'unspecified)
+(evil-goggles-use-diff-refine-faces)
 
 (require 'evil-fringe-mark)
 (global-evil-fringe-mark-mode)
@@ -309,10 +306,10 @@ vimrc-mode)
 
 (evil-traces-mode)
 (evil-traces-use-diff-faces)
-(set-face-attribute 'evil-traces-delete nil :background "tomato" :inherit 'unspecified)
-(set-face-attribute 'evil-traces-move-preview nil :background "#4f94cd" :inherit 'unspecified)
-(set-face-attribute 'evil-traces-move-range nil :background "tomato" :inherit 'unspecified)
-(set-face-attribute 'evil-traces-yank nil :background "#4f94cd" :inherit 'unspecified)
+(set-face-attribute 'evil-traces-delete nil :background "#aa2222" :inherit 'unspecified)
+(set-face-attribute 'evil-traces-move-preview nil :background "#22aa22" :inherit 'unspecified)
+(set-face-attribute 'evil-traces-move-range nil :background "#aa2222" :inherit 'unspecified)
+(set-face-attribute 'evil-traces-yank nil :background "#aaaa22" :inherit 'unspecified)
 
 (setq ring-bell-function 'ignore)
 

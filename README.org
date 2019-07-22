@@ -599,14 +599,9 @@ Set the duration of the highlight for actions that are delayed until the highlig
 #+begin_src emacs-lisp
 (setq evil-goggles-blocking-duration 0.250)
 #+end_src
-Change evil-goggles default highlight color: the foreground isn't applied with the default settings of this package, because, as shown by [[https://github.com/edkolev/evil-goggles/issues/16][edkolev/evil-goggles#16 Evil goggles ignores faces :foreground property]], the default pulsing behavior of the visual hints doesn't support changing the foreground color. In order to solve this I would have to set ~(setq evil-goggles-pulse nil)~ after which the visual hint would (less elegantly) just appear and disappear, but the foreground color would work. I got used to the nicer pulsing however and thus can't switch to the appear and disappear behavior. Thus, since the foreground isn't applied, and with the default color inheriting the region color, it had just the red foreground and this was kinda tacky, so I changed it to SteelBlue3.
+Change evil-goggle colors to the diff-define colors.
 #+begin_src emacs-lisp
-(set-face-attribute 'evil-goggles-default-face nil :background "#4f94cd" :inherit 'unspecified)
-#+end_src
-Also change delete and change face to tomato to denote that these change/remove stuff.
-#+begin_src emacs-lisp
-(set-face-attribute 'evil-goggles-delete-face nil :background "tomato" :inherit 'unspecified)
-(set-face-attribute 'evil-goggles-change-face nil :background "tomato" :inherit 'unspecified)
+(evil-goggles-use-diff-refine-faces)
 #+end_src
 *** evil-fringe-mark
 [[https://github.com/Andrew-William-Smith/evil-fringe-mark][This package]] shows evil marks on the fringe using bitmaps (no idea why this was needed for the implementation, since [[https://github.com/kshenoy/vim-signature][vim-signature]] can use regular letters just fine - maybe to account for the presence of line numbers in the fringe? Though vim-signature seems fine in that case. Must be a difference between vim's sign column and emacs's fringe...).
@@ -635,10 +630,10 @@ Roughly the equivalent of evil-goggles for ex (echo area with semicolon) command
 #+begin_src emacs-lisp
 (evil-traces-mode)
 (evil-traces-use-diff-faces)
-(set-face-attribute 'evil-traces-delete nil :background "tomato" :inherit 'unspecified)
-(set-face-attribute 'evil-traces-move-preview nil :background "#4f94cd" :inherit 'unspecified)
-(set-face-attribute 'evil-traces-move-range nil :background "tomato" :inherit 'unspecified)
-(set-face-attribute 'evil-traces-yank nil :background "#4f94cd" :inherit 'unspecified)
+(set-face-attribute 'evil-traces-delete nil :background "#aa2222" :inherit 'unspecified)
+(set-face-attribute 'evil-traces-move-preview nil :background "#22aa22" :inherit 'unspecified)
+(set-face-attribute 'evil-traces-move-range nil :background "#aa2222" :inherit 'unspecified)
+(set-face-attribute 'evil-traces-yank nil :background "#aaaa22" :inherit 'unspecified)
 #+end_src
 * Misc configuration parameters
 ** The Bell
