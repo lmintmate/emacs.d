@@ -54,6 +54,9 @@ vimrc-mode)
 (unless (version< emacs-version "25.1")
   (add-to-list 'package-selected-packages 'ivy-prescient))
 
+(unless (version< emacs-version "25.1")
+  (add-to-list 'package-selected-packages 'evil-traces))
+
 (unless (version< emacs-version "25.2")
   (add-to-list 'package-selected-packages 'minions))
 
@@ -303,6 +306,13 @@ vimrc-mode)
 
 (evil-define-key 'normal evil-snipe-local-mode-map
   "S" nil)
+
+(evil-traces-mode)
+(evil-traces-use-diff-faces)
+(set-face-attribute 'evil-traces-delete nil :background "tomato" :inherit 'unspecified)
+(set-face-attribute 'evil-traces-move-preview nil :background "#4f94cd" :inherit 'unspecified)
+(set-face-attribute 'evil-traces-move-range nil :background "tomato" :inherit 'unspecified)
+(set-face-attribute 'evil-traces-yank nil :background "#4f94cd" :inherit 'unspecified)
 
 (setq ring-bell-function 'ignore)
 

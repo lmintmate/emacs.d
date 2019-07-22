@@ -47,6 +47,7 @@
     - [[#evil-goggles][Evil goggles]]
     - [[#evil-fringe-mark][evil-fringe-mark]]
     - [[#evil-snipe][evil-snipe]]
+    - [[#evil-traces][evil-traces]]
 - [[#misc-configuration-parameters][Misc configuration parameters]]
   - [[#the-bell][The Bell]]
   - [[#disable-dialog-boxes][Disable dialog boxes]]
@@ -243,6 +244,9 @@ Here I conditionally add to the value of ~package-selected-packages~ some packag
 
 (unless (version< emacs-version "25.1")
   (add-to-list 'package-selected-packages 'ivy-prescient))
+
+(unless (version< emacs-version "25.1")
+  (add-to-list 'package-selected-packages 'evil-traces))
 
 (unless (version< emacs-version "25.2")
   (add-to-list 'package-selected-packages 'minions))
@@ -625,6 +629,16 @@ I don't however want to override the default action of the S key, because, while
 #+begin_src emacs-lisp
 (evil-define-key 'normal evil-snipe-local-mode-map
   "S" nil)
+#+end_src
+*** evil-traces
+Roughly the equivalent of evil-goggles for ex (echo area with semicolon) commands. Change look of most commonly used commands to look like evil-goggles.
+#+begin_src emacs-lisp
+(evil-traces-mode)
+(evil-traces-use-diff-faces)
+(set-face-attribute 'evil-traces-delete nil :background "tomato" :inherit 'unspecified)
+(set-face-attribute 'evil-traces-move-preview nil :background "#4f94cd" :inherit 'unspecified)
+(set-face-attribute 'evil-traces-move-range nil :background "tomato" :inherit 'unspecified)
+(set-face-attribute 'evil-traces-yank nil :background "#4f94cd" :inherit 'unspecified)
 #+end_src
 * Misc configuration parameters
 ** The Bell
