@@ -717,6 +717,13 @@ initialized with the current directory instead of filename."
 (setq org-use-speed-commands
         (lambda () (and (looking-at org-outline-regexp) (looking-back "^\**"))))
 
+(setq org-show-context-detail
+ '((agenda . local)
+   (bookmark-jump . lineage)
+   (isearch . lineage)
+   (org-goto . tree)
+   (default . ancestors)))
+
 (require 'undo-tree)
 
 (global-undo-tree-mode)
