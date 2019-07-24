@@ -282,6 +282,8 @@ vimrc-mode)
 (define-key evil-normal-state-map (kbd "x") 'delete-forward-char)
 (define-key evil-normal-state-map (kbd "X") 'delete-backward-char)
 
+(define-key evil-visual-state-map "ae" 'mark-whole-buffer)
+
 (setq evil-goggles-enable-record-macro nil)
 
 (evil-goggles-mode)

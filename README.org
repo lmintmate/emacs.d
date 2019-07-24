@@ -580,6 +580,10 @@ Prevent ~x~ and ~X~ from copying to the clipboard: I bound these buttons to the 
 (define-key evil-normal-state-map (kbd "x") 'delete-forward-char)
 (define-key evil-normal-state-map (kbd "X") 'delete-backward-char)
 #+end_src
+Bind command to mark whole buffer while in evil visual state. I know that [[https://github.com/supermomonga/evil-textobj-entire][evil-textobj-entire]] exists, but I couldn't really get it working (at least when I used it with try). Plus, it hasn't been updated in years, and I only wanted to be able to mark the entire buffer anyways, and not anything else this text object might have provided.
+#+begin_src emacs-lisp
+(define-key evil-visual-state-map "ae" 'mark-whole-buffer)
+#+end_src
 ** Enable and configure evil packages
 *** Evil goggles
 [[https://github.com/edkolev/evil-goggles][This package]] provides visual indications for various evil actions.\\
