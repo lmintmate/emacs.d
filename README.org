@@ -315,11 +315,12 @@ Needed for Windows
 #+end_src
 * No littering
 #+begin_src emacs-lisp
+(when (package-installed-p 'no-littering)
 (setq no-littering-etc-directory
       (expand-file-name "config/" user-emacs-directory))
 (setq no-littering-var-directory
       (expand-file-name "data/" user-emacs-directory))
-(require 'no-littering)
+(require 'no-littering))
 #+end_src
 * Setting the default frame parameters on Windows
 On Linux, Emacs places its frame just fine, but on Windows it places it on the left side and in such a manner that the mode line was hidden below the Windows toolbar, which meant I had to manually resize the frame every single time (needless to say, this got old very quickly). Here is thus some config to place the default frame near the center of the screen and above the Windows toolbar.
@@ -654,9 +655,11 @@ Roughly the equivalent of evil-goggles for ex (echo area with semicolon) command
 (setq use-dialog-box nil)
 #+end_src
 ** Separate custom file
-Put it in the no-littering config folder. Idea from [[https://git.sr.ht/~bandali/dotfiles/tree/master/.emacs.d/init.el#L200][here]] - also see [[https://github.com/emacscollective/no-littering/blob/master/no-littering.el#L187][here]].
+Put it in the no-littering config folder, if the no-littering package is installed. Idea from [[https://git.sr.ht/~bandali/dotfiles/tree/master/.emacs.d/init.el#L200][here]] - also see [[https://github.com/emacscollective/no-littering/blob/master/no-littering.el#L187][here]].
 #+begin_src emacs-lisp
+(if (package-installed-p 'no-littering)
 (setq custom-file (no-littering-expand-etc-file-name "custom.el"))
+(setq custom-file (concat user-emacs-directory "custom.el")))
 #+end_src
 ** Set the format of the frame title
 It shows relative file path if a file is opened, whether the buffer is modified or not, and the emacs version (adapted from [[https://www.emacswiki.org/emacs/FrameTitle][EmacsWiki: Frame Title]]).
@@ -1370,7 +1373,8 @@ Enable ivy-prescient-mode.
 Enable prescient-persist-mode to keep usage statistics. Also properly hide the prescient-save-file, since I've renamed the no-littering folders.
 #+begin_src emacs-lisp
 (prescient-persist-mode 1)
-(setq prescient-save-file (no-littering-expand-var-file-name "prescient-save.el"))
+(when (package-installed-p 'no-littering)
+(setq prescient-save-file (no-littering-expand-var-file-name "prescient-save.el")))
 #+end_src
 Don't sort candidates by length.
 #+begin_src emacs-lisp

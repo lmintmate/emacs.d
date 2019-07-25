@@ -110,11 +110,12 @@ vimrc-mode)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 
+(when (package-installed-p 'no-littering)
 (setq no-littering-etc-directory
       (expand-file-name "config/" user-emacs-directory))
 (setq no-littering-var-directory
       (expand-file-name "data/" user-emacs-directory))
-(require 'no-littering)
+(require 'no-littering))
 
 ;; set frame
 (when (eq system-type 'windows-nt)
@@ -320,7 +321,9 @@ vimrc-mode)
 
 (setq use-dialog-box nil)
 
+(if (package-installed-p 'no-littering)
 (setq custom-file (no-littering-expand-etc-file-name "custom.el"))
+(setq custom-file (concat user-emacs-directory "custom.el")))
 
 (setq frame-title-format
     '((:eval (if (buffer-file-name)
@@ -744,7 +747,8 @@ initialized with the current directory instead of filename."
 (ivy-prescient-mode 1)
 
 (prescient-persist-mode 1)
-(setq prescient-save-file (no-littering-expand-var-file-name "prescient-save.el"))
+(when (package-installed-p 'no-littering)
+(setq prescient-save-file (no-littering-expand-var-file-name "prescient-save.el")))
 
 (setq prescient-sort-length-enable nil)
 
