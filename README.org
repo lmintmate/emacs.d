@@ -1316,14 +1316,9 @@ These [[https://orgmode.org/manual/Easy-templates.html][templates]], e.g. ~<s~, 
          (lambda () (and (looking-at org-outline-regexp) (looking-back "^\**"))))
 #+end_src
 ** Change org-show-context-detail
-This variable sets how much will be revealed when revealing locations. I'm setting it because counsel-outline apparently uses this variable to determine how it will show the headings after jumping to a specific one. With the default setting it inherited the ~(default . ancestors)~, and thus didn't show any further children that the heading had. I didn't like this behavior, since I like to see all the children that are available, and thus set it to tree which shows all the children, but hides any possible introductory text before the children, which is useful since I have long text in some headings as a sort of introduction (basically the reason I didn't choose the canonical option, since that one shows said text).
+This variable sets how much will be revealed when revealing locations. I'm changing its value because counsel-outline apparently uses this variable to determine how it will show the headings after jumping to a specific one. With the default setting it inherited the ~(default . ancestors)~, and thus didn't show any further children that the heading had. I didn't like this behavior, since I like to see all the children that are available, and thus set org-goto to tree which shows all the children, but hides any possible introductory text before the children, which is useful since I have long text in some headings as a sort of introduction (basically the reason I didn't choose the canonical option, since that one shows said text). In order to not have to redefine the entire variable (since I only wanted to change the behavior of org-goto, that is add that element to the list), I use the ~push~ function to add the desired element (adapted from [[https://emacs.stackexchange.com/a/32269][here]]).
 #+begin_src emacs-lisp
-(setq org-show-context-detail
- '((agenda . local)
-   (bookmark-jump . lineage)
-   (isearch . lineage)
-   (org-goto . tree)
-   (default . ancestors)))
+(push '(org-goto . tree) org-show-context-detail)
 #+end_src
 * Undo tree
 #+begin_src emacs-lisp
