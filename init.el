@@ -714,10 +714,11 @@ initialized with the current directory instead of filename."
  (format "Last update : %s" (format-time-string "%a %d/%m/%Y")))
 (setq org-html-postamble 'my-org-html-postamble)
 
+(when (version<= "9.2" (org-version))
 (require 'org-tempo)
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 (add-to-list 'org-structure-template-alist '("o" . "src org"))
-(add-to-list 'org-tempo-keywords-alist '("t" . "title"))
+(add-to-list 'org-tempo-keywords-alist '("t" . "title")))
 
 (setq org-use-speed-commands
         (lambda () (and (looking-at org-outline-regexp) (looking-back "^\**"))))
