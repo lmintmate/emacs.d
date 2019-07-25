@@ -69,7 +69,9 @@ vimrc-mode)
 
 ;; enforce installing the latest version of org mode
 (unless (file-expand-wildcards (concat package-user-dir "/org-[0-9]*"))
-  (package-install (elt (cdr (assoc 'org package-archive-contents)) 0)))
+(if (yes-or-no-p "Do you want to install the latest version of org-mode?")
+  (package-install (elt (cdr (assoc 'org package-archive-contents)) 0))
+(message "The latest version of org-mode wasn't installed.")))
 
 (add-to-list 'package-selected-packages 'org)
 
