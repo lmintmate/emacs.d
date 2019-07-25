@@ -64,7 +64,8 @@ vimrc-mode)
   (message "%s" "Refreshing package database...")
   (package-refresh-contents))
 
-(package-install-selected-packages)
+(when (fboundp 'package-install-selected-packages)
+  (package-install-selected-packages))
 
 ;; enforce installing the latest version of org mode
 (unless (file-expand-wildcards (concat package-user-dir "/org-[0-9]*"))

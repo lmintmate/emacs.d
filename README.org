@@ -252,13 +252,14 @@ Here I conditionally add to the value of ~package-selected-packages~ some packag
 (unless (version< emacs-version "25.2")
   (add-to-list 'package-selected-packages 'minions))
 #+end_src
-Finally, populate the ~package-archive-contents~ with ~package-refresh-contents~, so that the installation will take place properly with a fresh setup, and install all packages in the ~package-selected-packages~ list with ~package-install-selected-packages~.
+Finally, populate the ~package-archive-contents~ with ~package-refresh-contents~, so that the installation will take place properly with a fresh setup, and install all packages in the ~package-selected-packages~ list with ~package-install-selected-packages~, if said command exists.
 #+begin_src emacs-lisp
 (unless package-archive-contents
   (message "%s" "Refreshing package database...")
   (package-refresh-contents))
 
-(package-install-selected-packages)
+(when (fboundp 'package-install-selected-packages)
+  (package-install-selected-packages))
 #+end_src
 ** Force package.el to install the latest version of org-mode
 Because org-mode is already builtin, it doesn't get reinstalled automatically from the org-mode repository, as it should. Thus, if I want the latest org-mode version, I would normally have to install it manually from ~package-list-packages~, and only then it would overtake the builtin version (see also [[https://emacs.stackexchange.com/questions/31825/cant-install-org-through-package-manager#comment64743_31837][here]]). However trying to start emacs without the latest version of org-mode installed causes emacs to error out saying that org-tempo wasn't detected, because I require that later in the config and it apparently wasn't included in the built in emacs version. I thus found [[https://github.com/jwiegley/use-package/issues/319#issuecomment-363981027][here]] a solution that looks for the latest version of org with a regex and, if it doesn't find it, proceeds to install it from the org repository. I also add org to the list of selected packages, so that it won't propose to autoremove it.
