@@ -396,24 +396,23 @@ vimrc-mode)
 
 (define-key evil-emacs-state-map "\C-cz" 'zap-up-to-char)
 
+(when (fboundp 'display-line-numbers-mode)
 (setq-default display-line-numbers nil)
-
 (defun noct:relative ()
   (setq-local display-line-numbers 'relative))
-
 (defun noct:line-number-relative ()
-  (setq-local display-line-numbers-current-absolute nil))
+  (setq-local display-line-numbers-current-absolute nil)))
 
-(when (version<= "26.0.50" emacs-version )
+(when (fboundp 'display-line-numbers-mode)
 (add-hook 'text-mode-hook #'noct:relative)
 (add-hook 'text-mode-hook #'noct:line-number-relative)
 (add-hook 'prog-mode-hook #'noct:relative)
 (add-hook 'prog-mode-hook #'noct:line-number-relative))
 
-(when (version<= "26.0.50" emacs-version )
+(when (fboundp 'display-line-numbers-mode)
 (add-hook 'lisp-interaction-mode-hook (lambda () (display-line-numbers-mode -1))))
 
-(when (version<= "26.0.50" emacs-version )
+(when (fboundp 'display-line-numbers-mode)
 (with-eval-after-load 'display-line-numbers
 (set-face-attribute 'line-number-current-line nil :inherit font-lock-comment-face)))
 
