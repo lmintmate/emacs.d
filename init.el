@@ -566,11 +566,10 @@ initialized with the current directory instead of filename."
   (setq my-live-face-foreground t)
   (list-colors-display)
   (select-window (get-buffer-window "*Colors*"))
-  (local-set-key "f" 'my-live-set-foreground)
-  (local-set-key "b" 'my-live-set-background)
-  (local-set-key "c" 'my-live-copy-colors)
+  (evil-local-set-key 'motion "f" 'my-live-set-foreground)
+  (evil-local-set-key 'motion "b" 'my-live-set-background)
+  (evil-local-set-key 'motion "c" 'my-live-copy-colors)
   (add-hook 'post-command-hook 'my-live-face-color-set t t))
-
 
 (defun my-live-face-color-set ()
   (when (looking-at ".+\\(#.+\\)")
@@ -580,18 +579,15 @@ initialized with the current directory instead of filename."
              my-live-face
              (match-string 1))))
 
-
 (defun my-live-set-foreground ()
   (interactive)
   (setq my-live-face-foreground t)
   (message "Choosing foreground color."))
 
-
 (defun my-live-set-background ()
   (interactive)
   (setq my-live-face-foreground nil)
   (message "Choosing background color."))
-
 
 (defun my-live-copy-colors ()
   (interactive)
