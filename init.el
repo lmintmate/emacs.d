@@ -596,10 +596,9 @@ initialized with the current directory instead of filename."
 (defun my-live-copy-colors ()
   (interactive)
   (remove-hook 'post-command-hook 'my-live-face-color-set t)
-  (let ((settings (format "(set-face-foreground '%s \"%s\")\n(set-face-background '%s \"%s\")"
+  (let ((settings (format "(set-face-attribute '%s nil :foreground \"%s\" :background \"%s\" :inherit 'unspecified)"
                           my-live-face
                           (face-foreground my-live-face)
-                          my-live-face
                           (face-background my-live-face))))
     (kill-new settings)
     (quit-window)

@@ -1012,7 +1012,7 @@ initialized with the current directory instead of filename."
                 ((memq key '(?\a ?\e)) (keyboard-quit))))))))
 #+end_src
 *** Live color selection for faces
-Found (and slightly modified - just added docstring) from [[https://www.reddit.com/r/emacs/comments/ci1j66/live_color_selection_for_faces/][Live color selection for faces : emacs subreddit]].
+Adapted (mainly added docstring in ~my-live-face-color-changer~ and replaced ~face-set-foreground~ and ~face-set-background~ with ~face-set-attribute~ in ~my-live-copy-colors~) from [[https://www.reddit.com/r/emacs/comments/ci1j66/live_color_selection_for_faces/][Live color selection for faces : emacs subreddit]].
 #+begin_quote
 When I want to set to a face to a different color then I usually try setting the colors manually which is cumbersome, so I created this little snippet to do it live, giving you an instant preview of the changes.
 [...]
@@ -1059,10 +1059,9 @@ Then it opens the color list, splitting the window, so above you see your text a
 (defun my-live-copy-colors ()
   (interactive)
   (remove-hook 'post-command-hook 'my-live-face-color-set t)
-  (let ((settings (format "(set-face-foreground '%s \"%s\")\n(set-face-background '%s \"%s\")"
+  (let ((settings (format "(set-face-attribute '%s nil :foreground \"%s\" :background \"%s\" :inherit 'unspecified)"
                           my-live-face
                           (face-foreground my-live-face)
-                          my-live-face
                           (face-background my-live-face))))
     (kill-new settings)
     (quit-window)
