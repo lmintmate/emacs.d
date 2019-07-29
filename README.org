@@ -1235,12 +1235,15 @@ This is an org-mode subpackage that allows control of various things with the mo
 #+begin_src emacs-lisp
 (require 'org-mouse)
 #+end_src
-Workaround so that ~mouse-drag-and-drop-region~ will work. Specifically, when ~org-mouse~ is enabled, the ~mouse-drag-region~ command (the command used when org-mouse is disabled) for some reason is replaced with ~org-mouse-down-mouse~ which doesn't have the drag-n-drop capabilities of the other command, so I rebind ~<down-mouse-1>~ to ~mouse-drag-region~. I only do this for emacs and insert states as this couldn't be enabled on normal state.
+Workaround so that ~mouse-drag-and-drop-region~ will work. Specifically, when ~org-mouse~ is enabled, the ~mouse-drag-region~ command (the command used when org-mouse is disabled) for some reason is replaced with ~org-mouse-down-mouse~ which doesn't have the drag-n-drop capabilities of the other command, so I rebind ~<down-mouse-1>~ to ~mouse-drag-region~. I do this for emacs, insert and motion states - this couldn't initially be enabled on normal state, but it turns out the binding to ~<down-mouse-1>~ in normal state is inherited from motion state so setting the binding in motion state gives the desired result in normal state as well.
 #+begin_src emacs-lisp
 (evil-define-key 'emacs org-mode-map
 (kbd "<down-mouse-1>") 'mouse-drag-region)
 
 (evil-define-key 'insert org-mode-map
+(kbd "<down-mouse-1>") 'mouse-drag-region)
+
+(evil-define-key 'motion org-mode-map
 (kbd "<down-mouse-1>") 'mouse-drag-region)
 #+end_src
 ** Define C-c l as the keybinding to org-cliplink.

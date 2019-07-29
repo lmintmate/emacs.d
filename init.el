@@ -706,6 +706,9 @@ initialized with the current directory instead of filename."
 (evil-define-key 'insert org-mode-map
 (kbd "<down-mouse-1>") 'mouse-drag-region)
 
+(evil-define-key 'motion org-mode-map
+(kbd "<down-mouse-1>") 'mouse-drag-region)
+
 (when (package-installed-p 'org-cliplink)
 (define-key org-mode-map (kbd "\C-cl") 'org-cliplink))
 
