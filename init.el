@@ -792,7 +792,9 @@ initialized with the current directory instead of filename."
 (drag-stuff-define-keys)
 
 (require 'espy)
-(setq espy-password-file "~/Λήψεις/σημαντικά αρχεία txt/passwords.org")
+(if (eq system-type 'gnu/linux)
+    (setq espy-password-file "~/Λήψεις/σημαντικά αρχεία txt/passwords.org")
+(setq espy-password-file "c:/temporarity folder/kalokairi 2019 folder/σημαντικά αρχεία txt/passwords.org"))
 (setq espy-pass-prefix "password:")
 
 (ivy-mode 1)
