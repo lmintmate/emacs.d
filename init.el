@@ -621,17 +621,23 @@ initialized with the current directory instead of filename."
     (autoload 'ibuffer "ibuffer" "List buffers." t)
 
 (setq ibuffer-saved-filter-groups
-      (quote (("default"
+      '(("default"
 	       ("Dired" (mode . dired-mode))
-	       ("Org" (name . "^.*org$"))
+	       ("Org" (derived-mode . org-mode))
                ("Text" (name . "^.*txt$"))
-               ("Markdown" (name . "^.*md$"))
+               ("Markdown" (derived-mode . markdown-mode))
 
 	       ("Emacs Lisp" (mode . emacs-lisp-mode))
+               ("Help" (or (derived-mode . help-mode)
+                       (derived-mode . helpful-mode)
+                       (derived-mode . elisp-refs-mode)
+                       (derived-mode . apropos-mode)))
+               ("Info" (derived-mode . Info-mode))
+               ("Custom" (derived-mode . Custom-mode))
 	       ("Emacs-created"
                   (or
                    (name . "^\\*")))
-	       ))))
+	       )))
 (add-hook 'ibuffer-mode-hook
 	  (lambda ()
 	    (ibuffer-auto-mode 1)

@@ -1090,7 +1090,7 @@ I wanted to be able to change the layout of the buffers from horizontal to verti
 (define-key global-map "\M-[" 'rotate-frame)
 #+end_src
 * Ibuffer
-A better way to list buffers than buffer-menu([[https://www.emacswiki.org/emacs/IbufferMode][link]]). Config influenced from [[http://cestlaz.github.io/posts/using-emacs-34-ibuffer-emmet/][Using Emacs - 34 - ibuffer and emmet | C'est la Z]] and [[http://home.thep.lu.se/~karlf/emacs.html#sec-6-6][some dude's .emacs]].\\
+A better way to list buffers than buffer-menu([[https://www.emacswiki.org/emacs/IbufferMode][link]]). Config influenced from [[http://cestlaz.github.io/posts/using-emacs-34-ibuffer-emmet/][Using Emacs - 34 - ibuffer and emmet | C'est la Z]], [[http://home.thep.lu.se/~karlf/emacs.html#sec-6-6][some dude's .emacs]], and [[https://github.com/drot/dotfiles/blob/6d7e1630b9ac4cc7f1386841093f465b9d5d32ab/emacs/.emacs.d/init.el#L405][some other dotfiles from github]].
 ** Replace buffer-menu.
 #+begin_src emacs-lisp
 (require 'ibuffer)
@@ -1100,17 +1100,23 @@ A better way to list buffers than buffer-menu([[https://www.emacswiki.org/emacs/
 ** Set buffer groups.
 #+begin_src emacs-lisp
 (setq ibuffer-saved-filter-groups
-      (quote (("default"
+      '(("default"
 	       ("Dired" (mode . dired-mode))
-	       ("Org" (name . "^.*org$"))
+	       ("Org" (derived-mode . org-mode))
                ("Text" (name . "^.*txt$"))
-               ("Markdown" (name . "^.*md$"))
+               ("Markdown" (derived-mode . markdown-mode))
 
 	       ("Emacs Lisp" (mode . emacs-lisp-mode))
+               ("Help" (or (derived-mode . help-mode)
+                       (derived-mode . helpful-mode)
+                       (derived-mode . elisp-refs-mode)
+                       (derived-mode . apropos-mode)))
+               ("Info" (derived-mode . Info-mode))
+               ("Custom" (derived-mode . Custom-mode))
 	       ("Emacs-created"
                   (or
                    (name . "^\\*")))
-	       ))))
+	       )))
 (add-hook 'ibuffer-mode-hook
 	  (lambda ()
 	    (ibuffer-auto-mode 1)
