@@ -61,7 +61,7 @@
   - [[#disable-double-space-as-end-of-sentence][Disable double space as end of sentence]]
   - [[#disabling-menu-bar-when-emacs-is-run-in-a--terminal][Disabling menu bar when emacs is run in a  terminal.]]
   - [[#toggling-the-menu-bar-with-a-keyboard-shortcut][Toggling the menu bar with a keyboard shortcut.]]
-  - [[#toggling-the-scroll-bar-with-a-keyboard-shortcut][Toggling the scroll bar with a keyboard shortcut]]
+  - [[#toggle-scroll-bar-and-window-divider-mode][Toggle scroll bar and window divider mode]]
   - [[#toggle-maximizing-the-frame][Toggle maximizing the frame]]
   - [[#visual-line-mode-only-for-text-mode][Visual line mode only for text mode.]]
   - [[#associate-txt-files-with-the-goto-address-mode][Associate .txt files with the goto-address-mode.]]
@@ -732,9 +732,15 @@ Since it can't be clicked anyways, it takes up space without reason...
 #+begin_src emacs-lisp
 (global-set-key [f9] 'toggle-menu-bar-mode-from-frame)
 #+end_src
-** Toggling the scroll bar with a keyboard shortcut
+** Toggle scroll bar and window divider mode
+I might not always want the scroll bar enabled (though I prefer it to be, so that I can quickly see where I am on a buffer), but when I have it disabled, there is no divider between vertical splits. Window divider mode fixes that. I want however the window divider mode and scroll bar mode to be mutually exclusive, as, when the scroll bar mode is enabled, the scroll bar by itself is a sufficient divider. Thus I create a hook on window divider mode that toggles the scroll bar mode (for the ~'toggle~ property see the docstring of ~define-minor-mode~), and add a keybinding to enable and disable window-divider-mode. I also customise the look of the divider to fit in more with my theme.
 #+begin_src emacs-lisp
-(global-set-key [f10] 'toggle-scroll-bar)
+(set-face-attribute 'window-divider nil :foreground "gray75")
+(set-face-attribute 'window-divider-first-pixel nil :foreground "gray95")
+(set-face-attribute 'window-divider-last-pixel nil :foreground "gray55")
+
+(add-hook 'window-divider-mode-hook (lambda () (scroll-bar-mode 'toggle)))
+(global-set-key [f10] 'window-divider-mode)
 #+end_src
 ** Toggle maximizing the frame
 Useful for newsticker
