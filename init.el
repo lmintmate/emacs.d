@@ -436,6 +436,8 @@ vimrc-mode)
 
 (define-key Info-mode-map (kbd "q") nil)
 
+(setq custom-unlispify-tag-names nil)
+
 (global-set-key (kbd "C-x r d") 'bookmark-delete)
 
 (defun d/download-file (&optional url name)

@@ -79,6 +79,7 @@
     - [[#treat-all-themes-as-safe][Treat all themes as safe]]
     - [[#load-only-one-theme-at-a-time][Load only one theme at a time]]
   - [[#info-mode-settings][Info mode settings]]
+  - [[#custom-mode-settings][Custom mode settings]]
   - [[#bookmark-settings][Bookmark settings]]
   - [[#custom-functions][Custom functions]]
     - [[#function-to-download-a-file-from-url-to-specified-path][Function to download a file from url to specified path]]
@@ -874,6 +875,12 @@ Set the initial state of info mode to emacs, as I feel that the default motion s
 Also disable q, as this binding also makes the whole mode feel temporary, which isn't very fitting imo.
 #+begin_src emacs-lisp
 (define-key Info-mode-map (kbd "q") nil)
+#+end_src
+** Custom mode settings
+This the mode used for the Customization interface buffers.\\
+Here I have the names of the entries to be customised shown in their raw lisp form.
+#+begin_src emacs-lisp
+(setq custom-unlispify-tag-names nil)
 #+end_src
 ** Bookmark settings
 In order to remember where I last left reading a particular info manual I can use the bookmarks feature of emacs. In particular, I can add a bookmark with the command ~bookmark-set~ (~C-x r m~), access bookmarks with the command ~bookmark-jump~ (~C-x r b~), view a more detailed list of bookmarks with ~bookmark-bmenu-list~ (~C-x r l~) and delete a bookmark with the command ~bookmark-delete~. I set the latter command to ~C-x r d~, overriding it default setting ~delete-rectangle~, because I thought I wanted to keep the ~C-x r~ line of commands for all bookmark related commands.
