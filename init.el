@@ -636,7 +636,9 @@ initialized with the current directory instead of filename."
                        (derived-mode . apropos-mode)))
                ("Info" (derived-mode . Info-mode))
                ("Custom" (derived-mode . Custom-mode))
-	       ("Emacs-created"
+               ("Scratch" (name . "*scratch*"))
+               ("Git" (derived-mode . magit-mode))
+	       ("Other"
                   (or
                    (name . "^\\*")))
 	       )))

@@ -1120,7 +1120,9 @@ A better way to list buffers than buffer-menu([[https://www.emacswiki.org/emacs/
                        (derived-mode . apropos-mode)))
                ("Info" (derived-mode . Info-mode))
                ("Custom" (derived-mode . Custom-mode))
-	       ("Emacs-created"
+               ("Scratch" (name . "*scratch*"))
+               ("Git" (derived-mode . magit-mode))
+	       ("Other"
                   (or
                    (name . "^\\*")))
 	       )))
