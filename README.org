@@ -1479,7 +1479,8 @@ Show current candidate index and count for ivy minibuffer completion.
 #+end_src
 Keybindings for counsel and swiper functions. ~swiper-isearch~ is like regular swiper, only it shows all results corresponding to a search string from the current line, instead of only the first one, and it also doesn't show the line numbers of the results (see [[https://oremacs.com/2019/04/07/swiper-isearch/][Swiper-isearch - a more isearch-like swiper · (or emacs]]). ~counsel-switch-buffer~ is like ~ivy-switch-buffer~, but it also shows the preview of each buffer.
 #+begin_src emacs-lisp
-(global-set-key (kbd "C-s") 'swiper-isearch)
+(global-set-key (kbd "C-s") 'swiper)
+(global-set-key (kbd "C-M-s") 'swiper-isearch)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 (global-set-key (kbd "\C-xb") 'counsel-switch-buffer)
@@ -1503,6 +1504,10 @@ Do not add a ~^~ (beginning of line anchor) when completing (see [[https://githu
 Don't show parent and current directories in counsel-find-file (found from [[https://github.com/kshenoy/dotfiles/blob/master/emacs.org#ivy-et-al][here]]).
 #+begin_src emacs-lisp
 (setq ivy-extra-directories nil)
+#+end_src
+Have swiper go to the start of a match, and not to its end (as is the default), when selecting a match.
+#+begin_src emacs-lisp
+(setq swiper-goto-start-of-match t)
 #+end_src
 Have ivy minibuffer selection highlight the entire current line (recommended from the [[https://github.com/Yevgnen/ivy-rich/blob/master/README.org][ivy-rich README]]).
 #+begin_src emacs-lisp
