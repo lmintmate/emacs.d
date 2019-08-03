@@ -288,6 +288,17 @@ vimrc-mode)
 
 (define-key evil-visual-state-map "ae" 'mark-whole-buffer)
 
+(evil-define-operator my/evil-replace-with-kill-ring (beg end)
+    "Replace with killring action."
+    :move-point nil
+    (interactive "<r>")
+    (save-excursion
+      (delete-region beg end)
+      (goto-char beg)
+      (call-interactively 'evil-paste-before 1)))
+
+  (define-key evil-normal-state-map "gc" 'my/evil-replace-with-kill-ring)
+
 (setq evil-goggles-enable-record-macro nil)
 
 (evil-goggles-mode)

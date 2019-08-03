@@ -43,6 +43,7 @@
     - [[#preliminaries-before-loading-evil][Preliminaries before loading evil]]
     - [[#load-evil][Load evil]]
     - [[#set-evil-keybindings][Set evil keybindings]]
+    - [[#custom-operators][Custom operators]]
   - [[#enable-and-configure-evil-packages][Enable and configure evil packages]]
     - [[#evil-goggles][Evil goggles]]
     - [[#evil-fringe-mark][evil-fringe-mark]]
@@ -591,6 +592,20 @@ Prevent ~x~ and ~X~ from copying to the clipboard: I bound these buttons to the 
 Bind command to mark whole buffer while in evil visual state. I know that [[https://github.com/supermomonga/evil-textobj-entire][evil-textobj-entire]] exists, but I couldn't really get it working (at least when I used it with try). Plus, it hasn't been updated in years, and I only wanted to be able to mark the entire buffer anyways, and not anything else this text object might have provided.
 #+begin_src emacs-lisp
 (define-key evil-visual-state-map "ae" 'mark-whole-buffer)
+#+end_src
+*** Custom operators
+Operator to replace a text object with the clipboard content, without altering the clipboard. E.g. ~gcib~ will replace the content between () and it wont alter the clipboard. Bound to ~gc~ (mnemonic: get clipboard). Adapted from [[https://www.reddit.com/r/spacemacs/comments/cl2q0f/how_have_you_tweaked_spacemacs_or_emacs_using/evsgt2w/][How have you tweaked spacemacs (or emacs) using elisp? : spacemacs]].
+#+begin_src emacs-lisp
+(evil-define-operator my/evil-replace-with-kill-ring (beg end)
+    "Replace with killring action."
+    :move-point nil
+    (interactive "<r>")
+    (save-excursion
+      (delete-region beg end)
+      (goto-char beg)
+      (call-interactively 'evil-paste-before 1)))
+
+  (define-key evil-normal-state-map "gc" 'my/evil-replace-with-kill-ring)
 #+end_src
 ** Enable and configure evil packages
 *** Evil goggles
