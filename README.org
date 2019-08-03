@@ -43,7 +43,7 @@
     - [[#preliminaries-before-loading-evil][Preliminaries before loading evil]]
     - [[#load-evil][Load evil]]
     - [[#set-evil-keybindings][Set evil keybindings]]
-    - [[#custom-operators][Custom operators]]
+    - [[#custom-operators-and-text-objects][Custom operators and text objects]]
   - [[#enable-and-configure-evil-packages][Enable and configure evil packages]]
     - [[#evil-goggles][Evil goggles]]
     - [[#evil-fringe-mark][evil-fringe-mark]]
@@ -593,7 +593,7 @@ Bind command to mark whole buffer while in evil visual state. I know that [[http
 #+begin_src emacs-lisp
 (define-key evil-visual-state-map "ae" 'mark-whole-buffer)
 #+end_src
-*** Custom operators
+*** Custom operators and text objects
 Operator to replace a text object with the clipboard content, without altering the clipboard. E.g. ~gcib~ will replace the content between () and it wont alter the clipboard. Bound to ~gc~ (mnemonic: get clipboard). Adapted from [[https://www.reddit.com/r/spacemacs/comments/cl2q0f/how_have_you_tweaked_spacemacs_or_emacs_using/evsgt2w/][How have you tweaked spacemacs (or emacs) using elisp? : spacemacs]].
 #+begin_src emacs-lisp
 (evil-define-operator my/evil-replace-with-kill-ring (beg end)
@@ -606,6 +606,22 @@ Operator to replace a text object with the clipboard content, without altering t
       (call-interactively 'evil-paste-before 1)))
 
   (define-key evil-normal-state-map "gc" 'my/evil-replace-with-kill-ring)
+#+end_src
+Function text object (e.g. to delete a function). Bound to ~f~ e.g. to delete a function, press ~daf~. Note that when in org-mode, this deletes the entire src block. (Adapted from [[https://www.reddit.com/r/spacemacs/comments/cl2q0f/how_have_you_tweaked_spacemacs_or_emacs_using/evsgt2w/][How have you tweaked spacemacs (or emacs) using elisp? : spacemacs]].)
+#+begin_src emacs-lisp
+  (evil-define-text-object my/function-text-object (count)
+    "Function text object"
+    (interactive)
+    (save-mark-and-excursion
+      (mark-defun)
+      (let ((m (mark)))
+        (if (looking-back "*/\n")
+            (progn
+              (previous-line)
+              (list m (first (sp-get-comment-bounds))))
+          (list m (point))))))
+  (define-key evil-inner-text-objects-map "f" 'my/function-text-object)
+  (define-key evil-outer-text-objects-map "f" 'my/function-text-object)
 #+end_src
 ** Enable and configure evil packages
 *** Evil goggles

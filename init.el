@@ -299,6 +299,20 @@ vimrc-mode)
 
   (define-key evil-normal-state-map "gc" 'my/evil-replace-with-kill-ring)
 
+(evil-define-text-object my/function-text-object (count)
+  "Function text object"
+  (interactive)
+  (save-mark-and-excursion
+    (mark-defun)
+    (let ((m (mark)))
+      (if (looking-back "*/\n")
+          (progn
+            (previous-line)
+            (list m (first (sp-get-comment-bounds))))
+        (list m (point))))))
+(define-key evil-inner-text-objects-map "f" 'my/function-text-object)
+(define-key evil-outer-text-objects-map "f" 'my/function-text-object)
+
 (setq evil-goggles-enable-record-macro nil)
 
 (evil-goggles-mode)
