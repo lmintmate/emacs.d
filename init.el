@@ -832,7 +832,7 @@ initialized with the current directory instead of filename."
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 (global-set-key (kbd "\C-xb") 'counsel-switch-buffer)
 (global-set-key (kbd "\C-cu") 'counsel-unicode-char)
-(global-set-key (kbd "\C-cr") 'counsel-recentf)
+(global-set-key (kbd "\C-cr") 'counsel-buffer-or-recentf)
 (global-set-key (kbd "\C-h v") 'counsel-describe-variable)
 (global-set-key (kbd "\C-h f") 'counsel-describe-function)
 
@@ -942,6 +942,12 @@ initialized with the current directory instead of filename."
     '(:columns
       ((lmintmate/ivy-rich-file-last-modified-time (:face font-lock-comment-face))
        (ivy-rich-candidate (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.8))))))))
+
+(plist-put ivy-rich-display-transformers-list
+'counsel-buffer-or-recentf
+    '(:columns
+      ((lmintmate/ivy-rich-file-last-modified-time (:face font-lock-comment-face))
+       (counsel-buffer-or-recentf-transformer (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.8))))))))
 
 (ivy-rich-set-display-transformer)
 
