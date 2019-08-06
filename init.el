@@ -376,7 +376,7 @@ vimrc-mode)
 (unless (display-graphic-p)
   (menu-bar-mode -1))
 
-(global-set-key [f9] 'toggle-menu-bar-mode-from-frame)
+(global-set-key [f8] 'toggle-menu-bar-mode-from-frame)
 
 (set-face-attribute 'window-divider nil :foreground "gray75")
 (set-face-attribute 'window-divider-first-pixel nil :foreground "gray95")
@@ -385,7 +385,7 @@ vimrc-mode)
 (add-hook 'window-divider-mode-hook (lambda () (scroll-bar-mode 'toggle)))
 (global-set-key [f10] 'window-divider-mode)
 
-(global-set-key [f8] 'toggle-frame-maximized)
+(global-set-key [f9] 'toggle-frame-maximized)
 
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 

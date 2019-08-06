@@ -763,7 +763,7 @@ Since it can't be clicked anyways, it takes up space without reason...
 #+end_src
 ** Toggling the menu bar with a keyboard shortcut.
 #+begin_src emacs-lisp
-(global-set-key [f9] 'toggle-menu-bar-mode-from-frame)
+(global-set-key [f8] 'toggle-menu-bar-mode-from-frame)
 #+end_src
 ** Toggle scroll bar and window divider mode
 I might not always want the scroll bar enabled (though I prefer it to be, so that I can quickly see where I am on a buffer), but when I have it disabled, there is no divider between vertical splits. Window divider mode fixes that. I want however the window divider mode and scroll bar mode to be mutually exclusive, as, when the scroll bar mode is enabled, the scroll bar by itself is a sufficient divider. Thus I create a hook on window divider mode that toggles the scroll bar mode (for the ~'toggle~ property see the docstring of ~define-minor-mode~), and add a keybinding to enable and disable window-divider-mode. I also customise the look of the divider to fit in more with my theme.
@@ -778,7 +778,7 @@ I might not always want the scroll bar enabled (though I prefer it to be, so tha
 ** Toggle maximizing the frame
 Useful for newsticker
 #+begin_src emacs-lisp
-(global-set-key [f8] 'toggle-frame-maximized)
+(global-set-key [f9] 'toggle-frame-maximized)
 #+end_src
 ** Visual line mode only for text mode.
 Visual line wraps lines instead of cutting them as default.
