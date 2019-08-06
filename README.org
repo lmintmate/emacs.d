@@ -1125,8 +1125,8 @@ Note that the command ~recentf-edit-list~ provides a way to remove undesired fil
 * Settings for multiple buffer management
 I wanted to be able to change the layout of the buffers from horizontal to vertical, as well as be able to flip frames, so that left goes right, and up goes down. I used to use some custom functions found at [[http://whattheemacsd.com][What the .emacs.d!?]] ([[http://whattheemacsd.com/buffer-defuns.el-03.html][here]] and [[http://whattheemacsd.com/buffer-defuns.el-02.html][here]], specifically), but then found the package [[https://github.com/emacsorphanage/transpose-frame/blob/master/transpose-frame.el][transpose-frame]] (available at MELPA), and decided to use that instead, as to make the README.org file less lengthy.
 #+begin_src emacs-lisp
-(define-key global-map "\M-]" 'transpose-frame)
-(define-key global-map "\M-[" 'rotate-frame)
+(define-key global-map "\M-[" 'transpose-frame)
+(define-key global-map "\M-]" 'rotate-frame)
 #+end_src
 * Ibuffer
 A better way to list buffers than buffer-menu([[https://www.emacswiki.org/emacs/IbufferMode][link]]). Config influenced from [[http://cestlaz.github.io/posts/using-emacs-34-ibuffer-emmet/][Using Emacs - 34 - ibuffer and emmet | C'est la Z]], [[http://home.thep.lu.se/~karlf/emacs.html#sec-6-6][some dude's .emacs]], and [[https://github.com/drot/dotfiles/blob/6d7e1630b9ac4cc7f1386841093f465b9d5d32ab/emacs/.emacs.d/init.el#L405][some other dotfiles from github]].

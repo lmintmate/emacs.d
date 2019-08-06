@@ -640,8 +640,8 @@ initialized with the current directory instead of filename."
                         "bookmark"
                         ))
 
-(define-key global-map "\M-]" 'transpose-frame)
-(define-key global-map "\M-[" 'rotate-frame)
+(define-key global-map "\M-[" 'transpose-frame)
+(define-key global-map "\M-]" 'rotate-frame)
 
 (require 'ibuffer)
  (global-set-key (kbd "C-x C-b") 'ibuffer)
