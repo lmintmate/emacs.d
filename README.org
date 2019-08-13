@@ -182,7 +182,7 @@ I tangle the init.el file by writing on the top of the README.org file the follo
 #+property: header-args :tangle init.el
 #+end_example
 Note that when changing the property headings, we need to use C-c C-c with the cursor on it to refresh its setting (see [[https://emacs.stackexchange.com/a/19363][here]]).\\
-This configures that the file will be tangled to a file called init.el. This can be triggered manually with ~C-c C-v t~, but can also be done automatically upon saving (see [[https://www.reddit.com/r/emacs/comments/bex2ko/pure_emacs_lisp_init_skeleton/el99cse/?utm_source=share&utm_medium=web2x][here]] and [[https://www.reddit.com/r/emacs/comments/372nxd/how_to_move_init_to_orgbabel/crjicdv/?utm_source=share&utm_medium=web2x][here]]). This uses file local variables set at the end of the org file and said variables need to be declared as safe so that emacs won't warn about them being unsafe (see [[https://www.reddit.com/r/emacs/comments/5d4hqq/using_babel_to_put_your_init_file_in_org/da1vmvb?utm_source=share&utm_medium=web2x][here]]) - the implementation of this can thus be found at the end of this file.
+This configures that the file will be tangled to a file called init.el. This can be triggered manually with ~C-c C-v t~, but can also be done automatically upon saving (see [[https://www.reddit.com/r/emacs/comments/bex2ko/pure_emacs_lisp_init_skeleton/el99cse/][here]] and [[https://www.reddit.com/r/emacs/comments/372nxd/how_to_move_init_to_orgbabel/crjicdv/][here]]). This uses file local variables set at the end of the org file and said variables need to be declared as safe so that emacs won't warn about them being unsafe (see [[https://www.reddit.com/r/emacs/comments/5d4hqq/using_babel_to_put_your_init_file_in_org/da1vmvb/][here]]) - the implementation of this can thus be found at the end of this file.
 * Main configuration
 * Preliminaries: package management settings
 ** Add MELPA and org repositories
@@ -883,7 +883,7 @@ I set it conditionally so that it won't error out on versions lower than 26.1.  
 (set-face-attribute 'line-number-current-line nil :inherit font-lock-comment-face)))
 #+end_src
 ** Make help windows active by default
-When I call a help window, I want to immediately scroll through it, and having to either click to it or use the other-window command to make it active was somewhat annoying. This parameter makes such windows active by default (found from [[https://www.reddit.com/r/emacs/comments/bty1eq/why_doesnt_emacs_set_the_focus_to_information/ep4b0uf?utm_source=share&utm_medium=web2x][Why doesn't emacs set the focus to information windows? : emacs subreddit]]).
+When I call a help window, I want to immediately scroll through it, and having to either click to it or use the other-window command to make it active was somewhat annoying. This parameter makes such windows active by default (found from [[https://www.reddit.com/r/emacs/comments/bty1eq/why_doesnt_emacs_set_the_focus_to_information/ep4b0uf/][Why doesn't emacs set the focus to information windows? : emacs subreddit]]).
 #+begin_src emacs-lisp
 (setq-default help-window-select t)
 #+end_src
@@ -1114,7 +1114,7 @@ A quick way to access my most recently opened files (as I didn't want to have to
 (require 'recentf)
 (recentf-mode 1)
 #+end_src
-Don't add files from the elpa folder, autoloads or bookmarks in the recentf list (adapted from [[https://www.reddit.com/r/emacs/comments/3g468d/stop_recent_files_showing_elpa_packages/ctv32rk?utm_source=share&utm_medium=web2x][here]]).
+Don't add files from the elpa folder, autoloads or bookmarks in the recentf list (adapted from [[https://www.reddit.com/r/emacs/comments/3g468d/stop_recent_files_showing_elpa_packages/ctv32rk/][here]]).
 #+begin_src emacs-lisp
 (setq recentf-exclude '(".*-autoloads\\.el\\'"
                         "[/\\]\\elpa/"
@@ -1411,7 +1411,7 @@ In my color theme, headline level 2 used to be plain white, while headline level
 (set-face-attribute 'org-level-3 nil :foreground "cyan3" :weight 'bold :inherit 'unspecified)
 #+end_src
 ** Custom color for org source code blocks
-I didn't really like the fact that the org source code blocks had the color of the comments (grey), as this made them less visible and prominent. I found, via [[https://www.reddit.com/r/emacs/comments/415imd/prettier_orgmode_source_code_blocks/cz09wvh?utm_source=share&utm_medium=web2x][this reddit post]], that I can customize the faces of ~org-block-begin-line~ and ~org-block-end-line~. I decided however to leave the default settings for these, as the file became too flashy otherwise. I customized ~org-block~ to change the faces of the content of the source blocks and set their foreground to whitesmoke so that I can read them more easily.
+I didn't really like the fact that the org source code blocks had the color of the comments (grey), as this made them less visible and prominent. I found, via [[https://www.reddit.com/r/emacs/comments/415imd/prettier_orgmode_source_code_blocks/cz09wvh/][this reddit post]], that I can customize the faces of ~org-block-begin-line~ and ~org-block-end-line~. I decided however to leave the default settings for these, as the file became too flashy otherwise. I customized ~org-block~ to change the faces of the content of the source blocks and set their foreground to whitesmoke so that I can read them more easily.
 #+begin_src emacs-lisp
 (set-face-attribute 'org-block nil :foreground "whitesmoke" :inherit 'unspecified)
 #+end_src
@@ -1424,7 +1424,7 @@ I only want to see the date and not the author nor the created by details on the
 #+end_src
 I don't want to print the postamble everywhere however, so I also found out that writing ~#+OPTIONS: html-postamble:nil~ on the file where the postamble should be exlcuded does the trick.
 ** Add shortcut templates for emacs lisp, org and title
-These [[https://orgmode.org/manual/Easy-templates.html][templates]], e.g. ~<s~, are very practical. Out of them I use most SRC emacs-lisp, org and ~#+title~, so I wished I could create shortcuts for these too. However, [[https://orgmode.org/Changes.html#org1b5e967][the previous shortcut system was changed in Org 9.2]] and I had to require org-tempo and modify my template config accordingly in order for the shortcuts to continue working (see [[https://www.reddit.com/r/emacs/comments/ad68zk/get_easytemplates_back_in_orgmode_92/eds5kcj?utm_source=share&utm_medium=web2x][here]]).
+These [[https://orgmode.org/manual/Easy-templates.html][templates]], e.g. ~<s~, are very practical. Out of them I use most SRC emacs-lisp, org and ~#+title~, so I wished I could create shortcuts for these too. However, [[https://orgmode.org/Changes.html#org1b5e967][the previous shortcut system was changed in Org 9.2]] and I had to require org-tempo and modify my template config accordingly in order for the shortcuts to continue working (see [[https://www.reddit.com/r/emacs/comments/ad68zk/get_easytemplates_back_in_orgmode_92/eds5kcj/][here]]).
 #+begin_src emacs-lisp
 (when (version<= "9.2" (org-version))
 (require 'org-tempo)
@@ -1627,7 +1627,7 @@ Make it the same as ivy-switch-buffer.
    (lambda (cand) (get-buffer cand))))
 #+end_src
 *** Modify display transformer for counsel-describe-variable
-Adds a preview of the current value of the variable. Adapted from doom-emacs, specifically from [[https://github.com/hlissner/doom-emacs/blob/854d8ce00aa96c41bfe901d6b274d6f95615ba13/modules/completion/ivy/autoload/ivy.el#L63][here]] and [[https://github.com/hlissner/doom-emacs/blob/854d8ce00aa96c41bfe901d6b274d6f95615ba13/modules/completion/ivy/config.el#L132][here]], and found via [[https://www.reddit.com/r/emacs/comments/c8czhe/variable_explorer/esm3ib6?utm_source=share&utm_medium=web2x][r/emacs]].
+Adds a preview of the current value of the variable. Adapted from doom-emacs, specifically from [[https://github.com/hlissner/doom-emacs/blob/854d8ce00aa96c41bfe901d6b274d6f95615ba13/modules/completion/ivy/autoload/ivy.el#L63][here]] and [[https://github.com/hlissner/doom-emacs/blob/854d8ce00aa96c41bfe901d6b274d6f95615ba13/modules/completion/ivy/config.el#L132][here]], and found via [[https://www.reddit.com/r/emacs/comments/c8czhe/variable_explorer/esm3ib6/][r/emacs]].
 #+begin_src emacs-lisp
 (defun +ivy-rich-describe-variable-transformer (cand)
   "Previews the value of the variable in the minibuffer"
@@ -1703,7 +1703,7 @@ However, this disables using ~C-]~ to view the definition under point in its ori
 (kbd "\C-]") 'evil-jump-to-tag)
 #+end_src
 ** Integrate helpful with counsel
-The default helpful commands do not offer integration with ivy-rich. Thankfully, there are variables that define the function to be used to show the result of ~counsel-describe-function~ and ~counsel-describe-variable~ commands, so that I can have the enhanced help and keep the ivy-rich integration too (found from [[https://www.reddit.com/r/emacs/comments/a6rxga/helpful_an_alternative_to_the_builtin_emacs_help/ec0b2qw?utm_source=share&utm_medium=web2x][here]]). Note: the built-in ~describe-function~ includes both functions and macros. ~helpful-function~ is functions only, so ~helpful-callable~ is provided as a drop-in replacement (see [[https://github.com/Wilfred/helpful#usage][here]]).
+The default helpful commands do not offer integration with ivy-rich. Thankfully, there are variables that define the function to be used to show the result of ~counsel-describe-function~ and ~counsel-describe-variable~ commands, so that I can have the enhanced help and keep the ivy-rich integration too (found from [[https://www.reddit.com/r/emacs/comments/a6rxga/helpful_an_alternative_to_the_builtin_emacs_help/ec0b2qw/][here]]). Note: the built-in ~describe-function~ includes both functions and macros. ~helpful-function~ is functions only, so ~helpful-callable~ is provided as a drop-in replacement (see [[https://github.com/Wilfred/helpful#usage][here]]).
 #+begin_src emacs-lisp
 (setq counsel-describe-function-function #'helpful-callable)
 (setq counsel-describe-variable-function #'helpful-variable)
