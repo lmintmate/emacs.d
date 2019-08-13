@@ -317,6 +317,8 @@ vimrc-mode)
 
 (setq evil-goggles-enable-record-macro nil)
 
+(setq evil-goggles-enable-set-marker nil)
+
 (evil-goggles-mode)
 
 (setq evil-goggles-duration 0.605)

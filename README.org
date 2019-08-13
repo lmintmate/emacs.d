@@ -635,6 +635,10 @@ First disable highlight for recording macros, as it's distracting. This has to b
 #+begin_src emacs-lisp
 (setq evil-goggles-enable-record-macro nil)
 #+end_src
+Also disable highlight for setting marks for the same reason, as well as the fact that marks are clearly denoted with the use of evil-fringe-mark.
+#+begin_src emacs-lisp
+(setq evil-goggles-enable-set-marker nil)
+#+end_src
 Enable evil-goggles.
 #+begin_src emacs-lisp
 (evil-goggles-mode)
