@@ -88,6 +88,7 @@
     - [[#functions-to-change-file-formats][Functions to change file formats]]
     - [[#functions-to-rename-files][Functions to rename files]]
     - [[#live-color-selection-for-faces][Live color selection for faces]]
+    - [[#remove-tracking-strings-from-urls][Remove tracking strings from urls]]
 - [[#recent-files][Recent files]]
 - [[#settings-for-multiple-buffer-management][Settings for multiple buffer management]]
 - [[#ibuffer][Ibuffer]]
@@ -184,6 +185,10 @@ I tangle the init.el file by writing on the top of the README.org file the follo
 Note that when changing the property headings, we need to use C-c C-c with the cursor on it to refresh its setting (see [[https://emacs.stackexchange.com/a/19363][here]]).\\
 This configures that the file will be tangled to a file called init.el. This can be triggered manually with ~C-c C-v t~, but can also be done automatically upon saving (see [[https://www.reddit.com/r/emacs/comments/bex2ko/pure_emacs_lisp_init_skeleton/el99cse/][here]] and [[https://www.reddit.com/r/emacs/comments/372nxd/how_to_move_init_to_orgbabel/crjicdv/][here]]). This uses file local variables set at the end of the org file and said variables need to be declared as safe so that emacs won't warn about them being unsafe (see [[https://www.reddit.com/r/emacs/comments/5d4hqq/using_babel_to_put_your_init_file_in_org/da1vmvb/][here]]) - the implementation of this can thus be found at the end of this file.
 * Main configuration
+First, let's make sure the init file will be lexically bound, since all the cool kids do it.
+#+begin_src emacs-lisp
+;; -*- lexical-binding: t -*-
+#+end_src
 * Preliminaries: package management settings
 ** Add MELPA and org repositories
 First I add the MELPA and org repositories. The code I use for this is taken from [[https://melpa.org/#/getting-started][MELPA's Getting Started section]] and it accounts for the incompatibility of Windows with Emacs's https support system, GnuTLS, by using http on Windows if GnuTLS isn't available. [[http://www.lonecpluspluscoder.com/2015/08/01/adding-tls-support-to-emacs-24-5-on-windows/][This article]] might be helpful in case I absolutely have to install GnuTLS on Windows.
@@ -1108,6 +1113,74 @@ Then it opens the color list, splitting the window, so above you see your text a
     (quit-window)
     (message "Copied settings to clipboard:\n\n%s" settings)))
 #+end_src
+*** Remove tracking strings from urls
+Sometimes, when pasting a url (especially a reddit one) with cliplink, strings starting with utm-* and other such things that make urls longer, might be left in. I found a starting point to solve this problem [[https://github.com/ieure/dnt-el][here]], but I needed to adapt it to my needs quite a bit. I removed functions I didn't need, and added two interactive functions as entry points: ~dnt-at-point~ reads the url at point and adds the trimmed form to the kill ring, and ~dnt-from-kill-ring~ reads a url from the kill ring and adds the trimmed form to the kill ring as a new entry.
+#+begin_src emacs-lisp
+(require 'subr-x)
+(require 'dash)
+(require 's)
+(require 'url-parse)
+
+(defun dnt--filter-qs (urlobj pred)
+  (pcase (url-path-and-query urlobj)
+    (`(,path . ,query)
+     (let ((cleaned (cl-remove-if pred (url-parse-query-string query))))
+       (setf (url-filename urlobj)
+             (concat path (when cleaned
+                            (concat "?" (url-build-query-string cleaned))))))))
+  urlobj)
+
+(defun dnt--clean-google-analytics (urlobj)
+  "Return a URLOBJ with Google Analytics tracking removed."
+    (url-recreate-url (dnt--filter-qs urlobj (lambda (kv) (s-starts-with? "utm_" (car kv))))))
+
+(defun dnt--clean-amazon (urlobj)
+  "Return a URLOBJ with Amazon tracking removed."
+  (setf (url-filename urlobj) (car (s-split-up-to "ref=" (car (url-path-and-query urlobj)) 1)))
+  (url-recreate-url urlobj))
+
+(defun dnt--extract-url-from-query (urlobj param)
+  "Return a URLOBJ from the PARAM query of a different URL."
+  (cadr (assoc param (url-parse-query-string (cdr (url-path-and-query urlobj))))))
+
+(defun dnt--clean (url)
+  "Return a URL with one layer of tracking services removed."
+  (let* ((urlobj (url-generic-parse-url url)))
+    (cond
+     ((s-contains? "utm_" url)
+      (dnt--clean-google-analytics urlobj))
+
+     ((s-contains? "amazon" (url-host urlobj))
+      (dnt--clean-amazon urlobj))
+
+     ((string= "out.reddit.com" (url-host urlobj))
+      (dnt--extract-url-from-query urlobj "url"))
+
+     (t url))))
+
+(defun dnt (url)
+  "Return a URL with tracking services removed."
+  (let ((new (dnt--clean url)))
+    (if (string= url new)
+        url
+      (dnt new))))
+
+(defun dnt-at-point ()
+  "Use dnt on the URL at point and add ouput to kill ring."
+  (interactive)
+  (-when-let (url (ffap-url-at-point))
+      (kill-new (dnt url))
+    (message "Copied to kill ring: %s" (dnt url))))
+
+(defun dnt-from-kill-ring ()
+"Remove tracking strings from URL in kill ring and add output to kill ring."
+(interactive)
+(let ((new (dnt (current-kill 0))))
+(if (string= (current-kill 0) new)
+        (current-kill 0)
+(kill-new new)
+(message "Copied to kill ring: %s" new))))
+#+end_src
 * Recent files
 A quick way to access my most recently opened files (as I didn't want to have to go all the way through the directory structure).
 #+begin_src emacs-lisp
@@ -1839,7 +1912,6 @@ This one puts the ediff help buffer in the same frame as the rest, as I was a bi
 Modified from [[http://oremacs.com/2017/03/18/dired-ediff/][Quickly ediff files from dired · (or emacs]]
 #+begin_src emacs-lisp
 (require 'dired-aux)
-;; -*- lexical-binding: t -*-
 (defun ora-ediff-files ()
   (interactive)
   (let ((files (dired-get-marked-files)))
