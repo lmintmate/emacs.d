@@ -66,6 +66,7 @@
   - [[#toggle-maximizing-the-frame][Toggle maximizing the frame]]
   - [[#visual-line-mode-only-for-text-mode][Visual line mode only for text mode.]]
   - [[#associate-txt-files-with-the-goto-address-mode][Associate .txt files with the goto-address-mode.]]
+  - [[#bind-command-to-kill-current-buffer][Bind command to kill current buffer]]
   - [[#bind-m-o-to-other-window][Bind M-o to other-window]]
   - [[#adds-shift--arrows-for-changing-between-visible-buffers-in-addition-to-m-o][Adds shift + arrows for changing between visible buffers, in addition to M-o.]]
   - [[#add-command-to-mark-a-line-in-emacs-state][Add command to mark a line in emacs state]]
@@ -812,6 +813,11 @@ This mode highlights urls and makes them clickable.\\
           (lambda ()
             (when (string= (file-name-extension buffer-file-name) "txt")
               (goto-address-mode 1))))
+#+end_src
+** Bind command to kill current buffer
+Oftentimes, I just want to kill the current buffer, and ~C-x k~ showing me a list slows me down, since I thus have to do 2 actions: first use ~C-x k~ and then press enter to confirm killing the (highlighted) current buffer. Thus here I bind ~C-c k~ to ~kill-current-buffer~.
+#+begin_src emacs-lisp
+(global-set-key "\C-ck" 'kill-current-buffer)
 #+end_src
 ** Bind M-o to other-window
 C-x o is too long a binding for this simple action (idea drawn from [[https://masteringemacs.org/article/my-emacs-keybindings][My Emacs keybindings - Mastering Emacs]]).

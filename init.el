@@ -403,6 +403,8 @@ vimrc-mode)
             (when (string= (file-name-extension buffer-file-name) "txt")
               (goto-address-mode 1))))
 
+(global-set-key "\C-ck" 'kill-current-buffer)
+
 (define-key global-map "\M-o" 'other-window)
 
 (when (fboundp 'windmove-default-keybindings)
