@@ -1859,7 +1859,7 @@ This highlights matching parentheses. Turns out it is a global minor mode, and i
 #+begin_src emacs-lisp
 (setq show-paren-delay 0)
 (show-paren-mode 1)
-(setq show-paren-style (quote mixed))
+(setq show-paren-style 'mixed)
 #+end_src
 ** Enable electric-pair-mode
 This autocompletes parentheses. It appears to be a global minor mode as well.
@@ -1906,11 +1906,11 @@ To hide the various minor modes from the mode line, I was initially using [[http
 I'm trying to move myself to emacs as much as possible, so I now decided to replace the functionality of [[http://meldmerge.org/][Meld]].\\
 This line splits the ediff windows horizontally instead of vertically.
 #+begin_src emacs-lisp
-(setq ediff-split-window-function (quote split-window-horizontally))
+(setq ediff-split-window-function 'split-window-horizontally)
 #+end_src
 This one puts the ediff help buffer in the same frame as the rest, as I was a bit bothered by the separate small window it had.
 #+begin_src emacs-lisp
-(setq ediff-window-setup-function (quote ediff-setup-windows-plain))
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
 #+end_src
 ** Operate ediff through dired
 Modified from [[http://oremacs.com/2017/03/18/dired-ediff/][Quickly ediff files from dired · (or emacs]]

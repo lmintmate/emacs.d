@@ -1094,7 +1094,7 @@ initialized with the current directory instead of filename."
 
 (setq show-paren-delay 0)
 (show-paren-mode 1)
-(setq show-paren-style (quote mixed))
+(setq show-paren-style 'mixed)
 
 (electric-pair-mode 1)
 
@@ -1115,9 +1115,9 @@ initialized with the current directory instead of filename."
 (minions-mode 1)
 (setq minions-mode-line-lighter "≡")
 
-(setq ediff-split-window-function (quote split-window-horizontally))
+(setq ediff-split-window-function 'split-window-horizontally)
 
-(setq ediff-window-setup-function (quote ediff-setup-windows-plain))
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
 (require 'dired-aux)
 (defun ora-ediff-files ()
