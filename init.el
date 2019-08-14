@@ -637,7 +637,6 @@ initialized with the current directory instead of filename."
     (message "Copied settings to clipboard:\n\n%s" settings)))
 
 (require 'subr-x)
-(require 'dash)
 (require 's)
 (require 'url-parse)
 
@@ -688,7 +687,7 @@ initialized with the current directory instead of filename."
 (defun dnt-at-point ()
   "Use dnt on the URL at point and add ouput to kill ring."
   (interactive)
-  (-when-let (url (ffap-url-at-point))
+  (when-let (url (ffap-url-at-point))
       (kill-new (dnt url))
     (message "Copied to kill ring: %s" (dnt url))))
 

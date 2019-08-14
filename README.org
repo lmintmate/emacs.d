@@ -1121,7 +1121,6 @@ Then it opens the color list, splitting the window, so above you see your text a
 Sometimes, when pasting a url (especially a reddit one) with cliplink, strings starting with utm-* and other such things that make urls longer, might be left in. I found a starting point to solve this problem [[https://github.com/ieure/dnt-el][here]], but I needed to adapt it to my needs quite a bit. I removed functions I didn't need, and added two interactive functions as entry points: ~dnt-at-point~ reads the url at point and adds the trimmed form to the kill ring, and ~dnt-from-kill-ring~ reads a url from the kill ring and adds the trimmed form to the kill ring as a new entry.
 #+begin_src emacs-lisp
 (require 'subr-x)
-(require 'dash)
 (require 's)
 (require 'url-parse)
 
@@ -1172,7 +1171,7 @@ Sometimes, when pasting a url (especially a reddit one) with cliplink, strings s
 (defun dnt-at-point ()
   "Use dnt on the URL at point and add ouput to kill ring."
   (interactive)
-  (-when-let (url (ffap-url-at-point))
+  (when-let (url (ffap-url-at-point))
       (kill-new (dnt url))
     (message "Copied to kill ring: %s" (dnt url))))
 
