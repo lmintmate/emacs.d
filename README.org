@@ -135,6 +135,8 @@
   - [[#add-shortcut-templates-for-emacs-lisp-org-and-title][Add shortcut templates for emacs lisp, org and title]]
   - [[#enable-speed-keys][Enable Speed keys]]
   - [[#change-org-show-context-detail][Change org-show-context-detail]]
+  - [[#custom-org-related-functions][Custom org-related functions]]
+    - [[#split-org-block-in-a-dwim-manner][Split org block in a dwim manner]]
 - [[#undo-tree][Undo tree]]
 - [[#drag-stuff-package-config][Drag-stuff package config]]
 - [[#espy-password-fetcher-package-config][Espy password fetcher package config]]
@@ -1517,6 +1519,96 @@ These [[https://orgmode.org/manual/Easy-templates.html][templates]], e.g. ~<s~, 
 This variable sets how much will be revealed when revealing locations. I'm changing its value because counsel-outline apparently uses this variable to determine how it will show the headings after jumping to a specific one. With the default setting it inherited the ~(default . ancestors)~, and thus didn't show any further children that the heading had. I didn't like this behavior, since I like to see all the children that are available, and thus set org-goto to tree which shows all the children, but hides any possible introductory text before the children, which is useful since I have long text in some headings as a sort of introduction (basically the reason I didn't choose the canonical option, since that one shows said text). In order to not have to redefine the entire variable (since I only wanted to change the behavior of org-goto, that is add that element to the list), I use the ~push~ function to add the desired element (adapted from [[https://emacs.stackexchange.com/a/32269][here]]).
 #+begin_src emacs-lisp
 (push '(org-goto . tree) org-show-context-detail)
+#+end_src
+** Custom org-related functions
+*** Split org block in a dwim manner
+Here I add the function ~org-split-block~ (found from [[https://github.com/suonlight/.emacs.d/blob/feaeae69f931b2a096f8882231559c0f0e9a0ea2/core/org-mode.el#L377][here, at lines 377-461]]), which splits an org block based on where the point is. For a better explanation, read the docstring below:
+#+begin_example
+Sensibly split the current Org block at point.
+(1) Point in-between a line
+    #+begin_src emacs-lisp             #+begin_src emacs-lisp
+    (message▮ \"one\")                   (message \"one\")
+    (message \"two\")          -->       #+end_src
+    #+end_src                          ▮
+				       #+begin_src emacs-lisp
+				       (message \"two\")
+				       #+end_src
+(2) Point at EOL
+    #+begin_src emacs-lisp             #+begin_src emacs-lisp
+    (message \"one\")▮                   (message \"one\")
+    (message \"two\")          -->       #+end_src
+    #+end_src                          ▮
+				       #+begin_src emacs-lisp
+				       (message \"two\")
+				       #+end_src
+(3) Point at BOL
+    #+begin_src emacs-lisp             #+begin_src emacs-lisp
+    (message \"one\")                    (message \"one\")
+    ▮(message \"two\")          -->      #+end_src
+    #+end_src                          ▮
+				       #+begin_src emacs-lisp
+				       (message \"two\")
+				       #+end_src
+#+end_example
+#+begin_src emacs-lisp
+(defun org-in-any-block-p ()
+  "Return non-nil if the point is in any Org block.
+The Org block can be *any*: src, example, verse, etc., even any
+Org Special block.
+This function is heavily adapted from `org-between-regexps-p'."
+  (save-match-data
+    (let ((pos (point))
+	  (case-fold-search t)
+	  (block-begin-re "^[[:blank:]]*#\\+begin_\\(?1:.+?\\)\\(?: .*\\)*$")
+	  (limit-up (save-excursion (outline-previous-heading)))
+	  (limit-down (save-excursion (outline-next-heading)))
+	  beg end)
+      (save-excursion
+	;; Point is on a block when on BLOCK-BEGIN-RE or if
+	;; BLOCK-BEGIN-RE can be found before it...
+	(and (or (org-in-regexp block-begin-re)
+		 (re-search-backward block-begin-re limit-up :noerror))
+	     (setq beg (match-beginning 0))
+	     ;; ... and BLOCK-END-RE after it...
+	     (let ((block-end-re (concat "^[[:blank:]]*#\\+end_"
+					 (match-string-no-properties 1)
+					 "\\( .*\\)*$")))
+	       (goto-char (match-end 0))
+	       (re-search-forward block-end-re limit-down :noerror))
+	     (> (setq end (match-end 0)) pos)
+	     ;; ... without another BLOCK-BEGIN-RE in-between.
+	     (goto-char (match-beginning 0))
+	     (not (re-search-backward block-begin-re (1+ beg) :noerror))
+	     ;; Return value.
+	     (cons beg end))))))
+
+(defun org-split-block ()
+  (interactive)
+  (if (org-in-any-block-p)
+      (save-match-data
+	(save-restriction
+	  (widen)
+	  (let ((case-fold-search t)
+		(at-bol (bolp))
+		block-start
+		block-end)
+	    (save-excursion
+	      (re-search-backward "^\\(?1:[[:blank:]]*#\\+begin_.+?\\)\\(?: .*\\)*$" nil nil 1)
+	      (setq block-start (match-string-no-properties 0))
+	      (setq block-end (replace-regexp-in-string
+			       "begin_" "end_" ;Replaces "begin_" with "end_", "BEGIN_" with "END_"
+			       (match-string-no-properties 1))))
+	    ;; Go to the end of current line, if not at the BOL
+	    (unless at-bol
+	      (end-of-line 1))
+	    (insert (concat (if at-bol "" "\n")
+			    block-end
+			    "\n\n"
+			    block-start
+			    (if at-bol "\n" "")))
+	    ;; Go to the line before the inserted "#+begin_ .." line
+	    (beginning-of-line (if at-bol -1 0)))))
+    (message "Point is not in an Org block")))
 #+end_src
 * Undo tree
 #+begin_src emacs-lisp
