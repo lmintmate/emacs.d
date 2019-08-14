@@ -1423,8 +1423,7 @@ See [[http://endlessparentheses.com/changing-the-org-mode-ellipsis.html][Changin
 These are, apart from TODO and DONE, also CURRENTLY and SOMEDAY. (Idea to add unicode symbols from [[https://thraxys.wordpress.com/2016/01/14/pimp-up-your-org-agenda/][Pimp Up Your Org-mode Files – thraxys]])
 #+begin_src emacs-lisp
 (setq org-todo-keywords
-   (quote
-    ((sequence "TODO(t)" "⏳ CURRENTLY(c)" "⏲ SOMEDAY(s)" "✘ CANCELLED(x)" "✔ DONE(d)"))))
+   '((sequence "TODO(t)" "⏳ CURRENTLY(c)" "⏲ SOMEDAY(s)" "✘ CANCELLED(x)" "✔ DONE(d)")))
 #+end_src
 ** Special Ctrl-a/e behavior in org mode
 From the Customize section of the parameter:
