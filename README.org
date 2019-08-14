@@ -1524,31 +1524,31 @@ This variable sets how much will be revealed when revealing locations. I'm chang
 *** Split org block in a dwim manner
 Here I add the function ~org-split-block~ (found from [[https://github.com/suonlight/.emacs.d/blob/feaeae69f931b2a096f8882231559c0f0e9a0ea2/core/org-mode.el#L377][here, at lines 377-461]]), which splits an org block based on where the point is. For a better explanation, read the docstring below:
 #+begin_example
-Sensibly split the current Org block at point.
-(1) Point in-between a line
-    #+begin_src emacs-lisp             #+begin_src emacs-lisp
-    (message▮ \"one\")                   (message \"one\")
-    (message \"two\")          -->       #+end_src
-    #+end_src                          ▮
-				       #+begin_src emacs-lisp
-				       (message \"two\")
-				       #+end_src
-(2) Point at EOL
-    #+begin_src emacs-lisp             #+begin_src emacs-lisp
-    (message \"one\")▮                   (message \"one\")
-    (message \"two\")          -->       #+end_src
-    #+end_src                          ▮
-				       #+begin_src emacs-lisp
-				       (message \"two\")
-				       #+end_src
-(3) Point at BOL
-    #+begin_src emacs-lisp             #+begin_src emacs-lisp
-    (message \"one\")                    (message \"one\")
-    ▮(message \"two\")          -->      #+end_src
-    #+end_src                          ▮
-				       #+begin_src emacs-lisp
-				       (message \"two\")
-				       #+end_src
+# Sensibly split the current Org block at point.
+# (1) Point in-between a line
+#     #+begin_src emacs-lisp             #+begin_src emacs-lisp
+#     (message▮ \"one\")                   (message \"one\")
+#     (message \"two\")          -->       #+end_src
+#     #+end_src                          ▮
+# 				       #+begin_src emacs-lisp
+# 				       (message \"two\")
+# 				       #+end_src
+# (2) Point at EOL
+#     #+begin_src emacs-lisp             #+begin_src emacs-lisp
+#     (message \"one\")▮                   (message \"one\")
+#     (message \"two\")          -->       #+end_src
+#     #+end_src                          ▮
+# 				       #+begin_src emacs-lisp
+# 				       (message \"two\")
+# 				       #+end_src
+# (3) Point at BOL
+#     #+begin_src emacs-lisp             #+begin_src emacs-lisp
+#     (message \"one\")                    (message \"one\")
+#     ▮(message \"two\")          -->      #+end_src
+#     #+end_src                          ▮
+# 				       #+begin_src emacs-lisp
+# 				       (message \"two\")
+# 				       #+end_src
 #+end_example
 #+begin_src emacs-lisp
 (defun org-in-any-block-p ()
