@@ -701,7 +701,7 @@ Roughly the equivalent of evil-goggles for ex (echo area with semicolon) command
 (setq use-dialog-box nil)
 #+end_src
 ** Separate custom file
-Put it in the no-littering config folder, if the no-littering package is installed. Idea from [[https://git.sr.ht/~bandali/dotfiles/tree/7c281dfc3ce6c308fd2f4fdf9f85d49512abd1e9/.emacs.d/init.el#L200][here]] - also see [[https://github.com/emacscollective/no-littering/blob/master/no-littering.el#L187][here]].
+Put it in the no-littering config folder, if the no-littering package is installed. Idea from [[https://git.sr.ht/~bandali/dotfiles/tree/7c281dfc3ce6c308fd2f4fdf9f85d49512abd1e9/.emacs.d/init.el#L200][here]] - also see [[https://github.com/emacscollective/no-littering/blob/b36e1d28b97693850da258e103f24c40ec882753/no-littering.el#L187-L190][here]].
 #+begin_src emacs-lisp
 (if (package-installed-p 'no-littering)
 (setq custom-file (no-littering-expand-etc-file-name "custom.el"))
@@ -960,7 +960,7 @@ Useful when I want to experiment with some elisp code, but have also opened a ga
 (global-set-key (kbd "\C-cs") 'd/switch-to-scratch)
 #+end_src
 *** Functions to change file formats
-Found from [[https://github.com/syl20bnr/spacemacs/blob/2cfcf54458844f707a99befb3890a390c1e41473/layers/%2Bspacemacs/spacemacs-defaults/funcs.el#L1143][here]].
+Found from [[https://github.com/syl20bnr/spacemacs/blob/2cfcf54458844f707a99befb3890a390c1e41473/layers/+spacemacs/spacemacs-defaults/funcs.el#L1143-L1151][here]].
 #+begin_src emacs-lisp
 (defun spacemacs/dos2unix ()
   "Converts the current buffer to UNIX file format."
@@ -973,7 +973,7 @@ Found from [[https://github.com/syl20bnr/spacemacs/blob/2cfcf54458844f707a99befb
   (set-buffer-file-coding-system 'undecided-dos nil))
 #+end_src
 *** Functions to rename files
-Adapted from [[https://github.com/syl20bnr/spacemacs/blob/2cfcf54458844f707a99befb3890a390c1e41473/layers/%2Bspacemacs/spacemacs-defaults/funcs.el#L281][here]].
+Adapted from [[https://github.com/syl20bnr/spacemacs/blob/2cfcf54458844f707a99befb3890a390c1e41473/layers/+spacemacs/spacemacs-defaults/funcs.el#L281-L390][here]].
 #+begin_src emacs-lisp
 (defun lmintmate/rename-file (filename &optional new-filename)
   "Rename FILENAME to NEW-FILENAME.
@@ -1213,7 +1213,7 @@ I wanted to be able to change the layout of the buffers from horizontal to verti
 (define-key global-map "\M-]" 'rotate-frame)
 #+end_src
 * Ibuffer
-A better way to list buffers than buffer-menu([[https://www.emacswiki.org/emacs/IbufferMode][link]]). Config influenced from [[http://cestlaz.github.io/posts/using-emacs-34-ibuffer-emmet/][Using Emacs - 34 - ibuffer and emmet | C'est la Z]], [[http://home.thep.lu.se/~karlf/emacs.html#sec-6-6][some dude's .emacs]], and [[https://github.com/drot/dotfiles/blob/6d7e1630b9ac4cc7f1386841093f465b9d5d32ab/emacs/.emacs.d/init.el#L405][some other dotfiles from github]].
+A better way to list buffers than buffer-menu([[https://www.emacswiki.org/emacs/IbufferMode][link]]). Config influenced from [[http://cestlaz.github.io/posts/using-emacs-34-ibuffer-emmet/][Using Emacs - 34 - ibuffer and emmet | C'est la Z]], [[http://home.thep.lu.se/~karlf/emacs.html#sec-6-6][some dude's .emacs]], and [[https://github.com/drot/dotfiles/blob/6d7e1630b9ac4cc7f1386841093f465b9d5d32ab/emacs/.emacs.d/init.el#L405-L458][some other dotfiles from github]].
 ** Replace buffer-menu.
 #+begin_src emacs-lisp
 (require 'ibuffer)
@@ -1329,7 +1329,7 @@ Since for a while I've been adding emojis to my git commits, I wanted to be able
 ** A small diatribe on customising the mode line
 I wanted for a while to see the greek input method displayed as the greek flag (unicode symbol: 🇬🇷, github string: :flag-gr:) instead of the ~el_GR~ string it uses by default. I can now do that with the ~emojify~ package, since the function ~global-emojify-mode-line-mode~ allows for emojis to be shown on the mode line. This can be activated by modifying the ~mode-line-format~ and including the function ~emojify-string~, followed by the desired emoji.
 This function renders a given unicode emoji as an emoji instead of its unicode symbol (which was going to look like a tofu block most of the time).
-The next roadblock I had to overcome in order to achieve what I wanted was that the ~mode-line-mule-info~ property of the mode line shows both the input method when enabled and the encoding and line endings (which can otherwise be rendered with ~%z~ (just encoding) or ~%Z~ (also line ending)), which means that if I wanted to replace just the input method string, I would have to isolate it from the other functions and I had no idea how I would do that. In that context, I looked into the variable ~mode-line-mule-info~ (defined in [[http://git.savannah.gnu.org/cgit/emacs.git/tree/lisp/bindings.el#n201][the bindings.el file in the emacs source code]] ; also see [[http://doc.endlessparentheses.com/Var/mode-line-mule-info.html][here]]) and from there found the variables ~current-input-method~ and ~current-input-method-title~ (both defined in [[http://git.savannah.gnu.org/cgit/emacs.git/tree/lisp/international/mule-cmds.el#n1314][the mule-cmds.el file in the emacs source code]] ; see also e.g. [[http://doc.endlessparentheses.com/Var/current-input-method.html][here]]). I still had to find out however how I would propertize the latter 2 variables in order for the mode line to render them. Thankfully, I didn't need to trouble myself with that, as I found [[https://github.com/Fuco1/.emacs.d/blob/master/files/mode-line.el][Fuco1's custom mode line format]], which [[https://github.com/Fuco1/.emacs.d/blob/18d5a29a5fb35ada25a6b998da6eaa2a957daba2/files/mode-line.el#L52][in lines 52-55]] isolates the input-method from the other two things shown by ~mode-line-mule-info~ and shows it by itself.\\
+The next roadblock I had to overcome in order to achieve what I wanted was that the ~mode-line-mule-info~ property of the mode line shows both the input method when enabled and the encoding and line endings (which can otherwise be rendered with ~%z~ (just encoding) or ~%Z~ (also line ending)), which means that if I wanted to replace just the input method string, I would have to isolate it from the other functions and I had no idea how I would do that. In that context, I looked into the variable ~mode-line-mule-info~ (defined in [[http://git.savannah.gnu.org/cgit/emacs.git/tree/lisp/bindings.el#n201][the bindings.el file in the emacs source code]] ; also see [[http://doc.endlessparentheses.com/Var/mode-line-mule-info.html][here]]) and from there found the variables ~current-input-method~ and ~current-input-method-title~ (both defined in [[http://git.savannah.gnu.org/cgit/emacs.git/tree/lisp/international/mule-cmds.el#n1314][the mule-cmds.el file in the emacs source code]] ; see also e.g. [[http://doc.endlessparentheses.com/Var/current-input-method.html][here]]). I still had to find out however how I would propertize the latter 2 variables in order for the mode line to render them. Thankfully, I didn't need to trouble myself with that, as I found [[https://github.com/Fuco1/.emacs.d/blob/master/files/mode-line.el][Fuco1's custom mode line format]], which [[https://github.com/Fuco1/.emacs.d/blob/18d5a29a5fb35ada25a6b998da6eaa2a957daba2/files/mode-line.el#L52-L55][in lines 52-55]] isolates the input-method from the other two things shown by ~mode-line-mule-info~ and shows it by itself.\\
 Using this meant that I had to redefine the whole mode-line-format. Here, after activating ~global-emojify-mode-line-mode~, I start setting it with ~setq-default~ because ~setq~ doesn't set it as the default. I keep the beginning of the mode line, up until the input method, as it was in the Customise string. Now, I set the input method like so:
 #+begin_example
 (current-input-method (emojify string "🇬🇷"))
@@ -1337,7 +1337,7 @@ Using this meant that I had to redefine the whole mode-line-format. Here, after 
 (I need to write ~emojify string~ without dashes here for some reason, or it won't work otherwise)\\
 This admittedly is kind of a hack, because this way it will show the greek flag regardless of what the current input method actually is, but it works for me for now, as I only use the ~el_GR~ input method anyways, and I can't think of a way to code something like "if the current-input-method-title is el_GR, show it as the greek flag emoji, otherwise show it as a string (with Fuco1's method)" and get it to actually work, because the fact that the input method is initially nil complicates things, since it prevents the activation of whatever code to that effect I might write.\\
 After propertizing the input method, I use the ~%Z~ string to keep showing the encoding and the end-of-line values, and propertize it in the way ~mode-line-mule-info~ does it.\\
-The next thing I changed was the showing of the modified and read-only values. I got the idea to propertize these too [[https://github.com/Fuco1/.emacs.d/blob/18d5a29a5fb35ada25a6b998da6eaa2a957daba2/files/mode-line.el#L20][again from Fuco1]], and adapted his code to propertize these as emojis as well, showing read-only as a closed padlock and modified as a fountain pen. For some reason, these emojis show up with a thin line that has the same color as the background of my theme, while the flag either doesn't or it isn't as obvious because that one's blue. Also, interestingly enough, while I had to use emojify string without dashes for the greek flag to show up, these needed the dashes. I also entirely removed from the mode line the emacsclient and remote indications, as I don't use emacsclient and don't work with remote files, and the read-only/modified indications are now to the right of the buffer indication instead of to the left, as was the default.\\
+The next thing I changed was the showing of the modified and read-only values. I got the idea to propertize these too [[https://github.com/Fuco1/.emacs.d/blob/18d5a29a5fb35ada25a6b998da6eaa2a957daba2/files/mode-line.el#L20-L26][again from Fuco1]], and adapted his code to propertize these as emojis as well, showing read-only as a closed padlock and modified as a fountain pen. For some reason, these emojis show up with a thin line that has the same color as the background of my theme, while the flag either doesn't or it isn't as obvious because that one's blue. Also, interestingly enough, while I had to use emojify string without dashes for the greek flag to show up, these needed the dashes. I also entirely removed from the mode line the emacsclient and remote indications, as I don't use emacsclient and don't work with remote files, and the read-only/modified indications are now to the right of the buffer indication instead of to the left, as was the default.\\
 Afterwards, things are mostly left the same, with the exception that I removed the percentage into file indication (by replacing ~mode-line-position~ with ~L%l~ to show just the current line number preceded by the letter L), because I couldn't get it to show the percent sign, as it does when the mode-line-format is unmodified.
 ** The code of my mode line customisation
 #+begin_src emacs-lisp
@@ -1528,7 +1528,7 @@ This variable sets how much will be revealed when revealing locations. I'm chang
 #+end_src
 ** Custom org-related functions
 *** Split org block in a dwim manner
-Here I add the function ~org-split-block~ (found from [[https://github.com/suonlight/.emacs.d/blob/feaeae69f931b2a096f8882231559c0f0e9a0ea2/core/org-mode.el#L377][here, at lines 377-461]]), which splits an org block based on where the point is. For a better explanation, read the docstring below:
+Here I add the function ~org-split-block~ (found from [[https://github.com/suonlight/.emacs.d/blob/feaeae69f931b2a096f8882231559c0f0e9a0ea2/core/org-mode.el#L377-L461][here]]), which splits an org block based on where the point is. For a better explanation, read the docstring below:
 #+begin_example
 # Sensibly split the current Org block at point.
 # (1) Point in-between a line
@@ -1800,7 +1800,7 @@ Make it the same as ivy-switch-buffer.
    (lambda (cand) (get-buffer cand))))
 #+end_src
 *** Modify display transformer for counsel-describe-variable
-Adds a preview of the current value of the variable. Adapted from doom-emacs, specifically from [[https://github.com/hlissner/doom-emacs/blob/854d8ce00aa96c41bfe901d6b274d6f95615ba13/modules/completion/ivy/autoload/ivy.el#L63][here]] and [[https://github.com/hlissner/doom-emacs/blob/854d8ce00aa96c41bfe901d6b274d6f95615ba13/modules/completion/ivy/config.el#L132][here]], and found via [[https://www.reddit.com/r/emacs/comments/c8czhe/variable_explorer/esm3ib6/][r/emacs]].
+Adds a preview of the current value of the variable. Adapted from doom-emacs, specifically from [[https://github.com/hlissner/doom-emacs/blob/854d8ce00aa96c41bfe901d6b274d6f95615ba13/modules/completion/ivy/autoload/ivy.el#L63-L87][here]] and [[https://github.com/hlissner/doom-emacs/blob/854d8ce00aa96c41bfe901d6b274d6f95615ba13/modules/completion/ivy/config.el#L132-L139][here]], and found via [[https://www.reddit.com/r/emacs/comments/c8czhe/variable_explorer/esm3ib6/][r/emacs]].
 #+begin_src emacs-lisp
 (defun +ivy-rich-describe-variable-transformer (cand)
   "Previews the value of the variable in the minibuffer"
