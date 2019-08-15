@@ -192,6 +192,11 @@ First, let's make sure the init file will be lexically bound, since all the cool
 #+begin_src emacs-lisp
 ;; -*- lexical-binding: t -*-
 #+end_src
+Also make this config incompatible with emacs versions lower than 25.1, so that I won't have to bother with too many backwards compatiblity measures. Tbh, I initially had some reservations about doing this, since the default emacs version on Ubuntu 16.04 LTS and the Linux Mint 18 series (which are supported until 2021) is 24.3 iirc, but I've been using [[https://launchpad.net/~kelleyk/+archive/ubuntu/emacs][a PPA for a while now]] and on Windows I can download and use the latest stable release just fine, since my current Windows machine is 64bit. Note: I used to use at some point a 32bit Windows pc where for some reason only the i386 release could run, and not the i686 one, and thus the latest version supported there was 24.3, but since I don't use it anymore, I have even less reason to support versions below 25 in my config.
+#+begin_src emacs-lisp
+(when (version< emacs-version "25.1")
+  (error "This configuration requires GNU Emacs 25.1 or newer, but you're running %s" emacs-version))
+#+end_src
 * Preliminaries: package management settings
 ** Add MELPA and org repositories
 First I add the MELPA and org repositories. The code I use for this is taken from [[https://melpa.org/#/getting-started][MELPA's Getting Started section]] and it accounts for the incompatibility of Windows with Emacs's https support system, GnuTLS, by using http on Windows if GnuTLS isn't available. [[http://www.lonecpluspluscoder.com/2015/08/01/adding-tls-support-to-emacs-24-5-on-windows/][This article]] might be helpful in case I absolutely have to install GnuTLS on Windows.
@@ -213,6 +218,7 @@ counsel
 dired-icon
 dired-recent
 drag-stuff
+elisp-demos
 emojify
 espy
 evil
@@ -220,7 +226,9 @@ evil-goggles
 evil-snipe
 free-keys
 ivy-rich
+markdown-mode
 no-littering
+org-cliplink
 rainbow-mode
 toc-org
 transpose-frame
@@ -238,16 +246,7 @@ Here I conditionally add to the value of ~package-selected-packages~ some packag
 (when (eq system-type 'gnu/linux)
   (add-to-list 'package-selected-packages 'magit))
 
-;; Packages that require emacs 24.4 and up
-
-(unless (version< emacs-version "24.4")
-  (add-to-list 'package-selected-packages 'elisp-demos))
-
-(unless (version< emacs-version "24.4")
-  (add-to-list 'package-selected-packages 'org-cliplink))
-
-(unless (version< emacs-version "24.4")
-  (add-to-list 'package-selected-packages 'markdown-mode))
+;; Packages that require emacs 25 and up
 
 (unless (version< emacs-version "25")
   (add-to-list 'package-selected-packages 'evil-fringe-mark))

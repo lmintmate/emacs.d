@@ -1,5 +1,8 @@
 ;; -*- lexical-binding: t -*-
 
+(when (version< emacs-version "25.1")
+  (error "This configuration requires GNU Emacs 25.1 or newer, but you're running %s" emacs-version))
+
 (require 'package)
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
                     (not (gnutls-available-p))))
@@ -13,6 +16,7 @@ counsel
 dired-icon
 dired-recent
 drag-stuff
+elisp-demos
 emojify
 espy
 evil
@@ -20,7 +24,9 @@ evil-goggles
 evil-snipe
 free-keys
 ivy-rich
+markdown-mode
 no-littering
+org-cliplink
 rainbow-mode
 toc-org
 transpose-frame
@@ -36,16 +42,7 @@ vimrc-mode)
 (when (eq system-type 'gnu/linux)
   (add-to-list 'package-selected-packages 'magit))
 
-;; Packages that require emacs 24.4 and up
-
-(unless (version< emacs-version "24.4")
-  (add-to-list 'package-selected-packages 'elisp-demos))
-
-(unless (version< emacs-version "24.4")
-  (add-to-list 'package-selected-packages 'org-cliplink))
-
-(unless (version< emacs-version "24.4")
-  (add-to-list 'package-selected-packages 'markdown-mode))
+;; Packages that require emacs 25 and up
 
 (unless (version< emacs-version "25")
   (add-to-list 'package-selected-packages 'evil-fringe-mark))
