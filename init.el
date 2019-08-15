@@ -1066,7 +1066,7 @@ This function is heavily adapted from `org-between-regexps-p'."
                           'font-lock-function-name-face)))
            ((symbolp val)
             (propertize (format "'%s" val)
-                        'face 'highlight-quoted-symbol))
+                        'face 'font-lock-keyword-face))
            ((keymapp val)
             (propertize "<keymap>" 'face 'font-lock-constant-face))
            ((listp val)
@@ -1074,7 +1074,7 @@ This function is heavily adapted from `org-between-regexps-p'."
            ((stringp val)
             (propertize (format "%S" val) 'face 'font-lock-string-face))
            ((numberp val)
-            (propertize (format "%s" val) 'face 'highlight-numbers-number))
+            (propertize (format "%s" val) 'face 'font-lock-doc-face))
            ((format "%s" val)))
      t)))
 
