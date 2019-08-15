@@ -989,6 +989,9 @@ This function is heavily adapted from `org-between-regexps-p'."
 (global-set-key (kbd "\C-h v") 'counsel-describe-variable)
 (global-set-key (kbd "\C-h f") 'counsel-describe-function)
 
+(with-eval-after-load 'swiper
+(define-key swiper-map "\C-w" 'ivy-yank-symbol))
+
 (setq ivy-wrap t)
 
 (setq ivy-initial-inputs-alist nil)
@@ -996,6 +999,8 @@ This function is heavily adapted from `org-between-regexps-p'."
 (setq ivy-extra-directories nil)
 
 (setq swiper-goto-start-of-match t)
+
+(setq swiper-stay-on-quit t)
 
 (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
 

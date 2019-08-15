@@ -1694,10 +1694,12 @@ Keybindings for counsel and swiper functions. ~swiper-isearch~ is like regular s
 (global-set-key (kbd "\C-h v") 'counsel-describe-variable)
 (global-set-key (kbd "\C-h f") 'counsel-describe-function)
 #+end_src
-Note: To search for the entire word at point with swiper (and not only the part from the cursor onwards, as M-j does): the [[https://github.com/abo-abo/swiper/wiki/FAQ][Ivy FAQ]] says the following:
-#+begin_quote
-On a related note, you can paste symbol-at-point into the search with M-n, which is a common case for using C-w in Isearch.
-#+end_quote
+Binding to yank symbol in swiper-map. Useful when starting to search for a symbol without writing it in exactly the right manner, and I want to yank the correct form from one of the search results, without selecting said result.
+#+begin_src emacs-lisp
+(with-eval-after-load 'swiper
+(define-key swiper-map "\C-w" 'ivy-yank-symbol))
+#+end_src
+Note: To search for the entire word at point with swiper (and not only the part from the cursor onwards, as M-j does), ~M-n~ (~ivy-next-history-element~) can be used to yank the symbol under point into the search.\\
 Wrap around the first and last candidate in the minibuffer.
 #+begin_src emacs-lisp
 (setq ivy-wrap t)
@@ -1713,6 +1715,10 @@ Don't show parent and current directories in counsel-find-file (found from [[htt
 Have swiper go to the start of a match, and not to its end (as is the default), when selecting a match.
 #+begin_src emacs-lisp
 (setq swiper-goto-start-of-match t)
+#+end_src
+Have swiper stay on the latest search result after cancelling the search.
+#+begin_src emacs-lisp
+(setq swiper-stay-on-quit t)
 #+end_src
 Have ivy minibuffer selection highlight the entire current line (recommended from the [[https://github.com/Yevgnen/ivy-rich/blob/master/README.org][ivy-rich README]]).
 #+begin_src emacs-lisp
