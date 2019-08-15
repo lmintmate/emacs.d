@@ -30,6 +30,7 @@
   - [[#where-i-load-the-specific-packages][Where I load the specific packages]]
     - [[#loading-the-package-for-polytonic-greek][Loading the package for polytonic greek]]
     - [[#loading-la-carte-for-executing-menu-commands-from-the-keyboard][Loading La Carte (for executing menu commands from the keyboard)]]
+    - [[#loading-elispfl-extra-font-lock-for-emacs-lisp][Loading elispfl (extra font-lock for emacs lisp)]]
 - [[#startup-screen-and-scratch-buffer-options][Startup screen and scratch buffer options]]
   - [[#inhibit-startup-screen][Inhibit startup screen]]
   - [[#scratch-buffer-message][Scratch buffer message]]
@@ -394,13 +395,20 @@ I use a couple external lisp files, and I thus need to load my personal lisp dir
 In this section I have some code in emacs lisp that downloads the lisp files I use and places them in the correct place. Specifically, it checks whether the files exist, and if they don't, first creates the containing directory, if it doesn't exist, and then proceeds to download and store the files.
 #+begin_src emacs-lisp
 (setq lisp-directory (concat user-emacs-directory "lisp"))
+
 (unless (file-directory-p lisp-directory) (make-directory lisp-directory))
+
 (unless (file-exists-p (expand-file-name "greek.el" lisp-directory))
     (url-copy-file "http://myria.math.aegean.gr/~atsol/emacs-unicode/greek.el" (expand-file-name "greek.el" lisp-directory)))
+
 (unless (file-exists-p (expand-file-name "lacarte.el" lisp-directory))
     (url-copy-file "https://www.emacswiki.org/emacs/download/lacarte.el" (expand-file-name "lacarte.el" lisp-directory)))
+
 (unless (file-exists-p (expand-file-name "org-bullets.el" lisp-directory))
    (url-copy-file "https://raw.githubusercontent.com/lmintmate/org-bullets/master/org-bullets.el" (expand-file-name "org-bullets.el" lisp-directory)))
+
+(unless (file-exists-p (expand-file-name "elispfl.el" lisp-directory))
+   (url-copy-file "https://raw.githubusercontent.com/cireu/elispfl/master/elispfl.el" (expand-file-name "elispfl.el" lisp-directory)))
 #+end_src
 ** Where I tell Emacs where is my personal lisp directory.
 #+begin_src emacs-lisp
@@ -419,6 +427,14 @@ I’m used to writing Greek with the modern Greek layout, which is quite differe
 #+begin_src emacs-lisp
 (require 'lacarte)
 (global-set-key (kbd "\C-c.") 'lacarte-execute-menu-command)
+#+end_src
+*** Loading elispfl (extra font-lock for emacs lisp)
+[[https://github.com/cireu/elispfl][elispfl]] is a new package with additional syntax highlighting for emacs lisp mode, which hasn't been added on melpa (yet). Comparing it with other similar packages, like [[https://github.com/Lindydancer/lisp-extra-font-lock][lisp-extra-font-lock]] and [[https://github.com/tarsius/morlock][morlock]], I think I prefer the stylistic choices of this one more.
+#+begin_src emacs-lisp
+(require 'elispfl)
+
+(with-eval-after-load 'elisp-mode
+  (elispfl-mode))
 #+end_src
 * Startup screen and scratch buffer options
 ** Inhibit startup screen

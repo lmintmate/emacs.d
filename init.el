@@ -151,13 +151,20 @@ vimrc-mode)
 (set-face-attribute 'vertical-border nil :foreground (face-attribute 'fringe :background))
 
 (setq lisp-directory (concat user-emacs-directory "lisp"))
+
 (unless (file-directory-p lisp-directory) (make-directory lisp-directory))
+
 (unless (file-exists-p (expand-file-name "greek.el" lisp-directory))
     (url-copy-file "http://myria.math.aegean.gr/~atsol/emacs-unicode/greek.el" (expand-file-name "greek.el" lisp-directory)))
+
 (unless (file-exists-p (expand-file-name "lacarte.el" lisp-directory))
     (url-copy-file "https://www.emacswiki.org/emacs/download/lacarte.el" (expand-file-name "lacarte.el" lisp-directory)))
+
 (unless (file-exists-p (expand-file-name "org-bullets.el" lisp-directory))
    (url-copy-file "https://raw.githubusercontent.com/lmintmate/org-bullets/master/org-bullets.el" (expand-file-name "org-bullets.el" lisp-directory)))
+
+(unless (file-exists-p (expand-file-name "elispfl.el" lisp-directory))
+   (url-copy-file "https://raw.githubusercontent.com/cireu/elispfl/master/elispfl.el" (expand-file-name "elispfl.el" lisp-directory)))
 
 (add-to-list 'load-path lisp-directory)
 
@@ -165,6 +172,11 @@ vimrc-mode)
 
 (require 'lacarte)
 (global-set-key (kbd "\C-c.") 'lacarte-execute-menu-command)
+
+(require 'elispfl)
+
+(with-eval-after-load 'elisp-mode
+  (elispfl-mode))
 
 (setq inhibit-startup-screen t)
 
