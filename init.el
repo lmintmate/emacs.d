@@ -136,6 +136,7 @@ vimrc-mode)
 
 (set-face-attribute 'fringe nil :background "DodgerBlue4")
 (set-face-attribute 'font-lock-negation-char-face nil :foreground "tomato")
+(set-face-attribute 'font-lock-variable-name-face nil :foreground "tomato")
 (set-face-attribute 'font-lock-doc-face nil :foreground "cyan" :inherit 'unspecified)
 (set-face-attribute 'highlight nil :background "#235c94")
 (set-face-attribute 'package-status-built-in nil :inherit font-lock-comment-face)
