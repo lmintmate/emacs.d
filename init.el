@@ -161,7 +161,7 @@ vimrc-mode)
     (url-copy-file "https://www.emacswiki.org/emacs/download/lacarte.el" (expand-file-name "lacarte.el" lisp-directory)))
 
 (unless (file-exists-p (expand-file-name "org-bullets.el" lisp-directory))
-   (url-copy-file "https://raw.githubusercontent.com/lmintmate/org-bullets/master/org-bullets.el" (expand-file-name "org-bullets.el" lisp-directory)))
+   (url-copy-file "https://raw.githubusercontent.com/lmintmate/org-bullets/invisible-leading-stars/org-bullets.el" (expand-file-name "org-bullets.el" lisp-directory)))
 
 (unless (file-exists-p (expand-file-name "elispfl.el" lisp-directory))
    (url-copy-file "https://raw.githubusercontent.com/cireu/elispfl/master/elispfl.el" (expand-file-name "elispfl.el" lisp-directory)))
