@@ -78,6 +78,7 @@
     - [[#disable-it-however-for-lisp-interaction-mode][Disable it however for lisp-interaction-mode]]
     - [[#make-the-current-line-bold][Make the current line bold]]
   - [[#make-help-windows-active-by-default][Make help windows active by default]]
+  - [[#enable-all-disabled-commands][Enable all disabled commands]]
   - [[#theme-settings][Theme settings]]
     - [[#treat-all-themes-as-safe][Treat all themes as safe]]
     - [[#load-only-one-theme-at-a-time][Load only one theme at a time]]
@@ -919,6 +920,11 @@ I set it conditionally so that it won't error out on versions lower than 26.1.  
 When I call a help window, I want to immediately scroll through it, and having to either click to it or use the other-window command to make it active was somewhat annoying. This parameter makes such windows active by default (found from [[https://www.reddit.com/r/emacs/comments/bty1eq/why_doesnt_emacs_set_the_focus_to_information/ep4b0uf/][Why doesn't emacs set the focus to information windows? : emacs subreddit]]).
 #+begin_src emacs-lisp
 (setq-default help-window-select t)
+#+end_src
+** Enable all disabled commands
+Here I enable all advanced commands that are by default disabled (for more information see [[https://www.emacswiki.org/emacs/DisabledCommands][EmacsWiki: Disabled Commands]]). Most interesting for me is ~erase-buffer~, which I can use when I want to clear the scratch buffer after some experimenting in order to have a clean slate.
+#+begin_src emacs-lisp
+(setq disabled-command-function nil)
 #+end_src
 ** Theme settings
 *** Treat all themes as safe

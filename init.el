@@ -467,6 +467,8 @@ vimrc-mode)
 
 (setq-default help-window-select t)
 
+(setq disabled-command-function nil)
+
 (setq custom-safe-themes t)
 
 (defadvice load-theme (before clear-previous-themes activate)
