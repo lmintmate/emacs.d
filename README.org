@@ -220,23 +220,29 @@ counsel
 dired-icon
 dired-recent
 drag-stuff
-elisp-demos
 emojify
 espy
 evil
-evil-goggles
-evil-snipe
 free-keys
-ivy-rich
-markdown-mode
 no-littering
-org-cliplink
 rainbow-mode
 toc-org
 transpose-frame
 try
 undo-tree
-vimrc-mode)
+vimrc-mode
+;; emacs 24.4 and above
+elisp-demos
+evil-goggles
+evil-snipe
+ivy-rich
+markdown-mode
+org-cliplink
+;; emacs 25.1 and above
+evil-fringe-mark
+evil-traces
+helpful
+ivy-prescient)
   "Core packages")
 
 (setq package-selected-packages lmintmate/packages)
@@ -248,19 +254,7 @@ Here I conditionally add to the value of ~package-selected-packages~ some packag
 (when (eq system-type 'gnu/linux)
   (add-to-list 'package-selected-packages 'magit))
 
-;; Packages that require emacs 25 and up
-
-(unless (version< emacs-version "25")
-  (add-to-list 'package-selected-packages 'evil-fringe-mark))
-
-(unless (version< emacs-version "25")
-  (add-to-list 'package-selected-packages 'helpful))
-
-(unless (version< emacs-version "25.1")
-  (add-to-list 'package-selected-packages 'ivy-prescient))
-
-(unless (version< emacs-version "25.1")
-  (add-to-list 'package-selected-packages 'evil-traces))
+;; Packages that require emacs versions above 25.1
 
 (unless (version< emacs-version "25.2")
   (add-to-list 'package-selected-packages 'minions))
