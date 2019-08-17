@@ -424,7 +424,7 @@ I’m used to writing Greek with the modern Greek layout, which is quite differe
 (global-set-key (kbd "\C-c.") 'lacarte-execute-menu-command)
 #+end_src
 *** Loading elispfl (extra font-lock for emacs lisp)
-[[https://github.com/cireu/elispfl][elispfl]] is a new package with additional syntax highlighting for emacs lisp mode, which hasn't been added on melpa (yet). Comparing it with other similar packages, like [[https://github.com/Lindydancer/lisp-extra-font-lock][lisp-extra-font-lock]] and [[https://github.com/tarsius/morlock][morlock]], I think I prefer the stylistic choices of this one more.
+[[https://github.com/cireu/elispfl][elispfl]] is a package with additional syntax highlighting for emacs lisp mode, not on MELPA. Comparing it with other similar packages, like [[https://github.com/Lindydancer/lisp-extra-font-lock][lisp-extra-font-lock]] and [[https://github.com/tarsius/morlock][morlock]], I think I prefer the stylistic choices of this one more.
 #+begin_src emacs-lisp
 (require 'elispfl)
 
