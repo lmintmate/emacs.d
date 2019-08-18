@@ -21,6 +21,7 @@ espy
 evil
 free-keys
 no-littering
+parent-mode
 rainbow-mode
 toc-org
 transpose-frame
@@ -709,6 +710,13 @@ initialized with the current directory instead of filename."
         (current-kill 0)
 (kill-new new)
 (message "Copied to kill ring: %s" new))))
+
+(require 'parent-mode)
+(defun parent-mode-display ()
+  "Display this buffer's mode hierarchy."
+  (interactive)
+  (let ((ls (parent-mode-list major-mode)))
+    (princ ls)))
 
 (require 'recentf)
 (recentf-mode 1)

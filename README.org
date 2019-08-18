@@ -95,6 +95,7 @@
     - [[#functions-to-rename-files][Functions to rename files]]
     - [[#live-color-selection-for-faces][Live color selection for faces]]
     - [[#remove-tracking-strings-from-urls][Remove tracking strings from urls]]
+    - [[#function-to-show-parent-modes-of-current-buffers-major-mode][Function to show parent modes of current buffer's major mode]]
 - [[#recent-files][Recent files]]
 - [[#settings-for-multiple-buffer-management][Settings for multiple buffer management]]
 - [[#ibuffer][Ibuffer]]
@@ -234,6 +235,7 @@ espy
 evil
 free-keys
 no-littering
+parent-mode
 rainbow-mode
 toc-org
 transpose-frame
@@ -1218,6 +1220,16 @@ Sometimes, when pasting a url (especially a reddit one) with cliplink, strings s
         (current-kill 0)
 (kill-new new)
 (message "Copied to kill ring: %s" new))))
+#+end_src
+*** Function to show parent modes of current buffer's major mode
+Found from [[https://github.com/grettke/parent-mode/commit/b56d9c6d9520fe92cd409397fd3e2c245b7d844e][here]]. Depends on [[https://github.com/Fanael/parent-mode][parent-mode]].
+#+begin_src emacs-lisp
+(require 'parent-mode)
+(defun parent-mode-display ()
+  "Display this buffer's mode hierarchy."
+  (interactive)
+  (let ((ls (parent-mode-list major-mode)))
+    (princ ls)))
 #+end_src
 * Recent files
 A quick way to access my most recently opened files (as I didn't want to have to go all the way through the directory structure).
