@@ -412,7 +412,7 @@ In this section I have some code in emacs lisp that downloads the lisp files I u
    (url-copy-file "https://raw.githubusercontent.com/lmintmate/org-bullets/invisible-leading-stars/org-bullets.el" (expand-file-name "org-bullets.el" lisp-directory)))
 
 (unless (file-exists-p (expand-file-name "elispfl.el" lisp-directory))
-   (url-copy-file "https://raw.githubusercontent.com/cireu/elispfl/master/elispfl.el" (expand-file-name "elispfl.el" lisp-directory)))
+   (url-copy-file "https://raw.githubusercontent.com/lmintmate/elispfl/master/elispfl.el" (expand-file-name "elispfl.el" lisp-directory)))
 #+end_src
 ** Where I tell Emacs where is my personal lisp directory.
 #+begin_src emacs-lisp
@@ -433,7 +433,7 @@ I’m used to writing Greek with the modern Greek layout, which is quite differe
 (global-set-key (kbd "\C-c.") 'lacarte-execute-menu-command)
 #+end_src
 *** Loading elispfl (extra font-lock for emacs lisp)
-[[https://github.com/cireu/elispfl][elispfl]] is a package with additional syntax highlighting for emacs lisp mode, not on MELPA. Comparing it with other similar packages, like [[https://github.com/Lindydancer/lisp-extra-font-lock][lisp-extra-font-lock]] and [[https://github.com/tarsius/morlock][morlock]], I think I prefer the stylistic choices of this one more.
+[[https://github.com/cireu/elispfl][elispfl]] is a package with additional syntax highlighting for emacs lisp mode (which notably also fontifies the contents of org src blocks for some reason), not on MELPA. Comparing it with other similar packages, like [[https://github.com/Lindydancer/lisp-extra-font-lock][lisp-extra-font-lock]] and [[https://github.com/tarsius/morlock][morlock]], I think I prefer the stylistic choices of this one more. I use my own fork of it, because I want it to work on ~lisp-interaction-mode~ (the mode of the scratch buffer) as well.
 #+begin_src emacs-lisp
 (require 'elispfl)
 
