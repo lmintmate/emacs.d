@@ -433,12 +433,14 @@ I’m used to writing Greek with the modern Greek layout, which is quite differe
 (global-set-key (kbd "\C-c.") 'lacarte-execute-menu-command)
 #+end_src
 *** Loading elispfl (extra font-lock for emacs lisp)
-[[https://github.com/cireu/elispfl][elispfl]] is a package with additional syntax highlighting for emacs lisp mode (which notably also fontifies the contents of org src blocks for some reason), not on MELPA. Comparing it with other similar packages, like [[https://github.com/Lindydancer/lisp-extra-font-lock][lisp-extra-font-lock]] and [[https://github.com/tarsius/morlock][morlock]], I think I prefer the stylistic choices of this one more. I use my own fork of it, because I want it to work on ~lisp-interaction-mode~ (the mode of the scratch buffer) as well.
+[[https://github.com/cireu/elispfl][elispfl]] is a package with additional syntax highlighting for emacs lisp mode (which notably also fontifies the contents of org src blocks for some reason), not on MELPA. Comparing it with other similar packages, like [[https://github.com/Lindydancer/lisp-extra-font-lock][lisp-extra-font-lock]] and [[https://github.com/tarsius/morlock][morlock]], I think I prefer the stylistic choices of this one more. I use my own fork of it, because I set it to work on ~lisp-interaction-mode~ (the mode of the scratch buffer) as well, and also added an option to propertize the face names based on the faces themselves.
 #+begin_src emacs-lisp
 (require 'elispfl)
 
 (with-eval-after-load 'elisp-mode
   (elispfl-mode))
+;; Highlight face name by the face itself
+(setq elispfl-face-use-itself t)
 #+end_src
 * Startup screen and scratch buffer options
 ** Inhibit startup screen

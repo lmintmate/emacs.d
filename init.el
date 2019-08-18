@@ -171,6 +171,8 @@ ivy-prescient)
 
 (with-eval-after-load 'elisp-mode
   (elispfl-mode))
+;; Highlight face name by the face itself
+(setq elispfl-face-use-itself t)
 
 (setq inhibit-startup-screen t)
 
