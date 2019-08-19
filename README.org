@@ -705,14 +705,10 @@ I don't however want to override the default action of the S key, because, while
   "S" nil)
 #+end_src
 *** evil-traces
-Roughly the equivalent of evil-goggles for ex (echo area with semicolon) commands. Change look of most commonly used commands to look like evil-goggles.
+[[https://github.com/mamapanda/evil-traces][This package]] is roughly the equivalent of evil-goggles for ex (echo area with semicolon) commands. Here I also change its colors to the diff-define colors.
 #+begin_src emacs-lisp
 (evil-traces-mode)
-(evil-traces-use-diff-faces)
-(set-face-attribute 'evil-traces-delete nil :background "#aa2222" :inherit 'unspecified)
-(set-face-attribute 'evil-traces-move-preview nil :background "#22aa22" :inherit 'unspecified)
-(set-face-attribute 'evil-traces-move-range nil :background "#aa2222" :inherit 'unspecified)
-(set-face-attribute 'evil-traces-yank nil :background "#aaaa22" :inherit 'unspecified)
+(evil-traces-use-diff-refine-faces)
 #+end_src
 * Misc configuration parameters
 ** The Bell

@@ -347,11 +347,7 @@ ivy-prescient)
   "S" nil)
 
 (evil-traces-mode)
-(evil-traces-use-diff-faces)
-(set-face-attribute 'evil-traces-delete nil :background "#aa2222" :inherit 'unspecified)
-(set-face-attribute 'evil-traces-move-preview nil :background "#22aa22" :inherit 'unspecified)
-(set-face-attribute 'evil-traces-move-range nil :background "#aa2222" :inherit 'unspecified)
-(set-face-attribute 'evil-traces-yank nil :background "#aaaa22" :inherit 'unspecified)
+(evil-traces-use-diff-refine-faces)
 
 (setq ring-bell-function 'ignore)
 
