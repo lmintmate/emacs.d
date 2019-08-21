@@ -714,6 +714,23 @@ initialized with the current directory instead of filename."
   (let ((ls (parent-mode-list major-mode)))
     (princ ls)))
 
+(defun dabbrev-completion-all-buffers ()
+    (interactive)
+  (setq current-prefix-arg '(16))
+(call-interactively 'dabbrev-completion))
+
+(evil-define-key '(emacs insert) org-mode-map
+(kbd "C-n") 'dabbrev-completion-all-buffers)
+
+(evil-define-key '(emacs insert) markdown-mode-map
+(kbd "C-n") 'dabbrev-completion-all-buffers)
+
+(evil-define-key '(emacs insert) emacs-lisp-mode-map
+(kbd "C-n") 'dabbrev-completion-all-buffers)
+
+(evil-define-key '(emacs insert) lisp-interaction-mode-map
+(kbd "C-n") 'dabbrev-completion-all-buffers)
+
 (require 'recentf)
 (recentf-mode 1)
 
