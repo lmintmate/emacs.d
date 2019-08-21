@@ -1012,6 +1012,9 @@ Otherwise (if point is at BOL), split the block exactly at that point."
 (with-eval-after-load 'swiper
 (define-key swiper-map "\C-w" 'ivy-yank-symbol))
 
+(define-key ivy-minibuffer-map (kbd "C-j") #'ivy-partial-or-done)
+(define-key ivy-minibuffer-map (kbd "TAB") #'ivy-alt-done)
+
 (setq ivy-wrap t)
 
 (setq ivy-initial-inputs-alist nil)

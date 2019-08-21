@@ -1750,6 +1750,11 @@ Binding to yank symbol in swiper-map. Useful when starting to search for a symbo
 (define-key swiper-map "\C-w" 'ivy-yank-symbol))
 #+end_src
 Note: To search for the entire word at point with swiper (and not only the part from the cursor onwards, as M-j does), ~M-n~ (~ivy-next-history-element~) can be used to yank the symbol under point into the search.\\
+Inverse use of ~C-j~ and ~tab~. This allows me to use tab only once in order to go to the selected directory in ~counsel-find-file~.
+#+begin_src emacs-lisp
+(define-key ivy-minibuffer-map (kbd "C-j") #'ivy-partial-or-done)
+(define-key ivy-minibuffer-map (kbd "TAB") #'ivy-alt-done)
+#+end_src
 Wrap around the first and last candidate in the minibuffer.
 #+begin_src emacs-lisp
 (setq ivy-wrap t)
