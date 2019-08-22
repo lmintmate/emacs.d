@@ -719,16 +719,10 @@ initialized with the current directory instead of filename."
   (setq current-prefix-arg '(16))
 (call-interactively 'dabbrev-completion))
 
-(evil-define-key '(emacs insert) org-mode-map
+(evil-define-key '(emacs insert) text-mode-map
 (kbd "C-n") 'dabbrev-completion-all-buffers)
 
-(evil-define-key '(emacs insert) markdown-mode-map
-(kbd "C-n") 'dabbrev-completion-all-buffers)
-
-(evil-define-key '(emacs insert) emacs-lisp-mode-map
-(kbd "C-n") 'dabbrev-completion-all-buffers)
-
-(evil-define-key '(emacs insert) lisp-interaction-mode-map
+(evil-define-key '(emacs insert) prog-mode-map
 (kbd "C-n") 'dabbrev-completion-all-buffers)
 
 (require 'recentf)

@@ -606,7 +606,17 @@ Create bindings to move to beginning and end of visual lines: Here I used the on
 (define-key evil-visual-state-map (kbd "Q") 'evil-beginning-of-visual-line)
 (define-key evil-visual-state-map (kbd "U") 'evil-end-of-visual-line)
 #+end_src
-Make the enter key in normal state act like enter in emacs state: Enter as a key in Vim is nigh useless, but I often want to open new lines without entering insert mode. Binding enter to the command used in emacs state did the trick. However, I don't want this binding to apply in modes that have nothing to do with editing text. I found that I can solve this problem by using ~evil-define-key~ to define specific keys in specific states for specific modes (see [[https://github.com/noctuid/evil-guide#mode-specific-keybindings][here]]). For org-mode, I use the command ~org-return~ instead, as it acts as a newline or follows a link depending on the context, and I didn't want to lose the latter capability.
+Make the enter key in normal state act like enter in emacs state: Enter as a key in Vim is nigh useless, but I often want to open new lines without entering insert mode. Binding enter to the command used in emacs state did the trick. However, I don't want this binding to apply in modes that have nothing to do with editing text. I found that I can solve this problem by using ~evil-define-key~ to define specific keys in specific states for specific modes (see [[https://github.com/noctuid/evil-guide#mode-specific-keybindings][here]]).\\
+Note: the help string for ~evil-define-key~ also specifies that:
+#+begin_example
+It is possible to specify multiple states and/or bindings at
+once:
+
+    (evil-define-key '(normal visual) foo-map
+      "a" 'bar
+      "b" 'foo)
+#+end_example
+For org-mode, I use the command ~org-return~ instead, as it acts as a newline or follows a link depending on the context, and I didn't want to lose the latter capability.
 #+begin_src emacs-lisp
 (evil-define-key 'normal text-mode-map
 (kbd "<return>") 'newline)
@@ -1232,10 +1242,10 @@ Found from [[https://github.com/grettke/parent-mode/commit/b56d9c6d9520fe92cd409
 The default command used for completion by evil, ~evil-complete-next~ (bound by default to ~C-n~), only completes one possible candidate, and thus, if it isn't the correct one, one has to erase the wrong characters and try again with more of the prefix string. Looking at the function definition, it used ~dabbrev~ (~dabbrev-expand~ specifically) under the hood. Dabbrev also includes ~dabbrev-completion~, which has the following behavior (as found at its docstring):
 #+begin_quote
 Like [dabbrev-expand] but finds all expansions in the current buffer
-and presents suggestions for completion.
+and presents suggestions for completion.\\
 With a prefix argument ARG, it searches all buffers accepted by the
 function pointed out by ~dabbrev-friend-buffer-function~ to find the
-completions.
+completions.\\
 If the prefix argument is 16 (which comes from C-u C-u),
 then it searches *all* buffers.
 #+end_quote
@@ -1246,16 +1256,10 @@ In short, this normally looks only at the current buffer, but when using a speci
   (setq current-prefix-arg '(16))
 (call-interactively 'dabbrev-completion))
 
-(evil-define-key '(emacs insert) org-mode-map
+(evil-define-key '(emacs insert) text-mode-map
 (kbd "C-n") 'dabbrev-completion-all-buffers)
 
-(evil-define-key '(emacs insert) markdown-mode-map
-(kbd "C-n") 'dabbrev-completion-all-buffers)
-
-(evil-define-key '(emacs insert) emacs-lisp-mode-map
-(kbd "C-n") 'dabbrev-completion-all-buffers)
-
-(evil-define-key '(emacs insert) lisp-interaction-mode-map
+(evil-define-key '(emacs insert) prog-mode-map
 (kbd "C-n") 'dabbrev-completion-all-buffers)
 #+end_src
 * Recent files
@@ -2068,15 +2072,7 @@ Here is however a trick to disable it from everywhere but lisp-related modes (fr
 #+begin_src emacs-lisp
 (add-hook 'prog-mode-hook 'hs-minor-mode)
 #+end_src
-Keybindings. The ~<backtab>~ string means Shift+Tab. After enabling evil, the tab was taken over by some jump list command, which was inconvenient to say the least. I thus use here ~evil-define-key~ to overcome this problem (see above), since the help string for ~evil-define-key~ also specifies that:
-#+begin_example
-It is possible to specify multiple states and/or bindings at
-once:
-
-    (evil-define-key '(normal visual) foo-map
-      "a" 'bar
-      "b" 'foo)
-#+end_example
+Keybindings. The ~<backtab>~ string means Shift+Tab. After enabling evil, the tab was taken over by some jump list command, which was inconvenient to say the least. I thus use here ~evil-define-key~ to overcome this problem (see above).\\
 Also note that sometimes the action of the tab key doesn't take effect immediately (see [[https://github.com/noctuid/evil-guide#why-dont-keys-defined-with-evil-define-key-work-immediately][here]]). However backtab and C-tab work fine from the get-go for some reason.
 #+begin_src emacs-lisp
 (evil-define-key '(normal emacs) prog-mode-map
