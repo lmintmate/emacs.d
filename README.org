@@ -1264,7 +1264,7 @@ In short, this normally looks only at the current buffer, but when using a speci
 (evil-define-key '(emacs insert) prog-mode-map
 (kbd "C-n") 'dabbrev-completion-all-buffers)
 #+end_src
-Setting so that completion in org mode won't change when the character for literal code ~~~ is in front of the completion candidate. What this does is tell ~dabbrev~ to ignore the presence of said symbol. Without this setting when attempting to complete a string preceded by ~~~, the first letter of each subword is capitalised e.g. ~Package-Install-Selected-Packages~ instead of the normal ~package-install-selected-packages~ (idea to use this setting from [[https://curiousprogrammer.wordpress.com/2009/05/19/customiz-dabbrev/][here]]).
+Setting so that completion in org mode won't change when the character for literal code ~ is in front of the completion candidate. What this does is tell ~dabbrev~ to ignore the presence of said symbol. Without this setting when attempting to complete a string preceded by ~ , the first letter of each subword is capitalised e.g. ~Package-Install-Selected-Packages~ instead of the normal ~package-install-selected-packages~ (idea to use this setting from [[https://curiousprogrammer.wordpress.com/2009/05/19/customiz-dabbrev/][here]]).
 #+begin_src emacs-lisp
 (setq dabbrev-abbrev-skip-leading-regexp "~")
 #+end_src
