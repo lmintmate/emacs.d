@@ -1239,16 +1239,18 @@ Found from [[https://github.com/grettke/parent-mode/commit/b56d9c6d9520fe92cd409
     (princ ls)))
 #+end_src
 * Dabbrev completion
-The default command used for completion by evil, ~evil-complete-next~ (bound by default to ~C-n~), only completes one possible candidate, and thus, if it isn't the correct one, one has to erase the wrong characters and try again with more of the prefix string. Looking at the function definition, it used ~dabbrev~ (~dabbrev-expand~ specifically) under the hood. Dabbrev also includes ~dabbrev-completion~, which has the following behavior (as found at its docstring):
-#+begin_quote
+The default command used for completion by evil, ~evil-complete-next~ (bound by default to ~C-n~), only completes one possible candidate, and thus, if it isn't the correct one, one has to erase the wrong characters and try again with more of the prefix string. Looking at the function definition, it used ~dabbrev~ (~dabbrev-expand~ specifically) under the hood. Dabbrev also includes [[help:dabbrev-completion][dabbrev-completion]], which has the following behavior (as found at its docstring):
+#+begin_example
 Like [dabbrev-expand] but finds all expansions in the current buffer
-and presents suggestions for completion.\\
+and presents suggestions for completion.
+
 With a prefix argument ARG, it searches all buffers accepted by the
-function pointed out by ~dabbrev-friend-buffer-function~ to find the
-completions.\\
+function pointed out by dabbrev-friend-buffer-function to find the
+completions.
+
 If the prefix argument is 16 (which comes from C-u C-u),
 then it searches *all* buffers.
-#+end_quote
+#+end_example
 In short, this normally looks only at the current buffer, but when using a specific prefix, it can look at all buffers. Here thus I define a function to run it with the prefix (see [[https://stackoverflow.com/a/6156444][here]]) and bind this function to emacs and insert states at the modes I want to use this with.
 #+begin_src emacs-lisp
 (defun dabbrev-completion-all-buffers ()
