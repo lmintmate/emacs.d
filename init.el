@@ -725,6 +725,8 @@ initialized with the current directory instead of filename."
 (evil-define-key '(emacs insert) prog-mode-map
 (kbd "C-n") 'dabbrev-completion-all-buffers)
 
+(setq dabbrev-abbrev-skip-leading-regexp "~")
+
 (require 'recentf)
 (recentf-mode 1)
 
