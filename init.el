@@ -406,7 +406,15 @@ ivy-prescient)
             (when (string= (file-name-extension buffer-file-name) "txt")
               (goto-address-mode 1))))
 
+(when (version< emacs-version "26.0.50" )
+(defun my-kill-buffer ()
+    "Kill current buffer without prompting"
+    (interactive)
+    (kill-buffer (current-buffer))))
+
+(if (version<= "26.0.50" emacs-version )
 (global-set-key "\C-ck" 'kill-current-buffer)
+(global-set-key "\C-ck" 'my-kill-buffer))
 
 (define-key global-map "\M-o" 'other-window)
 

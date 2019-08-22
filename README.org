@@ -846,9 +846,17 @@ This mode highlights urls and makes them clickable.\\
               (goto-address-mode 1))))
 #+end_src
 ** Bind command to kill current buffer
-Oftentimes, I just want to kill the current buffer, and ~C-x k~ showing me a list slows me down, since I thus have to do 2 actions: first use ~C-x k~ and then press enter to confirm killing the (highlighted) current buffer. Thus here I bind ~C-c k~ to ~kill-current-buffer~.
+Oftentimes, I just want to kill the current buffer, and ~C-x k~ showing me a list slows me down, since I thus have to do 2 actions: first use ~C-x k~ and then press enter to confirm killing the (highlighted) current buffer. Thus here I bind ~C-c k~ to ~kill-current-buffer~. This function was added on 26.1 however (see [[https://fossies.org/diffs/emacs/25.3_vs_26.1/lisp/simple.el-diff.html][here]]), so I have to use a custom function to achieve the same in emacs versions under 26 (idea from [[https://github.com/matthijsk/dotemacs/commit/442389b42df007063f71cbe6f6f9ed0b60e686aa][here]]).
 #+begin_src emacs-lisp
+(when (version< emacs-version "26.0.50" )
+(defun my-kill-buffer ()
+    "Kill current buffer without prompting"
+    (interactive)
+    (kill-buffer (current-buffer))))
+
+(if (version<= "26.0.50" emacs-version )
 (global-set-key "\C-ck" 'kill-current-buffer)
+(global-set-key "\C-ck" 'my-kill-buffer))
 #+end_src
 ** Bind M-o to other-window
 C-x o is too long a binding for this simple action (idea drawn from [[https://masteringemacs.org/article/my-emacs-keybindings][My Emacs keybindings - Mastering Emacs]]).
