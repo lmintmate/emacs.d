@@ -1597,6 +1597,8 @@ These [[https://orgmode.org/manual/Easy-templates.html][templates]], e.g. ~<s~, 
 (require 'org-tempo)
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 (add-to-list 'org-structure-template-alist '("o" . "src org"))
+(add-to-list 'org-structure-template-alist '("vim" . "src vim"))
+(add-to-list 'org-structure-template-alist '("sh" . "src sh"))
 (add-to-list 'org-tempo-keywords-alist '("t" . "title")))
 #+end_src
 ** Enable Speed keys

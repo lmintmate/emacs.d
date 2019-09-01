@@ -912,6 +912,8 @@ initialized with the current directory instead of filename."
 (require 'org-tempo)
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 (add-to-list 'org-structure-template-alist '("o" . "src org"))
+(add-to-list 'org-structure-template-alist '("vim" . "src vim"))
+(add-to-list 'org-structure-template-alist '("sh" . "src sh"))
 (add-to-list 'org-tempo-keywords-alist '("t" . "title")))
 
 (setq org-use-speed-commands
