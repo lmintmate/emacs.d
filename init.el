@@ -149,20 +149,31 @@ ivy-prescient)
 
 (unless (file-directory-p lisp-directory) (make-directory lisp-directory))
 
+;; in addition to greek.el, also download the byte-compiled greek.elc
 (unless (file-exists-p (expand-file-name "greek.el" lisp-directory))
     (url-copy-file "http://myria.math.aegean.gr/~atsol/emacs-unicode/greek.el" (expand-file-name "greek.el" lisp-directory)))
+(unless (file-exists-p (expand-file-name "greek.elc" lisp-directory))
+    (url-copy-file "http://myria.math.aegean.gr/~atsol/emacs-unicode/greek.elc" (expand-file-name "greek.elc" lisp-directory)))
 
+;; byte-compile .el files after downloading them
 (unless (file-exists-p (expand-file-name "lacarte.el" lisp-directory))
     (url-copy-file "https://www.emacswiki.org/emacs/download/lacarte.el" (expand-file-name "lacarte.el" lisp-directory)))
+(unless (file-exists-p (expand-file-name "lacarte.elc" lisp-directory))
+(byte-compile-file (expand-file-name "lacarte.el" lisp-directory)))
 
 (unless (file-exists-p (expand-file-name "org-bullets.el" lisp-directory))
    (url-copy-file "https://raw.githubusercontent.com/lmintmate/org-bullets/invisible-leading-stars/org-bullets.el" (expand-file-name "org-bullets.el" lisp-directory)))
+(unless (file-exists-p (expand-file-name "org-bullets.elc" lisp-directory))
+(byte-compile-file (expand-file-name "org-bullets.el" lisp-directory)))
 
 (unless (file-exists-p (expand-file-name "elispfl.el" lisp-directory))
    (url-copy-file "https://raw.githubusercontent.com/lmintmate/elispfl/master/elispfl.el" (expand-file-name "elispfl.el" lisp-directory)))
+(unless (file-exists-p (expand-file-name "elispfl.elc" lisp-directory))
+(byte-compile-file (expand-file-name "elispfl.el" lisp-directory)))
 
 (add-to-list 'load-path lisp-directory)
 
+;; load elisp file, use byte compiled version (.elc) if it exists
 (load "greek")
 
 (require 'lacarte)

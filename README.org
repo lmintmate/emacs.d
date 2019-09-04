@@ -405,17 +405,27 @@ In this section I have some code in emacs lisp that downloads the lisp files I u
 
 (unless (file-directory-p lisp-directory) (make-directory lisp-directory))
 
+;; in addition to greek.el, also download the byte-compiled greek.elc
 (unless (file-exists-p (expand-file-name "greek.el" lisp-directory))
     (url-copy-file "http://myria.math.aegean.gr/~atsol/emacs-unicode/greek.el" (expand-file-name "greek.el" lisp-directory)))
+(unless (file-exists-p (expand-file-name "greek.elc" lisp-directory))
+    (url-copy-file "http://myria.math.aegean.gr/~atsol/emacs-unicode/greek.elc" (expand-file-name "greek.elc" lisp-directory)))
 
+;; byte-compile .el files after downloading them
 (unless (file-exists-p (expand-file-name "lacarte.el" lisp-directory))
     (url-copy-file "https://www.emacswiki.org/emacs/download/lacarte.el" (expand-file-name "lacarte.el" lisp-directory)))
+(unless (file-exists-p (expand-file-name "lacarte.elc" lisp-directory))
+(byte-compile-file (expand-file-name "lacarte.el" lisp-directory)))
 
 (unless (file-exists-p (expand-file-name "org-bullets.el" lisp-directory))
    (url-copy-file "https://raw.githubusercontent.com/lmintmate/org-bullets/invisible-leading-stars/org-bullets.el" (expand-file-name "org-bullets.el" lisp-directory)))
+(unless (file-exists-p (expand-file-name "org-bullets.elc" lisp-directory))
+(byte-compile-file (expand-file-name "org-bullets.el" lisp-directory)))
 
 (unless (file-exists-p (expand-file-name "elispfl.el" lisp-directory))
    (url-copy-file "https://raw.githubusercontent.com/lmintmate/elispfl/master/elispfl.el" (expand-file-name "elispfl.el" lisp-directory)))
+(unless (file-exists-p (expand-file-name "elispfl.elc" lisp-directory))
+(byte-compile-file (expand-file-name "elispfl.el" lisp-directory)))
 #+end_src
 ** Where I tell Emacs where is my personal lisp directory.
 #+begin_src emacs-lisp
@@ -425,8 +435,9 @@ In this section I have some code in emacs lisp that downloads the lisp files I u
 In this section, I load the lisp files previously downloaded.
 *** Loading the package for polytonic greek
 I’m used to writing Greek with the modern Greek layout, which is quite different from the greek-babel polytonic layout in a way jarring to me. I tried to find a way to solve my problem, and found out with relief that I didn’t need to reinvent the wheel, as someone had already made a package for what I wanted ; a layout that would provide polytonic Greek while also keeping the regular keyboard layout I was used to.\\
- This solution to my problem can be found [[http://myria.math.aegean.gr/~atsol/emacs-unicode/][here]](look under the compiled greek.elc link for the greek.el source).
+This solution to my problem can be found [[http://myria.math.aegean.gr/~atsol/emacs-unicode/][here]] (look under the compiled greek.elc link for the greek.el source).
 #+begin_src emacs-lisp
+;; load elisp file, use byte compiled version (.elc) if it exists
 (load "greek")
 #+end_src
 *** Loading La Carte (for executing menu commands from the keyboard)
