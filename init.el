@@ -20,6 +20,7 @@ emojify
 espy
 evil
 free-keys
+gnu-elpa-keyring-update
 no-littering
 parent-mode
 rainbow-mode
