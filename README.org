@@ -235,7 +235,6 @@ emojify
 espy
 evil
 free-keys
-gnu-elpa-keyring-update
 no-littering
 parent-mode
 rainbow-mode
@@ -271,6 +270,10 @@ Here I conditionally add to the value of ~package-selected-packages~ some packag
 
 (unless (version< emacs-version "25.2")
   (add-to-list 'package-selected-packages 'minions))
+
+;; GNU ELPA keyring package for versions below 26.3
+(when (version< emacs-version "26.3" )
+  (add-to-list 'package-selected-packages 'gnu-elpa-keyring-update))
 #+end_src
 Finally, populate the ~package-archive-contents~ with ~package-refresh-contents~, so that the installation will take place properly with a fresh setup, and install all packages in the ~package-selected-packages~ list with ~package-install-selected-packages~, if said command exists.
 #+begin_src emacs-lisp

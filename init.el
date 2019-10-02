@@ -20,7 +20,6 @@ emojify
 espy
 evil
 free-keys
-gnu-elpa-keyring-update
 no-littering
 parent-mode
 rainbow-mode
@@ -54,6 +53,10 @@ ivy-prescient)
 
 (unless (version< emacs-version "25.2")
   (add-to-list 'package-selected-packages 'minions))
+
+;; GNU ELPA keyring package for versions below 26.3
+(when (version< emacs-version "26.3" )
+  (add-to-list 'package-selected-packages 'gnu-elpa-keyring-update))
 
 (unless package-archive-contents
   (message "%s" "Refreshing package database...")
