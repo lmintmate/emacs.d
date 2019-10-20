@@ -108,6 +108,9 @@ ivy-prescient)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 
+(when (string= (system-name) "LAPTOP-LHEH01GE")
+(setq system-time-locale "C"))
+
 (when (package-installed-p 'no-littering)
 (setq no-littering-etc-directory
       (expand-file-name "config/" user-emacs-directory))
