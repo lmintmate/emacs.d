@@ -1027,6 +1027,7 @@ Otherwise (if point is at BOL), split the block exactly at that point."
 (setq espy-pass-prefix "password:")
 
 (ivy-mode 1)
+(counsel-mode 1)
 
 (ivy-prescient-mode 1)
 

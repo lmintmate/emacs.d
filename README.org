@@ -1774,9 +1774,10 @@ Define the keybindings - the default being M- and arrow keys.
 (setq espy-pass-prefix "password:")
 #+end_src
 * Ivy-counsel-swiper and ivy-prescient configuration
-First, enable ivy mode.
+First, enable ivy and counsel modes.
 #+begin_src emacs-lisp
 (ivy-mode 1)
+(counsel-mode 1)
 #+end_src
 ** Ivy prescient
 Ivy prescient is much like smex, but it also remembers the history for not only counsel-M-x, but also many other commands that have a candidate list, and it is also actually maintained.//
