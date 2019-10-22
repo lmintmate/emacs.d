@@ -130,6 +130,9 @@ ivy-prescient)
 (set-face-attribute 'default nil :family "Consolas" :height 140))
 (set-face-attribute 'default nil :family "DejaVu Sans Mono" :height 140))
 
+(when (eq system-type 'windows-nt)
+(set-face-attribute 'fixed-pitch nil :family "Consolas" :height 140))
+
 (load-theme 'blue-mood t t)
 (enable-theme 'blue-mood)
 

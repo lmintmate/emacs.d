@@ -372,6 +372,11 @@ On systems different from the one I'm currently on (which is Linux Mint MATE), t
 (set-face-attribute 'default nil :family "Consolas" :height 140))
 (set-face-attribute 'default nil :family "DejaVu Sans Mono" :height 140))
 #+end_src
+Also the default fixed pitch font on Windows is really ugly, so set it to Consolas instead there.
+#+begin_src emacs-lisp
+(when (eq system-type 'windows-nt)
+(set-face-attribute 'fixed-pitch nil :family "Consolas" :height 140))
+#+end_src
 * Setting up my must use theme - Blue Mood theme.
 I wasn't satisfied with the default Adawaita theme (but then who is?). I tried to find another theme, but most of them (even the popular ones) didn't satisfy my tastes. But when I found Blue Mood, I knew it was the one!\\
 In case you haven't encountered it (not too unlikely), it's because it's a part of the [[https://github.com/emacs-jp/replace-colorthemes][color-theme-modern]] package, which apparently recreates older themes for Emacs 24+. In the repository I linked just now, you can see all the other included themes too, complete with screenshots, and, of course, the way to apply them to your init file.\\
