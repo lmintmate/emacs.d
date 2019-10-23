@@ -111,12 +111,11 @@ ivy-prescient)
 (when (string= (system-name) "LAPTOP-LHEH01GE")
 (setq system-time-locale "C"))
 
-(when (package-installed-p 'no-littering)
 (setq no-littering-etc-directory
       (expand-file-name "config/" user-emacs-directory))
 (setq no-littering-var-directory
       (expand-file-name "data/" user-emacs-directory))
-(require 'no-littering))
+(require 'no-littering)
 
 ;; set frame
 (when (eq system-type 'windows-nt)
@@ -374,9 +373,7 @@ ivy-prescient)
 
 (setq use-dialog-box nil)
 
-(if (package-installed-p 'no-littering)
 (setq custom-file (no-littering-expand-etc-file-name "custom.el"))
-(setq custom-file (concat user-emacs-directory "custom.el")))
 
 (setq frame-title-format
     '((:eval (if (buffer-file-name)
@@ -1035,8 +1032,7 @@ Otherwise (if point is at BOL), split the block exactly at that point."
 (ivy-prescient-mode 1)
 
 (prescient-persist-mode 1)
-(when (package-installed-p 'no-littering)
-(setq prescient-save-file (no-littering-expand-var-file-name "prescient-save.el")))
+(setq prescient-save-file (no-littering-expand-var-file-name "prescient-save.el"))
 
 (setq prescient-sort-length-enable nil)
 
