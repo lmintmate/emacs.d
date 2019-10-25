@@ -1032,7 +1032,6 @@ Otherwise (if point is at BOL), split the block exactly at that point."
 (ivy-prescient-mode 1)
 
 (prescient-persist-mode 1)
-(setq prescient-save-file (no-littering-expand-var-file-name "prescient-save.el"))
 
 (setq prescient-sort-length-enable nil)
 

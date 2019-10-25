@@ -1787,10 +1787,9 @@ Enable ivy-prescient-mode.
 #+begin_src emacs-lisp
 (ivy-prescient-mode 1)
 #+end_src
-Enable prescient-persist-mode to keep usage statistics. Also properly hide the prescient-save-file, since I've renamed the no-littering folders.
+Enable prescient-persist-mode to keep usage statistics.
 #+begin_src emacs-lisp
 (prescient-persist-mode 1)
-(setq prescient-save-file (no-littering-expand-var-file-name "prescient-save.el"))
 #+end_src
 Don't sort candidates by length.
 #+begin_src emacs-lisp
