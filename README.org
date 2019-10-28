@@ -68,6 +68,7 @@
   - [[#toggling-the-menu-bar-with-a-keyboard-shortcut][Toggling the menu bar with a keyboard shortcut.]]
   - [[#toggle-scroll-bar-and-window-divider-mode][Toggle scroll bar and window divider mode]]
   - [[#toggle-maximizing-the-frame][Toggle maximizing the frame]]
+  - [[#do-not-resize-frame-when-setting-frame-elements][Do not resize frame when setting frame elements]]
   - [[#visual-line-mode-only-for-text-mode][Visual line mode only for text mode.]]
   - [[#associate-txt-files-with-the-goto-address-mode][Associate .txt files with the goto-address-mode.]]
   - [[#bind-command-to-kill-current-buffer][Bind command to kill current buffer]]
@@ -844,6 +845,22 @@ I might not always want the scroll bar enabled (though I prefer it to be, so tha
 Useful for newsticker
 #+begin_src emacs-lisp
 (global-set-key [f9] 'toggle-frame-maximized)
+#+end_src
+** Do not resize frame when setting frame elements
+From the help string of ~frame-inhibit-implied-resize~:
+#+begin_example
+Whether frames should be resized implicitly.
+
+If this option is nil, setting font, menu bar, tool bar, internal
+borders, fringes or scroll bars of a specific frame may resize the frame
+in order to preserve the number of columns or lines it displays.  If
+this option is t, no such resizing is done.
+[...]
+The value of this option can be also be a list of frame parameters. [...]
+[For more see the help string]
+#+end_example
+#+begin_src emacs-lisp
+(setq frame-inhibit-implied-resize t)
 #+end_src
 ** Visual line mode only for text mode.
 Visual line wraps lines instead of cutting them as default.

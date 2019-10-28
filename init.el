@@ -412,6 +412,8 @@ ivy-prescient)
 
 (global-set-key [f9] 'toggle-frame-maximized)
 
+(setq frame-inhibit-implied-resize t)
+
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 
 (add-hook 'find-file-hook
