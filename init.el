@@ -941,6 +941,8 @@ initialized with the current directory instead of filename."
 
 (push '(org-goto . tree) org-show-context-detail)
 
+(setq org-adapt-indentation nil)
+
 (defun modi/org-in-any-block-p ()
   "Return non-nil if the point is in any Org block.
 

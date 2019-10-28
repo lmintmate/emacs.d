@@ -144,6 +144,7 @@
   - [[#add-shortcut-templates-for-emacs-lisp-org-and-title][Add shortcut templates for emacs lisp, org and title]]
   - [[#enable-speed-keys][Enable Speed keys]]
   - [[#change-org-show-context-detail][Change org-show-context-detail]]
+  - [[#change-org-block-indentation-setting][Change org-block indentation setting]]
   - [[#custom-org-related-functions][Custom org-related functions]]
     - [[#split-org-block-in-a-dwim-manner][Split org block in a dwim manner]]
 - [[#undo-tree][Undo tree]]
@@ -1650,6 +1651,11 @@ These [[https://orgmode.org/manual/Easy-templates.html][templates]], e.g. ~<s~, 
 This variable sets how much will be revealed when revealing locations. I'm changing its value because counsel-outline apparently uses this variable to determine how it will show the headings after jumping to a specific one. With the default setting it inherited the ~(default . ancestors)~, and thus didn't show any further children that the heading had. I didn't like this behavior, since I like to see all the children that are available, and thus set org-goto to tree which shows all the children, but hides any possible introductory text before the children, which is useful since I have long text in some headings as a sort of introduction (basically the reason I didn't choose the canonical option, since that one shows said text). In order to not have to redefine the entire variable (since I only wanted to change the behavior of org-goto, that is add that element to the list), I use the ~push~ function to add the desired element (adapted from [[https://emacs.stackexchange.com/a/32269][here]]).
 #+begin_src emacs-lisp
 (push '(org-goto . tree) org-show-context-detail)
+#+end_src
+** Change org-block indentation setting
+Org by default adapts the indentation to the outline node level, which leads to the begin_ and end_ type blocks to be indented when they are created in an outline level below 1, an undesirable for me behavior. This setting disables that, so that now the org blocks have the same alignment as normal text.
+#+begin_src emacs-lisp
+(setq org-adapt-indentation nil)
 #+end_src
 ** Custom org-related functions
 *** Split org block in a dwim manner
