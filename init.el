@@ -1228,7 +1228,8 @@ Otherwise (if point is at BOL), split the block exactly at that point."
 
 (when (package-installed-p 'trashed)
 (require 'trashed)
-(setq trashed-date-format "%a %d %b %Y %T"))
+(setq trashed-date-format "%a %d %b %Y %T")
+(evil-set-initial-state 'trashed-mode 'emacs))
 
 (setq show-paren-delay 0)
 (show-paren-mode 1)
