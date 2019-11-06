@@ -49,6 +49,9 @@ ivy-prescient)
 (when (eq system-type 'gnu/linux)
   (add-to-list 'package-selected-packages 'magit))
 
+(when (eq system-type 'gnu/linux)
+  (add-to-list 'package-selected-packages 'trashed))
+
 ;; Packages that require emacs versions above 25.1
 
 (unless (version< emacs-version "25.2")
@@ -1222,6 +1225,10 @@ Otherwise (if point is at BOL), split the block exactly at that point."
 (when (package-installed-p 'magit)
 (with-eval-after-load 'magit
 (define-key with-editor-mode-map (kbd "C-c e") 'emojify-insert-emoji)))
+
+(when (package-installed-p 'trashed)
+(require 'trashed)
+(setq trashed-date-format "%a %d %b %Y %T"))
 
 (setq show-paren-delay 0)
 (show-paren-mode 1)

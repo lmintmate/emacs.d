@@ -176,6 +176,7 @@
   - [[#set-magit-faces][Set magit faces]]
   - [[#magit-status-keybinding][Magit-status keybinding]]
   - [[#emojify-insert-emoji-shortcut][Emojify insert emoji shortcut]]
+- [[#trashed-trash-can-management-from-emacs-linux-only][Trashed: trash can management from emacs (Linux only)]]
 - [[#emacs-lisp-related-configuration][Emacs-lisp related configuration]]
   - [[#enable-show-paren-mode][Enable show-paren-mode]]
   - [[#enable-electric-pair-mode][Enable electric-pair-mode]]
@@ -267,6 +268,9 @@ Here I conditionally add to the value of ~package-selected-packages~ some packag
 
 (when (eq system-type 'gnu/linux)
   (add-to-list 'package-selected-packages 'magit))
+
+(when (eq system-type 'gnu/linux)
+  (add-to-list 'package-selected-packages 'trashed))
 
 ;; Packages that require emacs versions above 25.1
 
@@ -2104,6 +2108,13 @@ Since I add emojis to my commits, I wanted a way to add them without having to d
 (when (package-installed-p 'magit)
 (with-eval-after-load 'magit
 (define-key with-editor-mode-map (kbd "C-c e") 'emojify-insert-emoji)))
+#+end_src
+* Trashed: trash can management from emacs (Linux only)
+[[https://github.com/shingo256/trashed][This package]] allows management of the trash can from inside emacs. Here I enable it and set the deletion date format to a form similar to the one it has on my gui file manager, that is localised and shortened day month Year and the time.
+#+begin_src emacs-lisp
+(when (package-installed-p 'trashed)
+(require 'trashed)
+(setq trashed-date-format "%a %d %b %Y %T"))
 #+end_src
 * Emacs-lisp related configuration
 ** Enable show-paren-mode
