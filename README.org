@@ -97,6 +97,7 @@
     - [[#live-color-selection-for-faces][Live color selection for faces]]
     - [[#remove-tracking-strings-from-urls][Remove tracking strings from urls]]
     - [[#function-to-show-parent-modes-of-current-buffers-major-mode][Function to show parent modes of current buffer's major mode]]
+    - [[#function-that-creates-a-histogram-of-currently-open-buffers][Function that creates a histogram of currently open buffers]]
 - [[#dabbrev-completion][Dabbrev completion]]
 - [[#recent-files][Recent files]]
 - [[#settings-for-multiple-buffer-management][Settings for multiple buffer management]]
@@ -1289,6 +1290,38 @@ Found from [[https://github.com/grettke/parent-mode/commit/b56d9c6d9520fe92cd409
   (interactive)
   (let ((ls (parent-mode-list major-mode)))
     (princ ls)))
+#+end_src
+*** Function that creates a histogram of currently open buffers
+This function (taken from [[https://svn.red-bean.com/repos/kfogel/trunk/.emacs][here]]) displays a buffer that shows a buffer list, sorted by major mode and number of buffers opened in a major mode (see [[http://blogs.fluidinfo.com/terry/2011/11/10/emacs-buffer-mode-histogram/][here]], which is the original source of the function, for a demonstration of how the result will look like).
+#+begin_src emacs-lisp
+(defun buffer-mode-histogram ()
+  "Display a histogram of emacs buffer modes."
+  (interactive)
+  (let* ((totals ())
+         (buffers (buffer-list()))
+         (total-buffers (length buffers))
+         (ht (make-hash-table :test 'equal)))
+    (save-excursion
+      (dolist (buffer buffers)
+        (set-buffer buffer)
+        (let
+            ((mode-name (symbol-name major-mode)))
+          (puthash mode-name (1+ (gethash mode-name ht 0)) ht))))
+    (maphash (lambda (key value)
+               (setq totals (cons (list key value) totals)))
+             ht)
+    (setq totals (sort totals (lambda (x y) (> (cadr x) (cadr y)))))
+    (with-output-to-temp-buffer "Buffer mode histogram"
+      (princ (format "%d buffers open, in %d distinct modes\n\n"
+                      total-buffers (length totals)))
+      (dolist (item totals)
+        (let
+            ((key (car item))
+             (count (cadr item)))
+          (if (equal (substring key -5) "-mode")
+              (setq key (substring key 0 -5)))
+          (princ (format "%2d %20s %s\n" count key
+                         (make-string count ?+))))))))
 #+end_src
 * Dabbrev completion
 The default command used for completion by evil, ~evil-complete-next~ (bound by default to ~C-n~), only completes one possible candidate, and thus, if it isn't the correct one, one has to erase the wrong characters and try again with more of the prefix string. Looking at the function definition, it used ~dabbrev~ (~dabbrev-expand~ specifically) under the hood. Dabbrev also includes [[help:dabbrev-completion][dabbrev-completion]], which has the following behavior (as found at its docstring):
