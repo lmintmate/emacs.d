@@ -44,10 +44,12 @@ ivy-prescient)
 
 (setq package-selected-packages lmintmate/packages)
 
-;; Packages for use only on my Linux system
+;; Packages to be installed only when a certain executable is on the path
 
-(when (eq system-type 'gnu/linux)
+(when (executable-find "git")
   (add-to-list 'package-selected-packages 'magit))
+
+;; Packages for use only on my Linux system
 
 (when (eq system-type 'gnu/linux)
   (add-to-list 'package-selected-packages 'trashed))

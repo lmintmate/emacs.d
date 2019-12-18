@@ -265,10 +265,12 @@ ivy-prescient)
 #+end_src
 Here I conditionally add to the value of ~package-selected-packages~ some packages that are compatible with only certain OS or emacs versions. 
 #+begin_src emacs-lisp
-;; Packages for use only on my Linux system
+;; Packages to be installed only when a certain executable is on the path
 
-(when (eq system-type 'gnu/linux)
+(when (executable-find "git")
   (add-to-list 'package-selected-packages 'magit))
+
+;; Packages for use only on my Linux system
 
 (when (eq system-type 'gnu/linux)
   (add-to-list 'package-selected-packages 'trashed))
