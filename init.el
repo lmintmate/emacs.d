@@ -1127,6 +1127,14 @@ Otherwise (if point is at BOL), split the block exactly at that point."
 (setq counsel-outline-face-style 'org)
 (setq counsel-outline-path-separator "→")
 
+(ivy-set-actions
+ 'counsel-buffer-or-recentf
+ '(("j" find-file-other-window "other window")
+   ("f" find-file-other-frame "other frame")
+   ("x" counsel-find-file-extern "open externally")
+   ("d" (lambda (file) (setq recentf-list (delete file recentf-list)))
+    "delete from recentf")))
+
 (require 'ivy-rich)
 (ivy-rich-mode 1)
 

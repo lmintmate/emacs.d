@@ -156,6 +156,7 @@
   - [[#basic-ivy-settings][Basic ivy settings]]
     - [[#ivy-faces][Ivy faces]]
     - [[#configure-counsel-outline][Configure counsel-outline]]
+    - [[#additional-ivy-actions][Additional ivy actions]]
   - [[#ivy-rich][Ivy rich]]
     - [[#add-custom-display-transformer-for-try][Add custom display transformer for try]]
     - [[#add-display-transformer-for-package-reinstall][Add display transformer for package-reinstall]]
@@ -1950,6 +1951,17 @@ The ~counsel-outline~ command allows for easier searching of and landing on org 
 (setq counsel-org-headline-display-todo t)
 (setq counsel-outline-face-style 'org)
 (setq counsel-outline-path-separator "→")
+#+end_src
+*** Additional ivy actions
+Add a "Delete from recentf" action for ~counsel-buffer-or-recentf~. THis feature was added in the regular ~counsel-recentf~ [[https://github.com/abo-abo/swiper/pull/2435][with a PR]] but the author of said PR omitted to also add this feature to ~counsel-buffer-or-recentf~, which is the one I prefer using. So I add it by myself to my own config.
+#+begin_src emacs-lisp
+(ivy-set-actions
+ 'counsel-buffer-or-recentf
+ '(("j" find-file-other-window "other window")
+   ("f" find-file-other-frame "other frame")
+   ("x" counsel-find-file-extern "open externally")
+   ("d" (lambda (file) (setq recentf-list (delete file recentf-list)))
+    "delete from recentf")))
 #+end_src
 ** Ivy rich
 [[https://github.com/Yevgnen/ivy-rich][This package]] shows descriptions of the items in ~ivy-switch-buffer~, ~counsel-M-x~, ~counsel-describe-variable~, ~counsel-describe-function~ e.t.c.
