@@ -1200,9 +1200,10 @@ Otherwise (if point is at BOL), split the block exactly at that point."
                       (ivy-rich-counsel-variable-docstring (:face font-lock-doc-face)))))
 
 (defun lmintmate/ivy-rich-file-last-modified-time (candidate)
-  (if (file-remote-p candidate)
-      "?"
-    (format-time-string "%d/%m/%y %H:%M" (nth 5 (file-attributes candidate)))))
+  (let ((candidate (expand-file-name candidate ivy--directory)))
+    (if (file-remote-p candidate)
+        "?"
+      (format-time-string "%d/%m/%y %H:%M" (nth 5 (file-attributes candidate))))))
 
 (plist-put ivy-rich-display-transformers-list
 'counsel-recentf
