@@ -423,11 +423,6 @@ ivy-prescient)
 
 (add-hook 'find-file-hook
           (lambda ()
-            (when (string= (buffer-name) "onetab.txt")
-              (visual-line-mode -1))))
-
-(add-hook 'find-file-hook
-          (lambda ()
             (when (string= (file-name-extension buffer-file-name) "txt")
               (goto-address-mode 1))))
 

@@ -876,14 +876,6 @@ Visual line wraps lines instead of cutting them as default.
 #+begin_src emacs-lisp
 (add-hook 'text-mode-hook 'turn-on-visual-line-mode)
 #+end_src
-Disable visual-line-mode however for the file where I keep all my urls (from the OneTab extension), as I want to be able to kill by logical lines in that particular file, since urls are 1 logical line each, but can span up to 2-3 visual lines.\\
-In case you're new to emacs and such terms as logical and visual lines might as well be in a foreign language, see [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Continuation-Lines.html][here]] (especially the last paragraph).
-#+begin_src emacs-lisp
-(add-hook 'find-file-hook
-          (lambda ()
-            (when (string= (buffer-name) "onetab.txt")
-              (visual-line-mode -1))))
-#+end_src
 ** Associate .txt files with the goto-address-mode.
 This mode highlights urls and makes them clickable.\\
 (code adapted from [[https://stackoverflow.com/questions/13945782/emacs-auto-minor-mode-based-on-extension/39652226#39652226][this stackoverflow answer]])
