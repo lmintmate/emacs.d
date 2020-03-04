@@ -496,10 +496,6 @@ ivy-prescient)
     "Clear existing theme settings instead of layering them"
     (mapc #'disable-theme custom-enabled-themes))
 
-(evil-set-initial-state 'Info-mode 'emacs)
-
-(define-key Info-mode-map (kbd "q") nil)
-
 (setq custom-unlispify-tag-names nil)
 
 (global-set-key (kbd "C-x r d") 'bookmark-delete)

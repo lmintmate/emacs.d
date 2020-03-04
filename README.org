@@ -86,7 +86,6 @@
   - [[#theme-settings][Theme settings]]
     - [[#treat-all-themes-as-safe][Treat all themes as safe]]
     - [[#load-only-one-theme-at-a-time][Load only one theme at a time]]
-  - [[#info-mode-settings][Info mode settings]]
   - [[#custom-mode-settings][Custom mode settings]]
   - [[#bookmark-settings][Bookmark settings]]
   - [[#custom-functions][Custom functions]]
@@ -999,15 +998,6 @@ Found from [[https://git.sr.ht/~bandali/dotfiles/tree/7c281dfc3ce6c308fd2f4fdf9f
 (defadvice load-theme (before clear-previous-themes activate)
     "Clear existing theme settings instead of layering them"
     (mapc #'disable-theme custom-enabled-themes))
-#+end_src
-** Info mode settings
-Set the initial state of info mode to emacs, as I feel that the default motion state is of a transitive nature, and thus not fitting for info manuals.
-#+begin_src emacs-lisp
-(evil-set-initial-state 'Info-mode 'emacs)
-#+end_src
-Also disable q, as this binding also makes the whole mode feel temporary, which isn't very fitting imo.
-#+begin_src emacs-lisp
-(define-key Info-mode-map (kbd "q") nil)
 #+end_src
 ** Custom mode settings
 This the mode used for the Customization interface buffers.\\
