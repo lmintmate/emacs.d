@@ -128,7 +128,7 @@
   - [[#define-c-c-e-as-the-keybinding-to-org-emphasize][Define C-c e as the keybinding to org-emphasize]]
   - [[#unbind-c-c--so-that-lacarte-can-function-properly][Unbind C-c . so that Lacarte can function properly]]
   - [[#beautification-settings][Beautification settings]]
-    - [[#org-bullets][Org bullets]]
+    - [[#fancy-bullets-with-org-superstar][Fancy bullets with org-superstar]]
     - [[#set-org-ellipsis-symbol-and-color][Set org ellipsis symbol and color]]
   - [[#set-keywords-for-org-progress-states][Set keywords for Org progress states.]]
   - [[#special-ctrl-ae-behavior-in-org-mode][Special Ctrl-a/e behavior in org mode]]
@@ -440,10 +440,9 @@ In this section I have some code in emacs lisp that downloads the lisp files I u
 (unless (file-exists-p (expand-file-name "lacarte.elc" lisp-directory))
 (byte-compile-file (expand-file-name "lacarte.el" lisp-directory)))
 
-(unless (file-exists-p (expand-file-name "org-bullets.el" lisp-directory))
-   (url-copy-file "https://raw.githubusercontent.com/lmintmate/org-bullets/invisible-leading-stars/org-bullets.el" (expand-file-name "org-bullets.el" lisp-directory)))
-(unless (file-exists-p (expand-file-name "org-bullets.elc" lisp-directory))
-(byte-compile-file (expand-file-name "org-bullets.el" lisp-directory)))
+;; org-superstar: currently pending for addition to MELPA. When it's added there, I'll remove this code and install it that way instead.
+(unless (file-exists-p (expand-file-name "org-superstar.el" lisp-directory))
+   (url-copy-file "https://raw.githubusercontent.com/integral-dw/org-superstar-mode/master/org-superstar.el" (expand-file-name "org-superstar.el" lisp-directory)))
 
 (unless (file-exists-p (expand-file-name "elispfl.el" lisp-directory))
    (url-copy-file "https://raw.githubusercontent.com/lmintmate/elispfl/master/elispfl.el" (expand-file-name "elispfl.el" lisp-directory)))
@@ -1552,20 +1551,24 @@ In org mode, ~C-c .~ is by default bound to ~org-time-stamp~, which I don't use 
 (define-key org-mode-map (kbd "\C-c.") nil)
 #+end_src
 ** Beautification settings
-*** Org bullets
-The stars used by the DejaVu Sans Mono font are rather plain, so when I noticed that the stars used by Hack (a DejaVu Sans Mono derivative that lacks many glyphs) were prettier, I got into my head the idea of beautifying org-mode. I first looked [[https://emacs.stackexchange.com/questions/38837/display-another-symbol-than-asterisks-in-org-headings][here]], but after I decided to use a different symbol for each headline, I thought I'd try something a little more tried and true. I thus use [[https://github.com/emacsorphanage/org-bullets][org-bullets]], though I'm not sure how I feel about a such widely-used emacs package being in the emacs orphanage (poor little package...). In particular, I use [[https://github.com/lmintmate/org-bullets][a fork I made]] that adds the ability to completely hide the leading stars, instead of just masking them with a different color (which also removes the indentation effect and puts all bullets at the same level screenwise), found from [[https://github.com/sabof/org-bullets/pull/13][a pull request against the original repository]]. Because I'm not the type to distinguish the level of the org headline by color or indentation, and used to use the number of stars to do so before, I decided to use some unicode symbols (found via ~counsel-unicode-char~) that would somehow denote this hierarchy. I settled on ~Negative Circled Latin Capital~ letters A, B and C, but because these symbols don't work under Windows, I use there the ~Inverse Circled Sans Serif~ digits one, two and three. Note that ~org-bullets~ causes performance issues on some computers, especially when under Windows. Since this problem appears in my Windows machine too, I use the fix from [[https://github.com/sabof/org-bullets/issues/11#issuecomment-439228372][here]].
+*** Fancy bullets with org-superstar
+The stars used by the DejaVu Sans Mono font are rather plain, so when I noticed that the stars used by Hack (a DejaVu Sans Mono derivative that lacks many glyphs) were prettier, I got into my head the idea of beautifying org-mode. I first looked [[https://emacs.stackexchange.com/questions/38837/display-another-symbol-than-asterisks-in-org-headings][here]], but after I decided to use a different symbol for each headline, I thought I'd try something a little more tried and true. I thus used at first [[https://github.com/emacsorphanage/org-bullets][org-bullets]], though I didn't really like the fact that such a widely-used emacs package was basically abandoned, being in the emacs orphanage. At some point, I used [[https://github.com/lmintmate/org-bullets][a fork I made]] that added the ability to completely hide the leading stars, instead of just masking them with a different color (which also removes the indentation effect and puts all bullets at the same level screenwise), found from [[https://github.com/sabof/org-bullets/pull/13][a pull request against the original repository]]. However, I have now switched to [[https://github.com/integral-dw/org-superstar-mode][org-superstar]], which is package with the same aims as org-bullets, but is actually maintained and thanks to that, has more features, including the one I wanted and for which I had made the org-bullets fork (in fact, I was the one who requested that said feature be added).//
+Because I'm not the type to distinguish the level of the org headline by color or indentation, and used to use the number of stars to do so before, I decided to use some unicode symbols (found via ~counsel-unicode-char~) that would somehow denote this hierarchy. I settled on ~Negative Circled Latin Capital~ letters A, B and C, but because these symbols don't work under Windows, I use there the ~Inverse Circled Sans Serif~ digits one, two and three. Note that performance issues can be witnessed on Windows computers when ~org-superstar~ is installed. This is a fault ingrained to emacs for Windows, and thus not the fault of org-superstar (or org-bullets, which had that same problem). This can be fixed by setting ~inhibit-compacting-font-caches~ to t (see [[https://github.com/sabof/org-bullets/issues/11#issuecomment-439228372][here]] and also the readme of org-superstar).
 #+begin_src emacs-lisp
-(require 'org-bullets)
-(add-hook 'org-mode-hook 'org-bullets-mode)
-(if (eq system-type 'windows-nt)
-(setq org-bullets-bullet-list
-      '("➊" "➋" "➌"))
-(setq org-bullets-bullet-list
-      '("🅐" "🅑" "🅒")))
+(require 'org-superstar)
+(add-hook 'org-mode-hook 'org-superstar-mode)
+
 (when (eq system-type 'windows-nt)
 (setq inhibit-compacting-font-caches t))
+
+(if (eq system-type 'windows-nt)
+(setq org-superstar-headline-bullets-list
+      '("➊" "➋" "➌"))
+(setq org-superstar-headline-bullets-list
+      '("🅐" "🅑" "🅒")))
+
 ;; completely hide the leading stars
-(setq org-bullets-invisible-leading-stars t)
+(setq org-superstar-remove-leading-stars t)
 #+end_src
 *** Set org ellipsis symbol and color
 See [[http://endlessparentheses.com/changing-the-org-mode-ellipsis.html][Changing the org-mode ellipsis · Endless Parentheses]].

@@ -176,10 +176,9 @@ ivy-prescient)
 (unless (file-exists-p (expand-file-name "lacarte.elc" lisp-directory))
 (byte-compile-file (expand-file-name "lacarte.el" lisp-directory)))
 
-(unless (file-exists-p (expand-file-name "org-bullets.el" lisp-directory))
-   (url-copy-file "https://raw.githubusercontent.com/lmintmate/org-bullets/invisible-leading-stars/org-bullets.el" (expand-file-name "org-bullets.el" lisp-directory)))
-(unless (file-exists-p (expand-file-name "org-bullets.elc" lisp-directory))
-(byte-compile-file (expand-file-name "org-bullets.el" lisp-directory)))
+;; org-superstar: currently pending for addition to MELPA. When it's added there, I'll remove this code and install it that way instead.
+(unless (file-exists-p (expand-file-name "org-superstar.el" lisp-directory))
+   (url-copy-file "https://raw.githubusercontent.com/integral-dw/org-superstar-mode/master/org-superstar.el" (expand-file-name "org-superstar.el" lisp-directory)))
 
 (unless (file-exists-p (expand-file-name "elispfl.el" lisp-directory))
    (url-copy-file "https://raw.githubusercontent.com/lmintmate/elispfl/master/elispfl.el" (expand-file-name "elispfl.el" lisp-directory)))
@@ -907,17 +906,20 @@ initialized with the current directory instead of filename."
 
 (define-key org-mode-map (kbd "\C-c.") nil)
 
-(require 'org-bullets)
-(add-hook 'org-mode-hook 'org-bullets-mode)
-(if (eq system-type 'windows-nt)
-(setq org-bullets-bullet-list
-      '("➊" "➋" "➌"))
-(setq org-bullets-bullet-list
-      '("🅐" "🅑" "🅒")))
+(require 'org-superstar)
+(add-hook 'org-mode-hook 'org-superstar-mode)
+
 (when (eq system-type 'windows-nt)
 (setq inhibit-compacting-font-caches t))
+
+(if (eq system-type 'windows-nt)
+(setq org-superstar-headline-bullets-list
+      '("➊" "➋" "➌"))
+(setq org-superstar-headline-bullets-list
+      '("🅐" "🅑" "🅒")))
+
 ;; completely hide the leading stars
-(setq org-bullets-invisible-leading-stars t)
+(setq org-superstar-remove-leading-stars t)
 
 (setq org-ellipsis "↪")
 (set-face-attribute 'org-ellipsis nil :foreground "cyan3" :underline 'unspecified)
