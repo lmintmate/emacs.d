@@ -15,7 +15,6 @@
 counsel
 dired-icon
 dired-recent
-drag-stuff
 emojify
 espy
 evil
@@ -1051,13 +1050,6 @@ Otherwise (if point is at BOL), split the block exactly at that point."
 
 (define-key evil-emacs-state-map "\M-p" 'undo-tree-undo)
 (define-key evil-emacs-state-map "\M-n" 'undo-tree-redo)
-
-(require 'drag-stuff)
-
-(add-hook 'text-mode-hook 'drag-stuff-mode)
-(add-hook 'prog-mode-hook 'drag-stuff-mode)
-
-(drag-stuff-define-keys)
 
 (require 'espy)
 (if (eq system-type 'gnu/linux)
