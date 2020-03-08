@@ -465,6 +465,12 @@ ivy-prescient)
 (when (version<= "26.0.50" emacs-version )
 (setq mouse-drag-and-drop-region t))
 
+(evil-define-key 'visual text-mode-map
+(kbd "<down-mouse-1>") 'mouse-drag-region)
+
+(evil-define-key 'visual prog-mode-map
+(kbd "<down-mouse-1>") 'mouse-drag-region)
+
 (define-key evil-emacs-state-map "\C-cz" 'zap-up-to-char)
 
 (when (fboundp 'display-line-numbers-mode)

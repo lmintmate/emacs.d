@@ -944,6 +944,14 @@ Sometimes I just want to cop out and use the mouse when trying to move text. I f
 (when (version<= "26.0.50" emacs-version )
 (setq mouse-drag-and-drop-region t))
 #+end_src
+Generalise mouse drag and drop to work with evil too. I bind it in the visual state because when text is being selected with the mouse, the buffer switches from normal to visual state.
+#+begin_src emacs-lisp
+  (evil-define-key 'visual text-mode-map
+  (kbd "<down-mouse-1>") 'mouse-drag-region)
+
+  (evil-define-key 'visual prog-mode-map
+  (kbd "<down-mouse-1>") 'mouse-drag-region)
+#+end_src
 ** Bind zap-up-to-char command in emacs state
 I found the commands M-x zap-to-char and zap-up-to-char, which roughly correspond to vim's df and dt. The former is bound to M-z, but the latter isn't bound to anything. I bind it here to C-c z, since that isn't bound to anything.
 #+begin_src emacs-lisp
