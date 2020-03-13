@@ -76,7 +76,7 @@ ivy-prescient)
 
 ;; enforce installing the latest version of org mode
 (unless (file-expand-wildcards (concat package-user-dir "/org-[0-9]*"))
-(if (yes-or-no-p "Do you want to install the latest version of org-mode?")
+(if (y-or-n-p "Do you want to install the latest version of org-mode?")
   (package-install (elt (cdr (assoc 'org package-archive-contents)) 0))
 (message "The latest version of org-mode wasn't installed.")))
 
