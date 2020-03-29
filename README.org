@@ -1483,10 +1483,10 @@ See [[http://endlessparentheses.com/changing-the-org-mode-ellipsis.html][Changin
 (set-face-attribute 'org-ellipsis nil :foreground "cyan3" :underline 'unspecified)
 #+end_src
 ** Set keywords for Org progress states.
-These are, apart from TODO and DONE, also CURRENTLY and SOMEDAY. (Idea to add unicode symbols from [[https://thraxys.wordpress.com/2016/01/14/pimp-up-your-org-agenda/][Pimp Up Your Org-mode Files – thraxys]])
+These are, apart from TODO and DONE, also CURRENTLY and SOMEDAY.
 #+begin_src emacs-lisp
 (setq org-todo-keywords
-   '((sequence "TODO(t)" "⏳ CURRENTLY(c)" "⏲ SOMEDAY(s)" "✘ CANCELLED(x)" "✔ DONE(d)")))
+   '((sequence "TODO(t)" "CURRENTLY(c)" "SOMEDAY(s)" "CANCELLED(x)" "DONE(d)")))
 #+end_src
 ** Special Ctrl-a/e behavior in org mode
 From the Customize section of the parameter:

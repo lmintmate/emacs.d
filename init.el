@@ -838,7 +838,7 @@ initialized with the current directory instead of filename."
 (set-face-attribute 'org-ellipsis nil :foreground "cyan3" :underline 'unspecified)
 
 (setq org-todo-keywords
-   '((sequence "TODO(t)" "⏳ CURRENTLY(c)" "⏲ SOMEDAY(s)" "✘ CANCELLED(x)" "✔ DONE(d)")))
+   '((sequence "TODO(t)" "CURRENTLY(c)" "SOMEDAY(s)" "CANCELLED(x)" "DONE(d)")))
 
 (setq org-special-ctrl-a/e t)
 
