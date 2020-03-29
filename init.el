@@ -454,13 +454,6 @@ ivy-prescient)
 
 (define-key evil-emacs-state-map "\C-z" 'mark-line)
 
-(defun lmintmate/add-watchwords ()
-  (font-lock-add-keywords
-   nil '(("\\<\\(FIX\\(ME\\)?\\|TODO\\|CURRENTLY\\|SOMEDAY\\|CANCELLED\\|HACK\\|REFACTOR\\|NOCOMMIT\\|LONGTERM\\)"
-          1 font-lock-builtin-face t))))
-
-(add-hook 'prog-mode-hook 'lmintmate/add-watchwords)
-
 (when (version<= "26.0.50" emacs-version )
 (setq mouse-drag-and-drop-region t))
 

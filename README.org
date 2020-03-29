@@ -75,7 +75,6 @@
   - [[#bind-m-o-to-other-window][Bind M-o to other-window]]
   - [[#adds-shift--arrows-for-changing-between-visible-buffers-in-addition-to-m-o][Adds shift + arrows for changing between visible buffers, in addition to M-o.]]
   - [[#add-command-to-mark-a-line-in-emacs-state][Add command to mark a line in emacs state]]
-  - [[#highlight-specific-words-in-prog-mode][Highlight specific words in prog-mode]]
   - [[#drag-selected-text-with-the-mouse-in-emacs][Drag selected text with the mouse in emacs]]
   - [[#bind-zap-up-to-char-command-in-emacs-state][Bind zap-up-to-char command in emacs state]]
   - [[#enable-display-line-numbers-mode][Enable display-line-numbers-mode]]
@@ -923,16 +922,6 @@ From [[https://ebzzry.io/en/emacs-tips-1/#marks][here]]. Executing it multiple t
 Its keybinding
 #+begin_src emacs-lisp
 (define-key evil-emacs-state-map "\C-z" 'mark-line)
-#+end_src
-** Highlight specific words in prog-mode
-Modified from [[http://seancribbs.com/emacs.d#sec-5-8][Sean Cribbs' Emacs 25 Configuration]].
-#+begin_src emacs-lisp
-(defun lmintmate/add-watchwords ()
-  (font-lock-add-keywords
-   nil '(("\\<\\(FIX\\(ME\\)?\\|TODO\\|CURRENTLY\\|SOMEDAY\\|CANCELLED\\|HACK\\|REFACTOR\\|NOCOMMIT\\|LONGTERM\\)"
-          1 font-lock-builtin-face t))))
-
-(add-hook 'prog-mode-hook 'lmintmate/add-watchwords)
 #+end_src
 ** Drag selected text with the mouse in emacs
 Sometimes I just want to cop out and use the mouse when trying to move text. I found out via [[https://emacs.stackexchange.com/a/48440][Stack Exchange]] that this is possible in emacs, and one just needs to set the function ~mouse-drag-and-drop-region~ to ~t~. This feature was added in version 26.1 (see [[http://git.savannah.gnu.org/cgit/emacs.git/tree/etc/NEWS.26#n395][here]]), and I thus wrap it in a conditional so that it won't error out on versions lower than 26.
