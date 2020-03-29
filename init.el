@@ -842,6 +842,12 @@ initialized with the current directory instead of filename."
 
 (setq org-special-ctrl-a/e t)
 
+(evil-define-key '(emacs motion) org-mode-map
+(kbd "C-a") 'org-beginning-of-line)
+
+(evil-define-key '(emacs motion) org-mode-map
+(kbd "C-e") 'org-end-of-line)
+
 (setq org-ctrl-k-protect-subtree t)
 
 ;; Make windmove work in org-mode:

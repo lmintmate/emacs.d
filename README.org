@@ -1509,6 +1509,14 @@ Non-nil means `C-a' and `C-e' behave specially in headlines and items.
 #+begin_src emacs-lisp
 (setq org-special-ctrl-a/e t)
 #+end_src
+Make sure this will work under evil. Also since we're here make sure ~C-e~ works properly under evil, as when on normal/motion state it scrolls the screen one line up instead, and when on emacs state it invokes the ~end-of-visual-line~ command, which doesn't respect ~org-special-ctrl-a/e~.
+#+begin_src emacs-lisp
+  (evil-define-key '(emacs motion) org-mode-map
+  (kbd "C-a") 'org-beginning-of-line)
+
+  (evil-define-key '(emacs motion) org-mode-map
+  (kbd "C-e") 'org-end-of-line)
+#+end_src
 ** Use query to confirm killing of hidden subtrees
 #+begin_src emacs-lisp
 (setq org-ctrl-k-protect-subtree t)
