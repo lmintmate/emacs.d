@@ -833,6 +833,17 @@ initialized with the current directory instead of filename."
 (setq org-todo-keywords
    '((sequence "TODO(t)" "CURRENTLY(c)" "SOMEDAY(s)" "CANCELLED(x)" "DONE(d)")))
 
+(setq org-superstar-special-todo-items t)
+(setq org-superstar-todo-bullet-alist '(("TODO" . ?➽)
+					("CURRENTLY" . ?⌛)
+                                        ("SOMEDAY" . ?⏱)
+                                        ("CANCELLED" . ?✘)
+                                        ("DONE" . ?✓)))
+
+(setq org-fontify-done-headline t)
+(set-face-attribute 'org-done nil :foreground "PaleGreen" :strike-through t :weight 'bold)
+(set-face-attribute 'org-headline-done nil :foreground "LightSalmon" :strike-through t)
+
 (setq org-special-ctrl-a/e t)
 
 (evil-define-key '(emacs motion) org-mode-map
@@ -852,10 +863,6 @@ initialized with the current directory instead of filename."
 (setq org-footnote-auto-adjust t)
 
 (setq org-return-follows-link t)
-
-(setq org-fontify-done-headline t)
-(set-face-attribute 'org-done nil :foreground "PaleGreen" :strike-through t :weight 'bold)
-(set-face-attribute 'org-headline-done nil :foreground "LightSalmon" :strike-through t)
 
 (setq org-level-color-stars-only t)
 

@@ -127,13 +127,13 @@
   - [[#beautification-settings][Beautification settings]]
     - [[#fancy-bullets-with-org-superstar][Fancy bullets with org-superstar]]
     - [[#set-org-ellipsis-symbol-and-color][Set org ellipsis symbol and color]]
-  - [[#set-keywords-for-org-progress-states][Set keywords for Org progress states.]]
+  - [[#org-progress-states-settings][Org progress states settings]]
+    - [[#strikethrough-for-done-tasks][Strikethrough for Done tasks]]
   - [[#special-ctrl-ae-behavior-in-org-mode][Special Ctrl-a/e behavior in org mode]]
   - [[#use-query-to-confirm-killing-of-hidden-subtrees][Use query to confirm killing of hidden subtrees]]
   - [[#override-shift--arrows-in-certain-places-in-favor-of-windmove][Override shift + arrows in certain places in favor of windmove]]
   - [[#auto-adjust-footnotes][Auto adjust footnotes]]
   - [[#follow-link-in-orgmode-by-pressing-enter-key][Follow link in orgmode by pressing Enter key]]
-  - [[#strikethrough-for-done-tasks][Strikethrough for Done tasks]]
   - [[#color-only-the-stars-for-the-org-mode-levels][Color only the stars for the org mode levels]]
   - [[#custom-color-for-headline-levels-2-and-3][Custom color for headline levels 2 and 3]]
   - [[#custom-color-for-org-source-code-blocks][Custom color for org source code blocks]]
@@ -1471,11 +1471,27 @@ See [[http://endlessparentheses.com/changing-the-org-mode-ellipsis.html][Changin
 (setq org-ellipsis "↪")
 (set-face-attribute 'org-ellipsis nil :foreground "cyan3" :underline 'unspecified)
 #+end_src
-** Set keywords for Org progress states.
-These are, apart from TODO and DONE, also CURRENTLY and SOMEDAY.
+** Org progress states settings
+These are, apart from TODO, DONE and CANCELLED, also CURRENTLY and SOMEDAY.
 #+begin_src emacs-lisp
 (setq org-todo-keywords
    '((sequence "TODO(t)" "CURRENTLY(c)" "SOMEDAY(s)" "CANCELLED(x)" "DONE(d)")))
+#+end_src
+Also have them use special bullets, courtesy of org-superstar
+#+begin_src emacs-lisp
+(setq org-superstar-special-todo-items t)
+(setq org-superstar-todo-bullet-alist '(("TODO" . ?➽)
+					("CURRENTLY" . ?⌛)
+                                        ("SOMEDAY" . ?⏱)
+                                        ("CANCELLED" . ?✘)
+                                        ("DONE" . ?✓)))
+#+end_src
+*** Strikethrough for Done tasks
+adapted from [[http://sachachua.com/blog/2012/12/emacs-strike-through-headlines-for-done-tasks-in-org/][Sacha Chua's blog]]
+#+begin_src emacs-lisp
+(setq org-fontify-done-headline t)
+(set-face-attribute 'org-done nil :foreground "PaleGreen" :strike-through t :weight 'bold)
+(set-face-attribute 'org-headline-done nil :foreground "LightSalmon" :strike-through t)
 #+end_src
 ** Special Ctrl-a/e behavior in org mode
 From the Customize section of the parameter:
@@ -1527,13 +1543,6 @@ If you want to make the windmove function active in locations where Org mode doe
 This adds an alternative way to follow urls in orgmode without reaching out for the mouse.
 #+begin_src emacs-lisp
 (setq org-return-follows-link t)
-#+end_src
-** Strikethrough for Done tasks
-adapted from [[http://sachachua.com/blog/2012/12/emacs-strike-through-headlines-for-done-tasks-in-org/][Sacha Chua's blog]]
-#+begin_src emacs-lisp
-(setq org-fontify-done-headline t)
-(set-face-attribute 'org-done nil :foreground "PaleGreen" :strike-through t :weight 'bold)
-(set-face-attribute 'org-headline-done nil :foreground "LightSalmon" :strike-through t)
 #+end_src
 ** Color only the stars for the org mode levels
 This is a nice little setting I found while browsing the Customize interface. It removes the color from the org headline levels, only keeping it on the stars. This makes the buffer way less colorful, but I find it more clean that way. Not to mention that because my color theme isn't amongst the most popular ones, the coloring was a bit bizzare, in that the first level was green, the second plain white and the third yellow, which was a bit disorienting, since I'd expect the second level to be colored instead of the third. So I've now removed the color from the text and can focus on the stars for denoting the hierarchy.
