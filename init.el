@@ -854,6 +854,9 @@ initialized with the current directory instead of filename."
 
 (setq org-ctrl-k-protect-subtree t)
 
+(evil-define-key '(emacs motion) org-mode-map
+(kbd "C-k") 'org-kill-line)
+
 ;; Make windmove work in org-mode:
           (add-hook 'org-shiftup-final-hook 'windmove-up)
           (add-hook 'org-shiftleft-final-hook 'windmove-left)

@@ -130,7 +130,7 @@
   - [[#org-progress-states-settings][Org progress states settings]]
     - [[#strikethrough-for-done-tasks][Strikethrough for Done tasks]]
   - [[#special-ctrl-ae-behavior-in-org-mode][Special Ctrl-a/e behavior in org mode]]
-  - [[#use-query-to-confirm-killing-of-hidden-subtrees][Use query to confirm killing of hidden subtrees]]
+  - [[#ctrl-k-behavior-in-org-mode][Ctrl-k behavior in org mode]]
   - [[#override-shift--arrows-in-certain-places-in-favor-of-windmove][Override shift + arrows in certain places in favor of windmove]]
   - [[#auto-adjust-footnotes][Auto adjust footnotes]]
   - [[#follow-link-in-orgmode-by-pressing-enter-key][Follow link in orgmode by pressing Enter key]]
@@ -1522,9 +1522,15 @@ Make sure this will work under evil. Also since we're here make sure ~C-e~ works
   (evil-define-key '(emacs motion) org-mode-map
   (kbd "C-e") 'org-end-of-line)
 #+end_src
-** Use query to confirm killing of hidden subtrees
+** Ctrl-k behavior in org mode
+Use query to confirm killing of hidden subtrees.
 #+begin_src emacs-lisp
 (setq org-ctrl-k-protect-subtree t)
+#+end_src
+Also make sure ~org-kill-line~ (the command that respects the above setting) will work under evil. When using it to kill an entire subtree remember to go to the complete beginning of the line (via e.g. 0) so that there won't remain the half of an empty heading after the operation.
+#+begin_src emacs-lisp
+(evil-define-key '(emacs motion) org-mode-map
+(kbd "C-k") 'org-kill-line)
 #+end_src
 ** Override shift + arrows in certain places in favor of windmove
 If you want to make the windmove function active in locations where Org mode does not have special functionality on S-<cursor>, add this to your configuration(from [[http://orgmode.org/manual/Conflicts.html][Conflicts - The Org Manual]]):
