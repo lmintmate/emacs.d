@@ -92,7 +92,6 @@
     - [[#function-to-quickly-switch-to-the-scratch-buffer][Function to quickly switch to the ~*scratch*~ buffer]]
     - [[#functions-to-change-file-formats][Functions to change file formats]]
     - [[#functions-to-rename-files][Functions to rename files]]
-    - [[#live-color-selection-for-faces][Live color selection for faces]]
     - [[#function-to-show-parent-modes-of-current-buffers-major-mode][Function to show parent modes of current buffer's major mode]]
 - [[#dabbrev-completion][Dabbrev completion]]
 - [[#recent-files][Recent files]]
@@ -1140,58 +1139,6 @@ initialized with the current directory instead of filename."
                             name new-name)))
                 ;; ?\a = C-g, ?\e = Esc and C-[
                 ((memq key '(?\a ?\e)) (keyboard-quit))))))))
-#+end_src
-*** Live color selection for faces
-Adapted (mainly added docstring in ~my-live-face-color-changer~, replaced ~face-set-foreground~ and ~face-set-background~ with ~face-set-attribute~ in ~my-live-copy-colors~, and changed ~local-set-key~ to ~evil-local-set-key~) from [[https://www.reddit.com/r/emacs/comments/ci1j66/live_color_selection_for_faces/][Live color selection for faces : emacs subreddit]].
-#+begin_quote
-When I want to set to a face to a different color then I usually try setting the colors manually which is cumbersome, so I created this little snippet to do it live, giving you an instant preview of the changes.
-[...]
-How to use: Switch to a buffer where you want to change a face's color, put the cursor on the affected text and start M-x my-live-face-color-changer. It will ask for a face to change, but it will pick the face by default at the cursor if there is one.
-Then it opens the color list, splitting the window, so above you see your text and below the colors. As you move around in the list of colors, the face is set to the color under the cursor automatically. You can press b to switch to background color setting and f to foreground color setting. When you are satisfied with the colors then press c and the settings are copied to the clipboard, so you can paste it in your init file.
-#+end_quote
-#+begin_src emacs-lisp
-(defun my-live-face-color-changer (face)
-"Change colors of various faces with live feedback. Copies result to clipboard."
-  (interactive (list (read-face-name "Select face"
-                                     (or (face-at-point t) 'default)
-                                     t)))
-  (setq my-live-face (car face))
-  (setq my-live-face-foreground t)
-  (list-colors-display)
-  (select-window (get-buffer-window "*Colors*"))
-  (evil-local-set-key 'motion "f" 'my-live-set-foreground)
-  (evil-local-set-key 'motion "b" 'my-live-set-background)
-  (evil-local-set-key 'motion "c" 'my-live-copy-colors)
-  (add-hook 'post-command-hook 'my-live-face-color-set t t))
-
-(defun my-live-face-color-set ()
-  (when (looking-at ".+\\(#.+\\)")
-    (funcall (if my-live-face-foreground
-                 'set-face-foreground
-               'set-face-background)
-             my-live-face
-             (match-string 1))))
-
-(defun my-live-set-foreground ()
-  (interactive)
-  (setq my-live-face-foreground t)
-  (message "Choosing foreground color."))
-
-(defun my-live-set-background ()
-  (interactive)
-  (setq my-live-face-foreground nil)
-  (message "Choosing background color."))
-
-(defun my-live-copy-colors ()
-  (interactive)
-  (remove-hook 'post-command-hook 'my-live-face-color-set t)
-  (let ((settings (format "(set-face-attribute '%s nil :foreground \"%s\" :background \"%s\" :inherit 'unspecified)"
-                          my-live-face
-                          (face-foreground my-live-face)
-                          (face-background my-live-face))))
-    (kill-new settings)
-    (quit-window)
-    (message "Copied settings to clipboard:\n\n%s" settings)))
 #+end_src
 *** Function to show parent modes of current buffer's major mode
 Found from [[https://github.com/grettke/parent-mode/commit/b56d9c6d9520fe92cd409397fd3e2c245b7d844e][here]]. Depends on [[https://github.com/Fanael/parent-mode][parent-mode]].
