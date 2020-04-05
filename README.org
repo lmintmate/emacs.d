@@ -58,7 +58,6 @@
   - [[#disable-dialog-boxes][Disable dialog boxes]]
   - [[#separate-custom-file][Separate custom file]]
   - [[#set-the-format-of-the-frame-title][Set the format of the frame title]]
-  - [[#time-in-modeline][Time in modeline]]
   - [[#do-not-autosave-nor-make-any-backup-files][Do not autosave nor make any backup files.]]
   - [[#do-not-create-lockfiles][Do not create lockfiles]]
   - [[#delete-by-moving-to-the-trash][Delete by moving to the trash]]
@@ -343,11 +342,6 @@ Set the coding system to utf-8. Needed for Windows.
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
-#+end_src
-On my Windows 10 pc, the time string on the modeline (set later on) is set up incorrectly and shows up as weird symbols, most probably because the system display language was English and had to change it to Greek by myself, so some things might have remained in English under the hood. This can be mitigated somewhat by having the time string be in English in that particular system (see [[https://emacs.stackexchange.com/a/24600][here]]).
-#+begin_src emacs-lisp
-(when (string= (system-name) "LAPTOP-LHEH01GE")
-(setq system-time-locale "C"))
 #+end_src
 * No littering
 #+begin_src emacs-lisp
@@ -774,13 +768,6 @@ It shows relative file path if a file is opened, whether the buffer is modified 
       (:eval (if (buffer-modified-p)
                  " [+]"))
       " - Emacs " emacs-version))
-#+end_src
-** Time in modeline
-The only way to have the time mode not display the load average, it turns out, is to put the relevant config before loading display-time-mode. Who would have thought? (I got the idea to try this approach from [[http://ivanmalison.github.io/dotfiles/#timeinmodeline][Ivan Malison's dotfiles]]). An explanation of my ~display-time-format~ config: It basically shows the day of the week, then day/month, then hours:minutes. For more functions, Customize instructs to look at the function ~format-time-string~.
-#+begin_src emacs-lisp
-(setq display-time-default-load-average nil)
-(setq display-time-format "%a %d/%m %H:%M")
-(display-time-mode 1)
 #+end_src
 ** Do not autosave nor make any backup files.
 All they do is litter the place and trigger a nagging prompt whenever I leave Emacs without having saved.

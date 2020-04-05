@@ -117,9 +117,6 @@ ivy-prescient)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 
-(when (string= (system-name) "LAPTOP-LHEH01GE")
-(setq system-time-locale "C"))
-
 (setq no-littering-etc-directory
       (expand-file-name "config/" user-emacs-directory))
 (setq no-littering-var-directory
@@ -387,10 +384,6 @@ ivy-prescient)
       (:eval (if (buffer-modified-p)
                  " [+]"))
       " - Emacs " emacs-version))
-
-(setq display-time-default-load-average nil)
-(setq display-time-format "%a %d/%m %H:%M")
-(display-time-mode 1)
 
 (setq auto-save-default nil)
 (setq make-backup-files nil)
