@@ -28,6 +28,7 @@ try
 undo-tree
 vimrc-mode
 ;; emacs 24.4 and above
+auto-minor-mode
 elisp-demos
 evil-goggles
 evil-snipe
@@ -414,10 +415,7 @@ ivy-prescient)
 
 (add-hook 'text-mode-hook 'visual-line-mode)
 
-(add-hook 'find-file-hook
-          (lambda ()
-            (when (string= (file-name-extension buffer-file-name) "txt")
-              (goto-address-mode 1))))
+(add-to-list 'auto-minor-mode-alist '("\\.te?xt\\'" . goto-address-mode))
 
 (when (version< emacs-version "26.0.50" )
 (defun my-kill-buffer ()
