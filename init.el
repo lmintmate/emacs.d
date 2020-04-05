@@ -412,7 +412,7 @@ ivy-prescient)
 
 (setq frame-inhibit-implied-resize t)
 
-(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+(add-hook 'text-mode-hook 'visual-line-mode)
 
 (add-hook 'find-file-hook
           (lambda ()

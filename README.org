@@ -855,7 +855,7 @@ The value of this option can be also be a list of frame parameters. [...]
 ** Visual line mode only for text mode.
 Visual line wraps lines instead of cutting them as default.
 #+begin_src emacs-lisp
-(add-hook 'text-mode-hook 'turn-on-visual-line-mode)
+(add-hook 'text-mode-hook 'visual-line-mode)
 #+end_src
 ** Associate .txt files with the goto-address-mode.
 This mode highlights urls and makes them clickable.\\
