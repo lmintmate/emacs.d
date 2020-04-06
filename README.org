@@ -120,6 +120,7 @@
   - [[#org-mouse][Org-mouse]]
   - [[#define-c-c-l-as-the-keybinding-to-org-cliplink][Define C-c l as the keybinding to org-cliplink.]]
   - [[#define-c-c-d-as-the-keybinding-to-org-toggle-link-display][Define C-c d as the keybinding to org-toggle-link-display]]
+  - [[#additional-org-link-types][Additional org link types]]
   - [[#define-c-c-e-as-the-keybinding-to-org-emphasize][Define C-c e as the keybinding to org-emphasize]]
   - [[#unbind-c-c--so-that-lacarte-can-function-properly][Unbind C-c . so that Lacarte can function properly]]
   - [[#beautification-settings][Beautification settings]]
@@ -1365,6 +1366,46 @@ I used to have it as the shortcut to org-store-link, but it turns out I hardly u
 This command toggles between descriptive and literal links, and I need it so that I can edit on the literal links the text that will show up on the descriptive links (and it was too much of a hassle to go to the Org > Hyperlinks submenu just for that…).
 #+begin_src emacs-lisp
 (define-key org-mode-map (kbd "\C-cd") 'org-toggle-link-display)
+#+end_src
+** Additional org link types
+For a while I've wanted to have links to help buffers in org mode, however the default help link type defaulted to the help-mode buffers, while I wanted it to point to helpful-mode instead. With this code (found from [[https://github.com/Luis-Henriquez-Perez/.emacs.d/blob/2e103601ccdc0436c497ccac3048ab45261037a9/main.org#L6864-L6912][Luis-Henriquez-Perez's emacs config]]), when calling [[helpfn:org-insert-link][org-insert-link]] (reminder: has the kbd shortcut C-c C-l), I get the additional options of ~helpfn~ and ~helpvar~ which are for functions and variables respectively, and these will redirect to regular help buffers if helpful isn't installed.
+#+begin_src emacs-lisp
+    ;; for functions
+    (defun +org-link--helpfn:face (link)
+	(let ((fn (intern link)))
+	  (if (fboundp fn)
+	      'org-link
+	    'error)))
+
+      (defun +org-link--helpfn:follow (link)
+	(let ((fn (intern link)))
+	  (if (require 'helpful nil :no-error)
+	      (helpful-callable fn)
+	    (describe-function fn))))
+
+      (org-link-set-parameters
+       "helpfn"
+       :face
+       #'+org-link--helpfn:face
+       :follow
+       #'+org-link--helpfn:follow)
+
+  ;; for variables
+  (defun +org-link--helpvar:face (link)
+      (if (boundp (intern link)) 'org-link 'error))
+
+    (defun +org-link--helpvar:follow (link)
+      (let ((var (intern link)))
+	(if (require 'helpful nil :noerror)
+	    (helpful-variable var)
+	  (describe-variable var))))
+
+    (org-link-set-parameters
+     "helpvar"
+     :face
+     #'+org-link--helpvar:face
+     :follow
+     #'+org-link--helpvar:follow)
 #+end_src
 ** Define C-c e as the keybinding to [[http://orgmode.org/worg/doc.html#org-emphasize][org-emphasize]]
 This one helps to switch quickly between different text formattings (bold, italic e.t.c).

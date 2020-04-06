@@ -756,6 +756,43 @@ initialized with the current directory instead of filename."
 
 (define-key org-mode-map (kbd "\C-cd") 'org-toggle-link-display)
 
+;; for functions
+  (defun +org-link--helpfn:face (link)
+      (let ((fn (intern link)))
+	(if (fboundp fn)
+	    'org-link
+	  'error)))
+
+    (defun +org-link--helpfn:follow (link)
+      (let ((fn (intern link)))
+	(if (require 'helpful nil :no-error)
+	    (helpful-callable fn)
+	  (describe-function fn))))
+
+    (org-link-set-parameters
+     "helpfn"
+     :face
+     #'+org-link--helpfn:face
+     :follow
+     #'+org-link--helpfn:follow)
+
+;; for variables
+(defun +org-link--helpvar:face (link)
+    (if (boundp (intern link)) 'org-link 'error))
+
+  (defun +org-link--helpvar:follow (link)
+    (let ((var (intern link)))
+      (if (require 'helpful nil :noerror)
+	  (helpful-variable var)
+	(describe-variable var))))
+
+  (org-link-set-parameters
+   "helpvar"
+   :face
+   #'+org-link--helpvar:face
+   :follow
+   #'+org-link--helpvar:follow)
+
 (define-key org-mode-map (kbd "\C-ce") 'org-emphasize)
 
 (define-key org-mode-map (kbd "\C-c.") nil)
