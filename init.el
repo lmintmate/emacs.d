@@ -291,7 +291,6 @@ ivy-prescient)
   (if (use-region-p)
 	  (deactivate-mark)))
 
-;; found on my main config - used for V
 (defun lmintmate/mark-line (&optional arg)
   (interactive "p")
   (if (not mark-active)
@@ -429,7 +428,6 @@ ivy-prescient)
 
 (setq ryo-modal-cursor-color nil)
 
-;; faces for the modeline tags - inspired from https://github.com/kgaipal/emacs/blob/master/lisp/mode-line-customization.el#L13 - see however http://ergoemacs.org/emacs/elisp_define_face.html for correct method of defining faces
 (defface modal-state-tag
   '((t :foreground "black"
        :background "#4f94cd"

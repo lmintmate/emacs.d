@@ -42,7 +42,7 @@
   - [[#setting-the-calendar-up-in-greek][Setting the calendar up in Greek.]]
   - [[#set-input-method-to-greek][Set input method to greek]]
   - [[#redirect-commands-with-greek-letters-to-the-correct-commands][Redirect commands with Greek letters to the correct commands]]
-- [[#custom-modal-mode-with-ryo-modal][Custom modal mode with ryo-modal]]
+- [[#custom-modal-config-with-ryo-modal][Custom modal config with ryo-modal]]
   - [[#preliminary-custom-functions][Preliminary custom functions]]
   - [[#keybindings-and-mode-toggles][Keybindings and mode toggles]]
   - [[#beautification-cursors-and-modeline-indicators][Beautification: Cursors and modeline indicators]]
@@ -543,8 +543,8 @@ Sometimes I forget to switch the keyboard language from Greek to English (especi
 
 (reverse-input-method 'el_GR)
 #+end_src
-* Custom modal mode with ryo-modal
-I rather like modal editing, because it allows me to do the same stuff with less effort. At first I used evil, as anyone newly introduced to modal editing is wont to do, however after a while I was using a really small subset of it (I don't even use text objects all that much), and therefore it'd be a good idea to replace it with something more suited to my workflow. Here thus I set up an evilesque config (minus all the features I don't need) using ryo-modal.
+* Custom modal config with ryo-modal
+I rather like modal editing, because it allows me to do the same stuff with less effort. At first I used evil, as anyone newly introduced to modal editing is wont to do, however after a while I realized I was using a really small subset of it (I don't even use text objects all that much), and therefore it'd be a good idea to replace it with something more suited to my workflow. Here thus I set up an evilesque config (minus all the features I don't need) using ryo-modal.
 ** Preliminary custom functions
 First I must set up some functions that will create commands that are closer to what I'm used to from evil.\\
 First, some functions that will be used to open new lines below and above (equivalents of o and O in evil) and also a command to be used when exiting ryo-modal to edit text (equivalent of i in evil) so that any selected region will be killed (adapted from [[https://github.com/firstrow/fat-free-evil/blob/5baba548b226acad0d322de3c6814a64c15a02de/lisp/init-fatfree-evil.el#L8-L23][here]]).
@@ -582,7 +582,6 @@ Command to deactivate the mark if activated - used later as part of the command 
 #+end_src
 From [[https://ebzzry.io/en/emacs-tips-1/#marks][here]]. When using arrows afterwards, it extends the mark. Also executing it multiple times marks multiple lines. Bound to ~V~.
 #+begin_src emacs-lisp
-;; found on my main config - used for V
 (defun lmintmate/mark-line (&optional arg)
   (interactive "p")
   (if (not mark-active)
@@ -742,9 +741,8 @@ Remove the color from ryo cursor, as it is red by default and I don't want it to
 #+begin_src emacs-lisp
 (setq ryo-modal-cursor-color nil)
 #+end_src
-Here I set up modeline indicators to distinguish ryo from emacs from overwrite "states" (adapted from [[https://github.com/firstrow/fat-free-evil/blob/5baba548b226acad0d322de3c6814a64c15a02de/lisp/init-fatfree-evil.el#L86-L99][here]]).
+Here I set up modeline indicators to distinguish ryo from emacs from overwrite "states" (adapted from [[https://github.com/firstrow/fat-free-evil/blob/5baba548b226acad0d322de3c6814a64c15a02de/lisp/init-fatfree-evil.el#L86-L99][here]]). The idea to create faces for the modeline tags is inspired from [[https://github.com/kgaipal/emacs/blob/08d442116107e9621df86e133c215887c3037f45/lisp/mode-line-customization.el#L13-L22][here]], but see however [[http://ergoemacs.org/emacs/elisp_define_face.html][Elisp: How to Define Face]] for the correct method of defining faces.
 #+begin_src emacs-lisp
-;; faces for the modeline tags - inspired from https://github.com/kgaipal/emacs/blob/master/lisp/mode-line-customization.el#L13 - see however http://ergoemacs.org/emacs/elisp_define_face.html for correct method of defining faces
 (defface modal-state-tag
   '((t :foreground "black"
        :background "#4f94cd"
