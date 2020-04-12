@@ -17,27 +17,24 @@ dired-icon
 dired-recent
 emojify
 espy
-evil
 free-keys
+jump-char
 no-littering
 parent-mode
 rainbow-mode
 toc-org
 transpose-frame
 try
-undo-tree
+undo-fu
 vimrc-mode
 ;; emacs 24.4 and above
 auto-minor-mode
 elisp-demos
-evil-goggles
-evil-snipe
 ivy-rich
 markdown-mode
 org-cliplink
 ;; emacs 25.1 and above
-evil-fringe-mark
-evil-traces
+ryo-modal
 helpful
 ivy-prescient)
   "Core packages")
@@ -267,110 +264,209 @@ ivy-prescient)
 
 (reverse-input-method 'el_GR)
 
-(setq evil-want-C-u-scroll t)
+(defun start-from-new-line ()
+    (interactive)
+    (move-end-of-line nil)
+    (newline)
+    (indent-for-tab-command))
 
-(setq-default evil-auto-indent nil)
+  (defun start-from-new-top-line ()
+    (interactive)
+    (previous-line)
+    (start-from-new-line))
 
-(setq evil-toggle-key "C-'")
+  (defun lmintmate/insert ()
+    "Kill active region if active"
+    (interactive)
+    (if mark-active (kill-region (region-beginning) (region-end))))
 
-(setq evil-kill-on-visual-paste nil)
-
-(setq evil-want-fine-undo t)
-
-(setq evil-mode-line-format '(before . mode-line-front-space))
-
-(setq evil-normal-state-tag   (propertize " NORMAL " 'face '((:background "#4f94cd" :foreground "black" :box (:line-width 2 :color "#4f94cd"))))
-      evil-emacs-state-tag    (propertize " EMACS " 'face '((:background "MediumPurple2"       :foreground "black" :box (:line-width 2 :color "MediumPurple2"))))
-      evil-insert-state-tag   (propertize " INSERT " 'face '((:background "#7fff00"    :foreground "black" :box (:line-width 2 :color "#7fff00"))))
-      evil-replace-state-tag  (propertize " REPLACE " 'face '((:background "#ff6347"      :foreground "black" :box (:line-width 2 :color "#ff6347"))))
-      evil-motion-state-tag   (propertize " MOTION " 'face '((:background "plum3"          :foreground "black" :box (:line-width 2 :color "plum3"))))
-      evil-visual-state-tag   (propertize " VISUAL " 'face '((:background "#ffd700"           :foreground "black" :box (:line-width 2 :color "#ffd700"))))
-      evil-operator-state-tag (propertize " OPERATOR " 'face '((:background "yellow"    :foreground "red" :box (:line-width 2 :color "yellow")))))
-
-(require 'evil)
-(evil-mode 1)
-
-(evil-set-initial-state 'free-keys-mode 'emacs)
-
-(evil-set-initial-state 'ibuffer-mode 'normal)
-
-(evil-set-initial-state 'xref--xref-buffer-mode 'emacs)
-
-(define-key evil-normal-state-map (kbd "<up>") 'evil-previous-visual-line)
-(define-key evil-normal-state-map (kbd "<down>") 'evil-next-visual-line)
-(define-key evil-visual-state-map (kbd "<up>") 'evil-previous-visual-line)
-(define-key evil-visual-state-map (kbd "<down>") 'evil-next-visual-line)
-
-(define-key evil-normal-state-map (kbd "Q") 'evil-beginning-of-visual-line)
-(define-key evil-normal-state-map (kbd "U") 'evil-end-of-visual-line)
-(define-key evil-visual-state-map (kbd "Q") 'evil-beginning-of-visual-line)
-(define-key evil-visual-state-map (kbd "U") 'evil-end-of-visual-line)
-
-(evil-define-key 'normal text-mode-map
-(kbd "<return>") 'newline)
-
-(evil-define-key 'normal org-mode-map
-(kbd "<return>") 'org-return)
-
-(evil-define-key 'normal prog-mode-map
-(kbd "<return>") 'newline)
-
-(define-key evil-normal-state-map (kbd "x") 'delete-forward-char)
-(define-key evil-normal-state-map (kbd "X") 'delete-backward-char)
-
-(define-key evil-visual-state-map "ae" 'mark-whole-buffer)
-
-(evil-define-operator my/evil-replace-with-kill-ring (beg end)
-    "Replace with killring action."
-    :move-point nil
-    (interactive "<r>")
-    (save-excursion
-      (delete-region beg end)
-      (goto-char beg)
-      (call-interactively 'evil-paste-before 1)))
-
-  (define-key evil-normal-state-map "gc" 'my/evil-replace-with-kill-ring)
-
-(evil-define-text-object my/function-text-object (count)
-  "Function text object"
+(defun lmintmate/append ()
+  "Do not go to the next line when at the end of the current line"
   (interactive)
-  (save-mark-and-excursion
-    (mark-defun)
-    (let ((m (mark)))
-      (if (looking-back "*/\n")
-          (progn
-            (previous-line)
-            (list m (first (sp-get-comment-bounds))))
-        (list m (point))))))
-(define-key evil-inner-text-objects-map "f" 'my/function-text-object)
-(define-key evil-outer-text-objects-map "f" 'my/function-text-object)
+  (unless (eolp) (forward-char)))
 
-(setq evil-goggles-enable-record-macro nil)
+(defun sk/remove-mark ()
+  "Deactivate the region"
+  (interactive)
+  (if (use-region-p)
+	  (deactivate-mark)))
 
-(setq evil-goggles-enable-set-marker nil)
+;; found on my main config - used for V
+(defun lmintmate/mark-line (&optional arg)
+  (interactive "p")
+  (if (not mark-active)
+      (progn
+        (beginning-of-line)
+        (push-mark)
+        (setq mark-active t)))
+  (forward-line arg))
 
-(evil-goggles-mode)
+(defun lmintmate/kill-ring-save-line-trim ()
+  "Copy current line in kill-ring, trimming begining spaces and tabs"
+  (interactive)
+	(beginning-of-line)
+	(kill-ring-save (progn (skip-chars-forward " \t") (point))
+			(line-beginning-position 2))
+	(beginning-of-line))
 
-(setq evil-goggles-duration 0.605)
+(defun selection/kill-ring-save ()
+  "kill-ring-save the active region but don't do anything if there's no active region"
+  (interactive)
+  (if (use-region-p)
+      (kill-ring-save (region-beginning) (region-end))
+    (message "Used selection/kill-ring-save while no active region")))
 
-(setq evil-goggles-blocking-duration 0.250)
+(defun selection/kill-region ()
+  "Kill the active region but don't do anything if there's no active region"
+  (interactive)
+  (if (use-region-p)
+      (kill-region (region-beginning) (region-end))
+    (message "Used selection/kill-region while no active region")))
 
-(evil-goggles-use-diff-refine-faces)
+(defun lmintmate/toggle-case-char-under-point ()
+  "Toggle the case of char under point. Afterwards moves to the next char."
+  (interactive)
+  (let ((char (following-char)))
+    (if (eq char (upcase char))
+        (insert-char (downcase char) 1 t)
+      (insert-char (upcase char) 1 t)))
+  (delete-char 1 nil))
 
-(require 'evil-fringe-mark)
-(global-evil-fringe-mark-mode)
+(defun lmintmate/toggle-ryo-modes ()
+  "Deactivate a potentially marked region and disable overwrite-mode if enabled before toggling ryo-modal-mode"
+  (interactive)
+  (sk/remove-mark)
+  (overwrite-mode -1)
+  (ryo-modal-mode 'toggle))
 
-(set-face-attribute 'evil-fringe-mark-local-face nil :inherit font-lock-function-name-face)
+(defun lmintmate/silently-toggle-overwrite-mode ()
+  "Silently toggle overwrite-mode"
+  (interactive)
+  (overwrite-mode 'toggle))
 
-(require 'evil-snipe)
-(evil-snipe-mode 1)
-(evil-snipe-override-mode 1)
+(ryo-modal-keys
+   ;; Movement
+   ("i" lmintmate/insert :name "Insert" :exit t)
+   ("a" lmintmate/append :first (lmintmate/insert) :name "Append" :exit t)
+   ("b" backward-word)
+   ("w" forward-word)
+   ("f" jump-char-forward)
+   ("F" jump-char-backward)
+   ("j" next-line)
+   ("k" previous-line)
+   ("h" backward-char)
+   ("l" forward-char)
+   ("<backspace>" backward-char)
+   ("A" move-end-of-line :name "Append at end of line" :exit t)
+   ("I" move-beginning-of-line :name "Insert at beginning of line" :exit t)
+   ("g g" beginning-of-buffer)
+   ("G" end-of-buffer)
+   ("e" mark-whole-buffer)
+   ("^" back-to-indentation)
+   ("0" move-beginning-of-line)
+   ("$" move-end-of-line)
+   ;; Editing
+   ("y" selection/kill-ring-save)
+   ("Y" lmintmate/kill-ring-save-line-trim)
+   ("p" yank)
+   ("`" lmintmate/toggle-case-char-under-point)
+   ("<S-return>" start-from-new-top-line)
+   ("<return>" start-from-new-line)
+   ("o" start-from-new-line :name "Open new line below and insert" :exit t)
+   ("O" start-from-new-top-line :name "Open new line above and insert" :exit t)
+   ("u" undo-fu-only-undo)
+   ("C-r" undo-fu-only-redo)
+   ("r" lmintmate/silently-toggle-overwrite-mode :exit t)
+   ("d" selection/kill-region)
+   ("D" kill-whole-line)
+   ("c w" kill-word :name "Kill word" :exit t)
+   ("c $" kill-line :name "Kill from point until end of line" :exit t)
+   ("S" kill-line :first '(move-beginning-of-line) :name "Substitute line" :exit t)
+   ("c f" zap-to-char)
+   ("c t" zap-up-to-char)
+   ("v" set-mark-command :name "Begin marking a region" :norepeat t)
+   ("V" lmintmate/mark-line :name "Begin marking whole lines" :norepeat t)
+   ("C" comment-dwim :norepeat t)
+   ("J" join-line)
+   ;; Other
+   ("s" save-buffer))
 
-(evil-define-key 'normal evil-snipe-local-mode-map
-  "S" nil)
+(ryo-modal-keys
+ (:norepeat t)
+ ("1" "M-1")
+ ("2" "M-2")
+ ("3" "M-3")
+ ("4" "M-4")
+ ("5" "M-5")
+ ("6" "M-6")
+ ("7" "M-7")
+ ("8" "M-8")
+ ("9" "M-9"))
 
-(evil-traces-mode)
-(evil-traces-use-diff-refine-faces)
+(add-hook 'text-mode-hook 'ryo-modal-mode)
+(add-hook 'prog-mode-hook 'ryo-modal-mode)
+(global-set-key (kbd "C-'") 'ryo-modal-mode)
+(global-set-key (kbd "<escape>") 'lmintmate/toggle-ryo-modes)
+
+(setq djcb-modal-cursor-type 'box)
+(setq djcb-overwrite-cursor-type 'hbar)
+(setq lmintmate/emacs-editing-cursor-type 'bar)
+(setq djcb-emacs-other-cursor-type 'box)
+
+(defun djcb-set-cursor-according-to-mode ()
+  "change cursor type according to modes."
+  (cond
+   (ryo-modal-mode
+      (setq cursor-type djcb-modal-cursor-type))
+    (overwrite-mode
+      (setq cursor-type djcb-overwrite-cursor-type))
+    ((or (derived-mode-p 'prog-mode) (derived-mode-p 'text-mode))
+     (setq cursor-type lmintmate/emacs-editing-cursor-type))
+    (t
+      (setq cursor-type djcb-emacs-other-cursor-type))))
+
+(add-hook 'post-command-hook 'djcb-set-cursor-according-to-mode)
+
+(setq ryo-modal-cursor-color nil)
+
+;; faces for the modeline tags - inspired from https://github.com/kgaipal/emacs/blob/master/lisp/mode-line-customization.el#L13 - see however http://ergoemacs.org/emacs/elisp_define_face.html for correct method of defining faces
+(defface modal-state-tag
+  '((t :foreground "black"
+       :background "#4f94cd"
+       :box (:line-width 2 :color "#4f94cd")))
+  "Face for the Modal state tag"
+  :group 'my-state-tags)
+
+(defface overwrite-state-tag
+  '((t :foreground "black"
+       :background "tomato"
+       :box (:line-width 2 :color "tomato")))
+  "Face for the Overwrite state tag"
+  :group 'my-state-tags)
+
+(defface emacs-state-tag
+  '((t :foreground "black"
+       :background "MediumPurple2"
+       :box (:line-width 2 :color "MediumPurple2")))
+  "Face for the Emacs state tag"
+  :group 'my-state-tags)
+
+  (defun add-ryo-modeline-status (&rest _)
+    (interactive)
+    (let ((win (frame-selected-window)))
+      (unless (minibuffer-window-active-p win)
+        (add-to-list 'mode-line-format '(:eval (cond (ryo-modal-mode
+                                                     (propertize " MODAL " 'face 'modal-state-tag))
+						  (overwrite-mode
+                                                     (propertize " OVWRT " 'face 'overwrite-state-tag))
+						 (t
+                                                   (propertize " EMACS " 'face 'emacs-state-tag))))))))
+
+(add-hook 'after-focus-change-function 'add-ryo-modeline-status)
+(add-hook 'window-configuration-change-hook 'add-ryo-modeline-status)
+(add-hook 'focus-in-hook 'add-ryo-modeline-status)
+;; Needed so that it'll show up on all major modes, including help buffers and ibuffer
+(add-hook 'after-change-major-mode-hook 'add-ryo-modeline-status)
 
 (setq ring-bell-function 'ignore)
 
@@ -434,27 +530,10 @@ ivy-prescient)
 
 (setq windmove-wrap-around t)
 
-(defun mark-line (&optional arg)
-  (interactive "p")
-  (if (not mark-active)
-      (progn
-        (beginning-of-line)
-        (push-mark)
-        (setq mark-active t)))
-  (forward-line arg))
-
-(define-key evil-emacs-state-map "\C-z" 'mark-line)
-
 (when (version<= "26.0.50" emacs-version )
 (setq mouse-drag-and-drop-region t))
 
-(evil-define-key 'visual text-mode-map
-(kbd "<down-mouse-1>") 'mouse-drag-region)
-
-(evil-define-key 'visual prog-mode-map
-(kbd "<down-mouse-1>") 'mouse-drag-region)
-
-(define-key evil-emacs-state-map "\C-cz" 'zap-up-to-char)
+;; (define-key evil-emacs-state-map "\C-cz" 'zap-up-to-char)
 
 (when (fboundp 'display-line-numbers-mode)
 (setq-default display-line-numbers nil)
@@ -626,11 +705,8 @@ initialized with the current directory instead of filename."
   (setq current-prefix-arg '(16))
 (call-interactively 'dabbrev-completion))
 
-(evil-define-key '(emacs insert) text-mode-map
-(kbd "C-n") 'dabbrev-completion-all-buffers)
-
-(evil-define-key '(emacs insert) prog-mode-map
-(kbd "C-n") 'dabbrev-completion-all-buffers)
+(define-key text-mode-map (kbd "C-n") 'dabbrev-completion-all-buffers)
+(define-key prog-mode-map (kbd "C-n") 'dabbrev-completion-all-buffers)
 
 (setq dabbrev-abbrev-skip-leading-regexp "~")
 
@@ -702,10 +778,6 @@ initialized with the current directory instead of filename."
 
 (dired-recent-mode 1)
 
-(evil-define-key 'normal dired-mode-map
-"G" 'evil-goto-line
-"gg" 'evil-goto-first-line)
-
 (add-hook 'dired-mode-hook 'auto-revert-mode)
 (setq auto-revert-verbose nil)
 
@@ -728,14 +800,7 @@ initialized with the current directory instead of filename."
 
 (require 'org-mouse)
 
-(evil-define-key 'emacs org-mode-map
-(kbd "<down-mouse-1>") 'mouse-drag-region)
-
-(evil-define-key 'insert org-mode-map
-(kbd "<down-mouse-1>") 'mouse-drag-region)
-
-(evil-define-key 'motion org-mode-map
-(kbd "<down-mouse-1>") 'mouse-drag-region)
+(define-key org-mode-map [remap org-mouse-down-mouse] 'mouse-drag-region)
 
 (when (package-installed-p 'org-cliplink)
 (define-key org-mode-map (kbd "\C-cl") 'org-cliplink))
@@ -817,16 +882,17 @@ initialized with the current directory instead of filename."
 
 (setq org-special-ctrl-a/e t)
 
-(evil-define-key '(emacs motion) org-mode-map
-(kbd "C-a") 'org-beginning-of-line)
-
-(evil-define-key '(emacs motion) org-mode-map
-(kbd "C-e") 'org-end-of-line)
-
 (setq org-ctrl-k-protect-subtree t)
 
-(evil-define-key '(emacs motion) org-mode-map
-(kbd "C-k") 'org-kill-line)
+(define-key org-mode-map (kbd "C-'") nil)
+
+(ryo-modal-major-mode-keys
+ 'org-mode
+ ("<return>" org-return)
+ ("c $" org-kill-line :name "Like kill-line but for org" :exit t)
+ ("S" org-kill-line :first '(org-beginning-of-line) :name "Substitute line in org mode" :exit t)
+ ("0" org-beginning-of-line)
+ ("$" org-end-of-line))
 
 ;; Make windmove work in org-mode:
           (add-hook 'org-shiftup-final-hook 'windmove-up)
@@ -931,13 +997,6 @@ Otherwise (if point is at BOL), split the block exactly at that point."
             (beginning-of-line (if at-bol -1 0)))))
     (message "Point is not in an Org block")))
 
-(require 'undo-tree)
-
-(global-undo-tree-mode)
-
-(define-key evil-emacs-state-map "\M-p" 'undo-tree-undo)
-(define-key evil-emacs-state-map "\M-n" 'undo-tree-redo)
-
 (require 'espy)
 (if (eq system-type 'gnu/linux)
     (setq espy-password-file "~/Λήψεις/σημαντικά αρχεία txt/passwords.org")
@@ -984,8 +1043,6 @@ Otherwise (if point is at BOL), split the block exactly at that point."
 (setq swiper-stay-on-quit t)
 
 (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
-
-(evil-set-initial-state 'ivy-occur-mode 'emacs)
 
 (add-to-list 'ivy-format-functions-alist '(counsel-describe-face . counsel--faces-format-function))
 
@@ -1099,12 +1156,6 @@ Otherwise (if point is at BOL), split the block exactly at that point."
 
 (ivy-rich-set-display-transformer)
 
-(evil-set-initial-state 'helpful-mode 'emacs)
-(evil-set-initial-state 'elisp-refs-mode 'emacs)
-
-(evil-define-key 'emacs special-mode-map
-(kbd "\C-]") 'evil-jump-to-tag)
-
 (setq counsel-describe-function-function #'helpful-callable)
 (setq counsel-describe-variable-function #'helpful-variable)
 
@@ -1148,8 +1199,7 @@ Otherwise (if point is at BOL), split the block exactly at that point."
 
 (when (package-installed-p 'trashed)
 (require 'trashed)
-(setq trashed-date-format "%a %d %b %Y %T")
-(evil-set-initial-state 'trashed-mode 'emacs))
+(setq trashed-date-format "%a %d %b %Y %T"))
 
 (setq show-paren-delay 0)
 (show-paren-mode 1)
@@ -1166,13 +1216,13 @@ Otherwise (if point is at BOL), split the block exactly at that point."
 
 (add-hook 'prog-mode-hook 'hs-minor-mode)
 
-(evil-define-key '(normal emacs) prog-mode-map
-  (kbd "TAB") 'hs-toggle-hiding
-  (kbd "<backtab>") 'hs-hide-all
-  (kbd "<C-tab>") 'hs-show-all)
+(define-key prog-mode-map (kbd "TAB") 'hs-toggle-hiding)
+(define-key prog-mode-map (kbd "<backtab>") 'hs-hide-all)
+(define-key prog-mode-map (kbd "<C-tab>") 'hs-show-all)
 
 (minions-mode 1)
 (setq minions-mode-line-lighter "≡")
+(setq minions-direct '(ryo-modal-mode overwrite-mode))
 
 (setq ediff-split-window-function 'split-window-horizontally)
 

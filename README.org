@@ -42,17 +42,10 @@
   - [[#setting-the-calendar-up-in-greek][Setting the calendar up in Greek.]]
   - [[#set-input-method-to-greek][Set input method to greek]]
   - [[#redirect-commands-with-greek-letters-to-the-correct-commands][Redirect commands with Greek letters to the correct commands]]
-- [[#evil][Evil]]
-  - [[#configuring-evil-itself][Configuring evil itself]]
-    - [[#preliminaries-before-loading-evil][Preliminaries before loading evil]]
-    - [[#load-evil][Load evil]]
-    - [[#set-evil-keybindings][Set evil keybindings]]
-    - [[#custom-operators-and-text-objects][Custom operators and text objects]]
-  - [[#enable-and-configure-evil-packages][Enable and configure evil packages]]
-    - [[#evil-goggles][Evil goggles]]
-    - [[#evil-fringe-mark][evil-fringe-mark]]
-    - [[#evil-snipe][evil-snipe]]
-    - [[#evil-traces][evil-traces]]
+- [[#custom-modal-mode-with-ryo-modal][Custom modal mode with ryo-modal]]
+  - [[#preliminary-custom-functions][Preliminary custom functions]]
+  - [[#keybindings-and-mode-toggles][Keybindings and mode toggles]]
+  - [[#beautification-cursors-and-modeline-indicators][Beautification: Cursors and modeline indicators]]
 - [[#misc-configuration-parameters][Misc configuration parameters]]
   - [[#the-bell][The Bell]]
   - [[#disable-dialog-boxes][Disable dialog boxes]]
@@ -73,7 +66,6 @@
   - [[#bind-command-to-kill-current-buffer][Bind command to kill current buffer]]
   - [[#bind-m-o-to-other-window][Bind M-o to other-window]]
   - [[#adds-shift--arrows-for-changing-between-visible-buffers-in-addition-to-m-o][Adds shift + arrows for changing between visible buffers, in addition to M-o.]]
-  - [[#add-command-to-mark-a-line-in-emacs-state][Add command to mark a line in emacs state]]
   - [[#drag-selected-text-with-the-mouse-in-emacs][Drag selected text with the mouse in emacs]]
   - [[#bind-zap-up-to-char-command-in-emacs-state][Bind zap-up-to-char command in emacs state]]
   - [[#enable-display-line-numbers-mode][Enable display-line-numbers-mode]]
@@ -104,7 +96,6 @@
   - [[#enable-dired-icon-mode][Enable dired icon mode.]]
     - [[#setting-to-make-the-image-size-of-the-dired-icon-icons-bigger][Setting to make the image size of the dired-icon icons bigger.]]
   - [[#dired-recent][Dired recent]]
-  - [[#modify-evil-keybindings-for-dired-mode-map][Modify evil keybindings for dired-mode-map]]
   - [[#auto-revert-dired-buffers][Auto-revert dired buffers]]
   - [[#dired-listing][Dired listing]]
     - [[#listing-switches][Listing switches.]]
@@ -127,6 +118,7 @@
     - [[#strikethrough-for-done-tasks][Strikethrough for Done tasks]]
   - [[#special-ctrl-ae-behavior-in-org-mode][Special Ctrl-a/e behavior in org mode]]
   - [[#ctrl-k-behavior-in-org-mode][Ctrl-k behavior in org mode]]
+  - [[#make-certain-ryo-modal-keys-work-on-org-mode][Make certain ryo-modal keys work on org-mode]]
   - [[#override-shift--arrows-in-certain-places-in-favor-of-windmove][Override shift + arrows in certain places in favor of windmove]]
   - [[#auto-adjust-footnotes][Auto adjust footnotes]]
   - [[#follow-link-in-orgmode-by-pressing-enter-key][Follow link in orgmode by pressing Enter key]]
@@ -140,7 +132,6 @@
   - [[#change-org-block-indentation-setting][Change org-block indentation setting]]
   - [[#custom-org-related-functions][Custom org-related functions]]
     - [[#split-org-block-in-a-dwim-manner][Split org block in a dwim manner]]
-- [[#undo-tree][Undo tree]]
 - [[#espy-password-fetcher-package-config][Espy password fetcher package config]]
 - [[#ivy-counsel-swiper-and-ivy-prescient-configuration][Ivy-counsel-swiper and ivy-prescient configuration]]
   - [[#ivy-prescient][Ivy prescient]]
@@ -157,7 +148,6 @@
     - [[#add-display-transformer-for-counsel-buffer-or-recentf][Add display transformer for counsel-buffer-or-recentf]]
     - [[#enable-display-transformers][Enable display transformers]]
 - [[#helpful-enhanced-help-buffers][Helpful: Enhanced help buffers]]
-  - [[#set-evil-emacs-state-as-the-default-initial-state-for-helpful-mode][Set evil emacs state as the default initial state for helpful-mode]]
   - [[#integrate-helpful-with-counsel][Integrate helpful with counsel]]
   - [[#also-bind-helpful-key-to-the-key-used-by-default-for-describe-key][Also bind helpful-key to the key used by default for describe-key]]
   - [[#add-helpful-mode-to-ibuffer-help-buffer-modes][Add helpful-mode to ibuffer help buffer modes]]
@@ -228,27 +218,24 @@ dired-icon
 dired-recent
 emojify
 espy
-evil
 free-keys
+jump-char
 no-littering
 parent-mode
 rainbow-mode
 toc-org
 transpose-frame
 try
-undo-tree
+undo-fu
 vimrc-mode
 ;; emacs 24.4 and above
 auto-minor-mode
 elisp-demos
-evil-goggles
-evil-snipe
 ivy-rich
 markdown-mode
 org-cliplink
 ;; emacs 25.1 and above
-evil-fringe-mark
-evil-traces
+ryo-modal
 helpful
 ivy-prescient)
   "Core packages")
@@ -399,7 +386,7 @@ I also modified the fringe color to the same background color as the rest of the
 (set-face-foreground 'highlight nil)
 #+end_src
 ** Mode line customisation
-I give a flat look to the mode line, to make it look more modern. I also make it look thicker, by putting a box with line-width 2 and color same the foreground around it (trick borrowed from [[http://www.gonsie.com/blorg/modeline.html][Beautifying the Mode Line - Elsa Gonsiorowski]]). In order to keep that look uniform I also styled this way not only both active and inactive mode lines, but also the ~vc-edited-state~ and the various evil tags (see below).
+I give a flat look to the mode line, to make it look more modern. I also make it look thicker, by putting a box with line-width 2 and color same the foreground around it (trick borrowed from [[http://www.gonsie.com/blorg/modeline.html][Beautifying the Mode Line - Elsa Gonsiorowski]]). In order to keep that look uniform I also styled this way not only both active and inactive mode lines, but also the ~vc-edited-state~ (see above).
 #+begin_src emacs-lisp
 (set-face-attribute 'mode-line nil :background "grey75" :foreground "black" :box '(:line-width 2 :color "grey75"))
 (set-face-attribute 'mode-line-inactive nil :background "grey30" :foreground "grey80" :box '(:line-width 2 :color "grey30"))
@@ -556,191 +543,245 @@ Sometimes I forget to switch the keyboard language from Greek to English (especi
 
 (reverse-input-method 'el_GR)
 #+end_src
-* Evil
-This is basically an admission of defeat. Specifically, the point of learning to use emacs is imo to also use the builtin keybindings, but I only managed to learn some of them that are however for tasks other than editing text. In regards to editing text, I only learnt a couple commands (mainly cut, copy and paste), but wasn't able to retain anything more advanced. On the other hand, I was able to retain a lot more vim commands, firstly most probably because vim, due to its modal nature, is less forgiving to people that haven't learnt the commands properly, and secondly because vim's commands are also shorter and thus easier to remember. I thus decided to use a vim emulation method for text editing on emacs. I first tried to use [[https://www.emacswiki.org/emacs/ViperMode][Viper]], since its built into emacs, but that one not only lacked features I'm used to from regular Vim, such as Visual Mode, since it's emulating Vi instead, but also was more difficult to configure, as in I couldn't find snippets of code online to help me out because nobody uses Viper anymore. So Evil it is. Here, I am configuring Evil for my own needs: I care mainly about it working properly when editing text and don't want to have evil-type keybindings available everywhere, since I don't otherwise have a problem with emacs chords (as long as I can remember them).
-** Configuring evil itself
-*** Preliminaries before loading evil
-The configuration options of evil have to be placed before evil itself is loaded.\\
-Scroll up with ~C-u~: normally emacs uses ~C-u~ as universal-argument (something like the prefixing of vim commands), but since vim uses a different prefixing method, we can use that key for scrolling up instead.
+* Custom modal mode with ryo-modal
+I rather like modal editing, because it allows me to do the same stuff with less effort. At first I used evil, as anyone newly introduced to modal editing is wont to do, however after a while I was using a really small subset of it (I don't even use text objects all that much), and therefore it'd be a good idea to replace it with something more suited to my workflow. Here thus I set up an evilesque config (minus all the features I don't need) using ryo-modal.
+** Preliminary custom functions
+First I must set up some functions that will create commands that are closer to what I'm used to from evil.\\
+First, some functions that will be used to open new lines below and above (equivalents of o and O in evil) and also a command to be used when exiting ryo-modal to edit text (equivalent of i in evil) so that any selected region will be killed (adapted from [[https://github.com/firstrow/fat-free-evil/blob/5baba548b226acad0d322de3c6814a64c15a02de/lisp/init-fatfree-evil.el#L8-L23][here]]).
 #+begin_src emacs-lisp
-(setq evil-want-C-u-scroll t)
-#+end_src
-Prevent opening new lines (via o,O) from auto-indenting. This is annoying and besides, if I want to indent, I'll do it myself. I set it with ~setq-default~ because otherwise the variable would only be buffer-local and wouldn't thus be properly enabled.
-#+begin_src emacs-lisp
-(setq-default evil-auto-indent nil)
-#+end_src
-Set evil-toggle-key: I set it to C-' because when I tried to set it to C-q (the Viper default) it didn't work for some reason, and I use C-z (the Evil default) for something else.
-#+begin_src emacs-lisp
-(setq evil-toggle-key "C-'")
-#+end_src
-Option so that the stuff replaced by pasting in visual mode won't be copied to the clipboard. While this does work as intended inside emacs, it seems that the replaced text is otherwise copied to the system-wide clipboard and thus using paste outside emacs after pasting over some selected text pastes the replaced by pasting text instead of the text that was in the clipboard before doing so.
-#+begin_src emacs-lisp
-(setq evil-kill-on-visual-paste nil)
-#+end_src
-Change undo behavior so that any changes made while in insert mode won't all be undone.
-#+begin_src emacs-lisp
-(setq evil-want-fine-undo t)
-#+end_src
-Set the mode line position of the evil state tag: The default position is somewhere in the middle of the modeline, but I put it in the beginning, as in [[https://github.com/itchyny/lightline.vim][lightline]] (see [[https://emacs.stackexchange.com/questions/19024/move-evil-tag-to-beginning-of-mode-line/19032#19032][here]]).
-#+begin_src emacs-lisp
-(setq evil-mode-line-format '(before . mode-line-front-space))
-#+end_src
-Propertize and color evil mode line state tag depending on the state: See [[https://github.com/Malabarba/smart-mode-line/issues/195#issuecomment-338447042][here]]. I changed the name of each state tag from the default ~<N>~, ~<I>~ e.t.c, to their full names (e.g. ~NORMAL~, ~INSERT~ e.t.c), as in lightline. For the colors, I chose shades of purple for Emacs and Motion states (since that's Emacs's logo color), and drew the rest of the colors from [[https://github.com/lmintmate/blue-mood-vim#lightline-theme][my blue-mood lightline theme]].
-#+begin_src emacs-lisp
-    (setq evil-normal-state-tag   (propertize " NORMAL " 'face '((:background "#4f94cd" :foreground "black" :box (:line-width 2 :color "#4f94cd"))))
-          evil-emacs-state-tag    (propertize " EMACS " 'face '((:background "MediumPurple2"       :foreground "black" :box (:line-width 2 :color "MediumPurple2"))))
-          evil-insert-state-tag   (propertize " INSERT " 'face '((:background "#7fff00"    :foreground "black" :box (:line-width 2 :color "#7fff00"))))
-          evil-replace-state-tag  (propertize " REPLACE " 'face '((:background "#ff6347"      :foreground "black" :box (:line-width 2 :color "#ff6347"))))
-          evil-motion-state-tag   (propertize " MOTION " 'face '((:background "plum3"          :foreground "black" :box (:line-width 2 :color "plum3"))))
-          evil-visual-state-tag   (propertize " VISUAL " 'face '((:background "#ffd700"           :foreground "black" :box (:line-width 2 :color "#ffd700"))))
-          evil-operator-state-tag (propertize " OPERATOR " 'face '((:background "yellow"    :foreground "red" :box (:line-width 2 :color "yellow")))))
-#+end_src
-*** Load evil
-#+begin_src emacs-lisp
-(require 'evil)
-(evil-mode 1)
-#+end_src
-*** Set evil keybindings
-First off, set the initial state of ~free-keys-mode~ to emacs, as it doesn't work properly with the normal evil state.
-#+begin_src emacs-lisp
-(evil-set-initial-state 'free-keys-mode 'emacs)
-#+end_src
-Set the initial state of ibuffer-mode to normal, so that I can use vim commands to navigate around the buffer. The other commands are kept the way they are.
-#+begin_src emacs-lisp
-(evil-set-initial-state 'ibuffer-mode 'normal)
-#+end_src
-Set the initial state of xref mode to emacs, as it doesn't work properly with the normal evil state.
-#+begin_src emacs-lisp
-(evil-set-initial-state 'xref--xref-buffer-mode 'emacs)
-#+end_src
-Bind up and down arrows to move by visual lines: I often want to move by visual lines, for example in text documents where I write long lines (such as this very text), but binding ~j~ and ~k~ for that broke prefixing them with numbers, so I decided to bind the arrow keys, which aren't used with a prefix, if at all, anyways.
-#+begin_src emacs-lisp
-(define-key evil-normal-state-map (kbd "<up>") 'evil-previous-visual-line)
-(define-key evil-normal-state-map (kbd "<down>") 'evil-next-visual-line)
-(define-key evil-visual-state-map (kbd "<up>") 'evil-previous-visual-line)
-(define-key evil-visual-state-map (kbd "<down>") 'evil-next-visual-line)
-#+end_src
-Create bindings to move to beginning and end of visual lines: Here I used the only bindings that remained available.
-#+begin_src emacs-lisp
-(define-key evil-normal-state-map (kbd "Q") 'evil-beginning-of-visual-line)
-(define-key evil-normal-state-map (kbd "U") 'evil-end-of-visual-line)
-(define-key evil-visual-state-map (kbd "Q") 'evil-beginning-of-visual-line)
-(define-key evil-visual-state-map (kbd "U") 'evil-end-of-visual-line)
-#+end_src
-Make the enter key in normal state act like enter in emacs state: Enter as a key in Vim is nigh useless, but I often want to open new lines without entering insert mode. Binding enter to the command used in emacs state did the trick. However, I don't want this binding to apply in modes that have nothing to do with editing text. I found that I can solve this problem by using ~evil-define-key~ to define specific keys in specific states for specific modes (see [[https://github.com/noctuid/evil-guide#mode-specific-keybindings][here]]).\\
-Note: the help string for ~evil-define-key~ also specifies that:
-#+begin_example
-It is possible to specify multiple states and/or bindings at
-once:
-
-    (evil-define-key '(normal visual) foo-map
-      "a" 'bar
-      "b" 'foo)
-#+end_example
-For org-mode, I use the command ~org-return~ instead, as it acts as a newline or follows a link depending on the context, and I didn't want to lose the latter capability.
-#+begin_src emacs-lisp
-(evil-define-key 'normal text-mode-map
-(kbd "<return>") 'newline)
-
-(evil-define-key 'normal org-mode-map
-(kbd "<return>") 'org-return)
-
-(evil-define-key 'normal prog-mode-map
-(kbd "<return>") 'newline)
-#+end_src
-Prevent ~x~ and ~X~ from copying to the clipboard: I bound these buttons to the commands used by delete and backspace in emacs state (though in the case of backspace, not exactly, as backspace also deletes indentation and I didn't want ~X~ to do that). Note that when prefixed by a number, they do copy to the clipboard, but that's to be expected.
-#+begin_src emacs-lisp
-(define-key evil-normal-state-map (kbd "x") 'delete-forward-char)
-(define-key evil-normal-state-map (kbd "X") 'delete-backward-char)
-#+end_src
-Bind command to mark whole buffer while in evil visual state. I know that [[https://github.com/supermomonga/evil-textobj-entire][evil-textobj-entire]] exists, but I couldn't really get it working (at least when I used it with try). Plus, it hasn't been updated in years, and I only wanted to be able to mark the entire buffer anyways, and not anything else this text object might have provided.
-#+begin_src emacs-lisp
-(define-key evil-visual-state-map "ae" 'mark-whole-buffer)
-#+end_src
-*** Custom operators and text objects
-Operator to replace a text object with the clipboard content, without altering the clipboard. E.g. ~gcib~ will replace the content between () and it wont alter the clipboard. Bound to ~gc~ (mnemonic: get clipboard). Adapted from [[https://www.reddit.com/r/spacemacs/comments/cl2q0f/how_have_you_tweaked_spacemacs_or_emacs_using/evsgt2w/][How have you tweaked spacemacs (or emacs) using elisp? : spacemacs]].
-#+begin_src emacs-lisp
-(evil-define-operator my/evil-replace-with-kill-ring (beg end)
-    "Replace with killring action."
-    :move-point nil
-    (interactive "<r>")
-    (save-excursion
-      (delete-region beg end)
-      (goto-char beg)
-      (call-interactively 'evil-paste-before 1)))
-
-  (define-key evil-normal-state-map "gc" 'my/evil-replace-with-kill-ring)
-#+end_src
-Function text object (e.g. to delete a function). Bound to ~f~ e.g. to delete a function, press ~daf~. Note that when in org-mode, this deletes the entire src block. (Adapted from [[https://www.reddit.com/r/spacemacs/comments/cl2q0f/how_have_you_tweaked_spacemacs_or_emacs_using/evsgt2w/][How have you tweaked spacemacs (or emacs) using elisp? : spacemacs]].)
-#+begin_src emacs-lisp
-  (evil-define-text-object my/function-text-object (count)
-    "Function text object"
+(defun start-from-new-line ()
     (interactive)
-    (save-mark-and-excursion
-      (mark-defun)
-      (let ((m (mark)))
-        (if (looking-back "*/\n")
-            (progn
-              (previous-line)
-              (list m (first (sp-get-comment-bounds))))
-          (list m (point))))))
-  (define-key evil-inner-text-objects-map "f" 'my/function-text-object)
-  (define-key evil-outer-text-objects-map "f" 'my/function-text-object)
+    (move-end-of-line nil)
+    (newline)
+    (indent-for-tab-command))
+
+  (defun start-from-new-top-line ()
+    (interactive)
+    (previous-line)
+    (start-from-new-line))
+
+  (defun lmintmate/insert ()
+    "Kill active region if active"
+    (interactive)
+    (if mark-active (kill-region (region-beginning) (region-end))))
 #+end_src
-** Enable and configure evil packages
-*** Evil goggles
-[[https://github.com/edkolev/evil-goggles][This package]] provides visual indications for various evil actions.\\
-First disable highlight for recording macros, as it's distracting. This has to be done before evil-goggles-mode is started.
+Custom self-created command to prevent ~a~ from going to the next line when at the end of the current line.
 #+begin_src emacs-lisp
-(setq evil-goggles-enable-record-macro nil)
+(defun lmintmate/append ()
+  "Do not go to the next line when at the end of the current line"
+  (interactive)
+  (unless (eolp) (forward-char)))
 #+end_src
-Also disable highlight for setting marks for the same reason, as well as the fact that marks are clearly denoted with the use of evil-fringe-mark.
+Command to deactivate the mark if activated - used later as part of the command for toggling ryo-modal-mode (from [[https://github.com/sriramkswamy/dotemacs/blob/1266eb47fd7a45bb21919f5fa5dd8152b4f1ea88/defuns/sk-editing-defuns.el#L53-L57][here]]).
 #+begin_src emacs-lisp
-(setq evil-goggles-enable-set-marker nil)
+(defun sk/remove-mark ()
+  "Deactivate the region"
+  (interactive)
+  (if (use-region-p)
+	  (deactivate-mark)))
 #+end_src
-Enable evil-goggles.
+From [[https://ebzzry.io/en/emacs-tips-1/#marks][here]]. When using arrows afterwards, it extends the mark. Also executing it multiple times marks multiple lines. Bound to ~V~.
 #+begin_src emacs-lisp
-(evil-goggles-mode)
+;; found on my main config - used for V
+(defun lmintmate/mark-line (&optional arg)
+  (interactive "p")
+  (if (not mark-active)
+      (progn
+        (beginning-of-line)
+        (push-mark)
+        (setq mark-active t)))
+  (forward-line arg))
 #+end_src
-Set the duration of the highlight.
+Command to copy entire line to kill-ring, bound to ~Y~ (adapted from [[https://github.com/p3r7/prf-smart-edit/blob/b370e50717ec81b1daa88a7115a5bf120f3de35d/prf-smart-edit.el#L105-L114][here]]).
 #+begin_src emacs-lisp
-(setq evil-goggles-duration 0.605)
+(defun lmintmate/kill-ring-save-line-trim ()
+  "Copy current line in kill-ring, trimming begining spaces and tabs"
+  (interactive)
+	(beginning-of-line)
+	(kill-ring-save (progn (skip-chars-forward " \t") (point))
+			(line-beginning-position 2))
+	(beginning-of-line))
 #+end_src
-Set the duration of the highlight for actions that are delayed until the highlight disappears e.g. delete, change.
+Command to copy the selected region to kill-ring, and show message if there isn't an active region (adapted from [[https://github.com/p3r7/prf-smart-edit/blob/b370e50717ec81b1daa88a7115a5bf120f3de35d/prf-smart-edit.el#L161-L166][here]]). Bound to ~y~.
 #+begin_src emacs-lisp
-(setq evil-goggles-blocking-duration 0.250)
+(defun selection/kill-ring-save ()
+  "kill-ring-save the active region but don't do anything if there's no active region"
+  (interactive)
+  (if (use-region-p)
+      (kill-ring-save (region-beginning) (region-end))
+    (message "Used selection/kill-ring-save while no active region")))
 #+end_src
-Change evil-goggle colors to the diff-define colors.
+Command to kill the selected region, and show message if there's no active region, bound to ~d~ (adapted from [[https://github.com/p3r7/prf-smart-edit/blob/b370e50717ec81b1daa88a7115a5bf120f3de35d/prf-smart-edit.el#L188-L193][here]]).
 #+begin_src emacs-lisp
-(evil-goggles-use-diff-refine-faces)
+(defun selection/kill-region ()
+  "Kill the active region but don't do anything if there's no active region"
+  (interactive)
+  (if (use-region-p)
+      (kill-region (region-beginning) (region-end))
+    (message "Used selection/kill-region while no active region")))
 #+end_src
-*** evil-fringe-mark
-[[https://github.com/Andrew-William-Smith/evil-fringe-mark][This package]] shows evil marks on the fringe using bitmaps (no idea why this was needed for the implementation, since [[https://github.com/kshenoy/vim-signature][vim-signature]] can use regular letters just fine - maybe to account for the presence of line numbers in the fringe? Though vim-signature seems fine in that case. Must be a difference between vim's sign column and emacs's fringe...).
+Command for toggling the case of letter under point, like ~ in evil (but unlike evil, cannot be repeated with numeric argument). Here bound to ~`~ instead as that's easier to press (adapted from [[https://stackoverflow.com/a/22381730][emacs - Toggle case of next letter in elisp - Stack Overflow]]).
 #+begin_src emacs-lisp
-(require 'evil-fringe-mark)
-(global-evil-fringe-mark-mode)
+(defun lmintmate/toggle-case-char-under-point ()
+  "Toggle the case of char under point. Afterwards moves to the next char."
+  (interactive)
+  (let ((char (following-char)))
+    (if (eq char (upcase char))
+        (insert-char (downcase char) 1 t)
+      (insert-char (upcase char) 1 t)))
+  (delete-char 1 nil))
 #+end_src
-Face for buffer-local fringe marks: Make it chartreuse green, different from the gold of file marks.
+Commands to toggle ryo-modal and overwrite modes.
 #+begin_src emacs-lisp
-(set-face-attribute 'evil-fringe-mark-local-face nil :inherit font-lock-function-name-face)
+(defun lmintmate/toggle-ryo-modes ()
+  "Deactivate a potentially marked region and disable overwrite-mode if enabled before toggling ryo-modal-mode"
+  (interactive)
+  (sk/remove-mark)
+  (overwrite-mode -1)
+  (ryo-modal-mode 'toggle))
+
+(defun lmintmate/silently-toggle-overwrite-mode ()
+  "Silently toggle overwrite-mode"
+  (interactive)
+  (overwrite-mode 'toggle))
 #+end_src
-*** evil-snipe
-[[https://github.com/hlissner/evil-snipe][This package]] provides 2-character based motions bound by default to s and S and also provides highlight for the 1-character motions f,F,t,T. I enable here both the regular ~evil-snipe-mode~, which enables the s and S motions because using 2-characters does indeed seem more accurate than using 1, and also the ~evil-snipe-override-mode~ which adds highlighting to the f,F,t,T motions.
+** Keybindings and mode toggles
+Here are the keys bound in ryo-modal-mode. Notably, I bind backspace to ~backward-char~, as I don't want backspace to be able to delete stuff while in ryo mode.
 #+begin_src emacs-lisp
-(require 'evil-snipe)
-(evil-snipe-mode 1)
-(evil-snipe-override-mode 1)
+(ryo-modal-keys
+   ;; Movement
+   ("i" lmintmate/insert :name "Insert" :exit t)
+   ("a" lmintmate/append :first (lmintmate/insert) :name "Append" :exit t)
+   ("b" backward-word)
+   ("w" forward-word)
+   ("f" jump-char-forward)
+   ("F" jump-char-backward)
+   ("j" next-line)
+   ("k" previous-line)
+   ("h" backward-char)
+   ("l" forward-char)
+   ("<backspace>" backward-char)
+   ("A" move-end-of-line :name "Append at end of line" :exit t)
+   ("I" move-beginning-of-line :name "Insert at beginning of line" :exit t)
+   ("g g" beginning-of-buffer)
+   ("G" end-of-buffer)
+   ("e" mark-whole-buffer)
+   ("^" back-to-indentation)
+   ("0" move-beginning-of-line)
+   ("$" move-end-of-line)
+   ;; Editing
+   ("y" selection/kill-ring-save)
+   ("Y" lmintmate/kill-ring-save-line-trim)
+   ("p" yank)
+   ("`" lmintmate/toggle-case-char-under-point)
+   ("<S-return>" start-from-new-top-line)
+   ("<return>" start-from-new-line)
+   ("o" start-from-new-line :name "Open new line below and insert" :exit t)
+   ("O" start-from-new-top-line :name "Open new line above and insert" :exit t)
+   ("u" undo-fu-only-undo)
+   ("C-r" undo-fu-only-redo)
+   ("r" lmintmate/silently-toggle-overwrite-mode :exit t)
+   ("d" selection/kill-region)
+   ("D" kill-whole-line)
+   ("c w" kill-word :name "Kill word" :exit t)
+   ("c $" kill-line :name "Kill from point until end of line" :exit t)
+   ("S" kill-line :first '(move-beginning-of-line) :name "Substitute line" :exit t)
+   ("c f" zap-to-char)
+   ("c t" zap-up-to-char)
+   ("v" set-mark-command :name "Begin marking a region" :norepeat t)
+   ("V" lmintmate/mark-line :name "Begin marking whole lines" :norepeat t)
+   ("C" comment-dwim :norepeat t)
+   ("J" join-line)
+   ;; Other
+   ("s" save-buffer))
 #+end_src
-I don't however want to override the default action of the S key, because, while the s key isn't much quicker than just using ~i~ or ~a~ and delete or backspace, the ~S~ key substitutes a whole line, which is useful if I've written 4-5 words in a new line and want to rewrite e.g. the start of a sentence. Thus here I disable the ~S~ motion of evil-snipe because all it does is using the 2-char motion but from the end of the line, and I find the default action of ~S~ (that is, substituting a line) more useful.
+Keys to use for numeric arguments.
 #+begin_src emacs-lisp
-(evil-define-key 'normal evil-snipe-local-mode-map
-  "S" nil)
+  (ryo-modal-keys
+   (:norepeat t)
+   ("1" "M-1")
+   ("2" "M-2")
+   ("3" "M-3")
+   ("4" "M-4")
+   ("5" "M-5")
+   ("6" "M-6")
+   ("7" "M-7")
+   ("8" "M-8")
+   ("9" "M-9"))
 #+end_src
-*** evil-traces
-[[https://github.com/mamapanda/evil-traces][This package]] is roughly the equivalent of evil-goggles for ex (echo area with semicolon) commands. Here I also change its colors to the diff-define colors.
+Here I hook ryo-modal-mode to text and prog mode and bind keys to enable/disable and toggle it.
 #+begin_src emacs-lisp
-(evil-traces-mode)
-(evil-traces-use-diff-refine-faces)
+(add-hook 'text-mode-hook 'ryo-modal-mode)
+(add-hook 'prog-mode-hook 'ryo-modal-mode)
+(global-set-key (kbd "C-'") 'ryo-modal-mode)
+(global-set-key (kbd "<escape>") 'lmintmate/toggle-ryo-modes)
+#+end_src
+** Beautification: Cursors and modeline indicators
+Here I set custom cursor types for each ryo "state", so that I can distinguish visually when I'm editing text with regular emacs editing, when modal editing is enabled, and when overwrite mode is being used. The regular cursor is used when ryo-modal is on, a bar cursor when it's off, and an hbar cursor when overwrite-mode is on. When the buffer is neither text nor prog mode (only modes where ryo is enabled by default anyway) the normal cursor is used (adapted from [[http://emacs-fu.blogspot.com/2009/12/changing-cursor-color-and-shape.html][emacs-fu: changing the cursor color and shape dynamically]]).
+#+begin_src emacs-lisp
+(setq djcb-modal-cursor-type 'box)
+(setq djcb-overwrite-cursor-type 'hbar)
+(setq lmintmate/emacs-editing-cursor-type 'bar)
+(setq djcb-emacs-other-cursor-type 'box)
+
+(defun djcb-set-cursor-according-to-mode ()
+  "change cursor type according to modes."
+  (cond
+   (ryo-modal-mode
+      (setq cursor-type djcb-modal-cursor-type))
+    (overwrite-mode
+      (setq cursor-type djcb-overwrite-cursor-type))
+    ((or (derived-mode-p 'prog-mode) (derived-mode-p 'text-mode))
+     (setq cursor-type lmintmate/emacs-editing-cursor-type))
+    (t
+      (setq cursor-type djcb-emacs-other-cursor-type))))
+
+(add-hook 'post-command-hook 'djcb-set-cursor-according-to-mode)
+#+end_src
+Remove the color from ryo cursor, as it is red by default and I don't want it to be so.
+#+begin_src emacs-lisp
+(setq ryo-modal-cursor-color nil)
+#+end_src
+Here I set up modeline indicators to distinguish ryo from emacs from overwrite "states" (adapted from [[https://github.com/firstrow/fat-free-evil/blob/5baba548b226acad0d322de3c6814a64c15a02de/lisp/init-fatfree-evil.el#L86-L99][here]]).
+#+begin_src emacs-lisp
+;; faces for the modeline tags - inspired from https://github.com/kgaipal/emacs/blob/master/lisp/mode-line-customization.el#L13 - see however http://ergoemacs.org/emacs/elisp_define_face.html for correct method of defining faces
+(defface modal-state-tag
+  '((t :foreground "black"
+       :background "#4f94cd"
+       :box (:line-width 2 :color "#4f94cd")))
+  "Face for the Modal state tag"
+  :group 'my-state-tags)
+
+(defface overwrite-state-tag
+  '((t :foreground "black"
+       :background "tomato"
+       :box (:line-width 2 :color "tomato")))
+  "Face for the Overwrite state tag"
+  :group 'my-state-tags)
+
+(defface emacs-state-tag
+  '((t :foreground "black"
+       :background "MediumPurple2"
+       :box (:line-width 2 :color "MediumPurple2")))
+  "Face for the Emacs state tag"
+  :group 'my-state-tags)
+
+  (defun add-ryo-modeline-status (&rest _)
+    (interactive)
+    (let ((win (frame-selected-window)))
+      (unless (minibuffer-window-active-p win)
+        (add-to-list 'mode-line-format '(:eval (cond (ryo-modal-mode
+                                                     (propertize " MODAL " 'face 'modal-state-tag))
+						  (overwrite-mode
+                                                     (propertize " OVWRT " 'face 'overwrite-state-tag))
+						 (t
+                                                   (propertize " EMACS " 'face 'emacs-state-tag))))))))
+
+(add-hook 'after-focus-change-function 'add-ryo-modeline-status)
+(add-hook 'window-configuration-change-hook 'add-ryo-modeline-status)
+(add-hook 'focus-in-hook 'add-ryo-modeline-status)
+;; Needed so that it'll show up on all major modes, including help buffers and ibuffer
+(add-hook 'after-change-major-mode-hook 'add-ryo-modeline-status)
 #+end_src
 * Misc configuration parameters
 ** The Bell
@@ -888,43 +929,19 @@ The ~windmove-wrap-around~ setting allows for windmove movement off the edge of 
 #+begin_src emacs-lisp
 (setq windmove-wrap-around t)
 #+end_src
-** Add command to mark a line in emacs state
-From [[https://ebzzry.io/en/emacs-tips-1/#marks][here]]. Executing it multiple times marks multiple lines.
-#+begin_src emacs-lisp
-(defun mark-line (&optional arg)
-  (interactive "p")
-  (if (not mark-active)
-      (progn
-        (beginning-of-line)
-        (push-mark)
-        (setq mark-active t)))
-  (forward-line arg))
-#+end_src
-Its keybinding
-#+begin_src emacs-lisp
-(define-key evil-emacs-state-map "\C-z" 'mark-line)
-#+end_src
 ** Drag selected text with the mouse in emacs
 Sometimes I just want to cop out and use the mouse when trying to move text. I found out via [[https://emacs.stackexchange.com/a/48440][Stack Exchange]] that this is possible in emacs, and one just needs to set the function ~mouse-drag-and-drop-region~ to ~t~. This feature was added in version 26.1 (see [[http://git.savannah.gnu.org/cgit/emacs.git/tree/etc/NEWS.26#n395][here]]), and I thus wrap it in a conditional so that it won't error out on versions lower than 26.
 #+begin_src emacs-lisp
 (when (version<= "26.0.50" emacs-version )
 (setq mouse-drag-and-drop-region t))
 #+end_src
-Generalise mouse drag and drop to work with evil too. I bind it in the visual state because when text is being selected with the mouse, the buffer switches from normal to visual state.
-#+begin_src emacs-lisp
-  (evil-define-key 'visual text-mode-map
-  (kbd "<down-mouse-1>") 'mouse-drag-region)
-
-  (evil-define-key 'visual prog-mode-map
-  (kbd "<down-mouse-1>") 'mouse-drag-region)
-#+end_src
 ** Bind zap-up-to-char command in emacs state
 I found the commands M-x zap-to-char and zap-up-to-char, which roughly correspond to vim's df and dt. The former is bound to M-z, but the latter isn't bound to anything. I bind it here to C-c z, since that isn't bound to anything.
 #+begin_src emacs-lisp
-(define-key evil-emacs-state-map "\C-cz" 'zap-up-to-char)
+;; (define-key evil-emacs-state-map "\C-cz" 'zap-up-to-char)
 #+end_src
 ** Enable display-line-numbers-mode
-This minor mode first appeared in 26.1 and makes line rendering faster than the previous system, ~linum-mode~. I have ~text-mode~ and ~prog-mode~ display relative line numbers, for help with evil movements (adapted from [[https://github.com/noctuid/evil-guide#how-can-i-have-relative-line-numbers][here]]). I enable it conditionally, so that it won't error out on a version lower than 26.1, where the ~display-line-numbers~ feature was first added.
+This minor mode first appeared in 26.1 and makes line rendering faster than the previous system, ~linum-mode~. I have ~text-mode~ and ~prog-mode~ display relative line numbers, for help with line movements (adapted from [[https://github.com/noctuid/evil-guide#how-can-i-have-relative-line-numbers][here]]). I enable it conditionally, so that it won't error out on a version lower than 26.1, where the ~display-line-numbers~ feature was first added.
 #+begin_src emacs-lisp
 (when (fboundp 'display-line-numbers-mode)
 (setq-default display-line-numbers nil)
@@ -1145,18 +1162,15 @@ completions.
 If the prefix argument is 16 (which comes from C-u C-u),
 then it searches *all* buffers.
 #+end_example
-In short, this normally looks only at the current buffer, but when using a specific prefix, it can look at all buffers. Here thus I define a function to run it with the prefix (see [[https://stackoverflow.com/a/6156444][here]]) and bind this function to emacs and insert states at the modes I want to use this with.
+In short, this normally looks only at the current buffer, but when using a specific prefix, it can look at all buffers. Here thus I define a function to run it with the prefix (see [[https://stackoverflow.com/a/6156444][here]]) and bind this function to emacs and insert states at the modes I want to use this with. Note that ~dabbrev-completion~ uses a popup when ivy is installed, otherwise it uses a more inconvenient Completions buffer.
 #+begin_src emacs-lisp
 (defun dabbrev-completion-all-buffers ()
     (interactive)
   (setq current-prefix-arg '(16))
 (call-interactively 'dabbrev-completion))
 
-(evil-define-key '(emacs insert) text-mode-map
-(kbd "C-n") 'dabbrev-completion-all-buffers)
-
-(evil-define-key '(emacs insert) prog-mode-map
-(kbd "C-n") 'dabbrev-completion-all-buffers)
+(define-key text-mode-map (kbd "C-n") 'dabbrev-completion-all-buffers)
+(define-key prog-mode-map (kbd "C-n") 'dabbrev-completion-all-buffers)
 #+end_src
 Setting so that completion in org mode won't change when the character for literal code ~ is in front of the completion candidate. What this does is tell ~dabbrev~ to ignore the presence of said symbol. Without this setting when attempting to complete a string preceded by ~ , the first letter of each subword is capitalised e.g. ~Package-Install-Selected-Packages~ instead of the normal ~package-install-selected-packages~ (idea to use this setting from [[https://curiousprogrammer.wordpress.com/2009/05/19/customiz-dabbrev/][here]]).
 #+begin_src emacs-lisp
@@ -1258,13 +1272,6 @@ This functionality, coming from the dired-icon package, shows icons from the cur
 #+begin_src emacs-lisp
 (dired-recent-mode 1)
 #+end_src
-** Modify evil keybindings for dired-mode-map
-The default state for dired is evil normal. This mostly works as expected (e.g. j and k work as expected and the regular dired commands aren't altered), but the bindings to go to the first and last line (gg and G) didn't work. I used ~evil-define-key~ (see above) to solve this problem. This setting of course shadows the default bindings of G and g, but I didn't need the actions they perform.
-#+begin_src emacs-lisp
-(evil-define-key 'normal dired-mode-map
-"G" 'evil-goto-line
-"gg" 'evil-goto-first-line)
-#+end_src
 ** Auto-revert dired buffers
 Also don't show "Reverting..." message.
 #+begin_src emacs-lisp
@@ -1312,16 +1319,9 @@ This is an org-mode subpackage that allows control of various things with the mo
 #+begin_src emacs-lisp
 (require 'org-mouse)
 #+end_src
-Workaround so that ~mouse-drag-and-drop-region~ will work. Specifically, when ~org-mouse~ is enabled, the ~mouse-drag-region~ command (the command used when org-mouse is disabled) for some reason is replaced with ~org-mouse-down-mouse~ which doesn't have the drag-n-drop capabilities of the other command, so I rebind ~<down-mouse-1>~ to ~mouse-drag-region~. I do this for emacs, insert and motion states - this couldn't initially be enabled on normal state, but it turns out the binding to ~<down-mouse-1>~ in normal state is inherited from motion state so setting the binding in motion state gives the desired result in normal state as well.
-#+begin_src emacs-lisp
-(evil-define-key 'emacs org-mode-map
-(kbd "<down-mouse-1>") 'mouse-drag-region)
-
-(evil-define-key 'insert org-mode-map
-(kbd "<down-mouse-1>") 'mouse-drag-region)
-
-(evil-define-key 'motion org-mode-map
-(kbd "<down-mouse-1>") 'mouse-drag-region)
+Workaround so that ~mouse-drag-and-drop-region~ will work. Specifically, when ~org-mouse~ is enabled, the ~mouse-drag-region~ command (the command used when org-mouse is disabled) for some reason is replaced with ~org-mouse-down-mouse~ which doesn't have the drag-n-drop capabilities of the other command. The only way to override the default org-mouse behavior of ~<down-mouse-1>~, in order for it to respect ~mouse-drag-and-drop-region~, is to remap the command to ~mouse-drag-region~ with the remap parameter of ~define-key~. Mapping the key doesn't work.
+#+begin_src emacs-lisp 
+(define-key org-mode-map [remap org-mouse-down-mouse] 'mouse-drag-region)
 #+end_src
 ** Define C-c l as the keybinding to org-cliplink.
 I used to have it as the shortcut to org-store-link, but it turns out I hardly used that one…
@@ -1453,23 +1453,25 @@ Non-nil means `C-a' and `C-e' behave specially in headlines and items.
 #+begin_src emacs-lisp
 (setq org-special-ctrl-a/e t)
 #+end_src
-Make sure this will work under evil. Also since we're here make sure ~C-e~ works properly under evil, as when on normal/motion state it scrolls the screen one line up instead, and when on emacs state it invokes the ~end-of-visual-line~ command, which doesn't respect ~org-special-ctrl-a/e~.
-#+begin_src emacs-lisp
-  (evil-define-key '(emacs motion) org-mode-map
-  (kbd "C-a") 'org-beginning-of-line)
-
-  (evil-define-key '(emacs motion) org-mode-map
-  (kbd "C-e") 'org-end-of-line)
-#+end_src
 ** Ctrl-k behavior in org mode
 Use query to confirm killing of hidden subtrees.
 #+begin_src emacs-lisp
 (setq org-ctrl-k-protect-subtree t)
 #+end_src
-Also make sure ~org-kill-line~ (the command that respects the above setting) will work under evil. When using it to kill an entire subtree remember to go to the complete beginning of the line (via e.g. 0) so that there won't remain the half of an empty heading after the operation.
+** Make certain ryo-modal keys work on org-mode
+First unbind ~C-'~, which triggers some agenda command, so that I can use it to enable/disable ryo-modal-mode from org-mode buffers.
 #+begin_src emacs-lisp
-(evil-define-key '(emacs motion) org-mode-map
-(kbd "C-k") 'org-kill-line)
+(define-key org-mode-map (kbd "C-'") nil)
+#+end_src
+The rest of the overrides - the aim is to respect the various org settings that redefine the behavior of some keys such as ~org-special-ctrl-a/e~ and ~org-ctrl-k-protect-subtree~, but also other redefinitions of keys that take place in org-mode, such as ~org-return~.
+#+begin_src emacs-lisp
+(ryo-modal-major-mode-keys
+ 'org-mode
+ ("<return>" org-return)
+ ("c $" org-kill-line :name "Like kill-line but for org" :exit t)
+ ("S" org-kill-line :first '(org-beginning-of-line) :name "Substitute line in org mode" :exit t)
+ ("0" org-beginning-of-line)
+ ("$" org-end-of-line))
 #+end_src
 ** Override shift + arrows in certain places in favor of windmove
 If you want to make the windmove function active in locations where Org mode does not have special functionality on S-<cursor>, add this to your configuration(from [[http://orgmode.org/manual/Conflicts.html][Conflicts - The Org Manual]]):
@@ -1645,20 +1647,6 @@ Otherwise (if point is at BOL), split the block exactly at that point."
             (beginning-of-line (if at-bol -1 0)))))
     (message "Point is not in an Org block")))
 #+end_src
-* Undo tree
-#+begin_src emacs-lisp
-(require 'undo-tree)
-#+end_src
-Global undo tree mode.
-#+begin_src emacs-lisp
-(global-undo-tree-mode)
-#+end_src
-Define undo and redo keys.\\
-M-p for M-previous and M-n for M-next in emacs state. These might not be the most comfortable of keybindings, but they are the most easily memorable amongst the unbound keys.
-#+begin_src emacs-lisp
-(define-key evil-emacs-state-map "\M-p" 'undo-tree-undo)
-(define-key evil-emacs-state-map "\M-n" 'undo-tree-redo)
-#+end_src
 * Espy password fetcher package config
 [[https://github.com/walseb/espy][This package]] allows to copy usernames and passwords from a dedicated file from inside emacs. I'm glad I found it because it gave me the incentive to refactor my password file and it feels like a password management solution without having to use all this complicated encryption stuff (and if I ever decide to encrypt my password file, gpg is supported). Here I enable the package and set the file from which it will draw the passwords. On Linux, it is a fixed location, but on Windows I use different folders, so I'll have to remember to change the setting when I change folders. I also rename the string it will use to recognise the passwords as I'm not used to using the ~"pass:"~ abbreviation. On the other hand, I'm not changing ~"user:"~ however, because oftentimes web services ask for email/password instead of username/password and since I have entries with both types, I'll just keep ~"user:"~ to cover both.
 #+begin_src emacs-lisp
@@ -1743,10 +1731,6 @@ Have swiper stay on the latest search result after cancelling the search.
 Have ivy minibuffer selection highlight the entire current line (recommended from the [[https://github.com/Yevgnen/ivy-rich/blob/master/README.org][ivy-rich README]]).
 #+begin_src emacs-lisp
 (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
-#+end_src
-Set the initial state of [[https://oremacs.com/2015/11/04/ivy-occur/][ivy-occur-mode]] (which keeps a list of completion candidates in a separate buffer when pressing ~C-c C-o~) to emacs, as it doesn't work properly with the normal evil state.
-#+begin_src emacs-lisp
-(evil-set-initial-state 'ivy-occur-mode 'emacs)
 #+end_src
 Make ~counsel-describe-face~ look like ~counsel-faces~ (found from [[https://github.com/seagle0128/.emacs.d/blob/eefe8a8699b7284215f72eb4ce38d46ad3924805/lisp/init-ivy.el#L116][here]]).
 #+begin_src emacs-lisp
@@ -1902,17 +1886,6 @@ Similar to ~counsel-recentf~, but uses ~counsel-buffer-or-recentf-transformer~ i
 #+end_src
 * Helpful: Enhanced help buffers
 [[https://github.com/Wilfred/helpful][The helpful package]] enhances the content of the help buffers.
-** Set evil emacs state as the default initial state for helpful-mode
-The default initial state is normal, which makes it harder to close the buffer (having to use ~C-x k~ or ~:bd~ instead of just using ~q~). I'd rather have it as emacs state, like the default help buffers. Similarly, I change ~elisp-refs-mode~ to emacs state, as this is the mode used for the output of the "Find all references" link in helpful buffers.
-#+begin_src emacs-lisp
-(evil-set-initial-state 'helpful-mode 'emacs)
-(evil-set-initial-state 'elisp-refs-mode 'emacs)
-#+end_src
-However, this disables using ~C-]~ to view the definition under point in its original file. Binding this in special-mode-map (the parent of helpful-mode-map and elisp-refs-mode map) to emacs state re-enables it.
-#+begin_src emacs-lisp
-(evil-define-key 'emacs special-mode-map
-(kbd "\C-]") 'evil-jump-to-tag)
-#+end_src
 ** Integrate helpful with counsel
 The default helpful commands do not offer integration with ivy-rich. Thankfully, there are variables that define the function to be used to show the result of ~counsel-describe-function~ and ~counsel-describe-variable~ commands, so that I can have the enhanced help and keep the ivy-rich integration too (found from [[https://www.reddit.com/r/emacs/comments/a6rxga/helpful_an_alternative_to_the_builtin_emacs_help/ec0b2qw/][here]]). Note: the built-in ~describe-function~ includes both functions and macros. ~helpful-function~ is functions only, so ~helpful-callable~ is provided as a drop-in replacement (see [[https://github.com/Wilfred/helpful#usage][here]]).
 #+begin_src emacs-lisp
@@ -1988,12 +1961,11 @@ Since I add emojis to my commits, I wanted a way to add them without having to d
 (define-key with-editor-mode-map (kbd "C-c e") 'emojify-insert-emoji)))
 #+end_src
 * Trashed: trash can management from emacs (Linux only)
-[[https://github.com/shingo256/trashed][This package]] allows management of the trash can from inside emacs. Here I enable it and set the deletion date format to a form similar to the one it has on my gui file manager, that is localised and shortened day month Year and the time. I also set it to emacs state, as it doesn't work properly with the normal evil state.
+[[https://github.com/shingo256/trashed][This package]] allows management of the trash can from inside emacs. Here I enable it and set the deletion date format to a form similar to the one it has on my gui file manager, that is localised and shortened day month Year and the time.
 #+begin_src emacs-lisp
 (when (package-installed-p 'trashed)
 (require 'trashed)
-(setq trashed-date-format "%a %d %b %Y %T")
-(evil-set-initial-state 'trashed-mode 'emacs))
+(setq trashed-date-format "%a %d %b %Y %T"))
 #+end_src
 * Emacs-lisp related configuration
 ** Enable show-paren-mode
@@ -2022,19 +1994,18 @@ Here is however a trick to disable it from everywhere but lisp-related modes (fr
 #+begin_src emacs-lisp
 (add-hook 'prog-mode-hook 'hs-minor-mode)
 #+end_src
-Keybindings. The ~<backtab>~ string means Shift+Tab. After enabling evil, the tab was taken over by some jump list command, which was inconvenient to say the least. I thus use here ~evil-define-key~ to overcome this problem (see above).\\
-Also note that sometimes the action of the tab key doesn't take effect immediately (see [[https://github.com/noctuid/evil-guide#why-dont-keys-defined-with-evil-define-key-work-immediately][here]]). However backtab and C-tab work fine from the get-go for some reason.
+Keybindings. The ~<backtab>~ string means Shift+Tab.
 #+begin_src emacs-lisp
-(evil-define-key '(normal emacs) prog-mode-map
-  (kbd "TAB") 'hs-toggle-hiding
-  (kbd "<backtab>") 'hs-hide-all
-  (kbd "<C-tab>") 'hs-show-all)
+(define-key prog-mode-map (kbd "TAB") 'hs-toggle-hiding)
+(define-key prog-mode-map (kbd "<backtab>") 'hs-hide-all)
+(define-key prog-mode-map (kbd "<C-tab>") 'hs-show-all)
 #+end_src
 * Hide minor mode indicators from mode line
-To hide the various minor modes from the mode line, I was initially using [[https://github.com/myrjola/diminish.el][diminish]], but after a while I felt like hiding all minor modes, since I was adding more and more modes for diminish to hide. So I looked into alternatives. I knew first about [[https://github.com/Malabarba/rich-minority][rich-minority]], but it looked kinda complicated to configure, what with it using regexes and all. I ended up thus using [[https://github.com/tarsius/minions][minions]], which hides all minor modes, using a whitelist to show any, but also gives access to them with a menu hidden behind a symbol. I replaced the default symbol ~;-~ with the ~identical to~ (~≡~) math symbol because the default one doesn't feel like a menu symbol to me.
+To hide the various minor modes from the mode line, I was initially using [[https://github.com/myrjola/diminish.el][diminish]], but after a while I felt like hiding all minor modes, since I was adding more and more modes for diminish to hide. So I looked into alternatives. I knew first about [[https://github.com/Malabarba/rich-minority][rich-minority]], but it looked kinda complicated to configure, what with it using regexes and all. I ended up thus using [[https://github.com/tarsius/minions][minions]], which hides all minor modes, using a whitelist to show any, but also gives access to them with a menu hidden behind a symbol. I replaced the default symbol ~;-~ with the ~identical to~ (~≡~) math symbol because the default one doesn't feel like a menu symbol to me. I also have ryo-modal-mode and overwrite-mode show up in the modeline in order to have an extra indication for them.
 #+begin_src emacs-lisp
 (minions-mode 1)
 (setq minions-mode-line-lighter "≡")
+(setq minions-direct '(ryo-modal-mode overwrite-mode))
 #+end_src
 * Ediff
 I'm trying to move myself to emacs as much as possible, so I now decided to replace the functionality of [[http://meldmerge.org/][Meld]].\\
