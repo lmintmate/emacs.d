@@ -424,7 +424,7 @@ ivy-prescient)
     (t
       (setq cursor-type djcb-emacs-other-cursor-type))))
 
-(add-hook 'post-command-hook 'djcb-set-cursor-according-to-mode)
+(add-hook 'ryo-modal-mode-hook 'djcb-set-cursor-according-to-mode)
 
 (setq ryo-modal-cursor-color nil)
 

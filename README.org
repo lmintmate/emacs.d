@@ -735,7 +735,7 @@ Here I set custom cursor types for each ryo "state", so that I can distinguish v
     (t
       (setq cursor-type djcb-emacs-other-cursor-type))))
 
-(add-hook 'post-command-hook 'djcb-set-cursor-according-to-mode)
+(add-hook 'ryo-modal-mode-hook 'djcb-set-cursor-according-to-mode)
 #+end_src
 Remove the color from ryo cursor, as it is red by default and I don't want it to be so.
 #+begin_src emacs-lisp
