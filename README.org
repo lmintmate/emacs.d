@@ -132,7 +132,6 @@
   - [[#change-org-block-indentation-setting][Change org-block indentation setting]]
   - [[#custom-org-related-functions][Custom org-related functions]]
     - [[#split-org-block-in-a-dwim-manner][Split org block in a dwim manner]]
-- [[#espy-password-fetcher-package-config][Espy password fetcher package config]]
 - [[#ivy-counsel-swiper-and-ivy-prescient-configuration][Ivy-counsel-swiper and ivy-prescient configuration]]
   - [[#ivy-prescient][Ivy prescient]]
   - [[#basic-ivy-settings][Basic ivy settings]]
@@ -217,7 +216,6 @@ counsel
 dired-icon
 dired-recent
 emojify
-espy
 free-keys
 jump-char
 no-littering
@@ -1644,15 +1642,6 @@ Otherwise (if point is at BOL), split the block exactly at that point."
             ;; Go to the line before the inserted "#+begin_ .." line
             (beginning-of-line (if at-bol -1 0)))))
     (message "Point is not in an Org block")))
-#+end_src
-* Espy password fetcher package config
-[[https://github.com/walseb/espy][This package]] allows to copy usernames and passwords from a dedicated file from inside emacs. I'm glad I found it because it gave me the incentive to refactor my password file and it feels like a password management solution without having to use all this complicated encryption stuff (and if I ever decide to encrypt my password file, gpg is supported). Here I enable the package and set the file from which it will draw the passwords. On Linux, it is a fixed location, but on Windows I use different folders, so I'll have to remember to change the setting when I change folders. I also rename the string it will use to recognise the passwords as I'm not used to using the ~"pass:"~ abbreviation. On the other hand, I'm not changing ~"user:"~ however, because oftentimes web services ask for email/password instead of username/password and since I have entries with both types, I'll just keep ~"user:"~ to cover both.
-#+begin_src emacs-lisp
-(require 'espy)
-(if (eq system-type 'gnu/linux)
-    (setq espy-password-file "~/Λήψεις/σημαντικά αρχεία txt/passwords.org")
-(setq espy-password-file "c:/temporarity folder/kalokairi 2019 folder/σημαντικά αρχεία txt/passwords.org"))
-(setq espy-pass-prefix "password:")
 #+end_src
 * Ivy-counsel-swiper and ivy-prescient configuration
 First, enable ivy and counsel modes.

@@ -16,7 +16,6 @@ counsel
 dired-icon
 dired-recent
 emojify
-espy
 free-keys
 jump-char
 no-littering
@@ -994,12 +993,6 @@ Otherwise (if point is at BOL), split the block exactly at that point."
             ;; Go to the line before the inserted "#+begin_ .." line
             (beginning-of-line (if at-bol -1 0)))))
     (message "Point is not in an Org block")))
-
-(require 'espy)
-(if (eq system-type 'gnu/linux)
-    (setq espy-password-file "~/Λήψεις/σημαντικά αρχεία txt/passwords.org")
-(setq espy-password-file "c:/temporarity folder/kalokairi 2019 folder/σημαντικά αρχεία txt/passwords.org"))
-(setq espy-pass-prefix "password:")
 
 (ivy-mode 1)
 (counsel-mode 1)
