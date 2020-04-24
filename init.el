@@ -56,9 +56,9 @@ ivy-prescient)
 (unless (version< emacs-version "25.2")
   (add-to-list 'package-selected-packages 'minions))
 
-;; Packages that require emacs versions 26.2 and above
+;; Packages that require emacs versions 26.1 and above
 
-(unless (version< emacs-version "26.2")
+(unless (version< emacs-version "26.1")
   (add-to-list 'package-selected-packages 'org-superstar))
 
 ;; GNU ELPA keyring package for versions below 26.3
