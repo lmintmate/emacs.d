@@ -667,6 +667,7 @@ Here are the keys bound in ryo-modal-mode. Notably, I bind backspace to ~backwar
    ("0" move-beginning-of-line)
    ("$" move-end-of-line)
    ;; Editing
+   ("." ryo-modal-repeat)
    ("y" selection/kill-ring-save)
    ("Y" lmintmate/kill-ring-save-line-trim)
    ("p" yank)
@@ -675,8 +676,8 @@ Here are the keys bound in ryo-modal-mode. Notably, I bind backspace to ~backwar
    ("<return>" start-from-new-line)
    ("o" start-from-new-line :name "Open new line below and insert" :exit t)
    ("O" start-from-new-top-line :name "Open new line above and insert" :exit t)
-   ("u" undo-fu-only-undo)
-   ("C-r" undo-fu-only-redo)
+   ("u" undo-fu-only-undo :norepeat t)
+   ("C-r" undo-fu-only-redo :norepeat t)
    ("r" lmintmate/silently-toggle-overwrite-mode :exit t)
    ("d" selection/kill-region)
    ("D" kill-whole-line)
@@ -686,11 +687,11 @@ Here are the keys bound in ryo-modal-mode. Notably, I bind backspace to ~backwar
    ("c f" zap-to-char)
    ("c t" zap-up-to-char)
    ("v" set-mark-command :name "Begin marking a region" :norepeat t)
-   ("V" lmintmate/mark-line :name "Begin marking whole lines" :norepeat t)
+   ("V" lmintmate/mark-line :name "Begin marking whole lines")
    ("C" comment-dwim :norepeat t)
    ("J" join-line)
    ;; Other
-   ("s" save-buffer))
+   ("s" save-buffer :norepeat t))
 #+end_src
 Keys to use for numeric arguments.
 #+begin_src emacs-lisp
