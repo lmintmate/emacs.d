@@ -1088,19 +1088,11 @@ Otherwise (if point is at BOL), split the block exactly at that point."
 
 (plist-put ivy-rich-display-transformers-list
              'try
-    '(:columns
-     ((ivy-rich-candidate (:width 30))
-      (ivy-rich-package-version (:width 16 :face font-lock-comment-face))
-      (ivy-rich-package-archive-summary (:width 7 :face font-lock-builtin-face))
-      (ivy-rich-package-install-summary (:face font-lock-doc-face)))))
+	     'ivy-rich--package-install-transformer)
 
 (plist-put ivy-rich-display-transformers-list
              'package-reinstall
-    '(:columns
-     ((ivy-rich-candidate (:width 30))
-      (ivy-rich-package-version (:width 16 :face font-lock-comment-face))
-      (ivy-rich-package-archive-summary (:width 7 :face font-lock-builtin-face))
-      (ivy-rich-package-install-summary (:face font-lock-doc-face)))))
+	     'ivy-rich--package-install-transformer)
 
 (defun +ivy-rich-describe-variable-transformer (cand)
   "Previews the value of the variable in the minibuffer"

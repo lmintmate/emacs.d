@@ -1794,26 +1794,18 @@ Add a "Delete from recentf" action for ~counsel-buffer-or-recentf~. THis feature
 (ivy-rich-mode 1)
 #+end_src
 *** Add custom display transformer for try
-Make it the same as package-install.
+Make it the same as package-install. The non-verbose method used here that simply uses the transformer of package-install without having to reproduce it in my init is documented [[https://github.com/Yevgnen/ivy-rich/blob/3f818b201769bc13cc75aa73645217e374136aca/ivy-rich.el#L130-L145][here]].
 #+begin_src emacs-lisp
 (plist-put ivy-rich-display-transformers-list
              'try
-    '(:columns
-     ((ivy-rich-candidate (:width 30))
-      (ivy-rich-package-version (:width 16 :face font-lock-comment-face))
-      (ivy-rich-package-archive-summary (:width 7 :face font-lock-builtin-face))
-      (ivy-rich-package-install-summary (:face font-lock-doc-face)))))
+	     'ivy-rich--package-install-transformer)
 #+end_src
 *** Add display transformer for package-reinstall
 Make it the same as package-install.
 #+begin_src emacs-lisp
 (plist-put ivy-rich-display-transformers-list
              'package-reinstall
-    '(:columns
-     ((ivy-rich-candidate (:width 30))
-      (ivy-rich-package-version (:width 16 :face font-lock-comment-face))
-      (ivy-rich-package-archive-summary (:width 7 :face font-lock-builtin-face))
-      (ivy-rich-package-install-summary (:face font-lock-doc-face)))))
+	     'ivy-rich--package-install-transformer)
 #+end_src
 *** Modify display transformer for counsel-describe-variable
 Adds a preview of the current value of the variable. Adapted from doom-emacs, specifically from [[https://github.com/hlissner/doom-emacs/blob/854d8ce00aa96c41bfe901d6b274d6f95615ba13/modules/completion/ivy/autoload/ivy.el#L63-L87][here]] and [[https://github.com/hlissner/doom-emacs/blob/854d8ce00aa96c41bfe901d6b274d6f95615ba13/modules/completion/ivy/config.el#L132-L139][here]], and found via [[https://www.reddit.com/r/emacs/comments/c8czhe/variable_explorer/esm3ib6/][r/emacs]].
