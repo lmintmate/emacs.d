@@ -1039,8 +1039,6 @@ Otherwise (if point is at BOL), split the block exactly at that point."
 (add-to-list 'ivy-format-functions-alist '(counsel-describe-face . counsel--faces-format-function))
 
 (add-to-list 'ivy-switch-buffer-faces-alist '(emacs-lisp-mode . font-lock-keyword-face))
-(add-to-list 'ivy-switch-buffer-faces-alist '(helpful-mode . font-lock-comment-face))
-(add-to-list 'ivy-switch-buffer-faces-alist '(ivy-occur-mode . font-lock-comment-face))
 
 (when (package-installed-p 'ivy)
 (set-face-attribute 'ivy-org nil :inherit font-lock-function-name-face))
@@ -1082,18 +1080,6 @@ Otherwise (if point is at BOL), split the block exactly at that point."
       (ivy-rich-package-version (:width 16 :face font-lock-comment-face))
       (ivy-rich-package-archive-summary (:width 7 :face font-lock-builtin-face))
       (ivy-rich-package-install-summary (:face font-lock-doc-face)))))
-
-(plist-put ivy-rich-display-transformers-list
-'counsel-switch-buffer
-  '(:columns
-   ((ivy-rich-candidate (:width 30))  ; return the candidate itself
-    (ivy-rich-switch-buffer-size (:width 7))  ; return the buffer size
-    (ivy-rich-switch-buffer-indicators (:width 4 :face error :align right)); return the buffer indicators
-    (ivy-rich-switch-buffer-major-mode (:width 12 :face warning))          ; return the major mode info
-    (ivy-rich-switch-buffer-project (:width 15 :face success))             ; return project name using `projectile'
-    (ivy-rich-switch-buffer-path (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.3))))))  ; return file path relative to project root or `default-directory' if project is nil
-   :predicate
-   (lambda (cand) (get-buffer cand))))
 
 (defun +ivy-rich-describe-variable-transformer (cand)
   "Previews the value of the variable in the minibuffer"
