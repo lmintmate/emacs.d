@@ -1135,22 +1135,22 @@ Otherwise (if point is at BOL), split the block exactly at that point."
                       (+ivy-rich-describe-variable-transformer (:width 10))
                       (ivy-rich-counsel-variable-docstring (:face font-lock-doc-face)))))
 
-(defun lmintmate/ivy-rich-file-last-modified-time (candidate)
+(el-patch-defun ivy-rich-file-last-modified-time (candidate)
   (let ((candidate (expand-file-name candidate ivy--directory)))
     (if (file-remote-p candidate)
         "?"
-      (format-time-string "%d/%m/%y %H:%M" (nth 5 (file-attributes candidate))))))
+      (format-time-string (el-patch-swap "%Y-%m-%d %H:%M:%S" "%d/%m/%y %H:%M") (nth 5 (file-attributes candidate))))))
 
 (plist-put ivy-rich-display-transformers-list
 'counsel-recentf
     '(:columns
-      ((lmintmate/ivy-rich-file-last-modified-time (:face font-lock-comment-face))
+      ((ivy-rich-file-last-modified-time (:face font-lock-comment-face))
        (ivy-rich-candidate (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.8))))))))
 
 (plist-put ivy-rich-display-transformers-list
 'counsel-buffer-or-recentf
     '(:columns
-      ((lmintmate/ivy-rich-file-last-modified-time (:face font-lock-comment-face))
+      ((ivy-rich-file-last-modified-time (:face font-lock-comment-face))
        (counsel-buffer-or-recentf-transformer (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.8))))))))
 
 (ivy-rich-set-display-transformer)

@@ -1854,16 +1854,16 @@ Adds a preview of the current value of the variable. Adapted from doom-emacs, sp
 *** Modify display transformer for counsel-recentf
 Change date format from Y-m-d to d/m/y, and (more importantly) show the candidates in such a way as to shorten the intermediate directories depending on the width of the frame so that the filenames aren't cut off (adapted from ~ivy-rich-switch-buffer-path~). For this to work properly, that is keep the line adjustment correct, the last modified time was put first and the seconds were removed from its date format.
 #+begin_src emacs-lisp
-(defun lmintmate/ivy-rich-file-last-modified-time (candidate)
+(el-patch-defun ivy-rich-file-last-modified-time (candidate)
   (let ((candidate (expand-file-name candidate ivy--directory)))
     (if (file-remote-p candidate)
         "?"
-      (format-time-string "%d/%m/%y %H:%M" (nth 5 (file-attributes candidate))))))
+      (format-time-string (el-patch-swap "%Y-%m-%d %H:%M:%S" "%d/%m/%y %H:%M") (nth 5 (file-attributes candidate))))))
 
 (plist-put ivy-rich-display-transformers-list
 'counsel-recentf
     '(:columns
-      ((lmintmate/ivy-rich-file-last-modified-time (:face font-lock-comment-face))
+      ((ivy-rich-file-last-modified-time (:face font-lock-comment-face))
        (ivy-rich-candidate (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.8))))))))
 #+end_src
 *** Add display transformer for counsel-buffer-or-recentf
@@ -1872,7 +1872,7 @@ Similar to ~counsel-recentf~, but uses ~counsel-buffer-or-recentf-transformer~ i
 (plist-put ivy-rich-display-transformers-list
 'counsel-buffer-or-recentf
     '(:columns
-      ((lmintmate/ivy-rich-file-last-modified-time (:face font-lock-comment-face))
+      ((ivy-rich-file-last-modified-time (:face font-lock-comment-face))
        (counsel-buffer-or-recentf-transformer (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.8))))))))
 #+end_src
 *** Enable display transformers
