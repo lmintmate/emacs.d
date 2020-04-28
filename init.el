@@ -33,6 +33,7 @@ ivy-rich
 markdown-mode
 org-cliplink
 ;; emacs 25.1 and above
+el-patch
 ryo-modal
 helpful
 ivy-prescient)
@@ -1038,7 +1039,27 @@ Otherwise (if point is at BOL), split the block exactly at that point."
 
 (add-to-list 'ivy-format-functions-alist '(counsel-describe-face . counsel--faces-format-function))
 
+(el-patch-defun ivy-switch-buffer-transformer (str)
+  "Transform candidate STR when switching buffers."
+  (let ((buf (get-buffer str)))
+    (if buf
+        (let ((dir (buffer-local-value 'default-directory buf))
+              (mode (buffer-local-value 'major-mode buf)))
+          (cond
+            ((and dir (ignore-errors (file-remote-p dir)))
+             (ivy-append-face dir 'ivy-remote))
+            ((not (verify-visited-file-modtime buf))
+             (ivy-append-face str 'ivy-modified-outside-buffer))
+            (el-patch-remove ((buffer-modified-p buf)
+             (ivy-append-face str 'ivy-modified-buffer)))
+            (t
+             (ivy-append-face str (cdr (assq mode ivy-switch-buffer-faces-alist))))))
+      str)))
+
 (add-to-list 'ivy-switch-buffer-faces-alist '(emacs-lisp-mode . font-lock-keyword-face))
+(add-to-list 'ivy-switch-buffer-faces-alist '(helpful-mode . font-lock-comment-face))
+(add-to-list 'ivy-switch-buffer-faces-alist '(ivy-occur-mode . font-lock-comment-face))
+(add-to-list 'ivy-switch-buffer-faces-alist '(lisp-interaction-mode . font-lock-constant-face))
 
 (when (package-installed-p 'ivy)
 (set-face-attribute 'ivy-org nil :inherit font-lock-function-name-face))
