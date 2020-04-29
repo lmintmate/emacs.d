@@ -1056,7 +1056,7 @@ Otherwise (if point is at BOL), split the block exactly at that point."
               (mode (buffer-local-value 'major-mode buf)))
           (cond
             ((and dir (ignore-errors (file-remote-p dir)))
-             (ivy-append-face dir 'ivy-remote))
+             (ivy--remote-name str dir))
             ((not (verify-visited-file-modtime buf))
              (ivy-append-face str 'ivy-modified-outside-buffer))
             (el-patch-remove ((buffer-modified-p buf)
