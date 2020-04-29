@@ -333,9 +333,11 @@ ivy-prescient)
   (delete-char 1 nil))
 
 (defun lmintmate/toggle-ryo-modes ()
-  "Deactivate a potentially marked region and disable overwrite-mode if enabled before toggling ryo-modal-mode"
+  "Deactivate a potentially marked region, toggle input method if enabled and disable overwrite-mode if enabled before toggling ryo-modal-mode"
   (interactive)
   (sk/remove-mark)
+  (unless (eq current-input-method nil)
+  (toggle-input-method))
   (overwrite-mode -1)
   (ryo-modal-mode 'toggle))
 
