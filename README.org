@@ -510,9 +510,11 @@ See also [[https://www.emacswiki.org/emacs/CalendarLocalization][EmacsWiki: Cale
                                      "Οκτώβριος" "Νοέμβριος" "Δεκέμβριος"])
 #+end_src
 ** Set input method to greek
-In order to be able to write greek with the keyboard set to English (useful for those pesky Latin C- and M- shortcuts). Toggle with ~C-\~. ~set-input-method~ makes the set input method the default when emacs starts up, which usually isn't desired. Contrarily ~setq default-input-method~ sets the input method as available with ~toggle-input-method~, but doesn't make it the default when emacs starts up.
+In order to be able to write greek with the keyboard set to English (useful for those pesky Latin C- and M- shortcuts).
+~set-input-method~ makes the set input method the default when emacs starts up, which usually isn't desired. Contrarily ~setq default-input-method~ sets the input method as available with ~toggle-input-method~, but doesn't make it the default when emacs starts up.
 #+begin_src emacs-lisp
 (setq default-input-method "el_GR")
+(global-set-key (kbd "C-/") 'toggle-input-method)
 #+end_src
 ** Redirect commands with Greek letters to the correct commands
 Sometimes I forget to switch the keyboard language from Greek to English (especially when I'm using emacs in tandem with other applications that require the keyboard be set to Greek in order to write in that language) and, as a result, I get something like «M-χ is undefined». I used to use [[https://stackoverflow.com/a/10658699][this method from Stack Overflow]], which added bindings with Greek letters and told emacs to consider them equivalent to the ones with latin letters. This however didn't work for commands which had not only a modifier and a letter, but also additional letters (e.g. C-c u). Since the last time I checked this Stack Overflow thread however, [[https://stackoverflow.com/a/54647483][a new method has been added]] that also works for the commands the other method didn't. I modified it accordingly and will use that one from here on out.

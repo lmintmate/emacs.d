@@ -238,6 +238,7 @@ ivy-prescient)
                                      "Οκτώβριος" "Νοέμβριος" "Δεκέμβριος"])
 
 (setq default-input-method "el_GR")
+(global-set-key (kbd "C-/") 'toggle-input-method)
 
 (defun reverse-input-method (input-method)
   "Build the reverse mapping of single letters from INPUT-METHOD."
