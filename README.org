@@ -1725,6 +1725,14 @@ Make ~counsel-describe-face~ look like ~counsel-faces~ (found from [[https://git
 #+begin_src emacs-lisp
 (add-to-list 'ivy-format-functions-alist '(counsel-describe-face . counsel--faces-format-function))
 #+end_src
+Decrease the width of the left column of ~counsel-fonts~, as with the default width the font preview is cut off when the frame isn't maximised.
+#+begin_src emacs-lisp
+(el-patch-defun counsel--font-with-sample (font-name)
+  "Format function for `counsel-fonts'."
+  (format (el-patch-swap "%-75s%s" "%-37s%s") font-name
+          (propertize "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                      'face (list :family font-name))))
+#+end_src
 *** Ivy/counsel switch buffer configuration
 Prerequisite: Modify the [[helpfn:ivy-switch-buffer-transformer][ivy-switch-buffer-transformer]] function to remove the fontification of modified buffers. In versions of ivy after [[https://github.com/abo-abo/swiper/commit/38c90e89b46dd9c6c8cc4105934364137e131df9][commit 38c90e8]], the code that fontifies buffers in the buffer list was moved inside ~ivy-switch-buffer-transformer~ itself and therefore the conditionals of that one started overriding the entries of ~ivy-switch-buffer-faces-alist~, if these coincided in some way. This affected the fontification I added to helpful and ivy-occur buffers, as those are considered to be "modified", and thus the modified buffer fontification took precedence over my own config. Since I don't need to add fontification to the modified buffers (as I already have an indication of them on the buffer list via ivy-rich: it shows an asterisk in the third column of the ivy/counsel-switch-buffer buffer list), I decided to remove the cond that adds fontification to these buffers altogether. The best way to do this is via [[https://github.com/raxod502/el-patch][el-patch]], which permits to modify a function without touching the original function and without having to define a new function (which in my case would mean that I would also have to add a modified ivy-rich declaration for ivy-switch-buffer, only with my custom function instead of the original ivy-switch-buffer-transformer), and it is apparently also able to detect when the upstream code changes, which will be good for keeping my modifications up-to-date. I thus here create a "copy" of the original function with ~el-patch-defun~ and remove the undesired part with ~el-patch-remove~.
 #+begin_src emacs-lisp

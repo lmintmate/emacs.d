@@ -1039,6 +1039,12 @@ Otherwise (if point is at BOL), split the block exactly at that point."
 
 (add-to-list 'ivy-format-functions-alist '(counsel-describe-face . counsel--faces-format-function))
 
+(el-patch-defun counsel--font-with-sample (font-name)
+  "Format function for `counsel-fonts'."
+  (format (el-patch-swap "%-75s%s" "%-37s%s") font-name
+          (propertize "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                      'face (list :family font-name))))
+
 (el-patch-defun ivy-switch-buffer-transformer (str)
   "Transform candidate STR when switching buffers."
   (let ((buf (get-buffer str)))
