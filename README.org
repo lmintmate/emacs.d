@@ -712,12 +712,14 @@ Keys to use for numeric arguments.
    ("8" "M-8")
    ("9" "M-9"))
 #+end_src
-Here I hook ryo-modal-mode to text and prog mode and bind keys to enable/disable and toggle it.
+Here I hook ryo-modal-mode to text and prog mode and bind keys to enable/disable and toggle it. I also add a hook to disable ryo-modal-mode when the input method is activated.
 #+begin_src emacs-lisp
 (add-hook 'text-mode-hook 'ryo-modal-mode)
 (add-hook 'prog-mode-hook 'ryo-modal-mode)
 (global-set-key (kbd "C-'") 'ryo-modal-mode)
 (global-set-key (kbd "<escape>") 'lmintmate/toggle-ryo-modes)
+
+(add-hook 'input-method-activate-hook (lambda () (ryo-modal-mode -1)))
 #+end_src
 ** Beautification: Cursors and modeline indicators
 Here I set custom cursor types for each ryo "state", so that I can distinguish visually when I'm editing text with regular emacs editing, when modal editing is enabled, and when overwrite mode is being used. The regular cursor is used when ryo-modal is on, a bar cursor when it's off, and an hbar cursor when overwrite-mode is on. When the buffer is neither text nor prog mode (only modes where ryo is enabled by default anyway) the normal cursor is used (adapted from [[http://emacs-fu.blogspot.com/2009/12/changing-cursor-color-and-shape.html][emacs-fu: changing the cursor color and shape dynamically]]).

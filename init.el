@@ -411,6 +411,8 @@ ivy-prescient)
 (global-set-key (kbd "C-'") 'ryo-modal-mode)
 (global-set-key (kbd "<escape>") 'lmintmate/toggle-ryo-modes)
 
+(add-hook 'input-method-activate-hook (lambda () (ryo-modal-mode -1)))
+
 (setq djcb-modal-cursor-type 'box)
 (setq djcb-overwrite-cursor-type 'hbar)
 (setq lmintmate/emacs-editing-cursor-type 'bar)
