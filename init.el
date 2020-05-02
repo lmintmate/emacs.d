@@ -1053,19 +1053,18 @@ Otherwise (if point is at BOL), split the block exactly at that point."
 (el-patch-defun ivy-switch-buffer-transformer (str)
   "Transform candidate STR when switching buffers."
   (let ((buf (get-buffer str)))
-    (if buf
-        (let ((dir (buffer-local-value 'default-directory buf))
-              (mode (buffer-local-value 'major-mode buf)))
-          (cond
-            ((and dir (ignore-errors (file-remote-p dir)))
-             (ivy--remote-name str dir))
-            ((not (verify-visited-file-modtime buf))
-             (ivy-append-face str 'ivy-modified-outside-buffer))
-            (el-patch-remove ((buffer-modified-p buf)
-             (ivy-append-face str 'ivy-modified-buffer)))
-            (t
-             (ivy-append-face str (cdr (assq mode ivy-switch-buffer-faces-alist))))))
-      str)))
+    (cond ((not buf) str)
+	  ((let ((remote (ivy--remote-buffer-p buf)))
+	     (when remote
+	(format "%s (%s)" (ivy-append-face str 'ivy-remote) remote))))
+	  ((not (verify-visited-file-modtime buf))
+	   (ivy-append-face str 'ivy-modified-outside-buffer))
+	  (el-patch-remove ((buffer-modified-p buf)
+	   (ivy-append-face str 'ivy-modified-buffer)))
+	  (t
+	   (let* ((mode (buffer-local-value 'major-mode buf))
+		  (face (cdr (assq mode ivy-switch-buffer-faces-alist))))
+	     (ivy-append-face str face))))))
 
 (add-to-list 'ivy-switch-buffer-faces-alist '(emacs-lisp-mode . font-lock-keyword-face))
 (add-to-list 'ivy-switch-buffer-faces-alist '(helpful-mode . font-lock-comment-face))
