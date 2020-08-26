@@ -466,9 +466,7 @@ ivy-prescient)
 						 (t
                                                    (propertize " EMACS " 'face 'emacs-state-tag))))))))
 
-(add-hook 'after-focus-change-function 'add-ryo-modeline-status)
 (add-hook 'window-configuration-change-hook 'add-ryo-modeline-status)
-(add-hook 'focus-in-hook 'add-ryo-modeline-status)
 ;; Needed so that it'll show up on all major modes, including help buffers and ibuffer
 (add-hook 'after-change-major-mode-hook 'add-ryo-modeline-status)
 
