@@ -1036,8 +1036,6 @@ Otherwise (if point is at BOL), split the block exactly at that point."
 
 (setq swiper-goto-start-of-match t)
 
-(setq swiper-stay-on-quit t)
-
 (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
 
 (add-to-list 'ivy-format-functions-alist '(counsel-describe-face . counsel--faces-format-function))
