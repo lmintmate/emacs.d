@@ -1875,8 +1875,9 @@ Similar to ~counsel-recentf~, but uses ~counsel-buffer-or-recentf-transformer~ i
        (counsel-buffer-or-recentf-transformer (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.8))))))))
 #+end_src
 *** Enable display transformers
+Since a certain point, it now seems to also require an additonal argument in order to function properly.
 #+begin_src emacs-lisp
-(ivy-rich-set-display-transformer)
+(ivy-rich-set-display-transformer nil)
 #+end_src
 * Helpful: Enhanced help buffers
 [[https://github.com/Wilfred/helpful][The helpful package]] enhances the content of the help buffers.

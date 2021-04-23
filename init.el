@@ -1151,7 +1151,7 @@ Otherwise (if point is at BOL), split the block exactly at that point."
       ((ivy-rich-file-last-modified-time (:face font-lock-comment-face))
        (counsel-buffer-or-recentf-transformer (:width (lambda (x) (ivy-rich-switch-buffer-shorten-path x (ivy-rich-minibuffer-width 0.8))))))))
 
-(ivy-rich-set-display-transformer)
+(ivy-rich-set-display-transformer nil)
 
 (setq counsel-describe-function-function #'helpful-callable)
 (setq counsel-describe-variable-function #'helpful-variable)
