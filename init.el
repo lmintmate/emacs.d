@@ -15,7 +15,6 @@
 counsel
 dired-icon
 dired-recent
-emojify
 free-keys
 jump-char
 no-littering
@@ -791,9 +790,6 @@ initialized with the current directory instead of filename."
 
 (setq dired-dwim-target t)
 
-(add-hook 'after-init-hook #'global-emojify-mode)
-(setq emojify-emoji-set "twemoji-v2-22")
-
 (require 'org)
 
 (if (require 'toc-org nil t)
@@ -1189,10 +1185,6 @@ Otherwise (if point is at BOL), split the block exactly at that point."
 
 (when (package-installed-p 'magit)
 (global-set-key (kbd "C-x g") 'magit-status))
-
-(when (package-installed-p 'magit)
-(with-eval-after-load 'magit
-(define-key with-editor-mode-map (kbd "C-c e") 'emojify-insert-emoji)))
 
 (when (package-installed-p 'trashed)
 (require 'trashed)

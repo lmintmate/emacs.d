@@ -2,8 +2,6 @@
 #+title: My literate Emacs configuration
 # Theme for html exporting from [[https://github.com/fniessen/org-html-themes][GitHub - fniessen/org-html-themes]]
 
-#+html: <a href="https://www.gnu.org/software/emacs/"><img alt="Emacs" src="https://frama.link/emacsd-26-3-badge"></a>
-
 #+html: <a href="https://orgmode.org/"><img alt="Org-mode" src="https://img.shields.io/badge/Powered%20by-Org--mode-blueviolet.svg?style=for-the-badge&color=8e44bc"></a>
 
 * Table of Contents                                                     :TOC_3:
@@ -102,7 +100,6 @@
     - [[#sort-files-by-modified-date][Sort files by modified date.]]
     - [[#hide-the-details-on-dired-mode-for-a-cleaner-appearance][Hide the details on dired mode, for a cleaner appearance.]]
   - [[#dired-dwim-target][Dired dwim target]]
-- [[#emoji-support][Emoji support]]
 - [[#org-mode-configuration][Org Mode configuration]]
   - [[#hook-toc-org-to-org-mode][Hook toc-org to org-mode]]
   - [[#org-mouse][Org-mouse]]
@@ -157,7 +154,6 @@
 - [[#magit][Magit]]
   - [[#set-magit-faces][Set magit faces]]
   - [[#magit-status-keybinding][Magit-status keybinding]]
-  - [[#emojify-insert-emoji-shortcut][Emojify insert emoji shortcut]]
 - [[#trashed-trash-can-management-from-emacs-linux-only][Trashed: trash can management from emacs (Linux only)]]
 - [[#emacs-lisp-related-configuration][Emacs-lisp related configuration]]
   - [[#enable-show-paren-mode][Enable show-paren-mode]]
@@ -215,7 +211,6 @@ The first part of the code defines a variable containing the core packages to be
 counsel
 dired-icon
 dired-recent
-emojify
 free-keys
 jump-char
 no-littering
@@ -1298,12 +1293,6 @@ Group directories first and make sizes human-readable.
 #+begin_src emacs-lisp
 (setq dired-dwim-target t)
 #+end_src
-* Emoji support
-Since for a while I've been adding emojis to my git commits, I wanted to be able to insert them somehow without having to remember their exact name. [[https://github.com/iqbalansari/emacs-emojify][The emojify package]] not only helps with that, but can also show unicode emojis inside emacs in their full glory (which also means that the git log from magit can now show the emoji icons and all...). Note that on the first installation, the package will download after asking an entire set of images that comprise the specified emoji set (EmojiOne by default), and will place them in a folder called ~emojis~ under the ~.emacs.d~ directory and this might take a couple minutes. This means however that it doesn't depend on icon fonts being installed, unlike other packages. Here thus I enable the emojify mode globally and use the twemoji set instead of the default EmojiOne, because I prefer the look of these ones (e.g. the flags are shown as rectangular, instead of having a circled form, and other symbols also have better appearance imo).
-#+begin_src emacs-lisp
-(add-hook 'after-init-hook #'global-emojify-mode)
-(setq emojify-emoji-set "twemoji-v2-22")
-#+end_src
 * Org Mode configuration
 First off, require org.
 #+begin_src emacs-lisp
@@ -1947,13 +1936,6 @@ I changed the faces of ~magit-diff-context-highlight~ and ~magit-section-highlig
 #+begin_src emacs-lisp
 (when (package-installed-p 'magit)
 (global-set-key (kbd "C-x g") 'magit-status))
-#+end_src
-** Emojify insert emoji shortcut
-Since I add emojis to my commits, I wanted a way to add them without having to do ~M-x emojify-insert-emoji~ every time.
-#+begin_src emacs-lisp
-(when (package-installed-p 'magit)
-(with-eval-after-load 'magit
-(define-key with-editor-mode-map (kbd "C-c e") 'emojify-insert-emoji)))
 #+end_src
 * Trashed: trash can management from emacs (Linux only)
 [[https://github.com/shingo256/trashed][This package]] allows management of the trash can from inside emacs. Here I enable it and set the deletion date format to a form similar to the one it has on my gui file manager, that is localised and shortened day month Year and the time.
